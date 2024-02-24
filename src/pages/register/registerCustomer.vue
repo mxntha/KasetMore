@@ -17,7 +17,7 @@
           <v-card-text>
             <v-text-field
               
-              v-model="Fname"
+              v-model="registerform.firstname"
               
               label="First Name"
               placeholder="John"
@@ -26,7 +26,7 @@
 
             <v-text-field
               
-              v-model="Lname"
+              v-model="registerform.lastname"
               
               label="Last Name"
               placeholder="John"
@@ -35,7 +35,7 @@
 
             <v-textarea 
               
-              v-model="address"
+              v-model="registerform.address"
               label="Address"
               placeholder="Snowy Rock Pl"
               counter="50"
@@ -44,7 +44,7 @@
 
             <v-text-field
               
-              v-model="Uname"
+              v-model="registerform.username"
               label="Username"
               placeholder="John"
               required
@@ -52,7 +52,7 @@
 
             <v-text-field
              
-              v-model="password"
+              v-model="registerform.password"
               label="Password"
               required
               placeholder="xxxxxx"
@@ -60,7 +60,7 @@
 
             <v-text-field
               
-              v-model="phone"
+              v-model="registerform.phone"
               
               label="Phone"
               required
@@ -94,18 +94,22 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router'
+import { type RegisterForm } from './interface'
 
+//ตัวแปร
+const registerform = ref<RegisterForm>({
+  address : "",
+  firstname : "",
+  lastname : "",
+  password : "",
+  phone : "",
+  username : ""
+})
+ 
 const router = useRouter()
-const Fname = ref("")
-const Lname = ref("")
-const address = ref("")
-const Uname = ref("")
-const password = ref("")
-const phone = ref("")
 
 function submit (){
-    console.log(`${Fname.value} and ${Lname.value} and ${address.value} and ${Uname.value}
-    and ${password.value} and ${phone.value}`)
+    console.log(registerform.value)
   }
 
 

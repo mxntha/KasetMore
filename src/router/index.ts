@@ -8,16 +8,21 @@
 import { defineComponent } from 'vue'
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 const routes : RouteRecordRaw[]= [{
-  path:"/login", component: () => import("@/pages/login.vue"),
+  path:"/login", component: () => import("@/pages/login/login.vue"),
 },
 {
-  path:"/register", component: () => import("@/pages/register.vue"),
+  path:"/registerCustomer", component: () => import("@/pages/register/registerCustomer.vue"),
 
 },
 {
   path:"/", component: () => import("@/pages/index.vue"),
 
-}]
+},
+{
+  path:"/registerFarmer", component: () => import("@/pages/register/registerFarmer.vue"),
+
+}
+]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

@@ -13,13 +13,13 @@
       rounded="lg"
     >
       <div class="text-subtitle-1 text-medium-emphasis">Account</div>
-      {{ email }}
+      {{ loginform.username }}
       <v-text-field
         density="compact"
-        placeholder="Email address"
+        placeholder="Username"
         prepend-inner-icon="mdi-email-outline"
         variant="outlined"
-        v-model="email"
+        v-model="loginform.username"
       ></v-text-field>
 
       <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
@@ -42,7 +42,7 @@
         placeholder="Enter your password"
         prepend-inner-icon="mdi-lock-outline"
         variant="outlined"
-        v-model="password"
+        v-model="loginform.password"
         @click:append-inner="visible = !visible"
       ></v-text-field>
 
@@ -71,7 +71,7 @@
       <v-card-text class="text-center">
         <a
           class="text-blue text-decoration-none"
-          href="register"
+          href="registerCustomer"
           rel="noopener noreferrer"
         >
           Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
@@ -84,12 +84,16 @@
 <script lang="ts" setup>
   //
   import { ref } from 'vue';
+  import {type LoginForm} from './interface'
+
   
-  const email = ref("")
-  const password = ref("")
   const visible = ref(false)
+  const loginform = ref<LoginForm>({
+    username : "",
+    password : ""
+  }) 
 
   function login (){
-    console.log(email.value+" and "+password.value)
+    console.log(loginform.value)
   }
 </script>
