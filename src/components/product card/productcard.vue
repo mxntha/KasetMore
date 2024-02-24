@@ -1,6 +1,6 @@
 <template>
     <v-card
-      :loading="loading"
+      
       class="mx-auto my-12"
       max-width="374"
     >
@@ -63,7 +63,7 @@
         <v-btn
           color="deep-purple-lighten-2"
           variant="text"
-          @click="reserve"
+          
         >
           Reserve
         </v-btn>
@@ -71,6 +71,6 @@
     </v-card>
   </template>
 
-<script>
+<script lang="ts" setup>
   
 </script>
