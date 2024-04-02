@@ -13,7 +13,30 @@
 
     <v-toolbar-title>Kaset More</v-toolbar-title>
 
-    <v-spacer></v-spacer>
+   <v-spacer></v-spacer>
+
+   
+   <v-card
+    class="mx-auto"
+    color="purple"
+    max-width="600"
+    style="width: 1000px"
+    
+  >
+    <v-card-text>
+     
+      <v-text-field
+        
+        append-inner-icon="mdi-magnify"
+        density="compact"
+        label="Search "
+        variant="solo"
+        hide-details
+        single-line
+        
+      ></v-text-field>
+    </v-card-text>
+  </v-card>
 
     <v-spacer></v-spacer>
 
@@ -52,13 +75,7 @@
 
         <v-list>
           <v-list-item>
-            <v-btn
-           
-                variant="text"
-               
-              >
-                บัญชี
-              </v-btn>
+            <v-btn variant="text" @click="gotoaccountCust">บัญชี</v-btn>
           </v-list-item>
           <v-btn
           
@@ -116,13 +133,15 @@ import {ProductCard} from '@/components/product card/interface'
 import ProductCardvue from "@/components/product card/productcard.vue"
 import { ref } from 'vue'
 
+
+
 const productlist = ref(["atip","ff"])
 
 const router = useRouter()
     
 function gotoLogin(){router.push({path:"/login" })}
 function gotoregisterFarmer(){router.push({path:"/registerFarmer" })}
-
+function gotoaccountCust(){router.push({path:"/accountCust"})}
 
 </script>
 
