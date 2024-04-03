@@ -73,7 +73,11 @@
 
         <v-list>
           <v-list-item>
-            <v-btn variant="text" @click="gotoaccountCust">บัญชี</v-btn>
+            
+              <v-btn variant="text">บัญชี
+               
+              </v-btn>
+            
           </v-list-item>
           <v-btn
           
@@ -153,10 +157,13 @@ const productlist = ref<ProductCard[]>([
 ])
 
 const router = useRouter()
+
     
 function gotoLogin(){router.push({path:"/login" })}
 function gotoregisterFarmer(){router.push({path:"/registerFarmer" })}
 function gotoaccountCust(){router.push({path:"/accountCust"})}
 
-</script>
 
+
+</script>
+@/pages

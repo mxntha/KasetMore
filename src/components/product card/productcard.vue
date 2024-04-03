@@ -84,7 +84,9 @@ max-width="374"
 import {ProductCard} from '@/components/product card/interface'
    
    const props = defineProps<{ProductData:ProductCard}>()
-    
+   
+ 
+  
   
   
 </script>
