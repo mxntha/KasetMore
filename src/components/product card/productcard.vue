@@ -16,21 +16,13 @@ max-width="374"
 <v-img
   cover
   height="250"
-  src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+  :src = "props.ProductData.picture"
 ></v-img>
 
 <v-card-item>
-  <v-card-title>แตงโม</v-card-title>
+  <v-card-title>{{ props.ProductData.name }}</v-card-title>
 
-  <v-card-subtitle>
-    <span class="me-1">แนะนำ</span>
-
-    <v-icon
-      color="error"
-      icon="mdi-fire-circle"
-      size="small"
-    ></v-icon>
-  </v-card-subtitle>
+  
 </v-card-item>
 
 <v-card-text>
@@ -41,7 +33,7 @@ max-width="374"
   >
   
     <v-rating
-      :model-value="4.5"
+      :model-value= "props.ProductData.rating"
       color="amber"
       density="compact"
       half-increments
@@ -49,19 +41,23 @@ max-width="374"
       size="small"
     ></v-rating>
 
-    <div class="text-grey ms-4">
-      4.5 (413)
-    </div>
+    <div class="text-grey ms-4">{{ props.ProductData.rating }}</div>
   </v-row>
 
 
-  <div class="my-4 text-subtitle-1">
-    สุพรรณบุรี
+  <div class="my-5 text-subtitle-1"> {{ props.ProductData.province }}</div>
+
+  <div>{{ props.ProductData.description}}</div>
+
+ <br>
+
+  <div class="d-flex justify-space-between mb-6">  
+    <div class=" text-subtitle-1"> ฿ {{ props.ProductData.price}}</div>  
+    <div> จำนวน:{{ props.ProductData.amount }}</div> 
   </div>
 
-  <div>พันธุ์ไทย ปลูกเอง ไม่มีสารเคมี</div>
-</v-card-text>
-
+  </v-card-text>
+ 
 <v-card-actions>
   <v-btn
     color="deep-purple-lighten-2"
@@ -84,7 +80,10 @@ max-width="374"
   </template>
   
 <script lang="ts" setup>
+
+import {ProductCard} from '@/components/product card/interface'
    
+   const props = defineProps<{ProductData:ProductCard}>()
     
   
   

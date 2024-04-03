@@ -4,4 +4,7 @@ export interface ProductCard{
     amount : number
     picture : string
     id : string
+    province : string
+    rating : number
+    description : string
 }
