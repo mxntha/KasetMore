@@ -29,7 +29,7 @@
         
         append-inner-icon="mdi-magnify"
         density="compact"
-        label="Search "
+        label="ค้นหา"
         variant="solo"
         hide-details
         single-line
@@ -43,11 +43,11 @@
     <v-toolbar-items>
     
     <v-divider vertical></v-divider>
-        <v-btn @click="gotoLogin">logincustomer</v-btn>
+        <v-btn @click="gotoLogin">เข้าสู่ระบบ</v-btn>
 
       <v-divider vertical></v-divider>
 
-      <v-btn @click="gotoregisterFarmer">loginfarmer</v-btn>
+      <v-btn @click="gotochooseRegister">สมัครสมาชิก</v-btn>
 
       <v-divider vertical></v-divider>
 
@@ -74,7 +74,7 @@
         <v-list>
           <v-list-item>
             
-              <v-btn variant="text">บัญชี
+              <v-btn variant="text" @click="gotopersonal">บัญชี
                
               </v-btn>
             
@@ -162,8 +162,8 @@ const router = useRouter()
 function gotoLogin(){router.push({path:"/login" })}
 function gotoregisterFarmer(){router.push({path:"/registerFarmer" })}
 function gotoaccountCust(){router.push({path:"/accountCust"})}
-
-
+function gotochooseRegister(){router.push({path:"/chooseRegister"})}
+function gotopersonal(){router.push({path:"/personal"})}
 
 </script>
 @/pages

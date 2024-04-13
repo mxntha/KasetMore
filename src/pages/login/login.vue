@@ -12,18 +12,18 @@
       max-width="448"
       rounded="lg"
     >
-      <div class="text-subtitle-1 text-medium-emphasis">Account</div>
+      <div class="text-subtitle-1 text-medium-emphasis">บัญชีผู้ใช้</div>
       {{ loginform.username }}
       <v-text-field
         density="compact"
-        placeholder="Username"
+        placeholder="ใส่ชื่อผู้ใช้งาน"
         prepend-inner-icon="mdi-email-outline"
         variant="outlined"
         v-model="loginform.username"
       ></v-text-field>
 
       <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
-        Password
+       รหัสผ่าน
 
         <a
           class="text-caption text-decoration-none text-blue"
@@ -32,14 +32,14 @@
           target="_blank"
           
         >
-          Forgot login password?</a>
+          ลืมรหัสผ่าน?</a>
       </div>
 
       <v-text-field
         :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
         :type="visible ? 'text' : 'password'"
         density="compact"
-        placeholder="Enter your password"
+        placeholder="ใส่รหัสผ่านของคุณ"
         prepend-inner-icon="mdi-lock-outline"
         variant="outlined"
         v-model="loginform.password"
@@ -65,18 +65,26 @@
         rounded="xl"
         @click="login"
       >
-        Log In
+        เข้าสู่ระบบ
       </v-btn>
 
-      <v-card-text class="text-center">
+      <v-card-text class="text-align" >
+        <v-btn variant="text"
+            @click="router.go(-1)">
+              ย้อนกลับ
+            </v-btn>
+            
         <a
           class="text-blue text-decoration-none"
           href="registerCustomer"
           rel="noopener noreferrer"
         >
-          Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
+          สมัครสมาชิก <v-icon icon="mdi-chevron-right"></v-icon>
         </a>
+        
       </v-card-text>
+
+      
     </v-card>
   </div>
 </template>
@@ -85,8 +93,9 @@
   //
   import { ref } from 'vue';
   import {type LoginForm} from './interface'
+  import { useRouter, useRoute } from 'vue-router'
 
-  
+  const router = useRouter()
   const visible = ref(false)
   const loginform = ref<LoginForm>({
     username : "",

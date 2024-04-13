@@ -2,7 +2,7 @@
   <div
   class="regis"
   >
-    Register 
+   สมัครสมาชิก
   </div>
     
   <v-row justify="center">
@@ -14,55 +14,55 @@
       >
       
         <v-card ref="form">
-          <v-card-text>
+          <v-card-text class= "text-subtitle-1 text-medium-emphasis" >ชื่อจริง
             <v-text-field
               
               v-model="registerform.firstname"
               
-              label="First Name"
-              placeholder="John"
+              label="" 
+              placeholder="นาย/นาง/นางสาว"
               required
             ></v-text-field>
-
+              นามสกุล
             <v-text-field
-              
+            class="text-subtitle-1 text-medium-emphasis"
               v-model="registerform.lastname"
               
-              label="Last Name"
-              placeholder="John"
+              label=""
+              placeholder=""
               required
             ></v-text-field>
-
+            ที่อยู่
             <v-textarea 
               
               v-model="registerform.address"
-              label="Address"
-              placeholder="Snowy Rock Pl"
+              label=""
+              placeholder="บ้านเลขที่ หมู่บ้าน หมู่ ซอย ตำบล อำเภอ จังหวัด "
               counter="50"
               required
             ></v-textarea>
-
+            ชื่อบัญชีผู้ใช้
             <v-text-field
               
               v-model="registerform.username"
-              label="Username"
-              placeholder="John"
+              label=""
+              placeholder=""
               required
             ></v-text-field>
-
+            รหัสผ่าน
             <v-text-field
              
               v-model="registerform.password"
-              label="Password"
+              label="รหัสผ่านที่ใช้งาน"
               required
               placeholder="xxxxxx"
             ></v-text-field>
-
+            เบอร์โทรศัพท์
             <v-text-field
               
               v-model="registerform.phone"
               
-              label="Phone"
+              label="หมายเลขโทรศัพท์"
               required
               placeholder="08xxxxxxxx"
               counter="10"
@@ -74,7 +74,7 @@
           <v-card-actions>
             <v-btn variant="text"
             @click="router.go(-1)">
-              Cancel
+              ย้อนกลับ
             </v-btn>
             <v-spacer></v-spacer>
            
@@ -83,7 +83,7 @@
               variant="text"
               @click="submit"
             >
-              Submit
+              ตกลง
             </v-btn>
           </v-card-actions>
         </v-card>
