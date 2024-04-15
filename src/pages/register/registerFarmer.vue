@@ -112,7 +112,7 @@
               <v-btn
                 color="primary"
                 variant="text"
-                @click="submit"
+                @click="gotocompleteRegis"
               >
                 ตกลง
               </v-btn>
@@ -146,10 +146,8 @@
    
   const router = useRouter()
   
-  function submit (){
-      console.log(registerfarmer.value)
-      
-    }
+  function gotocompleteRegis(){router.push({path:"/completeRegister" })}
+
   
   
   </script>

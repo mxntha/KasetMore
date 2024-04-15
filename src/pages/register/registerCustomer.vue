@@ -79,13 +79,16 @@
             <v-spacer></v-spacer>
            
             <v-btn
-              color="primary"
-              variant="text"
-              @click="submit"
-            >
-              ตกลง
-            </v-btn>
-          </v-card-actions>
+                color="primary"
+                variant="text"
+                @click="gotocompleteRegis"
+              >
+                ตกลง
+              </v-btn>
+  
+
+
+</v-card-actions>
         </v-card>
       </v-col>
     </v-row>
@@ -108,9 +111,7 @@ const registerform = ref<RegisterForm>({
  
 const router = useRouter()
 
-function submit (){
-    console.log(registerform.value)
-  }
+function gotocompleteRegis(){router.push({path:"/completeRegister" })}
 
 
 </script>

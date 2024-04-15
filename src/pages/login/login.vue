@@ -63,20 +63,20 @@
         size="large"
         variant="tonal"
         rounded="xl"
-        @click="login"
+        @click="gotoaccountCust"
       >
         เข้าสู่ระบบ
       </v-btn>
 
       <v-card-text class="text-align" >
         <v-btn variant="text"
-            @click="router.go(-1)">
+            @click="gotoIndex">
               ย้อนกลับ
             </v-btn>
             
         <a
           class="text-blue text-decoration-none"
-          href="registerCustomer"
+          href="chooseRegister"
           rel="noopener noreferrer"
         >
           สมัครสมาชิก <v-icon icon="mdi-chevron-right"></v-icon>
@@ -102,7 +102,7 @@
     password : ""
   }) 
 
-  function login (){
-    console.log(loginform.value)
-  }
+  function login (){console.log(loginform.value)}
+  function gotoIndex(){router.push({path:"/index" })}
+  function gotoaccountCust(){router.push({path:"/accountCust" })}
 </script>
