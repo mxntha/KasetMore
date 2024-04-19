@@ -103,6 +103,6 @@
   }) 
 
   function login (){console.log(loginform.value)}
-  function gotoIndex(){router.push({path:"/index" })}
+  function gotoIndex(){router.push({path:"/" })}
   function gotoaccountCust(){router.push({path:"/accountCust" })}
 </script>
