@@ -21,7 +21,7 @@
           กรุณาเข้าสู่ระบบ เพื่อทำการเข้าใช้งาน
         </p>
   
-        <v-btn color="orange" variant="text" @click="gotoLogin">เข้าสู่ระบบ</v-btn>
+        <v-btn color="orange" variant="text" @click="gotoIndex">เข้าสู่ระบบ</v-btn>
       </div>
     </v-sheet>
   </template>
@@ -33,6 +33,6 @@ import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
 
-function gotoLogin(){router.push({path:"/login" })}
+function gotoIndex(){router.push({path:"/" })}
 
 </script>

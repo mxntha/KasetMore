@@ -23,7 +23,6 @@
     <v-img
       class="mx-auto my-6"
       max-width="228"
-      
     ></v-img>
 
     <v-card

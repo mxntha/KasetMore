@@ -47,7 +47,7 @@
 
       <v-divider vertical></v-divider>
 
-      <v-btn @click="">ตะกร้าของฉัน</v-btn>
+      <v-btn @click="gotoshoppingCart">ตะกร้าของฉัน</v-btn>
 
       <v-divider vertical></v-divider>
 
@@ -74,18 +74,10 @@
         <v-list>
           <v-list-item>
             
-              <v-btn variant="text" @click="gotopersonal">บัญชี
-               
-              </v-btn>
+              <v-btn variant="text" @click="gotopersonal">บัญชี</v-btn>
             
           </v-list-item>
-          <v-btn
-          
-                variant="text"
-                
-              >
-                  ศูนย์ช่วยเหลือ
-              </v-btn>
+          <v-btn variant="text" @click="gotoregisterFarmer">สมัครสมาชิกเกษตรกร</v-btn>
           <v-list-item>
             
           </v-list-item>
@@ -159,8 +151,8 @@ const productlist = ref<ProductCard[]>([
 const router = useRouter()
 
     
-
-
+function gotoshoppingCart(){router.push({path:"/shoppingCart"})}
+function gotoregisterFarmer(){router.push({path:"/registerFarmer"})}
 function gotopersonal(){router.push({path:"/personal"})}
 
 </script>
