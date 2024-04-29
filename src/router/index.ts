@@ -7,41 +7,50 @@
 // Composables
 import { defineComponent } from 'vue'
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
-const routes : RouteRecordRaw[]= [{
-  path:"/login", component: () => import("@/pages/login/login.vue"),
-},
-{
-  path:"/registerCustomer", component: () => import("@/pages/register/registerCustomer.vue"),
+const routes: RouteRecordRaw[] = [
+  {
+    path: '/login',
+    component: () => import('@/pages/login/login.vue'),
+  },
+  {
+    path: '/registerCustomer',
+    component: () => import('@/pages/register/registerCustomer.vue'),
+  },
+  {
+    path: '/',
+    component: () => import('@/layouts/default/Default.vue'),
+    children: [
+      {
+        path: '/accountCust',
+        component: () => import('@/pages/account/accountCust.vue'),
+      },
+    ],
+  },
+  {
+    path: '/',
+    component: () => import('@/pages/index.vue'),
+  },
+  {
+    path: '/registerFarmer',
+    component: () => import('@/pages/register/registerFarmer.vue'),
+  },
 
-},
-{
-  path:"/", component: () => import("@/pages/index.vue"),
-
-},
-{
-  path:"/registerFarmer", component: () => import("@/pages/register/registerFarmer.vue"),
-
-},
-{
-  path:"/accountCust", component: () => import("@/pages/account/accountCust.vue"),
-
-},
-{
-  path:"/chooseRegister", component: () => import("@/pages/register/chooseRegister.vue"),
-
-},
-{
-  path:"/personal", component: () => import("@/pages/account/personal.vue"),
-
-},
-{
-  path:"/completeRegister", component: () => import("@/pages/Alert/completeRegister.vue"),
-
-},
-{
-  path:"/shoppingCart", component: () => import("@/pages/account/shoppingCart.vue"),
-
-}
+  {
+    path: '/chooseRegister',
+    component: () => import('@/pages/register/chooseRegister.vue'),
+  },
+  {
+    path: '/personal',
+    component: () => import('@/pages/account/personal.vue'),
+  },
+  {
+    path: '/completeRegister',
+    component: () => import('@/pages/Alert/completeRegister.vue'),
+  },
+  {
+    path: '/shoppingCart',
+    component: () => import('@/pages/account/shoppingCart.vue'),
+  },
 ]
 
 const router = createRouter({
