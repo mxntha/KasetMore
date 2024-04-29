@@ -29,8 +29,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ProductCard } from '@/components/product card/interface'
-import ProductCardvue from '@/components/product card/productcard.vue'
+import { ProductCard } from '@/components/productCard/interface'
+import ProductCardvue from '@/components/productCard/productcard.vue'
 import { ref, computed, inject } from 'vue'
 import { searchPluginSymbol } from '@/plugins/search'
 const searchState = inject(searchPluginSymbol)!

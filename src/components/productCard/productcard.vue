@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ProductCard } from '@/components/product card/interface'
+import { ProductCard } from './interface'
 
 const props = defineProps<{ ProductData: ProductCard }>()
 </script>
