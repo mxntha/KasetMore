@@ -24,6 +24,6 @@ import { useRouter, useRoute } from 'vue-router'
 import {ProductList} from '@/components/product list/interface'
 import { ref } from 'vue'
 
-const props = defineProps<{ProductData:ProductList}>
+const props = defineProps<{ProductData:ProductList}>({})
 
 </script>
