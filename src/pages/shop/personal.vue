@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar color="purple">
+  <v-toolbar color="deep-purple">
     <template v-slot:prepend>
       <div class="text-h5">Logo</div>
     </template>
@@ -56,7 +56,7 @@
 
   <v-card>
     <v-layout>
-      <v-navigation-drawer class="bg-deep-purple" theme="dark" permanent>
+      <v-navigation-drawer color="purple" theme="dark" permanent>
         <v-list color="transparent">
           <v-list-item
             prepend-icon="mdi-view-dashboard"

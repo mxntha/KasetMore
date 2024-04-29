@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="3" v-for="i in productlist">
-        <ProductCardvue :ProductData="i"> </ProductCardvue>
+        <ProductCardvue :ProductData="i" @on-click="buyClick(i.id)"> </ProductCardvue>
       </v-col>
     </v-row>
   </v-container>
@@ -33,208 +33,12 @@ import { ProductCard } from '@/components/productCard/interface'
 import ProductCardvue from '@/components/productCard/productcard.vue'
 import { ref, computed, inject } from 'vue'
 import { searchPluginSymbol } from '@/plugins/search'
+import router from '@/router';
+import {productData} from '@/fakeDb'
 const searchState = inject(searchPluginSymbol)!
+const maxItem = 4
 
-const _productlist = ref<ProductCard[]>([
-  {
-    name: 'ทุเรียน',
-    price: 70,
-    amount: 50,
-    picture:
-      'https://s.isanook.com/tr/0/ud/282/1410525/fwegt.jpg?ip/crop/w728h431/q80/webp',
-    id: '',
-    province: 'จันทบุรี',
-    rating: 4,
-    description: 'พันธุ์หมอนทอง เนื้อนุ่ม เนื้อเนียน',
-  },
-  {
-    name: 'แตงโมไร้เมล็ด',
-    price: 30,
-    amount: 20,
-    picture:
-      'https://static.thairath.co.th/media/dFQROr7oWzulq5Fa4VnP013buQ6b8fI5fr5B0qoSmTJpHlFZzI3XY8WQmOv03WbIGHm.webp',
-    id: '',
-    province: 'นครพนม',
-    rating: 3,
-    description: 'ไร้เมล็ด เนื้อสวย สีแดงสด',
-  },
-  {
-    name: 'ทุเรียน',
-    price: 70,
-    amount: 50,
-    picture:
-      'https://s.isanook.com/tr/0/ud/282/1410525/fwegt.jpg?ip/crop/w728h431/q80/webp',
-    id: '',
-    province: 'จันทบุรี',
-    rating: 4,
-    description: 'พันธุ์หมอนทอง เนื้อนุ่ม เนื้อเนียน',
-  },
-  {
-    name: 'แตงโมไร้เมล็ด',
-    price: 30,
-    amount: 20,
-    picture:
-      'https://static.thairath.co.th/media/dFQROr7oWzulq5Fa4VnP013buQ6b8fI5fr5B0qoSmTJpHlFZzI3XY8WQmOv03WbIGHm.webp',
-    id: '',
-    province: 'นครพนม',
-    rating: 3,
-    description: 'ไร้เมล็ด เนื้อสวย สีแดงสด',
-  },
-  {
-    name: 'ทุเรียน',
-    price: 70,
-    amount: 50,
-    picture:
-      'https://s.isanook.com/tr/0/ud/282/1410525/fwegt.jpg?ip/crop/w728h431/q80/webp',
-    id: '',
-    province: 'จันทบุรี',
-    rating: 4,
-    description: 'พันธุ์หมอนทอง เนื้อนุ่ม เนื้อเนียน',
-  },
-  {
-    name: 'แตงโมไร้เมล็ด',
-    price: 30,
-    amount: 20,
-    picture:
-      'https://static.thairath.co.th/media/dFQROr7oWzulq5Fa4VnP013buQ6b8fI5fr5B0qoSmTJpHlFZzI3XY8WQmOv03WbIGHm.webp',
-    id: '',
-    province: 'นครพนม',
-    rating: 3,
-    description: 'ไร้เมล็ด เนื้อสวย สีแดงสด',
-  },
-  {
-    name: 'แตงโมไร้เมล็ด',
-    price: 30,
-    amount: 20,
-    picture:
-      'https://static.thairath.co.th/media/dFQROr7oWzulq5Fa4VnP013buQ6b8fI5fr5B0qoSmTJpHlFZzI3XY8WQmOv03WbIGHm.webp',
-    id: '',
-    province: 'นครพนม',
-    rating: 3,
-    description: 'ไร้เมล็ด เนื้อสวย สีแดงสด',
-  },
-  {
-    name: 'แตงโมไร้เมล็ด',
-    price: 30,
-    amount: 20,
-    picture:
-      'https://static.thairath.co.th/media/dFQROr7oWzulq5Fa4VnP013buQ6b8fI5fr5B0qoSmTJpHlFZzI3XY8WQmOv03WbIGHm.webp',
-    id: '',
-    province: 'นครพนม',
-    rating: 3,
-    description: 'ไร้เมล็ด เนื้อสวย สีแดงสด',
-  },
-  {
-    name: 'แตงโมไร้เมล็ด',
-    price: 30,
-    amount: 20,
-    picture:
-      'https://static.thairath.co.th/media/dFQROr7oWzulq5Fa4VnP013buQ6b8fI5fr5B0qoSmTJpHlFZzI3XY8WQmOv03WbIGHm.webp',
-    id: '',
-    province: 'นครพนม',
-    rating: 3,
-    description: 'ไร้เมล็ด เนื้อสวย สีแดงสด',
-  },
-  {
-    name: 'ทุเรียน',
-    price: 70,
-    amount: 50,
-    picture:
-      'https://s.isanook.com/tr/0/ud/282/1410525/fwegt.jpg?ip/crop/w728h431/q80/webp',
-    id: '',
-    province: 'จันทบุรี',
-    rating: 4,
-    description: 'พันธุ์หมอนทอง เนื้อนุ่ม เนื้อเนียน',
-  },
-  {
-    name: 'แตงโมไร้เมล็ด',
-    price: 30,
-    amount: 20,
-    picture:
-      'https://static.thairath.co.th/media/dFQROr7oWzulq5Fa4VnP013buQ6b8fI5fr5B0qoSmTJpHlFZzI3XY8WQmOv03WbIGHm.webp',
-    id: '',
-    province: 'นครพนม',
-    rating: 3,
-    description: 'ไร้เมล็ด เนื้อสวย สีแดงสด',
-  },
-  {
-    name: 'แตงโมไร้เมล็ด',
-    price: 30,
-    amount: 20,
-    picture:
-      'https://static.thairath.co.th/media/dFQROr7oWzulq5Fa4VnP013buQ6b8fI5fr5B0qoSmTJpHlFZzI3XY8WQmOv03WbIGHm.webp',
-    id: '',
-    province: 'นครพนม',
-    rating: 3,
-    description: 'ไร้เมล็ด เนื้อสวย สีแดงสด',
-  },
-  {
-    name: 'แตงโมไร้เมล็ด',
-    price: 30,
-    amount: 20,
-    picture:
-      'https://static.thairath.co.th/media/dFQROr7oWzulq5Fa4VnP013buQ6b8fI5fr5B0qoSmTJpHlFZzI3XY8WQmOv03WbIGHm.webp',
-    id: '',
-    province: 'นครพนม',
-    rating: 3,
-    description: 'ไร้เมล็ด เนื้อสวย สีแดงสด',
-  },
-  {
-    name: 'sทุเรียน',
-    price: 70,
-    amount: 50,
-    picture:
-      'https://s.isanook.com/tr/0/ud/282/1410525/fwegt.jpg?ip/crop/w728h431/q80/webp',
-    id: '',
-    province: 'จันทบุรี',
-    rating: 4,
-    description: 'พันธุ์หมอนทอง เนื้อนุ่ม เนื้อเนียน',
-  },
-  {
-    name: 'ทุเรียน',
-    price: 70,
-    amount: 50,
-    picture:
-      'https://s.isanook.com/tr/0/ud/282/1410525/fwegt.jpg?ip/crop/w728h431/q80/webp',
-    id: '',
-    province: 'จันทบุรี',
-    rating: 4,
-    description: 'พันธุ์หมอนทอง เนื้อนุ่ม เนื้อเนียน',
-  },
-  {
-    name: 'ทุเรียน',
-    price: 70,
-    amount: 50,
-    picture:
-      'https://s.isanook.com/tr/0/ud/282/1410525/fwegt.jpg?ip/crop/w728h431/q80/webp',
-    id: '',
-    province: 'จันทบุรี',
-    rating: 4,
-    description: 'พันธุ์หมอนทอง เนื้อนุ่ม เนื้อเนียน',
-  },
-  {
-    name: 'แตงโมไร้เมล็ด',
-    price: 30,
-    amount: 20,
-    picture:
-      'https://static.thairath.co.th/media/dFQROr7oWzulq5Fa4VnP013buQ6b8fI5fr5B0qoSmTJpHlFZzI3XY8WQmOv03WbIGHm.webp',
-    id: '',
-    province: 'นครพนม',
-    rating: 3,
-    description: 'ไร้เมล็ด เนื้อสวย สีแดงสด',
-  },
-  {
-    name: 'ทุเรียน',
-    price: 70,
-    amount: 50,
-    picture:
-      'https://s.isanook.com/tr/0/ud/282/1410525/fwegt.jpg?ip/crop/w728h431/q80/webp',
-    id: '',
-    province: 'จันทบุรี',
-    rating: 4,
-    description: 'พันธุ์หมอนทอง เนื้อนุ่ม เนื้อเนียน',
-  },
-])
+const _productlist = ref<ProductCard[]>(productData)
 const filterProduct = computed(() =>
   _productlist.value.filter(
     (x) =>
@@ -242,7 +46,6 @@ const filterProduct = computed(() =>
       x.name.includes(searchState.searchText.value),
   ),
 )
-const maxItem = 12
 const currentPage = ref(1)
 const allPages = computed(() =>
   filterProduct.value.length / maxItem > 0
@@ -258,4 +61,7 @@ const productlist = computed(() =>
       )
     : filterProduct.value,
 )
+function buyClick(id:string){
+  router.push({name:'ProductDetail',params:{productId:id}})
+}
 </script>

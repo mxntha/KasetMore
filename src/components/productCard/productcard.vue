@@ -43,8 +43,8 @@
         เพิ่มลงตะกร้า
       </v-btn>
       <v-spacer></v-spacer>
-      <v-btn color="deep-purple-lighten-2" variant="text" align="and">
-        สั่งซื้อ
+      <v-btn color="deep-purple-lighten-2" variant="text" @click="onClick">
+        ดูรายละเอียด
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -52,6 +52,11 @@
 
 <script lang="ts" setup>
 import { ProductCard } from './interface'
-
+const emit = defineEmits<{
+  (e: 'onClick'): void
+}>()
 const props = defineProps<{ ProductData: ProductCard }>()
+function onClick(){
+  emit('onClick')
+}
 </script>

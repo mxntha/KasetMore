@@ -1,10 +1,11 @@
 <template>
-  <v-app-bar color="deep-purple">
+  <v-app-bar color="deep-purple" app dense fixed hide-on-scroll>
     <template v-slot:prepend>
-      <div class="text-h5">Logo</div>
+      <div  class="text-h5" @click="router.push({name:'Index'})">Logo</div>
     </template>
-    <v-app-bar-title>Kaset More</v-app-bar-title>
+    <v-app-bar-title @click="router.push({name:'Index'})">Kaset More</v-app-bar-title>
     <v-text-field
+    v-if="isShowSearchBar"
       append-inner-icon="mdi-magnify"
       density="compact"
       label="ค้นหา"
@@ -14,14 +15,14 @@
       single-line
     ></v-text-field>
     <v-spacer></v-spacer>
-    <v-btn @click="">เข้า</v-btn>
+    <v-btn @click="" v-if="isShowMenu">เข้า</v-btn>
 
+    <v-divider vertical v-if="isShowMenu"></v-divider>
+
+    <v-btn @click="gotoshoppingCart" >ตะกร้าของฉัน</v-btn>
     <v-divider vertical></v-divider>
 
-    <v-btn @click="gotoshoppingCart">ตะกร้าของฉัน</v-btn>
-    <v-divider vertical></v-divider>
-
-    <v-menu>
+    <v-menu v-if="isShowMenu">
       <template v-slot:activator="{ props }">
         <v-btn icon v-bind="props" class="mx-2">
           <v-avatar icon="mdi-account" color="white"></v-avatar>
@@ -56,9 +57,14 @@
 import { ref, inject } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { searchPluginSymbol } from '@/plugins/search'
+import { computed } from 'vue';
 const router = useRouter()
+const route = useRoute()
 const drawer = ref(false)
 const searchState = inject(searchPluginSymbol)!
+const showList = ['Index']
+const isShowSearchBar = computed(()=>showList.some(x=>x==route.name))
+const isShowMenu = computed(()=>showList.some(x=>x==route.name))
 
 function gotoshoppingCart() {
   router.push({ path: '/shoppingCart' })
