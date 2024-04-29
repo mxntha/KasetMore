@@ -18,16 +18,23 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/',
+    component: () => import('@/layouts/default/Default.vue'),
+    children: [
+      {
+        path: '/accountCust',
+        component: () => import('@/pages/account/accountCust.vue'),
+      },
+    ],
+  },
+  {
+    path: '/',
     component: () => import('@/pages/index.vue'),
   },
   {
     path: '/registerFarmer',
     component: () => import('@/pages/register/registerFarmer.vue'),
   },
-  {
-    path: '/accountCust',
-    component: () => import('@/pages/account/accountCust.vue'),
-  },
+
   {
     path: '/chooseRegister',
     component: () => import('@/pages/register/chooseRegister.vue'),
