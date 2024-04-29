@@ -83,8 +83,9 @@
       รถเข็น
 
       <v-spacer></v-spacer>
+      
       <v-text-field
-        v-model="search"
+        
         density="compact"
         label="Search"
         prepend-inner-icon="mdi-magnify"
@@ -93,6 +94,7 @@
         hide-details
         single-line
       ></v-text-field>
+    
     </v-card-title>
 
     <v-divider></v-divider>
