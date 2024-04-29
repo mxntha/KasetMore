@@ -1,3 +1,1 @@
-export interface AccountForm{
-    
-}
+export interface AccountForm {}
