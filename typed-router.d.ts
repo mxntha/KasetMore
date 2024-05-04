@@ -39,14 +39,17 @@ import type {
 
 declare module 'vue-router/auto/routes' {
   export interface RouteNamedMap {
-    '/account/accountCust': RouteRecordInfo<'/account/accountCust', '/account/accountCust', Record<never, never>, Record<never, never>>,
-    '/account/personal': RouteRecordInfo<'/account/personal', '/account/personal', Record<never, never>, Record<never, never>>,
-    '/account/shoppingCart': RouteRecordInfo<'/account/shoppingCart', '/account/shoppingCart', Record<never, never>, Record<never, never>>,
     '/Alert/completeRegister': RouteRecordInfo<'/Alert/completeRegister', '/Alert/completeRegister', Record<never, never>, Record<never, never>>,
     '/homePage/': RouteRecordInfo<'/homePage/', '/homePage', Record<never, never>, Record<never, never>>,
     '/login/login': RouteRecordInfo<'/login/login', '/login/login', Record<never, never>, Record<never, never>>,
+    '/product/productDetail': RouteRecordInfo<'/product/productDetail', '/product/productDetail', Record<never, never>, Record<never, never>>,
     '/register/registerCustomer': RouteRecordInfo<'/register/registerCustomer', '/register/registerCustomer', Record<never, never>, Record<never, never>>,
     '/register/registerFarmer': RouteRecordInfo<'/register/registerFarmer', '/register/registerFarmer', Record<never, never>, Record<never, never>>,
+    '/shop/personal': RouteRecordInfo<'/shop/personal', '/shop/personal', Record<never, never>, Record<never, never>>,
+    '/shop/receiptPage': RouteRecordInfo<'/shop/receiptPage', '/shop/receiptPage', Record<never, never>, Record<never, never>>,
+    '/shop/shopPage': RouteRecordInfo<'/shop/shopPage', '/shop/shopPage', Record<never, never>, Record<never, never>>,
+    '/shop/shoppingCart': RouteRecordInfo<'/shop/shoppingCart', '/shop/shoppingCart', Record<never, never>, Record<never, never>>,
+    '/shop/shopRusult': RouteRecordInfo<'/shop/shopRusult', '/shop/shopRusult', Record<never, never>, Record<never, never>>,
   }
 }
 

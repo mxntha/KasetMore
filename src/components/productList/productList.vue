@@ -12,7 +12,7 @@
 
 <script lang="ts" setup>
 import { useRouter, useRoute } from 'vue-router'
-import { ProductList } from '@/components/product list/interface'
+import { ProductList } from './interface'
 import { ref, defineProps } from 'vue'
 const cards: string[] = []
 const load = () => {}
