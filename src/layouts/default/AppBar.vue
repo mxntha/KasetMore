@@ -13,17 +13,18 @@
       hide-details
       single-line
     ></v-text-field>
+    ล็อกอินอยู่ {{ isLogin ? 'ใช่' : 'ไม่' }}
     <v-spacer></v-spacer>
-    <v-btn @click="">เข้า</v-btn>
+    <v-btn @click="gotologin" v-if="!isLogin">เข้าสู่ระบบ</v-btn>
 
     <v-divider vertical></v-divider>
 
-    <v-btn @click="gotoshoppingCart">ตะกร้าของฉัน</v-btn>
+    <v-btn @click="gotoregisterCust" v-if="!isLogin">สมัครสมาชิก</v-btn>
     <v-divider vertical></v-divider>
 
     <v-menu>
       <template v-slot:activator="{ props }">
-        <v-btn icon v-bind="props" class="mx-2">
+        <v-btn icon v-bind="props" class="mx-2" v-if="isLogin">
           <v-avatar icon="mdi-account" color="white"></v-avatar>
         </v-btn>
       </template>
@@ -43,8 +44,21 @@
           <v-list-item variant="text" class="mx-2" @click="gotopersonal">
             บัญชี
           </v-list-item>
-          <v-list-item variant="text" class="mx-2" @click="gotoregisterFarmer">
+          <v-list-item
+            variant="text"
+            class="mx-2"
+            @click="gotoregisterFarmer"
+            v-if="!isFarmer"
+          >
             สมัครสมาชิกเกษตรกร
+          </v-list-item>
+          <v-list-item
+            variant="text"
+            class="mx-2"
+            @click="gotoregisterFarmer"
+            v-if="isFarmer"
+          >
+            หน้าขายของ
           </v-list-item>
         </v-list>
       </v-card>
@@ -59,14 +73,19 @@ import { searchPluginSymbol } from '@/plugins/search'
 const router = useRouter()
 const drawer = ref(false)
 const searchState = inject(searchPluginSymbol)!
+const isFarmer = false
+const isLogin = Boolean(localStorage.getItem("login")||false)
 
-function gotoshoppingCart() {
-  router.push({ path: '/shoppingCart' })
+function gotoregisterCust() {
+  router.push({ path: '/registerCustomer' })
 }
-function gotoregisterFarmer() {
-  router.push({ path: '/registerFarmer' })
+function gotologin() {
+  router.push({ path: '/login' })
 }
 function gotopersonal() {
   router.push({ path: '/personal' })
+}
+function gotoregisterFarmer() {
+  router.push({ path: '/registerFarmer' })
 }
 </script>

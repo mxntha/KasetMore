@@ -63,21 +63,23 @@
         size="large"
         variant="tonal"
         rounded="xl"
-        @click="gotoaccountCust"
+        @click="gotoIndex"
       >
         เข้าสู่ระบบ
       </v-btn>
 
       <v-card-text class="text-align">
-        <v-btn variant="text" @click="gotoIndex"> ย้อนกลับ </v-btn>
-
+        <div class="d-flex ">
+        <v-btn variant="text" @click="router.go(-1)"> ย้อนกลับ </v-btn>
+        <v-spacer></v-spacer>
         <a
-          class="text-blue text-decoration-none"
-          href="chooseRegister"
+          class="text-blue text-decoration-none align-self-center"
+          href="registerCustomer"
           rel="noopener noreferrer"
         >
           สมัครสมาชิก <v-icon icon="mdi-chevron-right"></v-icon>
         </a>
+      </div>
       </v-card-text>
     </v-card>
   </div>
@@ -100,9 +102,8 @@ function login() {
   console.log(loginform.value)
 }
 function gotoIndex() {
+  localStorage.setItem("login","true")
   router.push({ path: '/' })
 }
-function gotoaccountCust() {
-  router.push({ path: '/accountCust' })
-}
+
 </script>

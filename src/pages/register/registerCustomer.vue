@@ -56,13 +56,40 @@
           <v-btn variant="text" @click="router.go(-1)"> ย้อนกลับ </v-btn>
           <v-spacer></v-spacer>
 
-          <v-btn color="primary" variant="text" @click="gotocompleteRegis">
+          <v-btn color="primary" variant="text" @click="openDialog = true">
             ตกลง
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
   </v-row>
+  <v-dialog v-model="openDialog" width="700" class="text-center">
+    <v-card icon="$success">
+      <div>
+      <v-icon
+        
+        color="success"
+        icon="mdi-check-circle-outline"
+        size="120"
+      ></v-icon>
+    </div>
+    <v-card-text>
+      <div class="text-h4">สมัครสมาชิกเรียบร้อย!</div>
+
+      <div class="text-h6">You're all caught up.</div>
+
+      <div class="text-medium-emphasis text-caption">
+        Great job on completing all your tasks! This might be a good time to
+        relax or consider planning your next set of goals. If you think of
+        something new, just hit the button below to add a new task.
+      </div>
+    </v-card-text>
+    <v-card-actions class="ma-2 pa-2 align-self-center">
+      <v-btn  color="success" variant="tonal" size="large"  >เข้าสู่ระบบ</v-btn>
+    </v-card-actions>
+    </v-card>
+  </v-dialog>
+
 </template>
 
 <script lang="ts" setup>
@@ -81,6 +108,7 @@ const registerform = ref<RegisterForm>({
 })
 
 const router = useRouter()
+const openDialog = ref(false)
 
 function gotocompleteRegis() {
   router.push({ path: '/completeRegister' })
