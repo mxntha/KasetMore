@@ -15,7 +15,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/',
         name: 'Index',
-        component: () => import('@/pages/shop/shopPage.vue'),
+        component: () => import('@/pages/homePage/index.vue'),
       },
       {
         path: '/product/:productId',
@@ -43,22 +43,7 @@ const routes: RouteRecordRaw[] = [
     path: '/registerCustomer',
     component: () => import('@/pages/register/registerCustomer.vue'),
   },
-  {
-    path: '/',
-    component: () => import('@/layouts/default/Default.vue'),
-
-    children: [
-      {
-        path: '/',
-        component: () => import('@/pages/homePage/index.vue'),
-      },
-      {
-        path: '/accountCust',
-        component: () => import('@/pages/account/accountCust.vue'),
-      },
-    ],
-  },
-
+  
   {
     path: '/registerFarmer',
     name: 'RegisterFarmer',
@@ -67,10 +52,6 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/personal',
     component: () => import('@/pages/shop/personal.vue'),
-  },
-  {
-    path: '/completeRegister',
-    component: () => import('@/pages/Alert/completeRegister.vue'),
   },
   {
     path: '/shoppingCart',
