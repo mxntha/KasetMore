@@ -45,6 +45,7 @@
           <v-list-item variant="text" class="mx-2" @click="gotopersonal">
             บัญชี
           </v-list-item>
+
           <v-list-item
             variant="text"
             class="mx-2"
@@ -53,6 +54,7 @@
           >
             สมัครสมาชิกเกษตรกร
           </v-list-item>
+          
           <v-list-item
             variant="text"
             class="mx-2"
@@ -60,6 +62,14 @@
             v-if="isFarmer"
           >
             หน้าขายของ
+          </v-list-item>
+
+          <v-list-item
+            variant="text"
+            class="mx-2"
+            @click="gotoIndex"
+          >
+            ออกจากระบบ
           </v-list-item>
         </v-list>
       </v-card>
@@ -93,5 +103,9 @@ function gotopersonal() {
 }
 function gotoregisterFarmer() {
   router.push({ path: '/registerFarmer' })
+}
+function gotoIndex() {
+  localStorage.removeItem("login")
+  router.push({ path: '/' })
 }
 </script>
