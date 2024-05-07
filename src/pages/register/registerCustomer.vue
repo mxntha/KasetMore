@@ -85,7 +85,7 @@
       </div>
     </v-card-text>
     <v-card-actions class="ma-2 pa-2 align-self-center">
-      <v-btn  color="success" variant="tonal" size="large"  >เข้าสู่ระบบ</v-btn>
+      <v-btn  color="success" variant="tonal" size="large" @click="gotologin" >เข้าสู่ระบบ</v-btn>
     </v-card-actions>
     </v-card>
   </v-dialog>
@@ -110,8 +110,8 @@ const registerform = ref<RegisterForm>({
 const router = useRouter()
 const openDialog = ref(false)
 
-function gotocompleteRegis() {
-  router.push({ path: '/completeRegister' })
+function gotologin() {
+  router.push({ path: '/login' })
 }
 </script>
 
