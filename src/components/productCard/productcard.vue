@@ -39,9 +39,9 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-btn color="deep-purple-lighten-2" variant="text">
+      <!-- <v-btn color="deep-purple-lighten-2" variant="text">
         เพิ่มลงตะกร้า
-      </v-btn>
+      </v-btn> -->
       <v-spacer></v-spacer>
       <v-btn color="deep-purple-lighten-2" variant="text" @click="onClick">
         ดูรายละเอียด
