@@ -1,9 +1,9 @@
 <template>
   
-  <v-card>
+  <v-card color="grey-lighten-1">
     <v-card-text  >
       <div class="d-flex ">
-        <div>
+        <div class="pr-7 pb-5">
           <v-img
         :aspect-ratio="1"
         class="bg-white"
@@ -13,22 +13,24 @@
       ></v-img>
      </div> 
         <div>
-          <div >{{productDetail?.name}} </div>
-          <div> {{ productDetail?.price }} ฿</div>
-          <div class="d-flex ">
+          <div class="text-h3 pb-9">{{productDetail?.name}} </div>
+          <div class="text-h4 pb-9" > {{ productDetail?.price }} ฿</div>
+          <div class="d-flex pb-6">
             <v-text-field label="จำนวนสินค้า" type="number" v-model="amount"></v-text-field>
-            <div>
+            <div class="text-h6 align-self-center pl-3 ">
               จำนวนสินค้า {{ productDetail?.amount }} ชิ้น
             </div>
           </div>
-            <v-btn color="green" @click="buyProduct">
+            <v-btn class="text-h6 " color="green" @click="buyProduct">
             สั่งซื้อ
             </v-btn>
           </div>
         </div> 
-      <div>{{ productDetail?.description }}</div>
+      <div class="text-h5">{{ productDetail?.description }}</div>
     </v-card-text>
-  </v-card>
+  </v-card color="grey-lighten-1">
+
+
 </template>
 
 <script setup lang="ts">
