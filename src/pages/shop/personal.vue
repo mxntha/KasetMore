@@ -13,14 +13,9 @@
     <v-spacer></v-spacer>
 
     <v-toolbar-items>
-      <v-divider vertical></v-divider>
-      <v-btn @click="gotoLogin">logincustomer</v-btn>
+      
 
-      <v-divider vertical></v-divider>
-
-      <v-btn @click="gotoregisterFarmer">loginfarmer</v-btn>
-
-      <v-divider vertical></v-divider>
+     
 
       <v-menu>
         <template v-slot:activator="{ props }">
@@ -58,6 +53,15 @@
     <v-layout>
       <v-navigation-drawer color="purple" theme="dark" permanent>
         <v-list color="transparent">
+          <v-card
+          append-icon="mdi-cancel"
+    color="red"
+          class="mx-auto"
+    max-width="344"
+    subtitle="การเป็นเกษตรกร"
+    target="_blank"
+    title="ไม่ผ่าน">
+    </v-card>
           <v-list-item
             prepend-icon="mdi-view-dashboard"
             title="ประวัติ"
@@ -86,7 +90,7 @@
 
         <template v-slot:append>
           <div class="pa-2">
-            <v-btn block> Logout </v-btn>
+            <v-btn block @click="gotoIndex"> ออกจากระบบ </v-btn>
           </div>
         </template>
       </v-navigation-drawer>
@@ -99,8 +103,11 @@ import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
 
-function gotoLogin() {
-  router.push({ path: '/login' })
+
+function gotoIndex() {
+  router.push({ path: '/' })
+  localStorage.removeItem("login")
+  window.location.reload()
 }
 function gotoregisterFarmer() {
   router.push({ path: '/registerFarmer' })

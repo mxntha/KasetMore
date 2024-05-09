@@ -64,7 +64,16 @@
             counter="13"
           ></v-text-field>
 
-          ชื่อร้านค้า
+          เลขหลังบัตรประชาชน
+          <v-text-field
+            v-model="registerfarmer.idcardback"
+            label="12หลัก"
+            required
+            placeholder="xxxxxxxxxxxx"
+            counter="12"
+          ></v-text-field>
+
+          <!-- ชื่อร้านค้า
           <v-text-field
             v-model="registerfarmer.shop.shopname"
             label=""
@@ -87,7 +96,7 @@
             placeholder="บ้านเลขที่ หมู่บ้าน หมู่ ซอย ตำบล อำเภอ จังหวัด"
             counter="50"
             required
-          ></v-textarea>
+          ></v-textarea> -->
         </v-card-text>
         <v-divider class="mt-12"></v-divider>
         <v-card-actions>
@@ -104,26 +113,26 @@
   <v-dialog v-model="openDialog" width="700" class="text-center">
     <v-card icon="$success">
       <div>
-      <v-icon
-        
-        color="success"
+      <v-icon 
+      
+        color="warning"
         icon="mdi-check-circle-outline"
         size="120"
       ></v-icon>
     </div>
     <v-card-text>
-      <div class="text-h4">สมัครสมาชิกเรียบร้อย!</div>
+      <div class="text-h4">รอผลการยืนยัน!</div>
 
-      <div class="text-h6">You're all caught up.</div>
+      <div class="text-h6">การสมัครสมาชิกเกษตรกร.</div>
 
       <div class="text-medium-emphasis text-caption">
-        Great job on completing all your tasks! This might be a good time to
-        relax or consider planning your next set of goals. If you think of
-        something new, just hit the button below to add a new task.
+        รอการตรวจสอบผ่านบัญชีผู้ใช้
       </div>
     </v-card-text>
     <v-card-actions class="ma-2 pa-2 align-self-center">
-      <v-btn  color="success" variant="tonal" size="large" @click="gotologin" >เข้าสู่ระบบ</v-btn>
+      <v-btn  color="info" variant="tonal" size="large" @click="gotoIndex" >หน้าแรก</v-btn>
+      <v-btn  color="success" variant="tonal" size="large" @click="gotoPersonal" >บัญชีผู้ใช้</v-btn>
+      
     </v-card-actions>
     </v-card>
   </v-dialog>
@@ -138,6 +147,12 @@ import { type RegisterFarmer } from './interface'
 function gotologin() {
   router.push({ path: '/login' })
 }
+function gotoIndex() {
+  router.push({ path: '/' })
+}
+function gotoPersonal() {
+  router.push({ path: '/personal' })
+}
 
 //ตัวแปร
 const registerfarmer = ref<RegisterFarmer>({
@@ -148,11 +163,7 @@ const registerfarmer = ref<RegisterFarmer>({
   password: '',
   phone: '',
   idcard: '',
-  shop: {
-    shopname: '',
-    shopaddress: '',
-    shopphone: '',
-  },
+ idcardLaser:''
 })
 
 const router = useRouter()

@@ -47,9 +47,9 @@ function generateRandomString(length:number) {
 }
 
 function buyProduct(){
-    const confirmBuy = confirm('จะซื้อจริงง่ะ')
+    const confirmBuy = confirm('ยืนยันการสั่งซื้อ')
     if(confirmBuy){
-        alert('กำลังหักเงิน . . . รอ 2 วิ')
+        alert('กำลังทำการหักเงิน . . . รอ 2 วิ')
         setTimeout(() => {
             alert('จ่ายเงินสำเร็จ')
             router.push({name:'Receipt',params:{receiptId :generateRandomString(16)}})
