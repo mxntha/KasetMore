@@ -32,6 +32,10 @@ const routes: RouteRecordRaw[] = [
         name: 'Receipt',
         component: () => import('@/pages/shop/receiptPage.vue'),
       },
+      {
+        path: '/personal',
+        component: () => import('@/pages/shop/personal.vue'),
+      },
     ],
   },
 
@@ -49,10 +53,7 @@ const routes: RouteRecordRaw[] = [
     name: 'RegisterFarmer',
     component: () => import('@/pages/register/registerFarmer.vue'),
   },
-  {
-    path: '/personal',
-    component: () => import('@/pages/shop/personal.vue'),
-  },
+ 
   {
     path: '/shoppingCart',
     component: () => import('@/pages/shop/shoppingCart.vue'),
