@@ -33,7 +33,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/pages/shop/receiptPage.vue'),
       },
       {
-        path: '/personal',
+        path: '/',
         component: () => import('@/pages/personal/personal.vue'),
         children: [
           {
@@ -68,6 +68,10 @@ const routes: RouteRecordRaw[] = [
             redirect: '/personal/menu1',
           },
         ],
+      },
+      {
+        path: '/personal',
+        redirect: '/personal/menu1',
       },
     ],
   },

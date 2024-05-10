@@ -66,9 +66,6 @@ import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()
 
-if (route.path == '/personal') {
-  router.push({ path: '/personal/menu1' })
-}
 const menuId = ref(route.path.split('/').pop())
 function gotoIndex() {
   router.push({ path: '/' })
