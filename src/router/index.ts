@@ -5,8 +5,8 @@
  */
 
 // Composables
-import { defineComponent } from 'vue'
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -32,9 +32,34 @@ const routes: RouteRecordRaw[] = [
         name: 'Receipt',
         component: () => import('@/pages/shop/receiptPage.vue'),
       },
+      {
+        path: '/personal',
+        component: () => import('@/pages/shop/personal.vue'),
+        children: [
+          {
+            path: '/personal/menu1',
+            component: () => import('@/pages/shop/personal.vue'),
+          },
+          {
+            path: '/personal/menu2',
+            component: () => import('@/pages/shop/personal.vue'),
+          },
+          {
+            path: '/personal/menu3',
+            component: () => import('@/pages/shop/personal.vue'),
+          },
+          {
+            path: '/personal/menu4',
+            component: () => import('@/pages/shop/personal.vue'),
+          },
+          {
+            path: '/personal/:catchAll(.*)',
+            redirect: '/personal/menu1',
+          },
+        ],
+      },
     ],
   },
-
   {
     path: '/login',
     component: () => import('@/pages/login/login.vue'),
@@ -43,19 +68,20 @@ const routes: RouteRecordRaw[] = [
     path: '/registerCustomer',
     component: () => import('@/pages/register/registerCustomer.vue'),
   },
-  
+
   {
     path: '/registerFarmer',
     name: 'RegisterFarmer',
     component: () => import('@/pages/register/registerFarmer.vue'),
   },
-  {
-    path: '/personal',
-    component: () => import('@/pages/shop/personal.vue'),
-  },
+
   {
     path: '/shoppingCart',
     component: () => import('@/pages/shop/shoppingCart.vue'),
+  },
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/',
   },
 ]
 

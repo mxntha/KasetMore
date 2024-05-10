@@ -7,6 +7,7 @@
       </v-col>
     </v-row>
   </v-container>
+
   <div class="text-center">
     <v-container>
       <v-row justify="center">
@@ -30,6 +31,7 @@
 </template>
 
 <script lang="ts" setup>
+console.log('s')
 import { ProductCard } from '@/components/productCard/interface'
 import ProductCardvue from '@/components/productCard/productcard.vue'
 import { ref, computed, inject } from 'vue'
