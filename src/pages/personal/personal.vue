@@ -14,7 +14,11 @@
         </v-card>
         <div class="mx-auto" max-width="300" color="purple">
           {{ menuId }}
-          <v-list density="compact"  :selected="[menuId]" @update:selected="(e)=>redirectMenu(e[0])" >
+          <v-list
+            density="compact"
+            :selected="[menuId]"
+            @update:selected="(e) => redirectMenu(e[0])"
+          >
             <v-list-item
               prepend-icon="mdi-view-dashboard"
               title="ประวัติ"
@@ -56,14 +60,14 @@
   </v-layout>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
 const route = useRoute()
 
-if(route.path == '/personal'){
-  router.push({path:'/personal/menu1'})
+if (route.path == '/personal') {
+  router.push({ path: '/personal/menu1' })
 }
 const menuId = ref(route.path.split('/').pop())
 function gotoIndex() {
@@ -71,13 +75,15 @@ function gotoIndex() {
   localStorage.removeItem('login')
   window.location.reload()
 }
-function redirectMenu(_menuId:any){
-  if(_menuId == undefined)return
-  menuId.value = _menuId 
-  if(_menuId=='menu5'){
-    alert('ไปทำroute ให้ menu5 ด้วยยังไม่ได้ทำ ถ้าไม่เเก้มันจะพาไป menu1 ถ้าเเก้่เเล้วลบตรงนี้ด้วย')
+function redirectMenu(_menuId: any) {
+  if (_menuId == undefined) return
+  menuId.value = _menuId
+  if (_menuId == 'menu5') {
+    alert(
+      'ไปทำroute ให้ menu5 ด้วยยังไม่ได้ทำ ถ้าไม่เเก้มันจะพาไป menu1 ถ้าเเก้่เเล้วลบตรงนี้ด้วย',
+    )
   }
-  router.push({path:`/personal/${_menuId}`})
+  router.push({ path: `/personal/${_menuId}` })
 }
 function gotoregisterFarmer() {
   router.push({ path: '/registerFarmer' })

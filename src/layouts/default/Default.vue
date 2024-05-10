@@ -1,9 +1,7 @@
 <template>
   <v-app>
     <default-bar />
-    <v-container fluid class="mt-6">
-      <default-view class="h-100" />
-    </v-container>
+    <default-view class="h-100" />
   </v-app>
 </template>
 

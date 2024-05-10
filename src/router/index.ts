@@ -72,27 +72,33 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    path: '/login',
-    component: () => import('@/pages/login/login.vue'),
-  },
-  {
-    path: '/registerCustomer',
-    component: () => import('@/pages/register/registerCustomer.vue'),
-  },
+    path: '/',
+    component: () => import('@/layouts/default/View.vue'),
+    children: [
+      {
+        path: '/login',
+        component: () => import('@/pages/login/login.vue'),
+      },
+      {
+        path: '/registerCustomer',
+        component: () => import('@/pages/register/registerCustomer.vue'),
+      },
 
-  {
-    path: '/registerFarmer',
-    name: 'RegisterFarmer',
-    component: () => import('@/pages/register/registerFarmer.vue'),
-  },
+      {
+        path: '/registerFarmer',
+        name: 'RegisterFarmer',
+        component: () => import('@/pages/register/registerFarmer.vue'),
+      },
 
-  {
-    path: '/shoppingCart',
-    component: () => import('@/pages/shop/shoppingCart.vue'),
-  },
-  {
-    path: '/:catchAll(.*)',
-    redirect: '/',
+      {
+        path: '/shoppingCart',
+        component: () => import('@/pages/shop/shoppingCart.vue'),
+      },
+      {
+        path: '/:catchAll(.*)',
+        redirect: '/',
+      },
+    ],
   },
 ]
 
