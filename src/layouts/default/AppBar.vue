@@ -1,11 +1,13 @@
 <template>
   <v-app-bar color="deep-purple" app dense fixed hide-on-scroll>
     <template v-slot:prepend>
-      <div  class="text-h5" @click="router.push({name:'Index'})">Logo</div>
+      <div class="text-h5" @click="router.push({ name: 'Index' })">Logo</div>
     </template>
-    <v-app-bar-title @click="router.push({name:'Index'})">Kaset More</v-app-bar-title>
+    <v-app-bar-title @click="router.push({ name: 'Index' })"
+      >Kaset More</v-app-bar-title
+    >
     <v-text-field
-    v-if="isShowSearchBar"
+      v-if="isShowSearchBar"
       append-inner-icon="mdi-magnify"
       density="compact"
       label="ค้นหา"
@@ -54,7 +56,7 @@
           >
             สมัครสมาชิกเกษตรกร
           </v-list-item>
-          
+
           <v-list-item
             variant="text"
             class="mx-2"
@@ -64,11 +66,7 @@
             หน้าขายของ
           </v-list-item>
 
-          <v-list-item
-            variant="text"
-            class="mx-2"
-            @click="gotoIndex"
-          >
+          <v-list-item variant="text" class="mx-2" @click="gotoIndex">
             ออกจากระบบ
           </v-list-item>
         </v-list>
@@ -81,16 +79,16 @@
 import { ref, inject } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { searchPluginSymbol } from '@/plugins/search'
-import { computed } from 'vue';
+import { computed } from 'vue'
 const router = useRouter()
 const route = useRoute()
 const drawer = ref(false)
 const searchState = inject(searchPluginSymbol)!
 const showList = ['Index']
-const isShowSearchBar = computed(()=>showList.some(x=>x==route.name))
-const isShowMenu = computed(()=>showList.some(x=>x==route.name))
+const isShowSearchBar = computed(() => showList.some((x) => x == route.name))
+const isShowMenu = computed(() => showList.some((x) => x == route.name))
 const isFarmer = false
-const isLogin = Boolean(localStorage.getItem("login")||false)
+const isLogin = Boolean(localStorage.getItem('login') || false)
 
 function gotoregisterCust() {
   router.push({ path: '/registerCustomer' })
@@ -105,7 +103,7 @@ function gotoregisterFarmer() {
   router.push({ path: '/registerFarmer' })
 }
 function gotoIndex() {
-  localStorage.removeItem("login")
+  localStorage.removeItem('login')
   router.push({ path: '/' })
   window.location.reload()
 }

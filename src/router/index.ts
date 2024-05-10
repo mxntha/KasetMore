@@ -34,27 +34,34 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: '/personal',
-        component: () => import('@/pages/shop/personal.vue'),
-      },
-      {
-        path: '/personal',
-        component: () => import('@/pages/shop/personal.vue'),
+        component: () => import('@/pages/personal/personal.vue'),
         children: [
           {
             path: '/personal/menu1',
-            component: () => import('@/pages/shop/personal.vue'),
+            component: () => import('@/pages/personal/menu/menu1.vue'),
           },
           {
             path: '/personal/menu2',
-            component: () => import('@/pages/shop/personal.vue'),
+            beforeEnter: (e) => {
+              console.log('2')
+              alert('เพิ่ม route ของเมนู2รึยัง?')
+              // ลบอันนี้ด้วยถ้ามาเเก้เเล้ว
+            },
+            component: () => import('@/pages/personal/menu/menu1.vue'),
           },
           {
             path: '/personal/menu3',
-            component: () => import('@/pages/shop/personal.vue'),
+            beforeEnter: (e) => {
+              alert('เพิ่ม route ของเมนู3รึยัง?')
+            },
+            component: () => import('@/pages/personal/menu/menu1.vue'),
           },
           {
             path: '/personal/menu4',
-            component: () => import('@/pages/shop/personal.vue'),
+            beforeEnter: (e) => {
+              alert('เพิ่ม route ของเมนู4รึยัง?')
+            },
+            component: () => import('@/pages/personal/menu/menu1.vue'),
           },
           {
             path: '/personal/:catchAll(.*)',

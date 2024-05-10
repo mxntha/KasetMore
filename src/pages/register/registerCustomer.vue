@@ -73,28 +73,28 @@
   <v-dialog v-model="openDialog" width="700" class="text-center">
     <v-card icon="$success">
       <div>
-      <v-icon
-        
-        color="success"
-        icon="mdi-check-circle-outline"
-        size="120"
-      ></v-icon>
-    </div>
-    <v-card-text>
-      <div class="text-h4">สมัครสมาชิกเรียบร้อย!</div>
-
-      <div class="text-h6"></div>
-
-      <div class="text-medium-emphasis text-caption">
-        โปรดทำการเข้าสู่ระบบเพื่อเข้าใช้งาน
+        <v-icon
+          color="success"
+          icon="mdi-check-circle-outline"
+          size="120"
+        ></v-icon>
       </div>
-    </v-card-text>
-    <v-card-actions class="ma-2 pa-2 align-self-center">
-      <v-btn  color="success" variant="tonal" size="large" @click="gotologin" >เข้าสู่ระบบ</v-btn>
-    </v-card-actions>
+      <v-card-text>
+        <div class="text-h4">สมัครสมาชิกเรียบร้อย!</div>
+
+        <div class="text-h6"></div>
+
+        <div class="text-medium-emphasis text-caption">
+          โปรดทำการเข้าสู่ระบบเพื่อเข้าใช้งาน
+        </div>
+      </v-card-text>
+      <v-card-actions class="ma-2 pa-2 align-self-center">
+        <v-btn color="success" variant="tonal" size="large" @click="gotologin"
+          >เข้าสู่ระบบ</v-btn
+        >
+      </v-card-actions>
     </v-card>
   </v-dialog>
-
 </template>
 
 <script lang="ts" setup>
@@ -110,7 +110,7 @@ const registerform = ref<RegisterForm>({
   password: '',
   phone: '',
   username: '',
-  email:''
+  email: '',
 })
 
 const router = useRouter()

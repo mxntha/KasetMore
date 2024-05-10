@@ -2,7 +2,8 @@
   <v-container>
     <v-row>
       <v-col cols="3" v-for="i in productlist">
-        <ProductCardvue :ProductData="i" @on-click="buyClick(i.id)"> </ProductCardvue>
+        <ProductCardvue :ProductData="i" @on-click="buyClick(i.id)">
+        </ProductCardvue>
       </v-col>
     </v-row>
   </v-container>
@@ -35,8 +36,8 @@ import { ProductCard } from '@/components/productCard/interface'
 import ProductCardvue from '@/components/productCard/productcard.vue'
 import { ref, computed, inject } from 'vue'
 import { searchPluginSymbol } from '@/plugins/search'
-import router from '@/router';
-import {productData} from '@/fakeDb'
+import router from '@/router'
+import { productData } from '@/fakeDb'
 const searchState = inject(searchPluginSymbol)!
 const maxItem = 8
 
@@ -63,7 +64,7 @@ const productlist = computed(() =>
       )
     : filterProduct.value,
 )
-function buyClick(id:string){
-  router.push({name:'ProductDetail',params:{productId:id}})
+function buyClick(id: string) {
+  router.push({ name: 'ProductDetail', params: { productId: id } })
 }
 </script>

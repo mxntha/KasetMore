@@ -56,7 +56,7 @@ const emit = defineEmits<{
   (e: 'onClick'): void
 }>()
 const props = defineProps<{ ProductData: ProductCard }>()
-function onClick(){
+function onClick() {
   emit('onClick')
 }
 </script>

@@ -41,11 +41,12 @@ declare module 'vue-router/auto/routes' {
   export interface RouteNamedMap {
     '/homePage/': RouteRecordInfo<'/homePage/', '/homePage', Record<never, never>, Record<never, never>>,
     '/login/login': RouteRecordInfo<'/login/login', '/login/login', Record<never, never>, Record<never, never>>,
+    '/personal/menu/menu1': RouteRecordInfo<'/personal/menu/menu1', '/personal/menu/menu1', Record<never, never>, Record<never, never>>,
+    '/personal/personal': RouteRecordInfo<'/personal/personal', '/personal/personal', Record<never, never>, Record<never, never>>,
     '/product/productDetail': RouteRecordInfo<'/product/productDetail', '/product/productDetail', Record<never, never>, Record<never, never>>,
     '/register/registerCustomer': RouteRecordInfo<'/register/registerCustomer', '/register/registerCustomer', Record<never, never>, Record<never, never>>,
     '/register/registerFarmer': RouteRecordInfo<'/register/registerFarmer', '/register/registerFarmer', Record<never, never>, Record<never, never>>,
     '/shop/historyPersonal': RouteRecordInfo<'/shop/historyPersonal', '/shop/historyPersonal', Record<never, never>, Record<never, never>>,
-    '/shop/personal': RouteRecordInfo<'/shop/personal', '/shop/personal', Record<never, never>, Record<never, never>>,
     '/shop/receiptPage': RouteRecordInfo<'/shop/receiptPage', '/shop/receiptPage', Record<never, never>, Record<never, never>>,
     '/shop/shoppingCart': RouteRecordInfo<'/shop/shoppingCart', '/shop/shoppingCart', Record<never, never>, Record<never, never>>,
     '/shop/shopRusult': RouteRecordInfo<'/shop/shopRusult', '/shop/shopRusult', Record<never, never>, Record<never, never>>,
