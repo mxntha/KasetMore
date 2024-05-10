@@ -1,14 +1,19 @@
 <template>
-    <div>
-        <img :src="productDetail?.picture" alt="">
+    <div  class="d-flex justify-center ">
+    <v-card color="grey-lighten-1" height="600" width="650" >
+    
+    <div class="d-flex justify-center">
+        <v-img  height="500" width="500"  :src="productDetail?.picture" alt=""></v-img>
     </div>
     <div>
           {{ productDetail?.name }} จำนวน {{ amount }} : รวมเป็นเงิน {{ productDetail!.price * parseInt(amount!) }}
     </div>
     
 <v-btn color="green" @click="buyProduct">
-    buy
+    ยืนยันสั่งซื้อ
 </v-btn>
+</v-card>
+</div>
 </template>
 <script setup lang="ts">
 import { computed } from 'vue';
@@ -42,9 +47,9 @@ function generateRandomString(length:number) {
 }
 
 function buyProduct(){
-    const confirmBuy = confirm('จะซื้อจริงง่ะ')
+    const confirmBuy = confirm('ยืนยันการสั่งซื้อ')
     if(confirmBuy){
-        alert('กำลังหักเงิน . . . รอ 2 วิ')
+        alert('กำลังทำการหักเงิน . . . รอ 2 วิ')
         setTimeout(() => {
             alert('จ่ายเงินสำเร็จ')
             router.push({name:'Receipt',params:{receiptId :generateRandomString(16)}})

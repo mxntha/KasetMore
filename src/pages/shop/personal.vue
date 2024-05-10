@@ -1,106 +1,84 @@
 <template>
-  <v-toolbar color="deep-purple">
-    <template v-slot:prepend>
-      <div class="text-h5">Logo</div>
-    </template>
-
-    <v-divider class="ms-3" inset vertical></v-divider>
-
-    <v-toolbar-title>Kaset More</v-toolbar-title>
-
-    <v-spacer></v-spacer>
-
-    <v-spacer></v-spacer>
-
-    <v-toolbar-items>
-      <v-divider vertical></v-divider>
-      <v-btn @click="gotoLogin">logincustomer</v-btn>
-
-      <v-divider vertical></v-divider>
-
-      <v-btn @click="gotoregisterFarmer">loginfarmer</v-btn>
-
-      <v-divider vertical></v-divider>
-
-      <v-menu>
-        <template v-slot:activator="{ props }">
-          <v-btn icon v-bind="props">
-            <v-avatar icon="mdi-account" color="white"></v-avatar>
-          </v-btn>
-        </template>
-
-        <v-card min-width="300">
-          <v-list>
-            <v-list-item
-              prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg"
-              subtitle="Founder of Vuetify"
-              title="John Leider"
-            >
-            </v-list-item>
-          </v-list>
-
-          <v-divider></v-divider>
-
-          <v-list>
-            <v-list-item>
-              <v-btn variant="text"> บัญชี </v-btn>
-            </v-list-item>
-            <v-btn variant="text"> ศูนย์ช่วยเหลือ </v-btn>
-            <v-list-item> </v-list-item>
-          </v-list>
-        </v-card>
-      </v-menu>
-    </v-toolbar-items>
-    <v-divider vertical></v-divider>
-  </v-toolbar>
-
-  <v-card>
-    <v-layout>
+  
+    <v-layout class="mx-n4 mt-n6">
       <v-navigation-drawer color="purple" theme="dark" permanent>
         <v-list color="transparent">
-          <v-list-item
+          <v-card
+          append-icon="mdi-cancel"
+    color="red"
+          class="mx-auto"
+    max-width="344"
+    subtitle="การเป็นเกษตรกร"
+    target="_blank"
+    title="ไม่ผ่าน">
+    </v-card>
+    <div
+    class="mx-auto"
+    max-width="300"
+    color="purple"
+    
+  >
+    <v-list density="compact" >
+      
+      <v-list-item
             prepend-icon="mdi-view-dashboard"
             title="ประวัติ"
+            value="item"
           ></v-list-item>
           <v-list-item
             prepend-icon="mdi-account-box"
             title="ที่อยู่"
+            value="item1"
           ></v-list-item>
           <v-list-item
             prepend-icon="mdi-gavel"
             title="บัญชีธนาคาร&บัตร"
+            value="item2"
           ></v-list-item>
           <v-list-item
             prepend-icon="mdi-gavel"
             title="การตั้งค่าความเป็นส่วนตัว"
-          ></v-list-item>
-          <v-list-item
-            prepend-icon="mdi-gavel"
-            title="การตั้งค่าการแจ้งเตือน"
+            value="item3"
           ></v-list-item>
           <v-list-item
             prepend-icon="mdi-gavel"
             title="ประวัติการซื้อ"
+            value="item4"
           ></v-list-item>
+
+    </v-list>
+  </div>
         </v-list>
 
         <template v-slot:append>
           <div class="pa-2">
-            <v-btn block> Logout </v-btn>
+            <v-btn block @click="gotoIndex"> ออกจากระบบ </v-btn>
           </div>
         </template>
       </v-navigation-drawer>
-      <v-main style="height: 900px"></v-main>
+      <v-main style="height: 600px">
+        <div class="text-h6 pt-15 ps-15">
+          <v-avatar  icon="mdi-account-circle" color="surface-variant" size="80"></v-avatar>
+      </div>
+      <div></div>
+    </v-main>
     </v-layout>
-  </v-card>
+  
+  
+    
+    
+    
 </template>
 <script lang="ts" setup>
 import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
 
-function gotoLogin() {
-  router.push({ path: '/login' })
+
+function gotoIndex() {
+  router.push({ path: '/' })
+  localStorage.removeItem("login")
+  window.location.reload()
 }
 function gotoregisterFarmer() {
   router.push({ path: '/registerFarmer' })

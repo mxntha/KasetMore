@@ -35,6 +35,10 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/personal',
         component: () => import('@/pages/shop/personal.vue'),
+      },
+      {
+        path: '/personal',
+        component: () => import('@/pages/shop/personal.vue'),
         children: [
           {
             path: '/personal/menu1',

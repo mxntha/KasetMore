@@ -4,6 +4,7 @@ export interface RegisterForm {
   address: string
   username: string
   password: string
+  email: string
   phone: string
 }
 
@@ -15,11 +16,12 @@ export interface RegisterFarmer {
   password: string
   phone: string
   idcard: string
-  shop: Shop
+  idcardLaser: string
+  // shop: Shop
 }
 
-export interface Shop {
-  shopname: string
-  shopphone: string
-  shopaddress: string
-}
+// export interface Shop {
+//   shopname: string
+//   shopphone: string
+//   shopaddress: string
+// }

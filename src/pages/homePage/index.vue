@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    test update
     <v-row>
       <v-col cols="3" v-for="i in productlist">
         <ProductCardvue :ProductData="i" @on-click="buyClick(i.id)"> </ProductCardvue>

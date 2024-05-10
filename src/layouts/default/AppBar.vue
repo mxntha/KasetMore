@@ -107,5 +107,6 @@ function gotoregisterFarmer() {
 function gotoIndex() {
   localStorage.removeItem("login")
   router.push({ path: '/' })
+  window.location.reload()
 }
 </script>
