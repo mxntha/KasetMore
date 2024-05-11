@@ -1,20 +1,34 @@
 <template>
+  <v-card height="900">
   <div v-if="userInfoData == null">
   loading . . . 
 </div>
-  <div v-else class="text-h6 pt-15 ps-15">
+ <div v-else class="d-flex text-h6 pt-15 ps-15">
     <v-avatar
       icon="mdi-account-circle"
       color="surface-variant"
       :image="userInfoData.profileUrl"
-      size="80"
+      size="150"
     ></v-avatar>
-    {{ info.getInfomation.value }}
-    {{ userInfoData}}
-   
     
-    <img :src="userInfoData.profileUrl" width="800">
-  </div>
+      <div class="d-flex pt-16">
+  <div class="pl-16 pr-5 text-blue-grey-darken-2">ชื่อ </div>
+  <div class="pl-5"> {{ userInfoData.name }}</div>
+  <div class="pl-12 pr-5 text-blue-grey-darken-2"> นามสกุล </div>
+  <div class="pl-5">{{ userInfoData.lastName }}</div>
+  <div class="pl-16 text-h6">
+  
+   
+  
+
+
+</div>
+</div>
+    
+
+</div>
+</v-card>
+  
 </template>
 <script lang="ts" setup>
 import { useRouter, useRoute } from 'vue-router'
