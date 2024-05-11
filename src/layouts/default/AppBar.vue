@@ -1,9 +1,16 @@
 <template>
   <v-app-bar color="deep-purple" app dense fixed hide-on-scroll>
     <template v-slot:prepend>
-      <div class="text-h5" @click="router.push({ name: 'Index' })">Logo</div>
+      <div
+        class="text-h5 cursor-pointer"
+        @click="router.push({ name: 'Index' })"
+      >
+        Logo
+      </div>
     </template>
-    <v-app-bar-title @click="router.push({ name: 'Index' })"
+    <v-app-bar-title
+      class="cursor-pointer"
+      @click="router.push({ name: 'Index' })"
       >Kaset More</v-app-bar-title
     >
     <v-text-field
@@ -16,7 +23,6 @@
       hide-details
       single-line
     ></v-text-field>
-    ล็อกอินอยู่ {{ isLogin ? 'ใช่' : 'ไม่' }}
     <v-spacer></v-spacer>
     <v-btn @click="gotologin" v-if="!isLogin">เข้าสู่ระบบ</v-btn>
 
@@ -80,15 +86,17 @@ import { ref, inject } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { searchPluginSymbol } from '@/plugins/search'
 import { computed } from 'vue'
+import { useUserInfomation } from '@/composables/useInfomation'
 const router = useRouter()
 const route = useRoute()
+const infomation = useUserInfomation()
 const drawer = ref(false)
 const searchState = inject(searchPluginSymbol)!
 const showList = ['Index']
 const isShowSearchBar = computed(() => showList.some((x) => x == route.name))
 const isShowMenu = computed(() => showList.some((x) => x == route.name))
 const isFarmer = false
-const isLogin = Boolean(localStorage.getItem('login') || false)
+const isLogin = Boolean(infomation.getInfomation.value != null)
 
 function gotoregisterCust() {
   router.push({ path: '/registerCustomer' })
@@ -103,8 +111,9 @@ function gotoregisterFarmer() {
   router.push({ path: '/registerFarmer' })
 }
 function gotoIndex() {
-  localStorage.removeItem('login')
+  infomation.deleteJwt()
   router.push({ path: '/' })
   window.location.reload()
 }
 </script>
+@/composables/useInfomation

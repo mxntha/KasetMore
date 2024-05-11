@@ -1,5 +1,6 @@
 <template>
-  <v-container>
+  <data v-if="productlist.length == 0">loading api . . . </data>
+  <v-container v-else>
     <v-row>
       <v-col cols="3" v-for="i in productlist">
         <ProductCardvue :ProductData="i" @on-click="buyClick(i.id)">
@@ -37,11 +38,17 @@ import ProductCardvue from '@/components/productCard/productcard.vue'
 import { ref, computed, inject } from 'vue'
 import { searchPluginSymbol } from '@/plugins/search'
 import router from '@/router'
-import { productData } from '@/fakeDb'
-const searchState = inject(searchPluginSymbol)!
-const maxItem = 8
+import { useProductApi } from '@/composables/api'
 
-const _productlist = ref<ProductCard[]>(productData)
+const productApi = useProductApi()
+const searchState = inject(searchPluginSymbol)!
+const data = ref<any>('')
+
+const maxItem = 8
+const _productlist = ref<ProductCard[]>([])
+;(async () => {
+  _productlist.value = await productApi.getAll()
+})()
 const filterProduct = computed(() =>
   _productlist.value.filter(
     (x) =>

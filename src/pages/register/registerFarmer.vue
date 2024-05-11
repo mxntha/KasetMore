@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ma-12">
+  <v-card>
     <v-card-item>
       <v-card-title class="regis"> สมัครสมาชิกเกษตรกร </v-card-title>
     </v-card-item>

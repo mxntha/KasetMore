@@ -5,10 +5,13 @@
       color="surface-variant"
       size="80"
     ></v-avatar>
+    {{ info.getInfomation.value }}
   </div>
 </template>
 <script lang="ts" setup>
 import { useRouter, useRoute } from 'vue-router'
+import { useUserInfomation } from '@/composables/useInfomation'
+const info = useUserInfomation()
 
 const router = useRouter()
 

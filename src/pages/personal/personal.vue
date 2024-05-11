@@ -1,5 +1,5 @@
 <template>
-  <v-layout class="mx-n4 mt-n6">
+  <v-layout class="mx-n8 my-n8">
     <v-navigation-drawer color="purple" theme="dark" permanent>
       <v-list color="transparent">
         <v-card
@@ -54,7 +54,7 @@
         </div>
       </template>
     </v-navigation-drawer>
-    <v-main style="height: 600px">
+    <v-main style="height: 900px">
       <router-view />
     </v-main>
   </v-layout>

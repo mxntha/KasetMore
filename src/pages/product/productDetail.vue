@@ -1,5 +1,6 @@
 <template>
-  <v-card color="grey-lighten-1">
+  <div v-if="!productDetail">loading . . .</div>
+  <v-card color="grey-lighten-1" v-else>
     <v-card-text>
       <div class="d-flex">
         <div class="pr-7 pb-5">
@@ -36,20 +37,26 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { productData } from '@/fakeDb'
 import router from '@/router'
+import { ProductCard } from '@/components/productCard/interface'
+import { useProductApi } from '@/composables/api'
 const route = useRoute()
-const productId = route.params.productId
+const productId = route.params.productId as string
 const amount = ref(1)
-const productDetail = computed(() =>
-  productData.find((x) => x.id === productId),
-)
-if (productDetail.value == null) {
-  alert('หาไม่เจอ')
-  router.push({ name: 'productDetail', params: { productId: productId } })
-}
+const productDetail = ref<ProductCard | undefined>(undefined)
+const productApi = useProductApi()
+
+;(async () => {
+  productDetail.value = await productApi.getById(productId)
+  if (!productDetail.value) {
+    alert('หาไม่เจอ')
+    // router.push({ name: 'productDetail', params: { productId: productId } })
+    router.push({ path: '/' })
+  }
+})()
+
 function buyProduct() {
   router.push({
     name: 'BuyResult',

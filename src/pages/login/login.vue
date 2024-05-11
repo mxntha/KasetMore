@@ -90,7 +90,8 @@
 import { ref } from 'vue'
 import { type LoginForm } from './interface'
 import { useRouter, useRoute } from 'vue-router'
-
+import { useUserInfomation } from '@/composables/useInfomation'
+const infomation = useUserInfomation()
 const router = useRouter()
 const visible = ref(false)
 const loginform = ref<LoginForm>({
@@ -102,7 +103,7 @@ function login() {
   console.log(loginform.value)
 }
 function gotoIndex() {
-  localStorage.setItem('login', 'true')
+  infomation.setJwt()
   router.push({ path: '/' })
 }
 </script>
