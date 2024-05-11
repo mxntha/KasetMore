@@ -46,6 +46,7 @@ function useUserInfomation() {
     const jwtString = getJwt()
     console.log('call user info')
     if (jwtString != null) info.value = decodeJWT(jwtString!)
+    else info.value = null
   }
   return {
     getInfomation: computed(() => info.value),

@@ -92,11 +92,12 @@ const route = useRoute()
 const infomation = useUserInfomation()
 const drawer = ref(false)
 const searchState = inject(searchPluginSymbol)!
+
 const showList = ['Index']
 const isShowSearchBar = computed(() => showList.some((x) => x == route.name))
 const isShowMenu = computed(() => showList.some((x) => x == route.name))
 const isFarmer = false
-const isLogin = Boolean(infomation.getInfomation.value != null)
+const isLogin = computed(()=>infomation.getInfomation.value != null)
 
 function gotoregisterCust() {
   router.push({ path: '/registerCustomer' })
@@ -113,7 +114,5 @@ function gotoregisterFarmer() {
 function gotoIndex() {
   infomation.deleteJwt()
   router.push({ path: '/' })
-  window.location.reload()
 }
 </script>
-@/composables/useInfomation
