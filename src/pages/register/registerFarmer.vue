@@ -132,7 +132,7 @@
       <v-btn variant="text" @click="router.go(-1)"> ย้อนกลับ </v-btn>
       <v-spacer></v-spacer>
 
-      <v-btn color="primary" variant="text" @click="openDialog = true">
+      <v-btn color="primary" variant="text" @click="register">
         ตกลง
       </v-btn>
     </v-card-actions>
@@ -177,16 +177,8 @@ import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { type RegisterForm } from './interface'
 import { type RegisterFarmer } from './interface'
-
-function gotologin() {
-  router.push({ path: '/login' })
-}
-function gotoIndex() {
-  router.push({ path: '/' })
-}
-function gotoPersonal() {
-  router.push({ path: '/personal' })
-}
+import { useUserApi } from '@/composables/api'
+const userApi = useUserApi()
 
 //ตัวแปร
 const registerfarmer = ref<RegisterFarmer>({
@@ -221,6 +213,34 @@ function convertToBase64(_imageUrl: any) {
     canvas.height = img.height
     ctx.drawImage(img, 0, 0)
     imageUrl.value = canvas.toDataURL('image/jpeg')
+  }
+}
+function gotologin() {
+  router.push({ path: '/login' })
+}
+function gotoIndex() {
+  router.push({ path: '/' })
+}
+function gotoPersonal() {
+  router.push({ path: '/personal' })
+}
+async function register(){
+  const res = await userApi.resgisterUser({
+    address:registerfarmer.value.address,
+    lastName:registerfarmer.value.lastname,
+    name:registerfarmer.value.firstname,
+    password:registerfarmer.value.password,
+    phoneNumber:registerfarmer.value.phone,
+    profileUrl:imageUrl.value,
+    userName:registerfarmer.value.username,
+    idCard:registerfarmer.value.idcard,
+    laserCard:registerfarmer.value.idcardLaser,
+  })
+  if(res){
+    openDialog.value = true
+  }
+  else{
+    alert('error')
   }
 }
 </script>

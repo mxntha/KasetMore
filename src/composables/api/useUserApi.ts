@@ -1,27 +1,30 @@
 import { postMethod, getMethod } from './baseApi'
 import fServices from '@/fakeService'
+export interface InsertUser {
+  name: string
+  lastName: string
+  profileUrl?: string
+  address: string
+  userName: string
+  idCard?: string
+  laserCard?: string
+  phoneNumber: string
+  password: string
+}
 export interface BaseUserInfo {
   userId: string
   name: string
   lastName: string
-  profileUrl: string
+  profileUrl?: string
   address: string
   userName: string
   idCard?: string
   laserCard?: string
   phoneNumber: string
 }
-export interface UserInfo {
-  userId: string
-  name: string
-  lastName: string
-  profileUrl: string
-  address: string
-  userName: string
+
+export interface UserInfo extends BaseUserInfo {
   password: string
-  idCard?: string
-  laserCard?: string
-  phoneNumber: string
 }
 
 function useUserApi() {
@@ -56,7 +59,7 @@ function useUserApi() {
         }
       }
     },
-    async resgisterUser(data: UserInfo) {
+    async resgisterUser(data: InsertUser) {
       try {
         return await postMethod<boolean>('sa')
       } catch {
