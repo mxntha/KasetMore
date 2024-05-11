@@ -14,6 +14,18 @@
           ></v-img>
         </div>
         <div>
+          <div>
+            <v-carousel 
+            height="400"
+            hide-delimiters>
+    <v-carousel-item
+      v-for="(i) in productDetail?.picture"
+      :key="i"
+      :src="productDetail?.picture"
+      cover
+    ></v-carousel-item>
+  </v-carousel>
+          </div>
           <div class="text-h3 pb-9">{{ productDetail?.name }}</div>
           <div class="text-h4 pb-9">{{ productDetail?.price }} ฿</div>
           <div class="d-flex pb-6">
