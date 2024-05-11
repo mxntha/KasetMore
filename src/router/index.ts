@@ -6,7 +6,8 @@
 
 // Composables
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
-
+import { useUserApi } from '@/composables/api'
+const userApi = useUserApi()
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -25,20 +26,24 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/buyResult/:productId',
         name: 'BuyResult',
+        meta: { requiresAuth: true },
         component: () => import('@/pages/shop/shopRusult.vue'),
       },
       {
         path: '/receipt/:receiptId',
         name: 'Receipt',
+        meta: { requiresAuth: true },
         component: () => import('@/pages/shop/receiptPage.vue'),
       },
       {
         path: '/',
         component: () => import('@/pages/personal/personal.vue'),
+        meta: { requiresAuth: true },
         children: [
           {
             path: '/personal/menu1',
             component: () => import('@/pages/personal/menu/menu1.vue'),
+            meta: { requiresAuth: true },
           },
           {
             path: '/personal/menu2',
@@ -48,6 +53,7 @@ const routes: RouteRecordRaw[] = [
               // ลบอันนี้ด้วยถ้ามาเเก้เเล้ว
             },
             component: () => import('@/pages/personal/menu/menu1.vue'),
+            meta: { requiresAuth: true },
           },
           {
             path: '/personal/menu3',
@@ -55,6 +61,7 @@ const routes: RouteRecordRaw[] = [
               alert('เพิ่ม route ของเมนู3รึยัง?')
             },
             component: () => import('@/pages/personal/menu/menu1.vue'),
+            meta: { requiresAuth: true },
           },
           {
             path: '/personal/menu4',
@@ -62,6 +69,7 @@ const routes: RouteRecordRaw[] = [
               alert('เพิ่ม route ของเมนู4รึยัง?')
             },
             component: () => import('@/pages/personal/menu/menu1.vue'),
+            meta: { requiresAuth: true },
           },
           {
             path: '/personal/:catchAll(.*)',
@@ -109,6 +117,23 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+})
+router.beforeEach(async (to, from, next) => {
+  // เช็คว่าหน้าที่จะเข้าถึงต้องการการยืนยันตัวตนหรือไม่
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    // ถ้าไม่ได้ล็อกอินให้ redirect ไปยังหน้าล็อกอิน
+    const jwt = localStorage.getItem('login')
+    const isAuth = jwt && (await userApi.checkJwt(jwt))
+    console.log('auth', isAuth)
+    if (!isAuth) {
+      alert('กรุณาล็อคอิน')
+      next('/login')
+    } else {
+      next()
+    }
+  } else {
+    next() // หรือให้ผ่านไปเลย
+  }
 })
 
 export default router

@@ -1,2 +1,4 @@
 import productApi from './useProductApi'
-export { productApi as useProductApi }
+import userApi from './useUserApi'
+
+export { productApi as useProductApi, userApi as useUserApi }

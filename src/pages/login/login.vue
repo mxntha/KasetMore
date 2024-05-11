@@ -13,7 +13,6 @@
       rounded="lg"
     >
       <div class="text-subtitle-1 text-medium-emphasis">บัญชีผู้ใช้</div>
-      {{ loginform.username }}
       <v-text-field
         density="compact"
         placeholder="ใส่ชื่อผู้ใช้งาน"
@@ -91,6 +90,8 @@ import { ref } from 'vue'
 import { type LoginForm } from './interface'
 import { useRouter, useRoute } from 'vue-router'
 import { useUserInfomation } from '@/composables/useInfomation'
+import { useUserApi } from '@/composables/api'
+const userApi = useUserApi()
 const infomation = useUserInfomation()
 const router = useRouter()
 const visible = ref(false)
@@ -102,8 +103,13 @@ const loginform = ref<LoginForm>({
 function login() {
   console.log(loginform.value)
 }
-function gotoIndex() {
-  infomation.setJwt()
+async function gotoIndex() {
+  const jwt = await userApi.login( loginform.value.username,loginform.value.password)
+  if(!jwt){
+    alert('รหัสผ่านผิด')
+    return
+  }
+  infomation.setJwt(JSON.stringify(jwt))
   router.push({ path: '/' })
 }
 </script>
