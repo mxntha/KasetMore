@@ -7,6 +7,9 @@
 // Composables
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { useUserApi } from '@/composables/api'
+export const routerMenu = {
+  homePage: 'Index',
+}
 const userApi = useUserApi()
 const routes: RouteRecordRaw[] = [
   {
@@ -15,7 +18,7 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: '/',
-        name: 'Index',
+        name: routerMenu.homePage,
         component: () => import('@/pages/homePage/index.vue'),
       },
       {
