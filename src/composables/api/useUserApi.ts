@@ -10,6 +10,7 @@ export interface InsertUser {
   laserCard?: string
   phoneNumber: string
   password: string
+  email: string
 }
 export interface BaseUserInfo {
   userId: string
@@ -21,6 +22,7 @@ export interface BaseUserInfo {
   idCard?: string
   laserCard?: string
   phoneNumber: string
+  email: string
 }
 
 export interface UserInfo extends BaseUserInfo {
@@ -56,6 +58,7 @@ function useUserApi() {
           userName: res?.userName,
           idCard: res?.idCard,
           laserCard: res?.laserCard,
+          email: res?.email,
         }
       }
     },
