@@ -24,25 +24,31 @@
       single-line
     ></v-text-field>
     <v-spacer></v-spacer>
-    <v-btn @click="gotologin" v-if="!isLogin">เข้าสู่ระบบ</v-btn>
+    <v-btn @click="gotologin" v-if="!infomation.isLogin.value">เข้าสู่ระบบ</v-btn>
 
     <v-divider vertical v-if="isShowMenu"></v-divider>
 
-    <v-btn @click="gotoregisterCust" v-if="!isLogin">สมัครสมาชิก</v-btn>
+    <v-btn @click="gotoregisterCust" v-if="!infomation.isLogin.value">สมัครสมาชิก</v-btn>
     <v-divider vertical></v-divider>
 
+    {{ infomation.getInfomation.value }}
     <v-menu v-if="isShowMenu">
       <template v-slot:activator="{ props }">
-        <v-btn icon v-bind="props" class="mx-2" v-if="isLogin">
+        <div class="mx-2"  v-if="infomation.isLogin.value">
+          <v-btn icon v-bind="props" >
           <v-avatar icon="mdi-account" color="white"></v-avatar>
         </v-btn>
+        {{infomation.getInfomation.value?.userName}}
+        </div>
+       
       </template>
 
       <v-card min-width="300">
         <v-list>
           <div class="d-flex align-center justify-space-around">
             <v-avatar color="info">
-              <v-icon icon="mdi-account-circle"></v-icon>
+              <v-icon icon="mdi-account-circle">
+              </v-icon>
             </v-avatar>
           </div>
         </v-list>
@@ -90,14 +96,11 @@ import { useUserInfomation } from '@/composables/useInfomation'
 const router = useRouter()
 const route = useRoute()
 const infomation = useUserInfomation()
-const drawer = ref(false)
 const searchState = inject(searchPluginSymbol)!
-
 const showList = ['Index']
 const isShowSearchBar = computed(() => showList.some((x) => x == route.name))
 const isShowMenu = computed(() => showList.some((x) => x == route.name))
 const isFarmer = false
-const isLogin = computed(()=>infomation.getInfomation.value != null)
 
 function gotoregisterCust() {
   router.push({ path: '/registerCustomer' })
