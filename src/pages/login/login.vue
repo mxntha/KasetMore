@@ -89,7 +89,7 @@
 import { ref } from 'vue'
 import { type LoginForm } from './interface'
 import { useRouter, useRoute } from 'vue-router'
-import { useUserInfomation } from '@/composables/useInfomation'
+import { useUserInfomation } from '@/composables/useContext'
 import { useUserApi } from '@/composables/api'
 const userApi = useUserApi()
 const infomation = useUserInfomation()
@@ -113,3 +113,4 @@ async function gotoIndex() {
   router.push({ path: '/' })
 }
 </script>
+@/composables/useContext

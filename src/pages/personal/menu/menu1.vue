@@ -33,7 +33,7 @@
 </template>
 <script lang="ts" setup>
 import { useRouter, useRoute } from 'vue-router'
-import { useUserInfomation } from '@/composables/useInfomation'
+import { useUserInfomation } from '@/composables/useContext'
 import { BaseUserInfo } from '@/composables/api/useUserApi'
 import { useUserApi } from '@/composables/api'
 import { ref } from 'vue'
@@ -67,3 +67,4 @@ function gotoaccount() {
   router.push({ path: '/account' })
 }
 </script>
+@/composables/useContext

@@ -92,7 +92,7 @@ import { ref, inject } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { searchPluginSymbol } from '@/plugins/search'
 import { computed } from 'vue'
-import { useUserInfomation } from '@/composables/useInfomation'
+import { useUserInfomation } from '@/composables/useContext'
 const router = useRouter()
 const route = useRoute()
 const infomation = useUserInfomation()
@@ -119,3 +119,4 @@ function gotoIndex() {
   router.push({ path: '/' })
 }
 </script>
+@/composables/useContext
