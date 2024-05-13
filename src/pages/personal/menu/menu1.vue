@@ -39,7 +39,6 @@ import { useUserApi } from '@/composables/api'
 import { ref ,inject} from 'vue'
 const info = inject(contextPluginSymbol)!
 const router = useRouter()
-const userApi = useUserApi()
 const userInfoData = ref<BaseUserInfo | null>(null)
 ;(async () => {
   if (info.userInfomation.value == null) {
@@ -47,23 +46,6 @@ const userInfoData = ref<BaseUserInfo | null>(null)
     router.push({ path: '/' })
     return
   }
-  const res = await userApi.getUserInfomation(info.userInfomation.value!.userId)
-  if (res == null) {
-    alert('ไม่พบข้อมูลผู้ใช้งาน')
-    router.push({ path: '/' })
-    return
-  }
-  userInfoData.value = res
 })()
-function gotoIndex() {
-  router.push({ path: '/' })
-  localStorage.removeItem('login')
-  window.location.reload()
-}
-function gotoregisterFarmer() {
-  router.push({ path: '/registerFarmer' })
-}
-function gotoaccount() {
-  router.push({ path: '/account' })
-}
+
 </script>

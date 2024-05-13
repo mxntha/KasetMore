@@ -49,11 +49,12 @@ function useUserApi() {
         return res != null
       }
     },
-    async getUserInfomation(id: string): Promise<BaseUserInfo | null> {
+    async getUserInfomation(): Promise<BaseUserInfo | null> {
       try {
         return await getMethod<BaseUserInfo>('sa')
       } catch {
-        const res = fs.getUserInfomation(id)
+        const jwt = localStorage.getItem('login')
+        const res = fs.getUserInfomation(JSON.parse(jwt!).userId)
         if (res == null) return null
         return {
           address: res?.address,
