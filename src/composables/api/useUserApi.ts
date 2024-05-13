@@ -1,7 +1,6 @@
 import { postMethod, getMethod } from './baseApi'
 import fServices from '@/fakeService'
-import { contextPluginSymbol } from '@/plugins/context'
-import { inject } from 'vue'
+import { existInstance } from '@/plugins/context'
 export interface InsertUser {
   name: string
   lastName: string
@@ -33,14 +32,16 @@ export interface UserInfo extends BaseUserInfo {
 
 function useUserApi() {
   const fs = fServices()
-  const infomation = inject(contextPluginSymbol)!
+  const infomation = existInstance!
   return {
     async login(username: string, password: string) {
       try {
+        console.log('login . . . ')
+
         const res = await getMethod<{
           userName: string
           userId: string
-        } | null>('sa')
+        } | null>('login')
         infomation.setSessionLogin(JSON.stringify(res))
         return res != null
       } catch {
@@ -51,7 +52,7 @@ function useUserApi() {
     },
     async getUserInfomation(): Promise<BaseUserInfo | null> {
       try {
-        return await getMethod<BaseUserInfo>('sa')
+        return await getMethod<BaseUserInfo>('getUserInfomation')
       } catch {
         const jwt = localStorage.getItem('login')
         const res = fs.getUserInfomation(JSON.parse(jwt!).userId)
@@ -72,14 +73,14 @@ function useUserApi() {
     },
     async resgisterUser(data: InsertUser) {
       try {
-        return await postMethod<boolean>('sa')
+        return await postMethod<boolean>('resgisterUser')
       } catch {
         return fs.register(data)
       }
     },
     async checkJwt(jwt: string): Promise<boolean> {
       try {
-        return await getMethod<boolean>('sa')
+        return await getMethod<boolean>('checkJwt')
       } catch {
         return true
       }

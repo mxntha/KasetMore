@@ -6,14 +6,14 @@ function useProductApi() {
   return {
     async getAll() {
       try {
-        return await getMethod<Product[]>('sa')
+        return await getMethod<Product[]>('product all')
       } catch {
         return productData
       }
     },
     async getById(id: string) {
       try {
-        return await getMethod<Product>('sa')
+        return await getMethod<Product>('product one')
       } catch {
         return productData.find((x) => x.id === id)
       }
