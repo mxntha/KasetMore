@@ -125,6 +125,7 @@ interface Context {
 
 function context(): Context {
   const userInfo = ref<UserInfo | null>(null)
+  const userApi = useUserApi()
   // localStorage.setItem('login', jwt)
   function getJwt() {
     const temp = localStorage.getItem('login')
@@ -138,14 +139,18 @@ function context(): Context {
     try {
       const jwtString = getJwt()
       console.log('call user info')
-      if (jwtString != null) userInfo.value = JSON.parse(jwtString) as UserInfo
-      else userInfo.value = null
+      if (jwtString != null) {
+        userApi.getUserInfomation()
+        userInfo.value = JSON.parse(jwtString) as UserInfo
+      } else {
+        userInfo.value = null
+      }
     } catch {
       deleteJwt()
       userInfo.value = null
     }
   }
-  // setInfomation()
+  setInfomation()
   return {
     getUserInfomation: () => {
       setInfomation()
