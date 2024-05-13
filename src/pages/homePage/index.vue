@@ -7,9 +7,7 @@
         </ProductCardvue>
       </v-col>
     </v-row>
-  </v-container>
-
-  <div class="text-center">
+    <div class="text-center">
     <v-container>
       <v-row justify="center">
         <v-col cols="8">
@@ -29,6 +27,9 @@
     </v-container>
     all item is {{ filterProduct.length }}
   </div>
+  </v-container>
+
+ 
 </template>
 
 <script lang="ts" setup>

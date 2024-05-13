@@ -24,14 +24,13 @@
       single-line
     ></v-text-field>
     <v-spacer></v-spacer>
-    <v-btn @click="gotologin" v-if="!isLogin">เข้าสู่ระบบ</v-btn>
+    <v-btn @click="gotologin" v-if="!isLogin && isShowMenu">เข้าสู่ระบบ</v-btn>
 
     <v-divider vertical v-if="isShowMenu"></v-divider>
 
-    <v-btn @click="gotoregisterCust" v-if="!isLogin">สมัครสมาชิก</v-btn>
+    <v-btn @click="gotoregisterCust" v-if="!isLogin && isShowMenu">สมัครสมาชิก</v-btn>
     <v-divider vertical></v-divider>
 
-    {{ infomation.userInfomation.value }}
     <v-menu v-if="isShowMenu">
       <template v-slot:activator="{ props }">
         <div class="mx-2"  v-if="isLogin">
@@ -99,7 +98,7 @@ const route = useRoute()
 const searchState = inject(searchPluginSymbol)!
 const showList = ['Index']
 const isShowSearchBar = computed(() => showList.some((x) => x == route.name))
-const isShowMenu = computed(() => showList.some((x) => x == route.name))
+const isShowMenu = computed(() => showList.some((x) => x == route.name) && infomation.userInfomation.value!=null)
 const isLogin = computed(()=>infomation.userInfomation.value != null)
 const isFarmer = false
 
