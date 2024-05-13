@@ -56,11 +56,8 @@ const routes: RouteRecordRaw[] = [
             meta: { requiresAuth: true },
           },
           {
-            path: '/personal/menu3',
-            beforeEnter: (e) => {
-              alert('เพิ่ม route ของเมนู3รึยัง?')
-            },
-            component: () => import('@/pages/personal/menu/profile.vue'),
+            path: '/personal/sales',
+            component: () => import('@/pages/personal/menu/sales.vue'),
             meta: { requiresAuth: true },
           },
           {

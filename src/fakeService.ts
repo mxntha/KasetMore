@@ -1,7 +1,8 @@
 import { InsertUser, UserInfo } from './composables/api/useUserApi'
 const userData: UserInfo[] = [
   {
-    address: 'บ้านกูเอง',
+    address:
+      'หอพักวิวพ้อย ห้อง308 316/32 หมู่ 1 ซอยวงศ์สว่าง ถนนวงศ์สว่าง แขวงวงศ์สว่าง เขตบางซื่อ จังหวัดกรุงเทพมหานคร 10800',
     lastName: 'สุขวิเศษ',
     name: 'มณฑิตา',
     password: '123',

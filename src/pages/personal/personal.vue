@@ -19,24 +19,26 @@
             :selected="[menuId]"
             @update:selected="(e) => redirectMenu(e[0])"
           >
+            <v-list-subheader class="text-h5">ข้อมูลส่วนตัว</v-list-subheader>
             <v-list-item
-              prepend-icon="mdi-view-dashboard"
+              prepend-icon="mdi-account"
               title="บัญชีผู้ใช้"
               value="Profile"
             ></v-list-item>
             <v-list-item
-              prepend-icon="mdi-account-box"
+              prepend-icon="mdi-clipboard-text"
               title="ประวัติการซื้อ"
               value="Purchase"
             ></v-list-item>
-            <v-divider :thickness="5" ></v-divider>
+            <v-divider :thickness="5"></v-divider>
+            <v-list-subheader class="text-h5">เกษตรกร</v-list-subheader>
             <v-list-item
-              prepend-icon="mdi-gavel"
-              title="เกษตรกร"
-              value="menu3"
+              prepend-icon="mdi-chart-multiple"
+              title="ยอดขาย"
+              value="sales"
             ></v-list-item>
             <v-list-item
-              prepend-icon="mdi-gavel"
+              prepend-icon="mdi-store-plus"
               title="ขายสินค้า"
               value="menu4"
             ></v-list-item>
@@ -78,10 +80,9 @@ function redirectMenu(_menuId: any) {
   menuId.value = _menuId
   if (_menuId == 'menu5') {
     alert(
-      'ไปทำroute ให้ menu5 ด้วยยังไม่ได้ทำ ถ้าไม่เเก้มันจะพาไป menu1 ถ้าเเก้่เเล้วลบตรงนี้ด้วย',
+      'ไปทำroute ให้ menu5 ด้วยยังไม่ได้ทำ ถ้าไม่เเก้มันจะพาไป menu1 ถ้าเเก้่เเล้วลบตรงนี้ด้วย'
     )
   }
   router.push({ name: `${_menuId}` })
 }
-
 </script>
