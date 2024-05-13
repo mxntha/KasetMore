@@ -46,6 +46,7 @@
       router.push({ path: '/' })
       return
     }
+    userInfoData.value = info.userInfomation.value
   })()
   function gotoIndex() {
     // infomation.deleteJwt()
