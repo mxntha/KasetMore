@@ -1,4 +1,4 @@
-import { UserInfo } from '@/composables/api/useUserApi'
+import { BaseUserInfo, UserInfo } from '@/composables/api/useUserApi'
 import { computed, ComputedRef, ref } from 'vue'
 import { useUserApi } from '@/composables/api'
 
@@ -118,13 +118,13 @@ export const contextPluginSymbol: InjectionKey<PluginInstance> =
 
 interface Context {
   getUserInfomation: () => void
-  userInfomation: ComputedRef<UserInfo | null>
+  userInfomation: ComputedRef<BaseUserInfo | null>
   resetInfomation: () => void
   setSessionLogin: (session: string) => void
 }
 
 function context(): Context {
-  const userInfo = ref<UserInfo | null>(null)
+  const userInfo = ref<BaseUserInfo | null>(null)
   const userApi = useUserApi()
   // localStorage.setItem('login', jwt)
   function getJwt() {
@@ -135,13 +135,12 @@ function context(): Context {
     localStorage.removeItem('login')
     setInfomation()
   }
-  function setInfomation() {
+  async function setInfomation() {
     try {
       const jwtString = getJwt()
       console.log('call user info')
       if (jwtString != null) {
-        userApi.getUserInfomation()
-        userInfo.value = JSON.parse(jwtString) as UserInfo
+        userInfo.value = await userApi.getUserInfomation()
       } else {
         userInfo.value = null
       }
