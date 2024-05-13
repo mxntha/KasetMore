@@ -150,7 +150,7 @@ function context(): Context {
       userInfo.value = null
     }
   }
-  // setInfomation()
+  setInfomation()
   return {
     getUserInfomation: () => {
       setInfomation()

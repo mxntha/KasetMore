@@ -39,7 +39,6 @@
   import { ref ,inject} from 'vue'
   const info = inject(contextPluginSymbol)!
   const router = useRouter()
-  const userApi = useUserApi()
   const userInfoData = ref<BaseUserInfo | null>(null)
   ;(async () => {
     if (info.userInfomation.value == null) {
@@ -47,13 +46,6 @@
       router.push({ path: '/' })
       return
     }
-    const res = await userApi.getUserInfomation(info.userInfomation.value!.userId)
-    if (res == null) {
-      alert('ไม่พบข้อมูลผู้ใช้งาน')
-      router.push({ name: 'Index' })
-      return
-    }
-    userInfoData.value = res
   })()
   function gotoIndex() {
     // infomation.deleteJwt()
