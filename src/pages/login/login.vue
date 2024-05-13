@@ -55,6 +55,7 @@
     </form>
 
       <v-btn
+      :loading="loading"
         block
         class="mb-8"
         color="red-darken-3"
@@ -89,6 +90,7 @@ import { ref } from 'vue'
 import { type LoginForm } from './interface'
 import { useRouter } from 'vue-router'
 import { useUserApi } from '@/composables/api'
+const loading = ref(false)
 const userApi = useUserApi()
 const router = useRouter()
 const visible = ref(false)
@@ -97,7 +99,9 @@ const loginform = ref<LoginForm>({
   password: '',
 })
 async function gotoIndex() {
+  loading.value = true
   const jwt = await userApi.login(loginform.value.username,loginform.value.password)
+  loading.value = false
   if(!jwt){
     alert('รหัสผ่านผิด')
     return
