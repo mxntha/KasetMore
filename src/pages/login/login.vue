@@ -12,6 +12,7 @@
       max-width="448"
       rounded="lg"
     >
+    <form>
       <div class="text-subtitle-1 text-medium-emphasis">บัญชีผู้ใช้</div>
       <v-text-field
         density="compact"
@@ -20,12 +21,8 @@
         variant="outlined"
         v-model="loginform.username"
       ></v-text-field>
-
-      <div
-        class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
-      >
+      <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
         รหัสผ่าน
-
         <a
           class="text-caption text-decoration-none text-blue"
           href="#"
@@ -45,6 +42,7 @@
         variant="outlined"
         v-model="loginform.password"
         @click:append-inner="visible = !visible"
+        autocomplete="on"
       ></v-text-field>
 
       <v-card class="mb-12" color="surface-variant" variant="tonal">
@@ -54,6 +52,7 @@
           also click "Forgot login password?" below to reset the login password.
         </v-card-text>
       </v-card>
+    </form>
 
       <v-btn
         block
@@ -88,29 +87,21 @@
 //
 import { ref } from 'vue'
 import { type LoginForm } from './interface'
-import { useRouter, useRoute } from 'vue-router'
-import { useUserInfomation } from '@/composables/useContext'
+import { useRouter } from 'vue-router'
 import { useUserApi } from '@/composables/api'
 const userApi = useUserApi()
-const infomation = useUserInfomation()
 const router = useRouter()
 const visible = ref(false)
 const loginform = ref<LoginForm>({
   username: '',
   password: '',
 })
-
-function login() {
-  console.log(loginform.value)
-}
 async function gotoIndex() {
-  const jwt = await userApi.login( loginform.value.username,loginform.value.password)
+  const jwt = await userApi.login(loginform.value.username,loginform.value.password)
   if(!jwt){
     alert('รหัสผ่านผิด')
     return
   }
-  infomation.setJwt(JSON.stringify(jwt))
   router.push({ path: '/' })
 }
 </script>
-@/composables/useContext

@@ -32,22 +32,22 @@
   </v-card>
 </template>
 <script lang="ts" setup>
-import { useRouter, useRoute } from 'vue-router'
-import { useUserInfomation } from '@/composables/useContext'
+import { useRouter } from 'vue-router'
+import { contextPluginSymbol} from '@/plugins/context'
 import { BaseUserInfo } from '@/composables/api/useUserApi'
 import { useUserApi } from '@/composables/api'
-import { ref } from 'vue'
-const info = useUserInfomation()
+import { ref ,inject} from 'vue'
+const info = inject(contextPluginSymbol)!
 const router = useRouter()
 const userApi = useUserApi()
 const userInfoData = ref<BaseUserInfo | null>(null)
 ;(async () => {
-  if (info.getInfomation.value == null) {
+  if (info.userInfomation.value == null) {
     alert('ไม่พบข้อมูลผู้ใช้งาน')
     router.push({ path: '/' })
     return
   }
-  const res = await userApi.getUserInfomation(info.getInfomation.value!.userId)
+  const res = await userApi.getUserInfomation(info.userInfomation.value!.userId)
   if (res == null) {
     alert('ไม่พบข้อมูลผู้ใช้งาน')
     router.push({ path: '/' })
@@ -67,4 +67,3 @@ function gotoaccount() {
   router.push({ path: '/account' })
 }
 </script>
-@/composables/useContext
