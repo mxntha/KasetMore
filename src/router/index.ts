@@ -44,18 +44,15 @@ const routes: RouteRecordRaw[] = [
         meta: { requiresAuth: true },
         children: [
           {
-            path: '/personal/menu1',
-            component: () => import('@/pages/personal/menu/menu1.vue'),
+            path: '/personal/profile',
+            name: 'Profile',
+            component: () => import('@/pages/personal/menu/profile.vue'),
             meta: { requiresAuth: true },
           },
           {
-            path: '/personal/menu2',
-            beforeEnter: (e) => {
-              console.log('2')
-              alert('เพิ่ม route ของเมนู2รึยัง?')
-              // ลบอันนี้ด้วยถ้ามาเเก้เเล้ว
-            },
-            component: () => import('@/pages/personal/menu/menu1.vue'),
+            path: '/personal/purchase',
+            name: 'Purchase',
+            component: () => import('@/pages/personal/menu/purchase.vue'),
             meta: { requiresAuth: true },
           },
           {
@@ -63,7 +60,7 @@ const routes: RouteRecordRaw[] = [
             beforeEnter: (e) => {
               alert('เพิ่ม route ของเมนู3รึยัง?')
             },
-            component: () => import('@/pages/personal/menu/menu1.vue'),
+            component: () => import('@/pages/personal/menu/profile.vue'),
             meta: { requiresAuth: true },
           },
           {
@@ -71,7 +68,7 @@ const routes: RouteRecordRaw[] = [
             beforeEnter: (e) => {
               alert('เพิ่ม route ของเมนู4รึยัง?')
             },
-            component: () => import('@/pages/personal/menu/menu1.vue'),
+            component: () => import('@/pages/personal/menu/profile.vue'),
             meta: { requiresAuth: true },
           },
           {
@@ -92,10 +89,12 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: '/login',
+        name: 'Login',
         component: () => import('@/pages/login/login.vue'),
       },
       {
         path: '/registerCustomer',
+        name: 'RegisterCustomer',
         component: () => import('@/pages/register/registerCustomer.vue'),
       },
 
@@ -103,11 +102,6 @@ const routes: RouteRecordRaw[] = [
         path: '/registerFarmer',
         name: 'RegisterFarmer',
         component: () => import('@/pages/register/registerFarmer.vue'),
-      },
-
-      {
-        path: '/shoppingCart',
-        component: () => import('@/pages/shop/shoppingCart.vue'),
       },
       {
         path: '/:catchAll(.*)',

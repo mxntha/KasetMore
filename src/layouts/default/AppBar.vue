@@ -56,7 +56,7 @@
         <v-divider></v-divider>
 
         <v-list>
-          <v-list-item variant="text" class="mx-2" @click="gotopersonal">
+          <v-list-item variant="text" class="mx-2" @click="gotoprofile">
             บัญชี
           </v-list-item>
 
@@ -104,19 +104,19 @@ const isLogin = computed(()=>infomation.userInfomation.value != null)
 const isFarmer = false
 
 function gotoregisterCust() {
-  router.push({ path: '/registerCustomer' })
+  router.push({ name: 'RegisterCustomer' })
 }
 function gotologin() {
-  router.push({ path: '/login' })
+  router.push({ name: 'Login' })
 }
-function gotopersonal() {
-  router.push({ path: '/personal' })
+function gotoprofile() {
+  router.push({ name: 'Profile' })
 }
 function gotoregisterFarmer() {
-  router.push({ path: '/registerFarmer' })
+  router.push({ name: 'RegisterFarmer' })
 }
 function gotoIndex() {
   infomation.resetInfomation()
-  router.push({ path: '/' })
+  router.push({ name: 'Index' })
 }
 </script>

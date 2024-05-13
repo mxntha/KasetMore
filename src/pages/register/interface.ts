@@ -17,6 +17,7 @@ export interface RegisterFarmer {
   phone: string
   idcard: string
   idcardLaser: string
+  email: string
   // shop: Shop
 }
 

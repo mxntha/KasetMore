@@ -164,7 +164,7 @@
           color="success"
           variant="tonal"
           size="large"
-          @click="gotoPersonal"
+          @click="gotoProfile"
           >บัญชีผู้ใช้</v-btn
         >
       </v-card-actions>
@@ -190,6 +190,7 @@ const registerfarmer = ref<RegisterFarmer>({
   phone: '',
   idcard: '',
   idcardLaser: '',
+  email:''
 })
 const imageUrl = ref('')
 const router = useRouter()
@@ -216,13 +217,13 @@ function convertToBase64(_imageUrl: any) {
   }
 }
 function gotologin() {
-  router.push({ path: '/login' })
+  router.push({ name: 'Login' })
 }
 function gotoIndex() {
-  router.push({ path: '/' })
+  router.push({ name: 'Index' })
 }
-function gotoPersonal() {
-  router.push({ path: '/personal' })
+function gotoProfile() {
+  router.push({ name: 'Profile' })
 }
 async function register(){
   const res = await userApi.resgisterUser({
@@ -235,6 +236,7 @@ async function register(){
     userName:registerfarmer.value.username,
     idCard:registerfarmer.value.idcard,
     laserCard:registerfarmer.value.idcardLaser,
+    email:registerfarmer.value.email
   })
   if(res){
     openDialog.value = true
