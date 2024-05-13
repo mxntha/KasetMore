@@ -81,7 +81,17 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col>
+        <v-col class="pr-16">
+          Email
+          <v-text-field
+            v-model="registerfarmer.phone"
+            label=""
+            required
+            placeholder="xxxxxxxx@gmail.com"
+            counter=""
+          ></v-text-field>
+        </v-col>
+        <v-col class="pr-16" >
           เบอร์โทรศัพท์
           <v-text-field
             v-model="registerfarmer.phone"
@@ -92,7 +102,7 @@
           ></v-text-field>
         </v-col>
         <v-col>
-          <div class="file-input">
+          <div class="file-input pt-6">
             <input
               type="file"
               name="file-input"
