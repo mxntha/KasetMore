@@ -1,5 +1,7 @@
 import { postMethod, getMethod } from './baseApi'
 import fServices from '@/fakeService'
+import { contextPluginSymbol } from '@/plugins/context'
+import { inject } from 'vue'
 export interface InsertUser {
   name: string
   lastName: string
@@ -31,15 +33,20 @@ export interface UserInfo extends BaseUserInfo {
 
 function useUserApi() {
   const fs = fServices()
+  const infomation = inject(contextPluginSymbol)!
   return {
     async login(username: string, password: string) {
       try {
-        return await getMethod<{
+        const res = await getMethod<{
           userName: string
           userId: string
         } | null>('sa')
+        infomation.setSessionLogin(JSON.stringify(res))
+        return res != null
       } catch {
-        return fs.login(username, password)
+        const res = fs.login(username, password)
+        infomation.setSessionLogin(JSON.stringify(res))
+        return res != null
       }
     },
     async getUserInfomation(id: string): Promise<BaseUserInfo | null> {
