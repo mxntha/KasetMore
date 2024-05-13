@@ -44,12 +44,12 @@ function context(): Context {
     }
     init.value = true
   }
-  ;(async () => {
-    if (userInfo.value == null) {
-      console.log('call for init')
-      await setInfomation()
-    }
-  })()
+  // ;(async () => {
+  //   if (userInfo.value == null) {
+  //     console.log('call for init')
+  //     await setInfomation()
+  //   }
+  // })()
 
   return {
     getUserInfomation: async () => {

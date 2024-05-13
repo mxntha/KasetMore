@@ -24,7 +24,7 @@
       single-line
     ></v-text-field>
     <v-spacer></v-spacer>
-    <div v-if="infomation.isFinishInit.value">
+    <div>
       <v-btn @click="gotologin" v-if="!isLogin">เข้าสู่ระบบ</v-btn>
 
       <v-divider vertical v-if="isShowMenu"></v-divider>

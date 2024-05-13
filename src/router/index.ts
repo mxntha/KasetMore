@@ -116,10 +116,13 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 })
+
 router.beforeEach(async (to, from, next) => {
-  // เช็คว่าหน้าที่จะเข้าถึงต้องการการยืนยันตัวตนหรือไม่
+  const user = inject(contextPluginSymbol)!
+  if (user.userInfomation.value == null) {
+    await user.getUserInfomation()
+  }
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    const user = inject(contextPluginSymbol)!
     if (user.userInfomation.value == null) {
       alert('กรุณาล็อคอิน')
       next('/login')
@@ -127,7 +130,7 @@ router.beforeEach(async (to, from, next) => {
       next()
     }
   } else {
-    next() // หรือให้ผ่านไปเลย
+    next()
   }
 })
 
