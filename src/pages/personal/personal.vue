@@ -21,27 +21,28 @@
           >
             <v-list-item
               prepend-icon="mdi-view-dashboard"
-              title="ประวัติ"
-              value="menu1"
+              title="บัญชีผู้ใช้"
+              value="Profile"
             ></v-list-item>
             <v-list-item
               prepend-icon="mdi-account-box"
-              title="ที่อยู่"
-              value="menu2"
+              title="ประวัติการซื้อ"
+              value="Purchase"
             ></v-list-item>
+            <v-divider :thickness="5" ></v-divider>
             <v-list-item
               prepend-icon="mdi-gavel"
-              title="บัญชีธนาคาร&บัตร"
+              title="เกษตรกร"
               value="menu3"
             ></v-list-item>
             <v-list-item
               prepend-icon="mdi-gavel"
-              title="การตั้งค่าความเป็นส่วนตัว"
+              title="ขายสินค้า"
               value="menu4"
             ></v-list-item>
             <v-list-item
               prepend-icon="mdi-gavel"
-              title="ประวัติการซื้อ"
+              title=""
               value="menu5"
             ></v-list-item>
           </v-list>
@@ -68,7 +69,7 @@ const route = useRoute()
 
 const menuId = ref(route.path.split('/').pop())
 function gotoIndex() {
-  router.push({ path: '/' })
+  router.push({ name: 'Index' })
   localStorage.removeItem('login')
   window.location.reload()
 }
@@ -80,12 +81,7 @@ function redirectMenu(_menuId: any) {
       'ไปทำroute ให้ menu5 ด้วยยังไม่ได้ทำ ถ้าไม่เเก้มันจะพาไป menu1 ถ้าเเก้่เเล้วลบตรงนี้ด้วย',
     )
   }
-  router.push({ path: `/personal/${_menuId}` })
+  router.push({ name: `${_menuId}` })
 }
-function gotoregisterFarmer() {
-  router.push({ path: '/registerFarmer' })
-}
-function gotoaccount() {
-  router.push({ path: '/account' })
-}
+
 </script>

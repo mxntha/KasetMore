@@ -110,7 +110,7 @@ async function gotoIndex() {
     return
   }
   infomation.setJwt(JSON.stringify(jwt))
-  router.push({ path: '/' })
+  router.push({ name: 'Index' })
 }
 </script>
 @/composables/useContext

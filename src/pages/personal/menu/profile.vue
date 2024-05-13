@@ -44,27 +44,21 @@ const userInfoData = ref<BaseUserInfo | null>(null)
 ;(async () => {
   if (info.getInfomation.value == null) {
     alert('ไม่พบข้อมูลผู้ใช้งาน')
-    router.push({ path: '/' })
+    router.push({ name: 'Index' })
     return
   }
   const res = await userApi.getUserInfomation(info.getInfomation.value!.userId)
   if (res == null) {
     alert('ไม่พบข้อมูลผู้ใช้งาน')
-    router.push({ path: '/' })
+    router.push({ name: 'Index' })
     return
   }
   userInfoData.value = res
 })()
 function gotoIndex() {
-  router.push({ path: '/' })
-  localStorage.removeItem('login')
-  window.location.reload()
+  // infomation.deleteJwt()
+  router.push({ name: 'Index' })
 }
-function gotoregisterFarmer() {
-  router.push({ path: '/registerFarmer' })
-}
-function gotoaccount() {
-  router.push({ path: '/account' })
-}
+
 </script>
 @/composables/useContext

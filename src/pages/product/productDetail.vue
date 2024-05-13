@@ -61,7 +61,7 @@ const productApi = useProductApi()
   if (!productDetail.value) {
     alert('หาไม่เจอ')
     // router.push({ name: 'productDetail', params: { productId: productId } })
-    router.push({ path: '/' })
+    router.push({ name: 'Index' })
   }
 })()
 

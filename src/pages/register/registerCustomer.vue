@@ -117,7 +117,7 @@ const router = useRouter()
 const openDialog = ref(false)
 
 function gotologin() {
-  router.push({ path: '/login' })
+  router.push({ name: 'Login' })
 }
 </script>
 
