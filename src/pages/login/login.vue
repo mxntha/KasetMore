@@ -12,50 +12,53 @@
       max-width="448"
       rounded="lg"
     >
-    <form>
-      <div class="text-subtitle-1 text-medium-emphasis">บัญชีผู้ใช้</div>
-      <v-text-field
-        density="compact"
-        placeholder="ใส่ชื่อผู้ใช้งาน"
-        prepend-inner-icon="mdi-email-outline"
-        variant="outlined"
-        v-model="loginform.username"
-      ></v-text-field>
-      <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
-        รหัสผ่าน
-        <a
-          class="text-caption text-decoration-none text-blue"
-          href="#"
-          rel="noopener noreferrer"
-          target="_blank"
+      <form>
+        <div class="text-subtitle-1 text-medium-emphasis">บัญชีผู้ใช้</div>
+        <v-text-field
+          density="compact"
+          placeholder="ใส่ชื่อผู้ใช้งาน"
+          prepend-inner-icon="mdi-email-outline"
+          variant="outlined"
+          v-model="loginform.username"
+        ></v-text-field>
+        <div
+          class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
         >
-          ลืมรหัสผ่าน?</a
-        >
-      </div>
+          รหัสผ่าน
+          <a
+            class="text-caption text-decoration-none text-blue"
+            href="#"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            ลืมรหัสผ่าน?</a
+          >
+        </div>
 
-      <v-text-field
-        :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-        :type="visible ? 'text' : 'password'"
-        density="compact"
-        placeholder="ใส่รหัสผ่านของคุณ"
-        prepend-inner-icon="mdi-lock-outline"
-        variant="outlined"
-        v-model="loginform.password"
-        @click:append-inner="visible = !visible"
-        autocomplete="on"
-      ></v-text-field>
+        <v-text-field
+          :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+          :type="visible ? 'text' : 'password'"
+          density="compact"
+          placeholder="ใส่รหัสผ่านของคุณ"
+          prepend-inner-icon="mdi-lock-outline"
+          variant="outlined"
+          v-model="loginform.password"
+          @click:append-inner="visible = !visible"
+          autocomplete="on"
+        ></v-text-field>
 
-      <v-card class="mb-12" color="surface-variant" variant="tonal">
-        <v-card-text class="text-medium-emphasis text-caption">
-          Warning: After 3 consecutive failed login attempts, you account will
-          be temporarily locked for three hours. If you must login now, you can
-          also click "Forgot login password?" below to reset the login password.
-        </v-card-text>
-      </v-card>
-    </form>
+        <v-card class="mb-12" color="surface-variant" variant="tonal">
+          <v-card-text class="text-medium-emphasis text-caption">
+            Warning: After 3 consecutive failed login attempts, you account will
+            be temporarily locked for three hours. If you must login now, you
+            can also click "Forgot login password?" below to reset the login
+            password.
+          </v-card-text>
+        </v-card>
+      </form>
 
       <v-btn
-      :loading="loading"
+        :loading="loading"
         block
         class="mb-8"
         color="red-darken-3"
@@ -100,9 +103,12 @@ const loginform = ref<LoginForm>({
 })
 async function gotoIndex() {
   loading.value = true
-  const jwt = await userApi.login(loginform.value.username,loginform.value.password)
+  const jwt = await userApi.login(
+    loginform.value.username,
+    loginform.value.password,
+  )
   loading.value = false
-  if(!jwt){
+  if (!jwt) {
     alert('รหัสผ่านผิด')
     return
   }

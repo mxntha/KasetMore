@@ -1,7 +1,5 @@
 <template>
-<div v-if="userInfoData == null">loading . . .</div>
+  <div>loading . . .</div>
 </template>
 
-<script>
-
-</script>
+<script setup lang="ts"></script>

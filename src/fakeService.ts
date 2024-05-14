@@ -17,11 +17,11 @@ const userData: UserInfo[] = [
 export default function services() {
   function login(
     username: string,
-    password: string
+    password: string,
   ): { userName: string; userId: string } | null {
     console.log(username, password, userData)
     const user = userData.find(
-      (x) => x.userName == username && x.password == password
+      (x) => x.userName == username && x.password == password,
     )
     if (user)
       return {
@@ -41,7 +41,7 @@ export default function services() {
           x.idCard == data.idCard ||
           x.laserCard == data.laserCard ||
           x.phoneNumber == data.phoneNumber ||
-          x.email == data.email
+          x.email == data.email,
       ) != -1
     )
       return false

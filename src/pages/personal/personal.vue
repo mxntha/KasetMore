@@ -29,7 +29,7 @@
               title="ประวัติการซื้อ"
               value="Purchase"
             ></v-list-item>
-            <v-divider :thickness="5" ></v-divider>
+            <v-divider :thickness="5"></v-divider>
             <v-list-item
               prepend-icon="mdi-gavel"
               title="เกษตรกร"
@@ -83,5 +83,4 @@ function redirectMenu(_menuId: any) {
   }
   router.push({ name: `${_menuId}` })
 }
-
 </script>
