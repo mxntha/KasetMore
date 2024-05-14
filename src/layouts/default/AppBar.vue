@@ -37,7 +37,11 @@
       <template v-slot:activator="{ props }">
         <div class="mx-4" v-if="isLogin">
           <div v-bind="props" class="cursor-pointer">
-            <v-avatar icon="mdi-account" color="white"></v-avatar>
+            <v-avatar
+              icon="mdi-account-circle"
+              color="surface-variant"
+              :image="infomation.userInfomation.value?.profileUrl"
+            ></v-avatar>
             <span class="ml-2">
               {{ infomation.userInfomation.value?.userName }}
             </span>
@@ -85,6 +89,7 @@ import { searchPluginSymbol } from '@/plugins/search'
 import { computed } from 'vue'
 import { contextPluginSymbol } from '@/plugins/context'
 import { ref } from 'vue'
+import { BaseUserInfo } from '@/composables/api/useUserApi'
 const infomation = inject(contextPluginSymbol)!
 
 const router = useRouter()
@@ -95,6 +100,7 @@ const isShowSearchBar = computed(() => showList.some((x) => x == route.name))
 const isShowMenu = computed(() => showList.some((x) => x == route.name))
 const isLogin = computed(() => infomation.userInfomation.value != null)
 const isFarmer = false
+const userInfoData = ref<BaseUserInfo | null>(null)
 
 function gotoregisterCust() {
   router.push({ name: 'RegisterCustomer' })
