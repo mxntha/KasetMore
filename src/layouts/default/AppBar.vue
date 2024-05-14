@@ -35,25 +35,17 @@
 
     <v-menu v-if="isShowMenu">
       <template v-slot:activator="{ props }">
-        <div class="mx-2" v-if="isLogin">
-          <v-btn icon v-bind="props">
+        <div class="mx-4" v-if="isLogin">
+          <div v-bind="props" class="cursor-pointer">
             <v-avatar icon="mdi-account" color="white"></v-avatar>
-          </v-btn>
-          {{ infomation.userInfomation.value?.userName }}
+            <span class="ml-2">
+              {{ infomation.userInfomation.value?.userName }}
+            </span>
+          </div>
         </div>
       </template>
 
       <v-card min-width="300">
-        <v-list>
-          <div class="d-flex align-center justify-space-around">
-            <v-avatar color="info">
-              <v-icon icon="mdi-account-circle"> </v-icon>
-            </v-avatar>
-          </div>
-        </v-list>
-
-        <v-divider></v-divider>
-
         <v-list>
           <v-list-item variant="text" class="mx-2" @click="gotoprofile">
             บัญชี
