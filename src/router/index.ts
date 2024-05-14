@@ -7,10 +7,11 @@
 // Composables
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { useUserApi } from '@/composables/api'
+import { contextPluginSymbol } from '@/plugins/context'
+import { inject } from 'vue'
 export const routerMenu = {
   homePage: 'Index',
 }
-const userApi = useUserApi()
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -112,21 +113,21 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 })
+
 router.beforeEach(async (to, from, next) => {
-  // เช็คว่าหน้าที่จะเข้าถึงต้องการการยืนยันตัวตนหรือไม่
+  const user = inject(contextPluginSymbol)!
+  if (user.userInfomation.value == null) {
+    await user.getUserInfomation()
+  }
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    // ถ้าไม่ได้ล็อกอินให้ redirect ไปยังหน้าล็อกอิน
-    const jwt = localStorage.getItem('login')
-    const isAuth = jwt && (await userApi.checkJwt(jwt))
-    console.log('auth', isAuth)
-    if (!isAuth) {
+    if (user.userInfomation.value == null) {
       alert('กรุณาล็อคอิน')
       next('/login')
     } else {
       next()
     }
   } else {
-    next() // หรือให้ผ่านไปเลย
+    next()
   }
 })
 

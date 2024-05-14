@@ -1,7 +1,7 @@
 const baseUrl = 'http://localhost:5000/'
 
 async function getMethod<T>(url: string): Promise<T> {
-  console.log('get')
+  console.log('get', url)
   const jwt = localStorage.getItem('login')
   return fetch(baseUrl + url, {
     method: 'GET',
