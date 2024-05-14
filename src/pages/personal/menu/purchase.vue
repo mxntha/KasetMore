@@ -1,14 +1,5 @@
 <template>
-  <div v-if="userInfoData == null">loading . . .</div>
+  <div>loading . . .</div>
 </template>
 
-<script lang="ts" setup>
-import { useRouter } from 'vue-router'
-import { contextPluginSymbol } from '@/plugins/context'
-import { BaseUserInfo } from '@/composables/api/useUserApi'
-import { useUserApi } from '@/composables/api'
-import { ref, inject } from 'vue'
-
-const router = useRouter()
-const userInfoData = ref<null>(null)
-</script>
+<script setup lang="ts"></script>

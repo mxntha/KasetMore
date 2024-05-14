@@ -199,4 +199,9 @@ const productData: ProductCard[] = [
     description: 'พันธุ์หมอนทอง เนื้อนุ่ม เนื้อเนียน',
   },
 ]
-export { productData }
+const images: string[] = [
+  'https://shopee.co.th/blog/wp-content/uploads/2022/02/marian-plum.jpg',
+  'https://taxclinic.mof.go.th/product/1484570264-5.jpg',
+  'https://shopee.co.th/blog/wp-content/uploads/2022/02/durian.jpg',
+]
+export { productData, images }

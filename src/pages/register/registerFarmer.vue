@@ -91,7 +91,7 @@
             counter=""
           ></v-text-field>
         </v-col>
-        <v-col class="pr-16" >
+        <v-col class="pr-16">
           เบอร์โทรศัพท์
           <v-text-field
             v-model="registerfarmer.phone"
@@ -142,9 +142,7 @@
       <v-btn variant="text" @click="router.go(-1)"> ย้อนกลับ </v-btn>
       <v-spacer></v-spacer>
 
-      <v-btn color="primary" variant="text" @click="register">
-        ตกลง
-      </v-btn>
+      <v-btn color="primary" variant="text" @click="register"> ตกลง </v-btn>
     </v-card-actions>
   </v-card>
   <div class="regis"></div>
@@ -170,11 +168,7 @@
         <v-btn color="info" variant="tonal" size="large" @click="gotoIndex"
           >หน้าแรก</v-btn
         >
-        <v-btn
-          color="success"
-          variant="tonal"
-          size="large"
-          @click="gotoProfile"
+        <v-btn color="success" variant="tonal" size="large" @click="gotoProfile"
           >บัญชีผู้ใช้</v-btn
         >
       </v-card-actions>
@@ -200,7 +194,7 @@ const registerfarmer = ref<RegisterFarmer>({
   phone: '',
   idcard: '',
   idcardLaser: '',
-  email:''
+  email: '',
 })
 const imageUrl = ref('')
 const router = useRouter()
@@ -235,23 +229,22 @@ function gotoIndex() {
 function gotoProfile() {
   router.push({ name: 'Profile' })
 }
-async function register(){
+async function register() {
   const res = await userApi.resgisterUser({
-    address:registerfarmer.value.address,
-    lastName:registerfarmer.value.lastname,
-    name:registerfarmer.value.firstname,
-    password:registerfarmer.value.password,
-    phoneNumber:registerfarmer.value.phone,
-    profileUrl:imageUrl.value,
-    userName:registerfarmer.value.username,
-    idCard:registerfarmer.value.idcard,
-    laserCard:registerfarmer.value.idcardLaser,
-    email:registerfarmer.value.email
+    address: registerfarmer.value.address,
+    lastName: registerfarmer.value.lastname,
+    name: registerfarmer.value.firstname,
+    password: registerfarmer.value.password,
+    phoneNumber: registerfarmer.value.phone,
+    profileUrl: imageUrl.value,
+    userName: registerfarmer.value.username,
+    idCard: registerfarmer.value.idcard,
+    laserCard: registerfarmer.value.idcardLaser,
+    email: registerfarmer.value.email,
   })
-  if(res){
+  if (res) {
     openDialog.value = true
-  }
-  else{
+  } else {
     alert('error')
   }
 }

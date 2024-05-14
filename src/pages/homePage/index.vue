@@ -77,23 +77,23 @@ const filterProduct = computed(() =>
   _productlist.value.filter(
     (x) =>
       searchState.searchText.value.trim() === '' ||
-      x.name.includes(searchState.searchText.value)
-  )
+      x.name.includes(searchState.searchText.value),
+  ),
 )
 const currentPage = ref(1)
 const allPages = computed(() =>
   filterProduct.value.length / maxItem > 0
     ? Math.round(filterProduct.value.length / maxItem)
-    : 1
+    : 1,
 )
 const productlist = computed(() =>
   filterProduct.value.length > maxItem
     ? filterProduct.value.filter(
         (x, i) =>
           i + 1 > (currentPage.value - 1) * maxItem &&
-          i + 1 <= currentPage.value * maxItem
+          i + 1 <= currentPage.value * maxItem,
       )
-    : filterProduct.value
+    : filterProduct.value,
 )
 function buyClick(id: string) {
   router.push({ name: 'ProductDetail', params: { productId: id } })
