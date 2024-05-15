@@ -51,13 +51,19 @@
 
       <v-card min-width="300">
         <v-list>
-          <v-list-item variant="text" class="mx-2" @click="gotoprofile">
+          <v-list-item
+            variant="text"
+            class="mx-2"
+            prepend-icon="mdi-account"
+            @click="gotoprofile"
+          >
             บัญชี
           </v-list-item>
 
           <v-list-item
             variant="text"
             class="mx-2"
+            prepend-icon="mdi-account-cowboy-hat"
             @click="gotoregisterFarmer"
             v-if="!isFarmer"
           >
@@ -73,7 +79,12 @@
             หน้าขายของ
           </v-list-item>
 
-          <v-list-item variant="text" class="mx-2" @click="gotoIndex">
+          <v-list-item
+            variant="text"
+            class="mx-2"
+            prepend-icon="mdi-logout"
+            @click="gotoIndex"
+          >
             ออกจากระบบ
           </v-list-item>
         </v-list>

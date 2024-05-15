@@ -53,7 +53,14 @@
 
       <template v-slot:append>
         <div class="pa-2">
-          <v-btn block @click="gotoIndex"> ออกจากระบบ </v-btn>
+          <v-btn block prepend-icon="mdi-home" @click="gotoIndexLogin">
+            หน้าแรก
+          </v-btn>
+        </div>
+        <div class="pa-2">
+          <v-btn block prepend-icon="mdi-logout" @click="gotoIndex">
+            ออกจากระบบ
+          </v-btn>
         </div>
       </template>
     </v-navigation-drawer>
@@ -74,6 +81,9 @@ function gotoIndex() {
   router.push({ name: 'Index' })
   localStorage.removeItem('login')
   window.location.reload()
+}
+function gotoIndexLogin() {
+  router.push({ name: 'Index' })
 }
 function redirectMenu(_menuId: any) {
   if (_menuId == undefined) return
