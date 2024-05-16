@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:5000/'
+const baseUrl = 'https://localhost:7275/'
 
 async function getMethod<T>(url: string): Promise<T> {
   console.log('get', url)

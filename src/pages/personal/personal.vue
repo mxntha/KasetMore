@@ -35,19 +35,19 @@
             <v-list-item
               prepend-icon="mdi-chart-multiple"
               title="ยอดขาย"
-              value="sales"
+              value="Sales"
             ></v-list-item>
             <v-list-item
               prepend-icon="mdi-store-plus"
               title="ขายสินค้า"
-              value="products"
+              value="Products"
             ></v-list-item>
             <v-divider :thickness="5"></v-divider>
             <v-list-subheader class="text-h5">Admin</v-list-subheader>
             <v-list-item
               prepend-icon="mdi-gavel"
               title="verify"
-              value="verify"
+              value="Admin"
             ></v-list-item>
           </v-list>
         </div>

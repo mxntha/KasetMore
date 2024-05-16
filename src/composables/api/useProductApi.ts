@@ -1,5 +1,5 @@
 import { ProductCard } from '@/components/productCard/interface'
-import { postMethod, getMethod } from './baseApi'
+import { postMethod, getMethod, multpartFormData } from './baseApi'
 import { productData } from '@/fakeDb'
 interface Product extends ProductCard {}
 function useProductApi() {
@@ -18,7 +18,13 @@ function useProductApi() {
         return productData.find((x) => x.id === id)
       }
     },
-    createProduct() {},
+    async createProduct(files: File[], jsonData: any) {
+      try {
+        return await multpartFormData('add-prodect', files, jsonData)
+      } catch {
+        return null
+      }
+    },
   }
 }
 export default useProductApi

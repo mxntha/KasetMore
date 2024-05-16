@@ -23,65 +23,78 @@
                     v-bind="activatorProps"
                   ></v-btn>
                 </template>
+                <template v-slot:default="{ isActive: activator }">
+                  <v-card prepend-icon="mdi-account" title="แก้ไขข้อมูลส่วนตัว">
+                    <v-card-text>
+                      <v-row dense>
+                        <v-col cols="12" md="4" sm="6">
+                          <v-text-field
+                            label="ชื่อบัญชีผู้ใช้งาน"
+                            required
+                            v-model="userInfoData.userName"
+                            disabled
+                          ></v-text-field>
+                        </v-col>
 
-                <v-card prepend-icon="mdi-account" title="แก้ไขข้อมูลส่วนตัว">
-                  <v-card-text>
-                    <v-row dense>
-                      <v-col cols="12" md="4" sm="6">
-                        <v-text-field
-                          label="ชื่อบัญชีผู้ใช้งาน"
-                          required
-                        ></v-text-field>
-                      </v-col>
+                        <v-col cols="12" md="10" sm="8">
+                          <v-text-field
+                            hint="example of helper text only on focus"
+                            label="Email"
+                            v-model="userInfoData.email"
+                            disabled
+                          ></v-text-field>
+                        </v-col>
 
-                      <v-col cols="12" md="10" sm="8">
-                        <v-text-field
-                          hint="example of helper text only on focus"
-                          label="Email"
-                        ></v-text-field>
-                      </v-col>
+                        <v-col cols="12" md="4" sm="6">
+                          <v-text-field
+                            label="รหัสผ่าน"
+                            type="password"
+                            required
+                          ></v-text-field>
+                        </v-col>
 
-                      <v-col cols="12" md="4" sm="6">
-                        <v-text-field
-                          label="รหัสผ่าน"
-                          type="password"
-                          required
-                        ></v-text-field>
-                      </v-col>
+                        <v-col cols="12" md="4" sm="6">
+                          <v-text-field
+                            label="ยืนยันรหัสผ่าน"
+                            type="password"
+                            required
+                          ></v-text-field>
+                        </v-col>
 
-                      <v-col cols="12" md="4" sm="6">
-                        <v-text-field
-                          label="ยืนยันรหัสผ่าน"
-                          type="password"
-                          required
-                        ></v-text-field>
-                      </v-col>
+                        <v-col cols="12" sm="15">
+                          <v-textarea
+                            label="ที่อยู่"
+                            required
+                            v-model="userInfoData.address"
+                          ></v-textarea>
+                        </v-col>
+                      </v-row>
 
-                      <v-col cols="12" sm="15">
-                        <v-textarea label="ที่อยู่" required></v-textarea>
-                      </v-col>
-                    </v-row>
+                      <small class="text-caption text-medium-emphasis"
+                        >*indicates required field</small
+                      >
+                    </v-card-text>
 
-                    <small class="text-caption text-medium-emphasis"
-                      >*indicates required field</small
-                    >
-                  </v-card-text>
+                    <v-divider></v-divider>
 
-                  <v-divider></v-divider>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
 
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
+                      <v-btn
+                        text="Close"
+                        variant="plain"
+                        @click="activator.value = false"
+                      ></v-btn>
 
-                    <v-btn text="Close" variant="plain" @click=""></v-btn>
-
-                    <v-btn
-                      color="primary"
-                      text="Save"
-                      variant="tonal"
-                      @click="false"
-                    ></v-btn>
-                  </v-card-actions>
-                </v-card>
+                      <v-btn
+                        color="primary"
+                        text="Save"
+                        variant="tonal"
+                        @click="activator.value = false"
+                      ></v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </template>
               </v-dialog>
             </div>
           </v-col>
@@ -140,4 +153,3 @@ function gotoIndex() {
   router.push({ name: 'Index' })
 }
 </script>
-@/composables/useContext
