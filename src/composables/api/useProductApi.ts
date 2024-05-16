@@ -1,7 +1,8 @@
 import { ProductCard } from '@/components/productCard/interface'
 import { postMethod, getMethod, multpartFormData } from './baseApi'
 import { productData } from '@/fakeDb'
-interface Product extends ProductCard {}
+import { Product } from '.'
+
 function useProductApi() {
   return {
     async getAll() {
@@ -20,7 +21,7 @@ function useProductApi() {
     },
     async createProduct(files: File[], jsonData: any) {
       try {
-        return await multpartFormData('add-prodect', files, jsonData)
+        return await multpartFormData('add-product', files, jsonData)
       } catch {
         return null
       }

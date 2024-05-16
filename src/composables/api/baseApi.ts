@@ -42,7 +42,7 @@ async function multpartFormData(url: string, files: File[], jsonData: any) {
     formData.append(`images${i}`, files[i])
   }
 
-  fetch(url, {
+  fetch(baseUrl + url, {
     method: 'POST',
     body: formData,
   })
