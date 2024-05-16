@@ -40,12 +40,14 @@
             <v-list-item
               prepend-icon="mdi-store-plus"
               title="ขายสินค้า"
-              value="menu4"
+              value="products"
             ></v-list-item>
+            <v-divider :thickness="5"></v-divider>
+            <v-list-subheader class="text-h5">Admin</v-list-subheader>
             <v-list-item
               prepend-icon="mdi-gavel"
-              title=""
-              value="menu5"
+              title="verify"
+              value="verify"
             ></v-list-item>
           </v-list>
         </div>
@@ -88,11 +90,7 @@ function gotoIndexLogin() {
 function redirectMenu(_menuId: any) {
   if (_menuId == undefined) return
   menuId.value = _menuId
-  if (_menuId == 'menu5') {
-    alert(
-      'ไปทำroute ให้ menu5 ด้วยยังไม่ได้ทำ ถ้าไม่เเก้มันจะพาไป menu1 ถ้าเเก้่เเล้วลบตรงนี้ด้วย'
-    )
-  }
+
   router.push({ name: `${_menuId}` })
 }
 </script>

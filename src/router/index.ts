@@ -58,15 +58,20 @@ const routes: RouteRecordRaw[] = [
           },
           {
             path: '/personal/sales',
+            name: 'Sales',
             component: () => import('@/pages/personal/menu/sales.vue'),
             meta: { requiresAuth: true },
           },
           {
-            path: '/personal/menu4',
-            beforeEnter: (e) => {
-              alert('เพิ่ม route ของเมนู4รึยัง?')
-            },
-            component: () => import('@/pages/personal/menu/profile.vue'),
+            path: '/personal/products',
+            name: 'Products',
+            component: () => import('@/pages/personal/menu/products.vue'),
+            meta: { requiresAuth: true },
+          },
+          {
+            path: '/personal/admin',
+            name: 'Admin',
+            component: () => import('@/pages/personal/menu/admin.vue'),
             meta: { requiresAuth: true },
           },
           {
