@@ -1,6 +1,6 @@
 <template>
-  <data v-if="productlist.length == 0">loading api . . .</data>
-  <div class="mx-20" v-else>
+  <!-- <data v-if="productlist.length == 0">loading api . . .</data> -->
+  <div class="mx-20">
     <div id="section-category" class="">
       <v-card>
         <v-card-title>หมวดหมู่</v-card-title>
@@ -16,7 +16,7 @@
       </v-card>
     </div>
     <div id="section-suggestion " class="mt-4">
-      <v-card>
+      <v-card :loading="loading">
         <v-card-title>สินค้า</v-card-title>
       </v-card>
       <v-container fluid>
@@ -67,33 +67,35 @@ const categories = ['ผัก', 'ผลไม้', 'อุปเกษตร', 
 const productApi = useProductApi()
 const searchState = inject(searchPluginSymbol)!
 const data = ref<any>('')
-
+const loading = ref(true)
 const maxItem = 8
 const _productlist = ref<ProductCard[]>([])
 ;(async () => {
+  loading.value = true
   _productlist.value = await productApi.getAll()
+  loading.value = false
 })()
 const filterProduct = computed(() =>
   _productlist.value.filter(
     (x) =>
       searchState.searchText.value.trim() === '' ||
-      x.name.includes(searchState.searchText.value),
-  ),
+      x.name.includes(searchState.searchText.value)
+  )
 )
 const currentPage = ref(1)
 const allPages = computed(() =>
   filterProduct.value.length / maxItem > 0
     ? Math.round(filterProduct.value.length / maxItem)
-    : 1,
+    : 1
 )
 const productlist = computed(() =>
   filterProduct.value.length > maxItem
     ? filterProduct.value.filter(
         (x, i) =>
           i + 1 > (currentPage.value - 1) * maxItem &&
-          i + 1 <= currentPage.value * maxItem,
+          i + 1 <= currentPage.value * maxItem
       )
-    : filterProduct.value,
+    : filterProduct.value
 )
 function buyClick(id: string) {
   router.push({ name: 'ProductDetail', params: { productId: id } })
