@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:5000/'
+const baseUrl = 'https://localhost:7275/'
 
 async function getMethod<T>(url: string): Promise<T> {
   console.log('get', url)
@@ -39,10 +39,10 @@ async function multpartFormData(url: string, files: File[], jsonData: any) {
   const formData = new FormData()
   formData.append('data', jsonData)
   for (let i = 0; i < files.length; i++) {
-    formData.append(`images${i}`, files[i])
+    formData.append(`images`, files[i])
   }
 
-  fetch(url, {
+  fetch(baseUrl + url, {
     method: 'POST',
     body: formData,
   })

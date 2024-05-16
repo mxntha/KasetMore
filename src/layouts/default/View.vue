@@ -1,6 +1,6 @@
 <template>
   <div class="h-100 bg-grey-lighten-2 pa-8">
-    <v-main class="">
+    <v-main class="h-100">
       <router-view />
     </v-main>
   </div>
