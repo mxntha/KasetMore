@@ -17,7 +17,7 @@ async function getMethod<T>(url: string): Promise<T> {
       throw x
     })
 }
-function postMethod<T>(url: string, ...payload: any): Promise<T> {
+async function postMethod<T>(url: string, ...payload: any): Promise<T> {
   const jwt = localStorage.getItem('login')
   console.log(payload)
   return fetch(baseUrl + url, {
@@ -35,4 +35,22 @@ function postMethod<T>(url: string, ...payload: any): Promise<T> {
       throw x
     })
 }
-export { baseUrl, getMethod, postMethod }
+async function multpartFormData(url: string, files: File[], jsonData: any) {
+  const formData = new FormData()
+  formData.append('data', jsonData)
+  for (let i = 0; i < files.length; i++) {
+    formData.append(`images${i}`, files[i])
+  }
+
+  fetch(url, {
+    method: 'POST',
+    body: formData,
+  })
+    .then((x) => x.json())
+    .then((x) => x)
+    .catch((x) => {
+      console.log(x)
+      throw x
+    })
+}
+export { baseUrl, getMethod, postMethod, multpartFormData }
