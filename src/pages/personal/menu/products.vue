@@ -1,6 +1,6 @@
 <template>
   <v-card class="ma-8" height="835">
-    <v-data-table :items="productData">
+    <v-data-table :items="productData" :loading="loading">
       <template v-slot:top>
         <v-toolbar flat>
           <v-toolbar-title>My CRUD</v-toolbar-title>
@@ -145,6 +145,7 @@ import { ref } from 'vue'
 interface TableProduct extends Product {
   action: string
 }
+const loading = ref(true)
 const imageUrl = ref('')
 const imageFile = ref<File[]>([])
 async function handleImageChange(event: any) {
@@ -197,7 +198,9 @@ function editItem(product: TableProduct) {
 }
 const productData = ref<TableProduct[]>([])
 ;(async () => {
+  loading.value = true
   await fetchProductData()
+  loading.value = false
 })()
 </script>
 <style label="scss" scoped>
