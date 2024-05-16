@@ -9,15 +9,13 @@
         ></v-img>
 
         <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="500">
-          <v-card-title>kaset more</v-card-title>
+          <v-card-title class="text-h3 pb-6">Kaset More</v-card-title>
           <v-card-text>
             <form>
-              <div class="text-subtitle-1 text-medium-emphasis">
-                บัญชีผู้ใช้
-              </div>
+              <div class="text-subtitle-1 text-medium-emphasis">Email</div>
               <v-text-field
                 density="compact"
-                placeholder="ใส่ชื่อผู้ใช้งาน"
+                placeholder="ใส่ Email ของคุณ"
                 prepend-inner-icon="mdi-email-outline"
                 variant="outlined"
                 v-model="loginform.username"
@@ -37,6 +35,7 @@
               </div>
 
               <v-text-field
+                class="mb-4"
                 :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
                 :type="visible ? 'text' : 'password'"
                 density="compact"
@@ -47,21 +46,12 @@
                 @click:append-inner="visible = !visible"
                 autocomplete="on"
               ></v-text-field>
-
-              <v-card class="mb-12" color="surface-variant" variant="tonal">
-                <v-card-text class="text-medium-emphasis text-caption">
-                  Warning: After 3 consecutive failed login attempts, you
-                  account will be temporarily locked for three hours. If you
-                  must login now, you can also click "Forgot login password?"
-                  below to reset the login password.
-                </v-card-text>
-              </v-card>
             </form>
 
             <v-btn
               :loading="loading"
               block
-              class="mb-8"
+              class="mb-6"
               color="red-darken-3"
               size="large"
               variant="tonal"
