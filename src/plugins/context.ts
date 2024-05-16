@@ -3,6 +3,7 @@ import { computed, ComputedRef, Ref, ref } from 'vue'
 import { useUserApi } from '@/composables/api'
 
 import { type Plugin, type InjectionKey } from 'vue'
+const loginLocalStorageKey = 'logins'
 export type PluginInstance = Context
 export const contextPluginSymbol: InjectionKey<PluginInstance> =
   Symbol('$context')
@@ -19,13 +20,13 @@ function context(): Context {
   const userInfo = ref<BaseUserInfo | null>(null)
   const userApi = useUserApi()
   const init = ref(false)
-  // localStorage.setItem('login', jwt)
+  // localStorage.setItem(loginLocalStorageKey, jwt)
   function getJwt() {
-    const temp = localStorage.getItem('login')
+    const temp = localStorage.getItem(loginLocalStorageKey)
     return temp
   }
   function deleteJwt() {
-    localStorage.removeItem('login')
+    localStorage.removeItem(loginLocalStorageKey)
     setInfomation()
   }
   async function setInfomation() {
@@ -57,12 +58,12 @@ function context(): Context {
     },
     isFinishInit: init,
     resetInfomation: () => {
-      localStorage.removeItem('login')
+      localStorage.removeItem(loginLocalStorageKey)
       userInfo.value = null
     },
     userInfomation: computed(() => userInfo.value),
     setSessionLogin: (session: string) => {
-      localStorage.setItem('login', session)
+      localStorage.setItem(loginLocalStorageKey, session)
       setInfomation()
     },
   }
