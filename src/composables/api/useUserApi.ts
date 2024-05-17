@@ -25,6 +25,7 @@ export interface BaseUserInfo {
   laserCard?: string
   phoneNumber: string
   email: string
+  isFarmer: boolean
 }
 
 export interface UserInfo extends BaseUserInfo {
@@ -69,6 +70,7 @@ function useUserApi() {
           idCard: res?.idCard,
           laserCard: res?.laserCard,
           email: res?.email,
+          isFarmer: res.isFarmer,
         }
       }
     },

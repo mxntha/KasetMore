@@ -1,6 +1,6 @@
 <template>
   <v-layout class="mx-n8 mt-n9">
-    <v-navigation-drawer color="purple" theme="dark" permanent>
+    <v-navigation-drawer class="h-full" color="purple" theme="dark" permanent>
       <v-list color="transparent">
         <v-card
           append-icon="mdi-cancel"
@@ -65,7 +65,7 @@
         </div>
       </template>
     </v-navigation-drawer>
-    <v-main style="height: 900px">
+    <v-main class="h-100">
       <router-view />
     </v-main>
   </v-layout>

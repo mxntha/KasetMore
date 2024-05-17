@@ -249,6 +249,7 @@ const purchaseData: _BasePurchase[] = [
 ]
 const userData: UserInfo[] = [
   {
+    isFarmer: false,
     address:
       'หอพักวิวพ้อย ห้อง308 316/32 หมู่ 1 ซอยวงศ์สว่าง ถนนวงศ์สว่าง แขวงวงศ์สว่าง เขตบางซื่อ จังหวัดกรุงเทพมหานคร 10800',
     lastName: 'สุขวิเศษ',

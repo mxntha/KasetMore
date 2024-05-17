@@ -52,7 +52,7 @@
               :loading="loading"
               block
               class="mb-6"
-              color="red-darken-3"
+              color="deep-purple"
               size="large"
               variant="tonal"
               rounded="xl"
@@ -68,7 +68,7 @@
               <v-spacer></v-spacer>
               <a
                 class="text-blue text-decoration-none align-self-center"
-                href="registerCustomer"
+                href="register?type=customer"
                 rel="noopener noreferrer"
               >
                 สมัครสมาชิก <v-icon icon="mdi-chevron-right"></v-icon>
@@ -109,3 +109,4 @@ async function gotoIndex() {
   router.push({ path: '/' })
 }
 </script>
+<style scoped></style>

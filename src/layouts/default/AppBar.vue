@@ -114,7 +114,7 @@ const isFarmer = false
 const userInfoData = ref<BaseUserInfo | null>(null)
 
 function gotoregisterCust() {
-  router.push({ name: 'RegisterCustomer' })
+  router.push({ name: 'Register', query: { type: 'customer' } })
 }
 function gotologin() {
   router.push({ name: 'Login' })
@@ -123,7 +123,7 @@ function gotoprofile() {
   router.push({ name: 'Profile' })
 }
 function gotoregisterFarmer() {
-  router.push({ name: 'RegisterFarmer' })
+  router.push({ name: 'Register', query: { type: 'farmer' } })
 }
 function gotoIndex() {
   infomation.resetInfomation()

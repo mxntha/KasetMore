@@ -43,6 +43,7 @@ export default function services() {
       laserCard: data.laserCard,
       profileUrl: data.profileUrl,
       email: data.email,
+      isFarmer: false,
     })
     console.log(userData)
     return true
