@@ -4,9 +4,8 @@ import userApi from './useUserApi'
 import purchaseApi from './usePurchaseApi'
 
 export interface Product extends ProductCard {}
-export interface Purchase {
+export interface BasePurchase {
   purchaseId: string
-  productId: string
   unit: string
   amount: number
   basePrice: number
@@ -16,6 +15,12 @@ export interface Purchase {
   dateCrated: string
   dateSuccess: string
   sellerId: string
+}
+export interface _BasePurchase extends BasePurchase {
+  productId: string
+}
+export interface Purchase extends BasePurchase {
+  product: Product
 }
 export {
   productApi as useProductApi,

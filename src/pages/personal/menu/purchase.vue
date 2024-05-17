@@ -1,21 +1,22 @@
 <template>
-  <v-card class="ma-8" height="835">
+  <v-card :loading="loading" class="ma-8" height="835">
+    <v-card-title>ซื้อของไง</v-card-title>
     <v-card-text>
       <v-row>
-        <v-col>
-          <v-card :loading="loading">
+        <v-col v-for="i in purchaseData" cols="12">
+          <v-card>
             <div class="d-flex ma-2">
               <v-icon icon="mdi-store"></v-icon>
-              <div class="pl-2">ชื่อร้านค้า</div>
+              <div class="pl-2">ชื่อร้านค้า : {{ i.sellerId }}</div>
             </div>
             <v-divider></v-divider>
             <div class="d-flex">
               <v-img height="200" width="100"> </v-img>
               <div class="pt-4">ชื่อสินค้า</div>
-              {{ purchaseData }}
+              {{ i.product }}
             </div>
             <v-divider></v-divider>
-            <div class="ma-3">รวมการสั่งซื้อ :</div>
+            <div class="ma-3">รวมการสั่งซื้อ : {{ i.total }}</div>
           </v-card>
         </v-col>
       </v-row>
@@ -42,3 +43,8 @@ onMounted(async () => {
   loading.value = false
 })
 </script>
+<style scoped>
+.v-card {
+  overflow-y: auto;
+}
+</style>

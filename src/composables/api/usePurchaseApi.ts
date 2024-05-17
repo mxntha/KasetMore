@@ -1,6 +1,6 @@
 import { ProductCard } from '@/components/productCard/interface'
 import { postMethod, getMethod } from './baseApi'
-import { purchaseData } from '@/fakeDb'
+import { purchaseData, productData } from '@/fakeDb'
 import { Purchase } from '.'
 export default function usePurchaseApi() {
   return {
@@ -8,7 +8,12 @@ export default function usePurchaseApi() {
       try {
         return await getMethod<Purchase[]>('Purchase all')
       } catch {
-        return purchaseData
+        return purchaseData.map((x): Purchase => {
+          return {
+            ...x,
+            product: productData.find((y) => y.id === x.productId)!,
+          }
+        })
       }
     },
     async getById(id: string) {
