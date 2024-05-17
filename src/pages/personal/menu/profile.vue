@@ -70,6 +70,40 @@
                             v-model="userInfoData.address"
                           ></v-textarea>
                         </v-col>
+
+                        <v-col>
+                          <div class="file-input pt-6">
+                            <input
+                              type="file"
+                              name="file-input"
+                              id="file-input"
+                              class="file-input__input"
+                              @change="handleImageChange"
+                              accept="image/*"
+                            />
+                            <label class="file-input__label" for="file-input">
+                              <svg
+                                aria-hidden="true"
+                                focusable="false"
+                                data-prefix="fas"
+                                data-icon="upload"
+                                class="svg-inline--fa fa-upload fa-w-16"
+                                role="img"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 512 512"
+                              >
+                                <path
+                                  fill="currentColor"
+                                  d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"
+                                ></path>
+                              </svg>
+                              <span>เพิ่มรูปภาพของตัวเอง</span></label
+                            >
+                          </div>
+                          <div v-if="imageUrl != ''">
+                            <img :src="imageUrl" width="200" />
+                          </div>
+                        </v-col>
                       </v-row>
 
                       <small class="text-caption text-medium-emphasis"
@@ -142,6 +176,7 @@ import { ref, inject } from 'vue'
 const info = inject(contextPluginSymbol)!
 const router = useRouter()
 const userInfoData = ref<BaseUserInfo | null>(null)
+const imageUrl = ref('')
 ;(async () => {
   if (info.userInfomation.value == null) {
     alert('ไม่พบข้อมูลผู้ใช้งาน')
@@ -153,5 +188,26 @@ const userInfoData = ref<BaseUserInfo | null>(null)
 function gotoIndex() {
   // infomation.deleteJwt()
   router.push({ name: 'Index' })
+}
+function handleImageChange(event: any) {
+  const file = event.target.files[0]
+  const reader = new FileReader()
+
+  reader.onload = () => {
+    convertToBase64(reader.result)
+  }
+  reader.readAsDataURL(file)
+}
+function convertToBase64(_imageUrl: any) {
+  const img = new Image()
+  img.src = _imageUrl
+  img.onload = () => {
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')!
+    canvas.width = img.width
+    canvas.height = img.height
+    ctx.drawImage(img, 0, 0)
+    imageUrl.value = canvas.toDataURL('image/jpeg')
+  }
 }
 </script>
