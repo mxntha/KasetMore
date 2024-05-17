@@ -2,6 +2,7 @@
   <v-layout class="mx-n8 mt-n9">
     <v-navigation-drawer class="h-full" color="purple" theme="dark" permanent>
       <v-list color="transparent">
+        {{ menuId }}
         <v-card
           append-icon="mdi-cancel"
           color="red"
@@ -77,7 +78,12 @@ import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()
 
-const menuId = ref(route.path.split('/').pop())
+const menuId = ref(
+  route.path
+    .split('/')
+    .pop()!
+    .replace(/(^\w{1})|(\s+\w{1})/g, (letter: string) => letter.toUpperCase())
+)
 function gotoIndex() {
   router.push({ name: 'Index' })
   localStorage.removeItem('login')
@@ -88,7 +94,9 @@ function gotoIndexLogin() {
 }
 function redirectMenu(_menuId: any) {
   if (_menuId == undefined) return
-  menuId.value = _menuId
+  menuId.value = _menuId.replace(/(^\w{1})|(\s+\w{1})/g, (letter: string) =>
+    letter.toUpperCase()
+  )
 
   router.push({ name: `${_menuId}` })
 }
