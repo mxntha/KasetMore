@@ -1,35 +1,40 @@
 <template>
-  <v-card class="ma-8" height="835">
-    <v-data-table :items="productData" :loading="loading">
-      <template v-slot:top>
-        <v-toolbar flat>
-          <v-toolbar-title>My CRUD</v-toolbar-title>
-          <v-divider class="mx-4" inset vertical></v-divider>
-          <v-spacer></v-spacer>
-          <v-btn class="mb-2" color="primary" dark @click="dialogInsert = true">
-            New Item
-          </v-btn>
-        </v-toolbar>
-      </template>
-      <template v-slot:item.actions="{ item }">
-        <v-btn>
+  <v-card class="ma-8">
+    <v-card-text>
+      <v-data-table height="690" :items="productData" :loading="loading">
+        <template v-slot:top>
+          <v-toolbar flat>
+            <v-toolbar-title>My CRUD</v-toolbar-title>
+            <v-divider class="mx-4" inset vertical></v-divider>
+            <v-spacer></v-spacer>
+            <v-btn
+              class="mb-2"
+              color="primary"
+              dark
+              @click="dialogInsert = true"
+            >
+              New Item
+            </v-btn>
+          </v-toolbar>
+        </template>
+        <template v-slot:item.action="{ item }">
+          <v-icon color="" class="mr-4" size="small" @click="editItem(item)">
+            mdi-pencil
+          </v-icon>
           <v-icon size="small" @click="dialogDelete = true">
             mdi-delete
           </v-icon>
-        </v-btn>
-        <v-icon color="red" size="small" @click="editItem(item)">
-          mdi-pencil
-        </v-icon>
-      </template>
-      <template v-slot:no-data>
-        <v-btn color="primary" @click="fetchProductData"> Reset </v-btn>
-      </template>
-      <template v-slot:item.picture="{ item }">
-        <v-card class="my-2" elevation="2" rounded>
-          <v-img :src="item.picture" height="64" cover></v-img>
-        </v-card>
-      </template>
-    </v-data-table>
+        </template>
+        <template v-slot:no-data>
+          <v-btn color="primary" @click="fetchProductData"> Reset </v-btn>
+        </template>
+        <template v-slot:item.picture="{ item }">
+          <v-card class="my-2" elevation="2" rounded>
+            <v-img :src="item.picture" height="64" cover></v-img>
+          </v-card>
+        </template>
+      </v-data-table>
+    </v-card-text>
   </v-card>
   <v-dialog v-model="dialogInsert" max-width="500px" v-if="currentProduct">
     <v-card>
@@ -205,7 +210,7 @@ const productData = ref<TableProduct[]>([])
 </script>
 <style label="scss" scoped>
 ::v-deep(.v-table) {
-  /* overflow-y: auto; */
+  overflow-y: auto;
   /* background-color: aqua; */
 }
 .file-input__input {

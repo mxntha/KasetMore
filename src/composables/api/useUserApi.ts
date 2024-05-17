@@ -1,6 +1,7 @@
 import { postMethod, getMethod } from './baseApi'
 import fServices from '@/fakeService'
 import { existInstance } from '@/plugins/context'
+import { loginLocalStorageKey } from '@/plugins/context'
 export interface InsertUser {
   name: string
   lastName: string
@@ -54,7 +55,7 @@ function useUserApi() {
       try {
         return await getMethod<BaseUserInfo>('getUserInfomation')
       } catch {
-        const jwt = localStorage.getItem('login')
+        const jwt = localStorage.getItem(loginLocalStorageKey)
         const res = fs.getUserInfomation(JSON.parse(jwt!).userId)
         if (res == null) return null
         return {

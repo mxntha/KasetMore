@@ -1,5 +1,6 @@
 import { ProductCard } from '@/components/productCard/interface'
 import { UserInfo } from './composables/api/useUserApi'
+import { Purchase } from './composables/api'
 const productData: ProductCard[] = [
   {
     name: 'ทุเรียน',
@@ -205,7 +206,47 @@ const images: string[] = [
   'https://taxclinic.mof.go.th/product/1484570264-5.jpg',
   'https://shopee.co.th/blog/wp-content/uploads/2022/02/durian.jpg',
 ]
-const purchaseData: [] = []
+const purchaseData: Purchase[] = [
+  {
+    userId: 'test',
+    amount: 2,
+    basePrice: 20,
+    dateCrated: '',
+    dateSuccess: '',
+    fee: 20,
+    productId: '1',
+    purchaseId: '01',
+    sellerId: 'test',
+    total: 60,
+    unit: 'ลูก',
+  },
+  {
+    userId: 'test',
+    amount: 2,
+    basePrice: 20,
+    dateCrated: '',
+    dateSuccess: '',
+    fee: 20,
+    productId: '3',
+    sellerId: 'test',
+    purchaseId: '01',
+    total: 60,
+    unit: 'ลูก',
+  },
+  {
+    userId: 'test',
+    amount: 2,
+    basePrice: 20,
+    dateCrated: '',
+    dateSuccess: '',
+    sellerId: 'test',
+    fee: 20,
+    productId: '4',
+    purchaseId: '01',
+    total: 60,
+    unit: 'ลูก',
+  },
+]
 const userData: UserInfo[] = [
   {
     address:

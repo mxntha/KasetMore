@@ -3,7 +3,7 @@ import { computed, ComputedRef, Ref, ref } from 'vue'
 import { useUserApi } from '@/composables/api'
 
 import { type Plugin, type InjectionKey } from 'vue'
-const loginLocalStorageKey = 'logins'
+export const loginLocalStorageKey = 'logins'
 export type PluginInstance = Context
 export const contextPluginSymbol: InjectionKey<PluginInstance> =
   Symbol('$context')
@@ -39,7 +39,8 @@ function context(): Context {
       } else {
         userInfo.value = null
       }
-    } catch {
+    } catch (ex) {
+      console.log(ex)
       deleteJwt()
       userInfo.value = null
     }

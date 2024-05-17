@@ -1,5 +1,5 @@
 <template>
-  <v-layout class="mx-n8 my-n8">
+  <v-layout class="mx-n8 mt-n9">
     <v-navigation-drawer color="purple" theme="dark" permanent>
       <v-list color="transparent">
         <v-card
@@ -13,7 +13,6 @@
         >
         </v-card>
         <div class="mx-auto" max-width="300" color="purple">
-          {{ menuId }}
           <v-list
             density="compact"
             :selected="[menuId]"
