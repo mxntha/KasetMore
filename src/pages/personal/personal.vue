@@ -2,7 +2,6 @@
   <v-layout class="mx-n8 mt-n9">
     <v-navigation-drawer class="h-full" color="purple" theme="dark" permanent>
       <v-list color="transparent">
-        {{ menuId }}
         <v-card
           append-icon="mdi-cancel"
           color="red"
