@@ -59,6 +59,7 @@
 </template>
 
 <script lang="ts" setup>
+import vegetable from '@/assets/vegetable.png'
 import { ProductCard } from '@/components/productCard/interface'
 import ProductCardvue from '@/components/productCard/productcard.vue'
 import { ref, computed, inject } from 'vue'
@@ -66,7 +67,7 @@ import { searchPluginSymbol } from '@/plugins/search'
 import router from '@/router'
 import { useProductApi } from '@/composables/api'
 const categories = [
-  { value: 'ผัก', img: import('@/assets/vegetable.png').then((e) => e) },
+  { value: 'ผัก', img: vegetable },
   { value: 'ผลไม้', img: '@/assets/healthy-food.png' },
   { value: 'อุปเกษตร', img: '@/assets/gardening-tools.png' },
   { value: 'ต้นไม้', img: '@/assets/growing-plant.png' },
