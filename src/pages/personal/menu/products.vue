@@ -1,10 +1,15 @@
 <template>
   <v-card class="ma-8">
     <v-card-text>
-      <v-data-table height="690" :items="productData" :loading="loading">
+      <v-data-table
+        height="690"
+        :items="productData"
+        :loading="loading"
+        :headers="headers"
+      >
         <template v-slot:top>
           <v-toolbar flat>
-            <v-toolbar-title>My CRUD</v-toolbar-title>
+            <v-toolbar-title>สินค้า</v-toolbar-title>
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-spacer></v-spacer>
             <v-btn
@@ -13,7 +18,7 @@
               dark
               @click="dialogInsert = true"
             >
-              New Item
+              เพิ่มสินค้า
             </v-btn>
           </v-toolbar>
         </template>
@@ -45,6 +50,35 @@
       <v-card-text>
         <v-container>
           <v-row>
+            <v-col cols="12" md="6" sm="6">
+              <v-text-field
+                variant="outlined"
+                v-model="currentProduct!.name"
+                label="ชื่อสินค้า"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6" sm="6">
+              <v-text-field
+                variant="outlined"
+                v-model="currentProduct!.price"
+                label="ราคาสินค้า"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6" sm="6">
+              <v-text-field
+                variant="outlined"
+                v-model="currentProduct!.amount"
+                label="จำนวนสินค้า"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6" sm="6">
+              <v-textarea
+                variant="outlined"
+                rows="2"
+                v-model="currentProduct!.description"
+                label="รายละเอียดสินค้า"
+              ></v-textarea>
+            </v-col>
             <v-col>
               <div class="file-input pt-6">
                 <input
@@ -71,30 +105,12 @@
                       d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"
                     ></path>
                   </svg>
-                  <span>เพิ่มรูปภาพของตัวเอง</span></label
+                  <span>เพิ่มรูปภาพของสินค้า</span></label
                 >
               </div>
               <div v-if="imageUrl != ''">
                 <img :src="imageUrl" width="200" />
               </div>
-            </v-col>
-            <v-col cols="12" md="4" sm="6">
-              <v-text-field
-                v-model="currentProduct!.name"
-                label="Dessert name"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" md="4" sm="6">
-              <v-text-field
-                v-model="currentProduct!.amount"
-                label="Calories"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" md="4" sm="6">
-              <v-text-field
-                v-model="currentProduct!.description"
-                label="Fat (g)"
-              ></v-text-field>
             </v-col>
           </v-row>
         </v-container>
@@ -107,36 +123,34 @@
           variant="text"
           @click="dialogInsert = false"
         >
-          Cancel
+          ยกเลิก
         </v-btn>
         <v-btn
           color="blue-darken-1"
           variant="text"
           @click="dialogInsert = false"
         >
-          Save
+          ตกลง
         </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
   <v-dialog v-model="dialogDelete" max-width="500px">
     <v-card>
-      <v-card-title class="text-h5"
-        >Are you sure you want to delete this item?</v-card-title
-      >
+      <v-card-title class="text-h5">ยืนยันการลบสินค้า ?</v-card-title>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn
           color="blue-darken-1"
           variant="text"
           @click="dialogDelete = false"
-          >Cancel</v-btn
+          >ยกเลิก</v-btn
         >
         <v-btn
           color="blue-darken-1"
           variant="text"
           @click="dialogDelete = false"
-          >OK</v-btn
+          >ตกลง</v-btn
         >
         <v-spacer></v-spacer>
       </v-card-actions>
@@ -168,6 +182,16 @@ async function handleImageChange(event: any) {
   // }
   // reader.readAsDataURL(file)
 }
+const headers = [
+  { title: 'รหัสสินค้า', value: 'id' },
+  { title: 'รูปภาพ', value: 'picture' },
+  { title: 'ชื่อสินค้า', value: 'name' },
+  { title: 'ราคาสินค้า', value: 'price' },
+  { title: 'จำนวนสินค้า', value: 'amount' },
+  { title: 'จังหวัด', value: 'province' },
+  { title: 'รายละเอียดสินค้า', value: 'description' },
+  { title: 'ดำเนินการ', value: 'action' },
+]
 const currentProduct = ref<TableProduct>()
 const dialogInsert = ref(false)
 const dialogDelete = ref(false)

@@ -1,6 +1,7 @@
 <template>
   <v-card :loading="loading" class="ma-8" height="835">
-    <v-card-title>ซื้อของไง</v-card-title>
+    <v-card-title>ประวัติการซื้อ</v-card-title>
+    <v-divider></v-divider>
     <v-card-text>
       <v-row>
         <v-col v-for="i in purchaseData" cols="12">

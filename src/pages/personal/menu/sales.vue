@@ -10,6 +10,11 @@
         <div class="text-h5 ma-6">ออเดอร์ :</div>
         <div class="text-h4 pt-3 text-center">10</div>
       </v-card>
+
+      <v-card class="ma-8" height="180" width="300">
+        <div class="text-h5 ma-6">จำนวนสินค้า :</div>
+        <div class="text-h4 pt-3 text-center">10</div>
+      </v-card>
     </div>
 
     <div class="d-flex flex-row mt-n3">

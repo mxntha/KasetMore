@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar color="deep-purple" app dense fixed hide-on-scroll>
+  <v-app-bar color="green-accent-4" app dense fixed hide-on-scroll>
     <template v-slot:prepend>
       <div
         class="text-h5 cursor-pointer"

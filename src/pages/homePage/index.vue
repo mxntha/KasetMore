@@ -7,8 +7,10 @@
         <v-card-text>
           <v-container fluid>
             <v-row>
-              <v-col v-for="cate in categories" :key="cate">
-                {{ cate }}
+              <v-col v-for="cate in categories" :key="cate.value">
+                <v-card>
+                  <v-img height="120" :src="cate.img"> {{ cate }}</v-img>
+                </v-card>
               </v-col>
             </v-row>
           </v-container>
@@ -63,12 +65,17 @@ import { ref, computed, inject } from 'vue'
 import { searchPluginSymbol } from '@/plugins/search'
 import router from '@/router'
 import { useProductApi } from '@/composables/api'
-const categories = ['ผัก', 'ผลไม้', 'อุปเกษตร', 'ต้นไม้']
+const categories = [
+  { value: 'ผัก', img: import('@/assets/vegetable.png').then((e) => e) },
+  { value: 'ผลไม้', img: '@/assets/healthy-food.png' },
+  { value: 'อุปเกษตร', img: '@/assets/gardening-tools.png' },
+  { value: 'ต้นไม้', img: '@/assets/growing-plant.png' },
+]
 const productApi = useProductApi()
 const searchState = inject(searchPluginSymbol)!
 const data = ref<any>('')
 const loading = ref(true)
-const maxItem = 8
+const maxItem = 12
 const _productlist = ref<ProductCard[]>([])
 ;(async () => {
   loading.value = true

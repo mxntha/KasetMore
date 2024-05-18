@@ -44,8 +44,8 @@
             <v-divider :thickness="5"></v-divider>
             <v-list-subheader class="text-h5">Admin</v-list-subheader>
             <v-list-item
-              prepend-icon="mdi-gavel"
-              title="verify"
+              prepend-icon="mdi-shield-check"
+              title="ตรวจสอบ"
               value="Admin"
             ></v-list-item>
           </v-list>
