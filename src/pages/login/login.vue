@@ -5,7 +5,7 @@
         <v-img
           cover
           width="700"
-          src="../../../public/pikaso_texttoimage_Idyllic-country-landscape-showcasing-a-lush-vegeta.jpeg"
+          src="@/assets/pikaso_texttoimage_Idyllic-country-landscape-showcasing-a-lush-vegeta.jpeg"
         ></v-img>
 
         <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="500">
