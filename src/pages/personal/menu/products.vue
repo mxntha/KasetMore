@@ -1,7 +1,7 @@
 <template>
   <v-card class="ma-8">
     <v-card-text>
-      <v-data-table
+      <v-data-table-virtual
         height="690"
         :items="productData"
         :loading="loading"
@@ -38,7 +38,7 @@
             <v-img :src="item.picture" height="64" cover></v-img>
           </v-card>
         </template>
-      </v-data-table>
+      </v-data-table-virtual>
     </v-card-text>
   </v-card>
   <v-dialog v-model="dialogInsert" max-width="500px" v-if="currentProduct">
