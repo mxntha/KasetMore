@@ -21,25 +21,97 @@
       <v-card class="ma-10" height="530" width="700">
         <div class="text-h5 ma-4">ยอดขายรายเดือน</div>
         <v-divider></v-divider>
-        <div></div>
+        <div>
+          <apexchart :options="line.options" :series="line.series"></apexchart>
+        </div>
       </v-card>
 
       <v-card class="ma-10" height="530" width="700">
-        <div class="text-h5 ma-4">สินค้าขายดี</div>
+        <v-card-title class="text-h5 my-2">
+          <div>สินค้าขายดี</div>
+        </v-card-title>
         <v-divider></v-divider>
-        <div class="text-center mt-16">
-          <v-progress-circular
-            :model-value="30"
-            :rotate="360"
-            :size="200"
-            :width="30"
-            color="teal"
-          >
-          </v-progress-circular>
-        </div>
+        <v-card-text class="py-0">
+          <apexchart :options="donut.options" :series="donut.series"></apexchart
+        ></v-card-text>
       </v-card>
     </div>
   </v-card>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const line = ref({
+  options: {
+    chart: {
+      height: 350,
+      type: 'line',
+      zoom: {
+        enabled: false,
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: 'straight',
+    },
+    title: {
+      text: 'Product Trends by Month',
+      align: 'left',
+    },
+    grid: {
+      row: {
+        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+        opacity: 0.5,
+      },
+    },
+    xaxis: {
+      categories: [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+      ],
+    },
+  },
+  series: [
+    {
+      name: 'Category A',
+      data: [40, 30, 45, 50, 49, 60, 70, 91],
+    },
+    {
+      name: 'Category B',
+      data: [50, 49, 60, 30, 40, 45, 70, 91],
+    },
+    {
+      name: 'Category C',
+      data: [30, 60, 70, 91, 40, 45, 50, 49],
+    },
+  ],
+})
+const donut = ref({
+  options: {
+    height: 300,
+    chart: {
+      type: 'donut',
+    },
+    plotOptions: {
+      pie: {
+        donut: {
+          size: '45%',
+        },
+        customScale: 0.8,
+      },
+    },
+    labels: ['Category A', 'Category B', 'Category C'],
+  },
+  series: [44, 55, 41],
+})
+</script>
