@@ -12,12 +12,7 @@
             <v-toolbar-title>สินค้า</v-toolbar-title>
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-spacer></v-spacer>
-            <v-btn
-              class="mb-2"
-              color="primary"
-              dark
-              @click="dialogInsert = true"
-            >
+            <v-btn class="mb-2" color="primary" dark @click="openInsert">
               เพิ่มสินค้า
             </v-btn>
           </v-toolbar>
@@ -41,10 +36,17 @@
       </v-data-table-virtual>
     </v-card-text>
   </v-card>
-  <v-dialog v-model="dialogInsert" max-width="500px" v-if="currentProduct">
+  <v-dialog
+    persistent
+    v-model="dialogInsert"
+    max-width="500px"
+    v-if="currentProduct"
+  >
     <v-card>
       <v-card-title>
-        <span class="text-h5">เพิ่มสินค้า</span>
+        <span class="text-h5">{{
+          isEdit ? 'แก้ไข้ข้อมูล' : 'เพิ่มสินค้า'
+        }}</span>
       </v-card-title>
 
       <v-card-text>
@@ -135,7 +137,7 @@
       </v-card-actions>
     </v-card>
   </v-dialog>
-  <v-dialog v-model="dialogDelete" max-width="500px">
+  <v-dialog persistent v-model="dialogDelete" max-width="500px">
     <v-card>
       <v-card-title class="text-h5">ยืนยันการลบสินค้า ?</v-card-title>
       <v-card-actions>
@@ -195,6 +197,11 @@ const headers = [
 const currentProduct = ref<TableProduct>()
 const dialogInsert = ref(false)
 const dialogDelete = ref(false)
+const isEdit = ref(false)
+function openInsert() {
+  reInitProduct()
+  dialogInsert.value = true
+}
 function reInitProduct() {
   currentProduct.value = {
     action: '',
@@ -207,6 +214,7 @@ function reInitProduct() {
     province: '',
     rating: 0,
   }
+  isEdit.value = false
 }
 const productApi = useProductApi()
 async function fetchProductData() {
@@ -224,6 +232,7 @@ async function fetchProductData() {
 function editItem(product: TableProduct) {
   currentProduct.value = product
   dialogInsert.value = true
+  isEdit.value = true
 }
 const productData = ref<TableProduct[]>([])
 ;(async () => {
