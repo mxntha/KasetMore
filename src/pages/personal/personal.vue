@@ -1,10 +1,14 @@
 <template>
   <v-layout class="mx-n8 mt-n9">
-    <v-navigation-drawer class="h-full" color="purple" theme="dark" permanent>
+    <v-navigation-drawer
+      class="h-full"
+      style="background-color: #cfbe99"
+      permanent
+    >
       <v-list color="transparent">
         <v-card
           append-icon="mdi-cancel"
-          color="red"
+          color="#990528"
           class="mx-auto"
           max-width="344"
           subtitle="การเป็นเกษตรกร"

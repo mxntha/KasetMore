@@ -8,8 +8,20 @@
           <v-container fluid>
             <v-row>
               <v-col v-for="cate in categories" :key="cate.value">
-                <v-card>
-                  <v-img height="120" :src="cate.img"> {{ cate }}</v-img>
+                <v-card height="180" style="background-color: #eddbce">
+                  <v-row>
+                    <v-col>
+                      <v-img
+                        class="d-flex ma-2 pa-2 align-self-end"
+                        height="120"
+                        :src="cate.img"
+                      >
+                      </v-img>
+                      <div class="d-flex justify-center ma-2 text-h4">
+                        {{ cate.value }}
+                      </div>
+                    </v-col>
+                  </v-row>
                 </v-card>
               </v-col>
             </v-row>
@@ -19,7 +31,7 @@
     </div>
     <div id="section-suggestion " class="mt-4">
       <v-card :loading="loading">
-        <v-card-title>สินค้า</v-card-title>
+        <v-card-title style="background-color: #dbb48d">สินค้า</v-card-title>
       </v-card>
       <v-container fluid>
         <v-row>
