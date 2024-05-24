@@ -39,7 +39,7 @@ if (amount == null || parseInt(amount) <= 0 || amount == undefined) {
   router.push({ name: 'productDetail', params: { productId: productId } })
 }
 const productDetail = computed(() =>
-  productData.find((x) => x.productId === productId)
+  productData.find((x) => x.productId === productId),
 )
 if (productDetail.value == null) {
   alert('หาไม่เจอ')

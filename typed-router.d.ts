@@ -39,18 +39,78 @@ import type {
 
 declare module 'vue-router/auto/routes' {
   export interface RouteNamedMap {
-    '/homePage/': RouteRecordInfo<'/homePage/', '/homePage', Record<never, never>, Record<never, never>>,
-    '/login/login': RouteRecordInfo<'/login/login', '/login/login', Record<never, never>, Record<never, never>>,
-    '/personal/menu/admin': RouteRecordInfo<'/personal/menu/admin', '/personal/menu/admin', Record<never, never>, Record<never, never>>,
-    '/personal/menu/products': RouteRecordInfo<'/personal/menu/products', '/personal/menu/products', Record<never, never>, Record<never, never>>,
-    '/personal/menu/profile': RouteRecordInfo<'/personal/menu/profile', '/personal/menu/profile', Record<never, never>, Record<never, never>>,
-    '/personal/menu/purchase': RouteRecordInfo<'/personal/menu/purchase', '/personal/menu/purchase', Record<never, never>, Record<never, never>>,
-    '/personal/menu/sales': RouteRecordInfo<'/personal/menu/sales', '/personal/menu/sales', Record<never, never>, Record<never, never>>,
-    '/personal/personal': RouteRecordInfo<'/personal/personal', '/personal/personal', Record<never, never>, Record<never, never>>,
-    '/product/productDetail': RouteRecordInfo<'/product/productDetail', '/product/productDetail', Record<never, never>, Record<never, never>>,
-    '/register/register': RouteRecordInfo<'/register/register', '/register/register', Record<never, never>, Record<never, never>>,
-    '/shop/receiptPage': RouteRecordInfo<'/shop/receiptPage', '/shop/receiptPage', Record<never, never>, Record<never, never>>,
-    '/shop/shopRusult': RouteRecordInfo<'/shop/shopRusult', '/shop/shopRusult', Record<never, never>, Record<never, never>>,
+    '/homePage/': RouteRecordInfo<
+      '/homePage/',
+      '/homePage',
+      Record<never, never>,
+      Record<never, never>
+    >
+    '/login/login': RouteRecordInfo<
+      '/login/login',
+      '/login/login',
+      Record<never, never>,
+      Record<never, never>
+    >
+    '/personal/menu/admin': RouteRecordInfo<
+      '/personal/menu/admin',
+      '/personal/menu/admin',
+      Record<never, never>,
+      Record<never, never>
+    >
+    '/personal/menu/products': RouteRecordInfo<
+      '/personal/menu/products',
+      '/personal/menu/products',
+      Record<never, never>,
+      Record<never, never>
+    >
+    '/personal/menu/profile': RouteRecordInfo<
+      '/personal/menu/profile',
+      '/personal/menu/profile',
+      Record<never, never>,
+      Record<never, never>
+    >
+    '/personal/menu/purchase': RouteRecordInfo<
+      '/personal/menu/purchase',
+      '/personal/menu/purchase',
+      Record<never, never>,
+      Record<never, never>
+    >
+    '/personal/menu/sales': RouteRecordInfo<
+      '/personal/menu/sales',
+      '/personal/menu/sales',
+      Record<never, never>,
+      Record<never, never>
+    >
+    '/personal/personal': RouteRecordInfo<
+      '/personal/personal',
+      '/personal/personal',
+      Record<never, never>,
+      Record<never, never>
+    >
+    '/product/productDetail': RouteRecordInfo<
+      '/product/productDetail',
+      '/product/productDetail',
+      Record<never, never>,
+      Record<never, never>
+    >
+    '/register/register': RouteRecordInfo<
+      '/register/register',
+      '/register/register',
+      Record<never, never>,
+      Record<never, never>
+    >
+    '/shop/receiptPage': RouteRecordInfo<
+      '/shop/receiptPage',
+      '/shop/receiptPage',
+      Record<never, never>,
+      Record<never, never>
+    >
+    '/shop/shopRusult': RouteRecordInfo<
+      '/shop/shopRusult',
+      '/shop/shopRusult',
+      Record<never, never>,
+      Record<never, never>
+    >
   }
 }
 
@@ -63,29 +123,39 @@ declare module 'vue-router/auto' {
    * Type safe version of `RouteLocationNormalized` (the type of `to` and `from` in navigation guards).
    * Allows passing the name of the route to be passed as a generic.
    */
-  export type RouteLocationNormalized<Name extends keyof RouteNamedMap = keyof RouteNamedMap> = RouteLocationNormalizedTypedList<RouteNamedMap>[Name]
+  export type RouteLocationNormalized<
+    Name extends keyof RouteNamedMap = keyof RouteNamedMap,
+  > = RouteLocationNormalizedTypedList<RouteNamedMap>[Name]
 
   /**
    * Type safe version of `RouteLocationNormalizedLoaded` (the return type of `useRoute()`).
    * Allows passing the name of the route to be passed as a generic.
    */
-  export type RouteLocationNormalizedLoaded<Name extends keyof RouteNamedMap = keyof RouteNamedMap> = RouteLocationNormalizedLoadedTypedList<RouteNamedMap>[Name]
+  export type RouteLocationNormalizedLoaded<
+    Name extends keyof RouteNamedMap = keyof RouteNamedMap,
+  > = RouteLocationNormalizedLoadedTypedList<RouteNamedMap>[Name]
 
   /**
    * Type safe version of `RouteLocationResolved` (the returned route of `router.resolve()`).
    * Allows passing the name of the route to be passed as a generic.
    */
-  export type RouteLocationResolved<Name extends keyof RouteNamedMap = keyof RouteNamedMap> = RouteLocationResolvedTypedList<RouteNamedMap>[Name]
+  export type RouteLocationResolved<
+    Name extends keyof RouteNamedMap = keyof RouteNamedMap,
+  > = RouteLocationResolvedTypedList<RouteNamedMap>[Name]
 
   /**
    * Type safe version of `RouteLocation` . Allows passing the name of the route to be passed as a generic.
    */
-  export type RouteLocation<Name extends keyof RouteNamedMap = keyof RouteNamedMap> = RouteLocationTypedList<RouteNamedMap>[Name]
+  export type RouteLocation<
+    Name extends keyof RouteNamedMap = keyof RouteNamedMap,
+  > = RouteLocationTypedList<RouteNamedMap>[Name]
 
   /**
    * Type safe version of `RouteLocationRaw` . Allows passing the name of the route to be passed as a generic.
    */
-  export type RouteLocationRaw<Name extends keyof RouteNamedMap = keyof RouteNamedMap> =
+  export type RouteLocationRaw<
+    Name extends keyof RouteNamedMap = keyof RouteNamedMap,
+  > =
     | RouteLocationAsString<RouteNamedMap>
     | RouteLocationAsRelativeTypedList<RouteNamedMap>[Name]
     | RouteLocationAsPathTypedList<RouteNamedMap>[Name]
@@ -93,19 +163,27 @@ declare module 'vue-router/auto' {
   /**
    * Generate a type safe params for a route location. Requires the name of the route to be passed as a generic.
    */
-  export type RouteParams<Name extends keyof RouteNamedMap> = RouteNamedMap[Name]['params']
+  export type RouteParams<Name extends keyof RouteNamedMap> =
+    RouteNamedMap[Name]['params']
   /**
    * Generate a type safe raw params for a route location. Requires the name of the route to be passed as a generic.
    */
-  export type RouteParamsRaw<Name extends keyof RouteNamedMap> = RouteNamedMap[Name]['paramsRaw']
+  export type RouteParamsRaw<Name extends keyof RouteNamedMap> =
+    RouteNamedMap[Name]['paramsRaw']
 
   export function useRouter(): RouterTyped
-  export function useRoute<Name extends keyof RouteNamedMap = keyof RouteNamedMap>(name?: Name): RouteLocationNormalizedLoadedTypedList<RouteNamedMap>[Name]
+  export function useRoute<
+    Name extends keyof RouteNamedMap = keyof RouteNamedMap,
+  >(name?: Name): RouteLocationNormalizedLoadedTypedList<RouteNamedMap>[Name]
 
   export const useLink: UseLinkFnTyped<RouteNamedMap>
 
-  export function onBeforeRouteLeave(guard: NavigationGuard<RouteNamedMap>): void
-  export function onBeforeRouteUpdate(guard: NavigationGuard<RouteNamedMap>): void
+  export function onBeforeRouteLeave(
+    guard: NavigationGuard<RouteNamedMap>,
+  ): void
+  export function onBeforeRouteUpdate(
+    guard: NavigationGuard<RouteNamedMap>,
+  ): void
 
   export const RouterLink: RouterLinkTyped<RouteNamedMap>
   export const RouterLinkProps: RouterLinkPropsTyped<RouteNamedMap>

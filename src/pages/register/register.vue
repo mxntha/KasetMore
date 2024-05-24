@@ -33,7 +33,9 @@
                 v-model="registerfarmer.username"
                 label=""
                 placeholder=""
-                :rules="[ (value: any) => value?  true:'You must enter a username.']"
+                :rules="[
+                  (value: any) => (value ? true : 'You must enter a username.'),
+                ]"
                 required
               ></v-text-field>
             </v-col>
@@ -43,7 +45,7 @@
                 v-model="registerfarmer.password"
                 label="รหัสผ่านที่ใช้งาน"
                 required
-                :rules="[ (value: any) => value?  true:'password']"
+                :rules="[(value: any) => (value ? true : 'password')]"
                 placeholder="xxxxxx"
               ></v-text-field>
             </v-col>
@@ -222,10 +224,10 @@ const router = useRouter()
 const route = useRoute()
 const valid = ref(false)
 const isFarmer = computed(
-  () => userData.value != null && route.query.type === 'farmer'
+  () => userData.value != null && route.query.type === 'farmer',
 )
 const titleForm = computed(() =>
-  route.query.type === 'farmer' ? 'เกษตรกร' : 'บัญชีผู้ใช้งาน'
+  route.query.type === 'farmer' ? 'เกษตรกร' : 'บัญชีผู้ใช้งาน',
 )
 onMounted(async () => {
   userData.value = await userApi.getUserInfomation('test 1')

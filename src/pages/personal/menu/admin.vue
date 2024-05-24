@@ -79,7 +79,7 @@ const info = inject(contextPluginSymbol)!
 const userApi = useUserApi()
 ;(async () => {
   userInfoData.value = await userApi.getUserInfomation(
-    info.userInfomation.value?.email || ''
+    info.userInfomation.value?.email || '',
   )
 })()
 </script>

@@ -103,7 +103,7 @@ async function gotoIndex() {
   loading.value = true
   const jwt = await userApi.login(
     loginform.value.username,
-    loginform.value.password
+    loginform.value.password,
   )
   loading.value = false
   if (!jwt) {

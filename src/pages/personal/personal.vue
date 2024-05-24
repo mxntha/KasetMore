@@ -92,7 +92,7 @@ const menuId = ref(
   route.path
     .split('/')
     .pop()!
-    .replace(/(^\w{1})|(\s+\w{1})/g, (letter: string) => letter.toUpperCase())
+    .replace(/(^\w{1})|(\s+\w{1})/g, (letter: string) => letter.toUpperCase()),
 )
 function gotoIndex() {
   router.push({ name: 'Index' })
@@ -105,7 +105,7 @@ function gotoIndexLogin() {
 function redirectMenu(_menuId: any) {
   if (_menuId == undefined) return
   menuId.value = _menuId.replace(/(^\w{1})|(\s+\w{1})/g, (letter: string) =>
-    letter.toUpperCase()
+    letter.toUpperCase(),
   )
 
   router.push({ name: `${_menuId}` })

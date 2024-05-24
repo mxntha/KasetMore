@@ -213,7 +213,7 @@ const userApi = useUserApi()
   }
 
   userInfoData.value = (await userApi.getUserInfomation(
-    info.userInfomation.value?.email || ''
+    info.userInfomation.value?.email || '',
   )) || {
     address: '',
     email: '',

@@ -267,7 +267,7 @@ function deleteImage(id: string) {
 async function saveProduct() {
   const res = await productApi.createProduct(
     _imageFile.value.map((x) => x.file),
-    {}
+    {},
   )
   dialogInsert.value = false
 }
