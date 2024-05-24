@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex justify-center">
-    <v-card color="grey-lighten-1" height="600" width="650">
+    <v-card color="white" height="600" width="650">
       <div class="d-flex justify-center">
         <v-img
           height="500"
@@ -31,7 +31,7 @@ if (amount == null || parseInt(amount) <= 0 || amount == undefined) {
   router.push({ name: 'productDetail', params: { productId: productId } })
 }
 const productDetail = computed(() =>
-  productData.find((x) => x.id === productId),
+  productData.find((x) => x.id === productId)
 )
 if (productDetail.value == null) {
   alert('หาไม่เจอ')

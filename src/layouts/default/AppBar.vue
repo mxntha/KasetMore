@@ -5,7 +5,7 @@
         class="text-h5 cursor-pointer"
         @click="router.push({ name: 'Index' })"
       >
-        Logo
+        <v-img src="@/assets/box.png"></v-img>
       </div>
     </template>
     <v-app-bar-title
@@ -101,6 +101,7 @@ import { computed } from 'vue'
 import { contextPluginSymbol } from '@/plugins/context'
 import { ref } from 'vue'
 import { BaseUserInfo } from '@/composables/api/useUserApi'
+
 const infomation = inject(contextPluginSymbol)!
 
 const router = useRouter()

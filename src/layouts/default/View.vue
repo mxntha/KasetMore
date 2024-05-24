@@ -1,5 +1,5 @@
 <template>
-  <div class="h-100 bg-grey-lighten-3 px-8 py-8 pb-0">
+  <div class="h-100 custom-bg px-8 py-8 pb-0">
     <v-main class="h-100">
       <router-view />
     </v-main>
@@ -9,3 +9,9 @@
 <script lang="ts" setup>
 //
 </script>
+
+<style scoped>
+.custom-bg {
+  background-color: #f2e8cb;
+}
+</style>
