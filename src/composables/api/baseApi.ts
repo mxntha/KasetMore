@@ -1,4 +1,4 @@
-const baseUrl = 'https://localhost:7275/'
+const baseUrl = process.env.baseUrl || 'http://localhost:5000/api/'
 
 async function getMethod<T>(url: string): Promise<T> {
   console.log('get', url)

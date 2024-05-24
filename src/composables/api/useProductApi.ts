@@ -4,10 +4,11 @@ import { productData } from '@/fakeDb'
 import { Product } from '.'
 
 function useProductApi() {
+  const controller = 'Product'
   return {
     async getAll() {
       try {
-        return await getMethod<Product[]>('product all')
+        return await getMethod<Product[]>(`${controller}/products`)
       } catch {
         return productData
       }
