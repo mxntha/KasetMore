@@ -62,15 +62,19 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouter, useRoute } from 'vue-router'
-import { BaseUserInfo } from '@/composables/api/useUserApi'
-import { contextPluginSymbol } from '@/plugins/context'
+import { useRouter } from 'vue-router'
+import useUserApi, { BaseUserInfo } from '@/composables/api/useUserApi'
 import { ref, inject } from 'vue'
+import { contextPluginSymbol } from '@/plugins/context'
 
 const userInfoData = ref<BaseUserInfo | null>(null)
 const imageUrl = ref('')
 const router = useRouter()
 const info = inject(contextPluginSymbol)!
-
-userInfoData.value = info.userInfomation.value
+const userApi = useUserApi()
+;(async () => {
+  userInfoData.value = await userApi.getUserInfomation(
+    info.userInfomation.value?.email || ''
+  )
+})()
 </script>

@@ -40,37 +40,26 @@ function useUserApi() {
     async login(username: string, password: string) {
       try {
         console.log('login . . . ')
-
         const res = await postMethod<{
           jwt: string
           profilePicture: string
         } | null>(`${controller}/login`, { email: username, password })
         if (res == null) return false
-        const base64Url = res?.jwt.split('.')[1]
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
-        const jsonPayload = decodeURIComponent(
-          window
-            .atob(base64)
-            .split('')
-            .map(function (c) {
-              return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
-            })
-            .join('')
-        )
-        infomation.setSessionLogin(JSON.parse(jsonPayload))
-        return res != null
+        infomation.setSessionLogin(JSON.stringify(res), res.profilePicture)
+        return true
       } catch {
         const res = fs.login(username, password)
-        infomation.setSessionLogin(JSON.stringify(res))
+        console.log(res, 'sdsdsd')
+        infomation.setSessionLogin(JSON.stringify(res), res?.image || '')
         return res != null
       }
     },
-    async getUserInfomation(): Promise<BaseUserInfo | null> {
+    async getUserInfomation(credential: string): Promise<BaseUserInfo | null> {
+      console.log(credential)
       try {
         return await getMethod<BaseUserInfo>('getUserInfomation')
       } catch {
-        const jwt = localStorage.getItem(loginLocalStorageKey)
-        const res = fs.getUserInfomation(JSON.parse(jwt!).userId)
+        const res = fs.getUserInfomation(credential)
         if (res == null) return null
         return {
           address: res?.address,

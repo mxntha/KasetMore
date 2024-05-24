@@ -4,20 +4,21 @@ export default function services() {
   function login(
     username: string,
     password: string
-  ): { userName: string; userId: string } | null {
+  ): { email: string; displayName: string; image?: string } | null {
     console.log(username, password, userData)
     const user = userData.find(
       (x) => x.userName == username && x.password == password
     )
     if (user)
       return {
-        userName: user.userName,
-        userId: user.userId,
+        email: user.userName,
+        displayName: user.userId,
+        image: user.profileUrl,
       }
     return null
   }
-  function getUserInfomation(userId: string) {
-    return userData.find((x) => x.userId == userId) || null
+  function getUserInfomation(credential: string) {
+    return userData.find((x) => x.userName == credential) || null
   }
   function register(data: InsertUser) {
     if (
@@ -37,7 +38,7 @@ export default function services() {
       name: data.name,
       password: data.password,
       phoneNumber: data.phoneNumber,
-      userId: `${userData.length + 1}`,
+      userId: `user ${userData.length + 1}`,
       userName: data.userName,
       idCard: data.idCard,
       laserCard: data.laserCard,

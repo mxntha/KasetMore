@@ -40,10 +40,10 @@
             <v-avatar
               icon="mdi-account-circle"
               color="surface-variant"
-              :image="infomation.userInfomation.value?.profileUrl"
+              :image="infomation.userInfomation.value?.profilePicture"
             ></v-avatar>
             <span class="ml-2">
-              {{ infomation.userInfomation.value?.userName }}
+              {{ infomation.userInfomation.value?.displayName }}
             </span>
           </div>
         </div>

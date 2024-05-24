@@ -1,7 +1,6 @@
 <template>
-  <div v-if="userInfoData == null">loading . . .</div>
-  <v-card v-else class="ma-8" height="835">
-    <v-card-text>
+  <v-card class="ma-8" height="835" :loading="loading">
+    <v-card-text v-if="!loading">
       <v-container>
         <v-col class="d-flex justify-center">
           <div>
@@ -139,9 +138,9 @@
           <div class="d-block align-self-center">
             <div class="d-flex pb-10 pt-16">
               <div class="pl-16 pr-5 text-blue-grey-darken-2">ชื่อ</div>
-              <div class="pl-5">{{ userInfoData.name }}</div>
+              <div class="pl-5">{{ userInfoData?.name }}</div>
               <div class="pl-12 pr-5 text-blue-grey-darken-2">นามสกุล</div>
-              <div class="pl-5">{{ userInfoData.lastName }}</div>
+              <div class="pl-5">{{ userInfoData?.lastName }}</div>
             </div>
             <div class="d-flex pb-10">
               <div class="pl-16 pr-5 text-blue-grey-darken-2">Email</div>
@@ -174,16 +173,49 @@ import { BaseUserInfo } from '@/composables/api/useUserApi'
 import { useUserApi } from '@/composables/api'
 import { ref, inject } from 'vue'
 const info = inject(contextPluginSymbol)!
+const loading = ref(true)
+
 const router = useRouter()
-const userInfoData = ref<BaseUserInfo | null>(null)
+const userInfoData = ref<BaseUserInfo>({
+  address: '',
+  email: '',
+  isFarmer: false,
+  lastName: '',
+  name: '',
+  phoneNumber: '',
+  userId: '',
+  userName: '',
+  idCard: '',
+  laserCard: '',
+  profileUrl: '',
+})
 const imageUrl = ref('')
+const userApi = useUserApi()
 ;(async () => {
+  loading.value = true
   if (info.userInfomation.value == null) {
     alert('ไม่พบข้อมูลผู้ใช้งาน')
     router.push({ path: '/' })
     return
   }
-  userInfoData.value = info.userInfomation.value
+
+  userInfoData.value = (await userApi.getUserInfomation(
+    info.userInfomation.value?.email || ''
+  )) || {
+    address: '',
+    email: '',
+    isFarmer: false,
+    lastName: '',
+    name: '',
+    phoneNumber: '',
+    userId: '',
+    userName: '',
+    idCard: '',
+    laserCard: '',
+    profileUrl: '',
+  }
+  console.log(userInfoData.value)
+  loading.value = false
 })()
 function gotoIndex() {
   // infomation.deleteJwt()
