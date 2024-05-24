@@ -117,12 +117,42 @@
                   <span>เพิ่มรูปภาพของสินค้า</span></label
                 >
               </div>
-              <div v-if="imageUrl != ''">
-                <img :src="imageUrl" width="200" />
-              </div>
             </v-col>
           </v-row>
         </v-container>
+        <v-row>
+          <v-col v-for="image in imageFiles">
+            <v-hover v-slot="{ isHovering, props }">
+              <v-container class="position-relative">
+                <v-img
+                  v-bind="props"
+                  cover
+                  :src="image.src"
+                  height="200"
+                  class="mb-2"
+                />
+                <v-expand-transition>
+                  <v-btn
+                    v-bind="props"
+                    v-if="isHovering"
+                    color="error"
+                    fab
+                    small
+                    class="position-absolute"
+                    style="
+                      top: 50%;
+                      left: 50%;
+                      transform: translate(-50%, -50%);
+                    "
+                    @click="deleteImage(image.id)"
+                  >
+                    <v-icon>mdi-close</v-icon>
+                  </v-btn></v-expand-transition
+                >
+              </v-container>
+            </v-hover>
+          </v-col>
+        </v-row>
       </v-card-text>
 
       <v-card-actions>
@@ -134,11 +164,7 @@
         >
           ยกเลิก
         </v-btn>
-        <v-btn
-          color="blue-darken-1"
-          variant="text"
-          @click="dialogInsert = false"
-        >
+        <v-btn color="blue-darken-1" variant="text" @click="saveProduct">
           ตกลง
         </v-btn>
       </v-card-actions>
@@ -169,27 +195,30 @@
 
 <script lang="ts" setup>
 import { useProductApi, type Product } from '@/composables/api'
+import { ImgHTMLAttributes } from 'vue'
 import { ref } from 'vue'
 interface TableProduct extends Product {
   action: string
 }
 const loading = ref(true)
-const imageUrl = ref('')
-const imageFile = ref<File[]>([])
+const _imageFile = ref<{ id: string; file: File }[]>([])
+const imageFiles = ref<{ id: string; src: string }[]>([])
 async function handleImageChange(event: any) {
-  const file = event.target.files[0]
-  for (let index = 0; index < 3; index++) {
-    imageFile.value.push(file)
+  if (imageFiles.value.length >= 4) {
+    alert('เกิน 4 ไฟล?เเล้ว')
+    return
   }
-  const res = await productApi.createProduct(imageFile.value, {})
-  // const reader = new FileReader()
+  const file = event.target.files[0]
+  const id = (_imageFile.value.length + 1).toString()
+  const clonedFile = new File([file], file.name, { type: file.type })
+  _imageFile.value.push({ id: id, file: clonedFile })
+  const reader = new FileReader()
 
-  // reader.onload = () => {
-  //   console.log()
-  //   console.log(typeof event.target.files[0])
-
-  // }
-  // reader.readAsDataURL(file)
+  reader.onload = () => {
+    imageFiles.value.push({ id, src: reader.result as string })
+  }
+  reader.readAsDataURL(file)
+  event.target.value = null
 }
 const headers = [
   { title: 'รหัสสินค้า', value: 'productId' },
@@ -208,6 +237,18 @@ const isEdit = ref(false)
 function openInsert() {
   reInitProduct()
   dialogInsert.value = true
+}
+function deleteImage(id: string) {
+  alert('ลบ')
+  _imageFile.value = _imageFile.value.filter((image) => image.id !== id)
+  imageFiles.value = imageFiles.value.filter((image) => image.id !== id)
+}
+async function saveProduct() {
+  const res = await productApi.createProduct(
+    _imageFile.value.map((x) => x.file),
+    {}
+  )
+  dialogInsert.value = false
 }
 function reInitProduct() {
   currentProduct.value = {
