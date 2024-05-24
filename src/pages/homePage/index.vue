@@ -3,7 +3,6 @@
   <div class="mx-20">
     <div id="section-category" class="">
       <v-card>
-        {{ productlist.length }}
         <v-card-title>หมวดหมู่</v-card-title>
         <v-card-text>
           <v-container fluid>
@@ -40,7 +39,7 @@
             <ProductCardvue
               class="w-100"
               :ProductData="i"
-              @on-click="buyClick(i.id)"
+              @on-click="buyClick(i.productId)"
             ></ProductCardvue>
           </v-col>
         </v-row>

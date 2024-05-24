@@ -55,7 +55,14 @@
             <v-col cols="12" md="6" sm="6">
               <v-text-field
                 variant="outlined"
-                v-model="currentProduct!.name"
+                v-model="currentProduct!.productId"
+                label="รหัสสินค้า"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6" sm="6">
+              <v-text-field
+                variant="outlined"
+                v-model="currentProduct!.productName"
                 label="ชื่อสินค้า"
               ></v-text-field>
             </v-col>
@@ -185,9 +192,9 @@ async function handleImageChange(event: any) {
   // reader.readAsDataURL(file)
 }
 const headers = [
-  { title: 'รหัสสินค้า', value: 'id' },
+  { title: 'รหัสสินค้า', value: 'productId' },
   { title: 'รูปภาพ', value: 'picture' },
-  { title: 'ชื่อสินค้า', value: 'name' },
+  { title: 'ชื่อสินค้า', value: 'productName' },
   { title: 'ราคาสินค้า', value: 'price' },
   { title: 'จำนวนสินค้า', value: 'amount' },
   { title: 'จังหวัด', value: 'province' },
@@ -207,8 +214,8 @@ function reInitProduct() {
     action: '',
     amount: 0,
     description: '',
-    id: '',
-    name: '',
+    productId: '',
+    productName: '',
     picture: '',
     price: 0,
     province: '',

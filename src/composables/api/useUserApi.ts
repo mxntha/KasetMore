@@ -35,16 +35,17 @@ export interface UserInfo extends BaseUserInfo {
 function useUserApi() {
   const fs = fServices()
   const infomation = existInstance!
+  const controller = 'Auth'
   return {
     async login(username: string, password: string) {
       try {
         console.log('login . . . ')
 
-        const res = await getMethod<{
-          userName: string
-          userId: string
-        } | null>('login')
-        infomation.setSessionLogin(JSON.stringify(res))
+        const res = await postMethod<{
+          jwt: string
+          profilePicture: string
+        } | null>(`${controller}/login`, { email: username, password })
+        infomation.setSessionLogin(JSON.stringify(res?.jwt))
         return res != null
       } catch {
         const res = fs.login(username, password)
@@ -76,7 +77,7 @@ function useUserApi() {
     },
     async resgisterUser(data: InsertUser) {
       try {
-        return await postMethod<boolean>('resgisterUser')
+        return await postMethod<boolean>('resgisterUser', null)
       } catch {
         return fs.register(data)
       }

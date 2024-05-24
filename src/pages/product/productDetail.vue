@@ -14,7 +14,7 @@
             </v-carousel>
           </v-col>
           <v-col>
-            <div class="text-h3 pb-9">{{ productDetail?.name }}</div>
+            <div class="text-h3 pb-9">{{ productDetail?.productName }}</div>
             <v-container>
               <v-row>
                 <v-col cols="2" class="align-self-center">ราคา</v-col>
@@ -105,7 +105,7 @@ function buyProduct() {
   router.push({
     name: 'BuyResult',
     query: { amount: amount.value },
-    params: { productId: productDetail.value?.id },
+    params: { productId: productDetail.value?.productId },
   })
 }
 </script>

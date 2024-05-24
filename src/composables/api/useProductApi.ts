@@ -8,16 +8,18 @@ function useProductApi() {
   return {
     async getAll() {
       try {
-        return await getMethod<Product[]>(`${controller}/products`)
+        const res = await getMethod<Product[]>(`${controller}/products`)
+        console.log(res)
+        return res
       } catch {
         return productData
       }
     },
     async getById(id: string) {
       try {
-        return await getMethod<Product>('product one')
+        return await getMethod<Product>(`${controller}/products/${id}`)
       } catch {
-        return productData.find((x) => x.id === id)
+        return productData.find((x) => x.productId === id)
       }
     },
     async createProduct(files: File[], jsonData: any) {

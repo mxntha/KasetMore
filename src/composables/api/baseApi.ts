@@ -10,14 +10,18 @@ async function getMethod<T>(url: string): Promise<T> {
       Authorization: `Bearer ${jwt}`,
     },
   })
-    .then((x) => x.json())
+    .then((e) => {
+      console.log(e)
+      console.log(e.json())
+      return e.json()
+    })
     .then((x) => x as T)
     .catch((x) => {
       console.log(x)
       throw x
     })
 }
-async function postMethod<T>(url: string, ...payload: any): Promise<T> {
+async function postMethod<T>(url: string, payload: any): Promise<T> {
   const jwt = localStorage.getItem('login')
   console.log(payload)
   return fetch(baseUrl + url, {

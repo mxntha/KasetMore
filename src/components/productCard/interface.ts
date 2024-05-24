@@ -1,9 +1,9 @@
 export interface ProductCard {
-  name: string
+  productName: string
   price: number
   amount: number
   picture: string
-  id: string
+  productId: string
   province: string
   rating: number
   description: string
