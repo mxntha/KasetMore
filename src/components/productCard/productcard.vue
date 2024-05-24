@@ -12,7 +12,7 @@
     <v-img cover height="250" :src="props.ProductData.picture"></v-img>
 
     <v-card-item>
-      <v-card-title>{{ props.ProductData.name }}</v-card-title>
+      <v-card-title>{{ props.ProductData.productName }}</v-card-title>
     </v-card-item>
 
     <v-card-text>
