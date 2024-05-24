@@ -1,4 +1,12 @@
 <template>
+  note <br />
+  หากข้อมูลไม่ครบ หรือมีการซื้อเกินจำนวนจะเกิดอะไรไหม จะเเจ้งเตือนผู้ใช้ไหม
+  หรือหาไอดีไม่พบจะเกิดอะไรขึ้นไหม
+  <br />
+  ต่อ api อะไรไหม<br />
+  ปุ่มกดได้่ทุกอันไหม <br />
+  ui จะปรับเเต่งอะไรเพิม่ไหม <br />
+  หากกดซื้อเเล้วไม่สำเร็จ จะเกิดอะไรขึ้นไหม
   <div class="d-flex justify-center">
     <v-card color="white" height="600" width="650">
       <div class="d-flex justify-center">
@@ -10,7 +18,7 @@
         ></v-img>
       </div>
       <div>
-        {{ productDetail?.name }} จำนวน {{ amount }} : รวมเป็นเงิน
+        {{ productDetail?.productName }}จำนวน {{ amount }} : รวมเป็นเงิน
         {{ productDetail!.price * parseInt(amount!) }}
       </div>
 
@@ -31,7 +39,7 @@ if (amount == null || parseInt(amount) <= 0 || amount == undefined) {
   router.push({ name: 'productDetail', params: { productId: productId } })
 }
 const productDetail = computed(() =>
-  productData.find((x) => x.id === productId)
+  productData.find((x) => x.productId === productId)
 )
 if (productDetail.value == null) {
   alert('หาไม่เจอ')

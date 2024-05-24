@@ -1,4 +1,8 @@
 <template>
+  กรณีกรอกข้อมูลไม่ครบทุกช่อง อนุญาตให้กดปุ่มไหม <br />
+  ช่องเเรกต้องกรอกรูปแบบ email เท่านั้้นไหม<br />
+  กรณีล็อคอินสำเรํจหรือไม่สำเร็จจะเเสดงบอก user ยังไง ใช้อะไรบอก user<br />
+  ปุ่มกดได้่ทุกอันไหม
   <div class="d-flex justify-center align-center h-100 w-100">
     <v-card max-width="1200" rounded="lg">
       <div class="d-flex">

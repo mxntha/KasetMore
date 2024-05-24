@@ -1,4 +1,8 @@
 <template>
+  note ในปุ่มเเก้ไขเสร็จเเล้วหรือยัง <br />
+  ต่อ api อะไรมาบ้าง <br />
+  ข้อมูลไม่มีจะเเสดงหน้ายังไง เกิดอะไรขึ้นบ้าง <br />
+  ปุ่มกดได้่ทุกอันไหม
   <v-card class="ma-8" height="835" :loading="loading">
     <v-card-text v-if="!loading">
       <v-container>
@@ -26,6 +30,15 @@
                 </template>
                 <template v-slot:default="{ isActive: activator }">
                   <v-card prepend-icon="mdi-account" title="แก้ไขข้อมูลส่วนตัว">
+                    note <br />
+                    ต่อ api การอัปเดตข้อมูล ส่งรูปภาพเเละข้อมูล <br />
+                    ui เสร็จเเล้วหรือยัง <br />
+                    password เช็คเหมือนกันหรือยัง <br />
+                    ใน form ต้องกรอกอันไหนบ้าง ทำการตรวจเช็คหรือยัง
+                    หากกรอกไม่ครบจะเกิดอะไรขึ้น <br />
+                    หลังกด save หรือ cancel ใน form ต้องล้างค่าออกหรือไม่
+                    หรือต้องดึงข้อมูลมาเเสดงอีกรอบไหม <br />
+                    ข้อมูลไม่มีจะเเสดงหน้ายังไง เกิดอะไรขึ้นบ้าง
                     <v-card-text>
                       <v-row dense>
                         <v-col cols="12" md="4" sm="6">

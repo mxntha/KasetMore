@@ -1,5 +1,12 @@
 <template>
-  <!-- <data v-if="productlist.length == 0">loading api . . .</data> -->
+  note: <br />
+  ต่อ api หมวดหมู่ <br />
+  &nbsp; กด หมวดหมู่ เเล้วดึงสินค้าตามหมวดหมู่ <br />
+  &nbsp;หลังดึงข้อมูลเสร็จ จะพาไปหน้าไหนต่อ ? <br />
+  ต่อ api สินค้าทั้งหมด<br />
+  ปุ่มกดได้่ทุกอันไหม <br />
+  &nbsp; กรณีสินค้ามี 0 หรือ error จะเเเสดงหน้านี้ยังไง คุยกับอู่เรื่องการsearch
+  ชื่อสินค้า
   <div class="mx-20">
     <div id="section-category" class="">
       <v-card>

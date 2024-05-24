@@ -6,6 +6,13 @@
       permanent
     >
       <v-list color="transparent">
+        note
+        <br />
+        การ์ดด้านล่างมีครบทุกกรณีหรือยัง นอกจากไม่ผ่าน
+        <br />
+        เมนูมีการซ่อนหรือยัง
+        <br />
+        ปุ่มกดได้่ทุกอันไหม
         <v-card
           append-icon="mdi-cancel"
           color="#990528"

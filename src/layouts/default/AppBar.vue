@@ -34,6 +34,7 @@
     </div>
 
     <v-menu v-if="isShowMenu">
+      note เมนู่อันไหนต้องปิดบ้าง ปิดถูกไหมตามเงื่อนไข
       <template v-slot:activator="{ props }">
         <div class="mx-4" v-if="isLogin">
           <div v-bind="props" class="cursor-pointer">

@@ -1,4 +1,10 @@
 <template>
+  note <br />
+  ดึง api ครบหรือยัง รูปภาพครบหรือยัง ข้อมูลร้านค้าต้องดึงไหม
+  หรือหาไอดีไม่พบจะเกิดอะไรขึ้นไหม <br />
+  ปุ่ม += ใช้ได้หรือยัง มีการป้องกันกรณี -1 ,0 หรือซื้่อเกินจำนวนไหม <br />
+  ปุ่มใช้งานได้ครบไหม <br />
+  หากเกิด error ดึงข้อมูลไม่ครบ หรือข้อมูลไม่ขึ้นจะทำยังไง <br />
   <v-card :loading="!productDetail" color="">
     <v-card-text>
       <v-container fluid>
@@ -66,6 +72,7 @@
       </v-container>
     </v-card-text>
   </v-card>
+
   <v-card :loading="!productDetail" class="mt-4">
     <v-card-title>รายละเอียดสินค้า</v-card-title>
     <v-card-text>
