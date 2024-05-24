@@ -11,7 +11,7 @@ export default function usePurchaseApi() {
         return purchaseData.map((x): Purchase => {
           return {
             ...x,
-            product: productData.find((y) => y.id === x.productId)!,
+            product: productData.find((y) => y.productId === x.productId)!,
           }
         })
       }

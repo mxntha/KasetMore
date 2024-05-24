@@ -123,7 +123,7 @@ const filterProduct = computed(() =>
   _productlist.value.filter(
     (x) =>
       searchState.searchText.value.trim() === '' ||
-      x.name.includes(searchState.searchText.value)
+      x.productName.includes(searchState.searchText.value)
   )
 )
 const currentPage = ref(1)
