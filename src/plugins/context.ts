@@ -13,6 +13,7 @@ interface JwtData {
   email: string
   displayName: string
   profilePicture: string
+  userType: string
 }
 interface Context {
   getUserInfomation: () => Promise<void>
@@ -63,6 +64,7 @@ function context(): Context {
             displayName: res.displayName,
             email: res.email,
             profilePicture: image,
+            userType: res.userType,
           }
         } catch {
           const res = JSON.parse(jwt)
@@ -70,6 +72,7 @@ function context(): Context {
             displayName: res.displayName,
             email: res.email,
             profilePicture: image,
+            userType: res.userType,
           }
         }
       } else {

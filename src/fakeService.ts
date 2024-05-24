@@ -4,7 +4,12 @@ export default function services() {
   function login(
     username: string,
     password: string
-  ): { email: string; displayName: string; image?: string } | null {
+  ): {
+    email: string
+    displayName: string
+    image?: string
+    userType: string
+  } | null {
     console.log(username, password, userData)
     const user = userData.find(
       (x) => x.userName == username && x.password == password
@@ -14,6 +19,7 @@ export default function services() {
         email: user.userName,
         displayName: user.userId,
         image: user.profileUrl,
+        userType: 'admin',
       }
     return null
   }
