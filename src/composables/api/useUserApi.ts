@@ -45,7 +45,19 @@ function useUserApi() {
           jwt: string
           profilePicture: string
         } | null>(`${controller}/login`, { email: username, password })
-        infomation.setSessionLogin(JSON.stringify(res?.jwt))
+        if (res == null) return false
+        const base64Url = res?.jwt.split('.')[1]
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+        const jsonPayload = decodeURIComponent(
+          window
+            .atob(base64)
+            .split('')
+            .map(function (c) {
+              return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+            })
+            .join('')
+        )
+        infomation.setSessionLogin(JSON.parse(jsonPayload))
         return res != null
       } catch {
         const res = fs.login(username, password)
