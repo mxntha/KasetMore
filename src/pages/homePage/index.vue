@@ -3,6 +3,7 @@
   <div class="mx-20">
     <div id="section-category" class="">
       <v-card>
+        {{ productlist.length }}
         <v-card-title>หมวดหมู่</v-card-title>
         <v-card-text>
           <v-container fluid>
@@ -35,7 +36,7 @@
       </v-card>
       <v-container fluid>
         <v-row>
-          <v-col xl="1" xxl="1" lg="2" md="3" v-for="i in productlist">
+          <v-col :cols="cols" v-for="i in productlist">
             <ProductCardvue
               class="w-100"
               :ProductData="i"
@@ -82,6 +83,26 @@ import { ref, computed, inject } from 'vue'
 import { searchPluginSymbol } from '@/plugins/search'
 import router from '@/router'
 import { useProductApi } from '@/composables/api'
+import { useDisplay } from 'vuetify'
+
+import { onMounted } from 'vue'
+const { xs, sm, md, lg, xlAndUp } = useDisplay()
+const cols = computed(() =>
+  xs.value
+    ? 12
+    : sm.value
+    ? 6
+    : md.value
+    ? 3
+    : lg.value
+    ? 2
+    : xlAndUp.value
+    ? 1
+    : 3
+)
+onMounted(() => {
+  console.log(cols.value) // false
+})
 const categories = [
   { value: 'ผัก', img: vegetable },
   { value: 'ผลไม้', img: healthy },
