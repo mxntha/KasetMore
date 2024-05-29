@@ -11,8 +11,6 @@ async function getMethod<T>(url: string): Promise<T> {
     },
   })
     .then((e) => {
-      console.log(e)
-      console.log(e.json())
       return e.json()
     })
     .then((x) => x as T)

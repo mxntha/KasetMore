@@ -1,8 +1,4 @@
 <template>
-  กรณีกรอกข้อมูลไม่ครบทุกช่อง อนุญาตให้กดปุ่มไหม <br />
-  ช่องเเรกต้องกรอกรูปแบบ email เท่านั้้นไหม<br />
-  กรณีล็อคอินสำเรํจหรือไม่สำเร็จจะเเสดงบอก user ยังไง ใช้อะไรบอก user<br />
-  ปุ่มกดได้่ทุกอันไหม
   <div class="d-flex justify-center align-center h-100 w-100">
     <v-card max-width="1200" rounded="lg">
       <div class="d-flex">
@@ -15,9 +11,21 @@
         <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="500">
           <v-card-title class="text-h3 pb-6">Kaset More</v-card-title>
           <v-card-text>
-            <form>
+            <v-form v-model="valid">
               <div class="text-subtitle-1 text-medium-emphasis">Email</div>
               <v-text-field
+                :rules="[
+                  (value) => {
+                    if (value) return true
+
+                    return 'กรุณากรอก E-mail '
+                  },
+                  (value) => {
+                    if (/.+@.+\..+/.test(value)) return true
+
+                    return 'กรุณาระบุ E-mail ให้ถูกต้อง '
+                  },
+                ]"
                 density="compact"
                 placeholder="ใส่ Email ของคุณ"
                 prepend-inner-icon="mdi-email-outline"
@@ -39,6 +47,13 @@
               </div>
 
               <v-text-field
+                :rules="[
+                  (value) => {
+                    if (value) return true
+
+                    return 'กรุณากรอกรหัสผ่าน '
+                  },
+                ]"
                 class="mb-4"
                 :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
                 :type="visible ? 'text' : 'password'"
@@ -50,7 +65,7 @@
                 @click:append-inner="visible = !visible"
                 autocomplete="on"
               ></v-text-field>
-            </form>
+            </v-form>
 
             <v-btn
               :loading="loading"
@@ -95,6 +110,7 @@ const loading = ref(false)
 const userApi = useUserApi()
 const router = useRouter()
 const visible = ref(false)
+const valid = ref(false)
 const loginform = ref<LoginForm>({
   username: '',
   password: '',
@@ -103,11 +119,11 @@ async function gotoIndex() {
   loading.value = true
   const jwt = await userApi.login(
     loginform.value.username,
-    loginform.value.password,
+    loginform.value.password
   )
   loading.value = false
   if (!jwt) {
-    alert('รหัสผ่านผิด')
+    alert('กรุณาตรวจสอบข้อมูลให้ถูกต้อง')
     return
   }
   router.push({ path: '/' })

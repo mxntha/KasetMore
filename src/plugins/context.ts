@@ -57,14 +57,15 @@ function context(): Context {
               .map(function (c) {
                 return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
               })
-              .join(''),
+              .join('')
           )
           const res = JSON.parse(jsonPayload)
+          console.log(res)
           userInfo.value = {
-            displayName: res.displayName,
-            email: res.email,
+            displayName: res.DisplayName,
+            email: res.Email,
             profilePicture: image,
-            userType: res.userType,
+            userType: res.UserType,
           }
         } catch {
           const res = JSON.parse(jwt)

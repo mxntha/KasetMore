@@ -40,11 +40,16 @@ function useUserApi() {
     async login(username: string, password: string) {
       try {
         console.log('login . . . ')
-        const res = await postMethod<{
-          jwt: string
-          profilePicture: string
-        } | null>(`${controller}/login`, { email: username, password })
+        const res = await postMethod<
+          | {
+              jwt: string
+              profilePicture: string
+            }
+          | any
+        >(`${controller}/login`, { email: username, password })
+        console.log('res', res.status)
         if (res == null) return false
+        if (res.status == 400) return false
         infomation.setSessionLogin(JSON.stringify(res), res.profilePicture)
         return true
       } catch {

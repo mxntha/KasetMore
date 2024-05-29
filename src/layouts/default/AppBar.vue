@@ -34,7 +34,6 @@
     </div>
 
     <v-menu v-if="isShowMenu">
-      note เมนู่อันไหนต้องปิดบ้าง ปิดถูกไหมตามเงื่อนไข
       <template v-slot:activator="{ props }">
         <div class="mx-4" v-if="isLogin">
           <div v-bind="props" class="cursor-pointer">
@@ -44,8 +43,8 @@
               :image="infomation.userInfomation.value?.profilePicture"
             ></v-avatar>
             <span class="ml-2">
-              {{ infomation.userInfomation.value?.displayName }}
-            </span>
+              {{ infomation.userInfomation.value?.displayName }}</span
+            >
           </div>
         </div>
       </template>
@@ -69,15 +68,6 @@
             v-if="!isFarmer"
           >
             สมัครสมาชิกเกษตรกร
-          </v-list-item>
-
-          <v-list-item
-            variant="text"
-            class="mx-2"
-            @click="gotoregisterFarmer"
-            v-if="isFarmer"
-          >
-            หน้าขายของ
           </v-list-item>
 
           <v-list-item
@@ -112,7 +102,11 @@ const showList = ['Index']
 const isShowSearchBar = computed(() => showList.some((x) => x == route.name))
 const isShowMenu = computed(() => showList.some((x) => x == route.name))
 const isLogin = computed(() => infomation.userInfomation.value != null)
-const isFarmer = false
+const isFarmer = computed(
+  () =>
+    infomation.userInfomation.value?.userType == 'Seller' ||
+    infomation.userInfomation.value?.userType == 'Admin'
+)
 const userInfoData = ref<BaseUserInfo | null>(null)
 
 function gotoregisterCust() {

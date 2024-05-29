@@ -7,11 +7,11 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    HelloWorld: (typeof import('./src/components/HelloWorld.vue'))['default']
-    Productcard: (typeof import('./src/components/productCard/productcard.vue'))['default']
-    ProductList: (typeof import('./src/components/productList/productList.vue'))['default']
-    RouterLink: (typeof import('vue-router'))['RouterLink']
-    RouterView: (typeof import('vue-router'))['RouterView']
-    VerifyCard: (typeof import('./src/components/verifyCard/verifyCard.vue'))['default']
+    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    Productcard: typeof import('./src/components/productCard/productcard.vue')['default']
+    ProductList: typeof import('./src/components/productList/productList.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
+    VerifyCard: typeof import('./src/components/verifyCard/verifyCard.vue')['default']
   }
 }
