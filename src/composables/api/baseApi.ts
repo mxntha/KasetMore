@@ -1,9 +1,13 @@
 const baseUrl = process.env.baseUrl || 'http://localhost:5000/api/'
 
-async function getMethod<T>(url: string): Promise<T> {
+async function getMethod<T>(
+  url: string,
+  query: string | null = null
+): Promise<T> {
   console.log('get', url)
   const jwt = localStorage.getItem('login')
-  return fetch(baseUrl + url, {
+  const queryString = query != null ? new URLSearchParams(query) : null
+  return fetch(baseUrl + url + queryString != null ? '?' + queryString : '', {
     method: 'GET',
     headers: {
       'Content-type': 'application/json',
