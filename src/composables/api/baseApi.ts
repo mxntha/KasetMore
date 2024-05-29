@@ -2,18 +2,27 @@ const baseUrl = process.env.baseUrl || 'http://localhost:5000/api/'
 
 async function getMethod<T>(
   url: string,
-  query: string | null = null
+  query: object | null = null
 ): Promise<T> {
   console.log('get', url)
   const jwt = localStorage.getItem('login')
-  const queryString = query != null ? new URLSearchParams(query) : null
-  return fetch(baseUrl + url + queryString != null ? '?' + queryString : '', {
-    method: 'GET',
-    headers: {
-      'Content-type': 'application/json',
-      Authorization: `Bearer ${jwt}`,
-    },
-  })
+  const queryString =
+    query != null ? new URLSearchParams(JSON.stringify(query)) : null
+  console.log(
+    'res',
+    baseUrl + url + queryString != null ? '?' + queryString : ''
+  )
+  console.log('ee', JSON.stringify(query))
+  return fetch(
+    baseUrl + url + queryString != null ? '?' + queryString?.toString() : '',
+    {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${jwt}`,
+      },
+    }
+  )
     .then((e) => {
       return e.json()
     })

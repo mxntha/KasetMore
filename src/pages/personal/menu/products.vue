@@ -217,13 +217,16 @@
 <script lang="ts" setup>
 import { useProductApi, type Product } from '@/composables/api'
 import { ImgHTMLAttributes } from 'vue'
-import { ref } from 'vue'
+import { ref, onMounted, inject } from 'vue'
+import { contextPluginSymbol } from '@/plugins/context'
+
 interface TableProduct extends Product {
   action: string
 }
 const loading = ref(true)
 const _imageFile = ref<{ id: string; file: File }[]>([])
 const imageFiles = ref<{ id: string; src: string }[]>([])
+const infomation = inject(contextPluginSymbol)!
 async function handleImageChange(event: any) {
   if (imageFiles.value.length >= 4) {
     alert('เกิน 4 ไฟล?เเล้ว')
@@ -241,6 +244,7 @@ async function handleImageChange(event: any) {
   reader.readAsDataURL(file)
   event.target.value = null
 }
+
 const headers = [
   { title: 'รหัสสินค้า', value: 'productId' },
   { title: 'รูปภาพ', value: 'picture' },
@@ -251,10 +255,19 @@ const headers = [
   { title: 'รายละเอียดสินค้า', value: 'description' },
   { title: 'ดำเนินการ', value: 'action' },
 ]
+
 const currentProduct = ref<TableProduct>()
 const dialogInsert = ref(false)
 const dialogDelete = ref(false)
 const isEdit = ref(false)
+
+onMounted(async () => {
+  console.log() // false
+  loading.value = true
+  // currentProduct.value =
+  await productApi.getByEmail(infomation.userInfomation.value?.email!)
+  loading.value = false
+})
 function openInsert() {
   reInitProduct()
   dialogInsert.value = true
@@ -267,7 +280,7 @@ function deleteImage(id: string) {
 async function saveProduct() {
   const res = await productApi.createProduct(
     _imageFile.value.map((x) => x.file),
-    {},
+    {}
   )
   dialogInsert.value = false
 }
