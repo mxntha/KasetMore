@@ -96,7 +96,7 @@ import { useProductApi } from '@/composables/api'
 const route = useRoute()
 const productId = route.params.productId as string
 const amount = ref(1)
-const productDetail = ref<ProductCard | undefined>(undefined)
+const productDetail = ref<ProductCard | null>(null)
 const productApi = useProductApi()
 
 ;(async () => {

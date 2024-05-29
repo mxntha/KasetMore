@@ -1,5 +1,4 @@
 import { postMethod, getMethod } from './baseApi'
-import fServices from '@/fakeService'
 import { existInstance } from '@/plugins/context'
 import { loginLocalStorageKey } from '@/plugins/context'
 export interface InsertUser {
@@ -33,7 +32,6 @@ export interface UserInfo extends BaseUserInfo {
 }
 
 function useUserApi() {
-  const fs = fServices()
   const infomation = existInstance!
   const controller = 'Auth'
   return {
@@ -53,10 +51,7 @@ function useUserApi() {
         infomation.setSessionLogin(JSON.stringify(res), res.profilePicture)
         return true
       } catch {
-        const res = fs.login(username, password)
-        console.log(res, 'sdsdsd')
-        infomation.setSessionLogin(JSON.stringify(res), res?.image || '')
-        return res != null
+        return false
       }
     },
     async getUserInfomation(credential: string): Promise<BaseUserInfo | null> {
@@ -64,35 +59,21 @@ function useUserApi() {
       try {
         return await getMethod<BaseUserInfo>('getUserInfomation')
       } catch {
-        const res = fs.getUserInfomation(credential)
-        if (res == null) return null
-        return {
-          address: res?.address,
-          lastName: res?.lastName,
-          name: res?.name,
-          phoneNumber: res?.phoneNumber,
-          profileUrl: res?.profileUrl,
-          userId: res?.userId,
-          userName: res?.userName,
-          idCard: res?.idCard,
-          laserCard: res?.laserCard,
-          email: res?.email,
-          isFarmer: res.isFarmer,
-        }
+        return null
       }
     },
     async resgisterUser(data: InsertUser) {
       try {
         return await postMethod<boolean>('resgisterUser', null)
       } catch {
-        return fs.register(data)
+        return false
       }
     },
     async checkJwt(jwt: string): Promise<boolean> {
       try {
         return await getMethod<boolean>('checkJwt')
       } catch {
-        return true
+        return false
       }
     },
   }

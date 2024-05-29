@@ -1,6 +1,5 @@
 import { ProductCard } from '@/components/productCard/interface'
 import { postMethod, getMethod, multpartFormData } from './baseApi'
-import { productData } from '@/fakeDb'
 import { Product } from '.'
 
 function useProductApi() {
@@ -12,23 +11,23 @@ function useProductApi() {
         console.log(res)
         return res
       } catch {
-        return productData
+        return []
       }
     },
     async getById(id: string) {
       try {
-        return await getMethod<Product>(`${controller}/products/${id}`)
+        return await getMethod<Product | null>(`${controller}/products/${id}`)
       } catch {
-        return productData.find((x) => x.productId === id)
+        return null
       }
     },
     async getByEmail(email: string) {
       try {
-        return await getMethod<Product>(`${controller}/get-by-email`, {
+        return await getMethod<Product[]>(`${controller}/get-by-email`, {
           email: email,
         })
       } catch {
-        return productData.find((x) => x.productId === email)
+        return []
       }
     },
     async createProduct(files: File[], jsonData: any) {

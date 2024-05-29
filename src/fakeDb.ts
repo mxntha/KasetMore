@@ -264,4 +264,4 @@ const userData: UserInfo[] = [
     email: 'monthita@gmail.com',
   },
 ]
-export { productData, images, userData, purchaseData }
+// export { productData, images, userData, purchaseData }

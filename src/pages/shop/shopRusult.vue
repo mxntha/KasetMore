@@ -7,19 +7,19 @@
   ปุ่มกดได้่ทุกอันไหม <br />
   ui จะปรับเเต่งอะไรเพิม่ไหม <br />
   หากกดซื้อเเล้วไม่สำเร็จ จะเกิดอะไรขึ้นไหม
-  <div class="d-flex justify-center">
+  <div class="d-flex justify-center" v-if="productDetail != null">
     <v-card color="white" height="600" width="650">
       <div class="d-flex justify-center">
         <v-img
           height="500"
           width="500"
-          :src="productDetail?.picture"
+          :src="productDetail.picture"
           alt=""
         ></v-img>
       </div>
       <div>
-        {{ productDetail?.productName }}จำนวน {{ amount }} : รวมเป็นเงิน
-        {{ productDetail!.price * parseInt(amount!) }}
+        {{ productDetail.productName }}จำนวน {{ amount }} : รวมเป็นเงิน
+        {{ productDetail.price * parseInt(amount!) }}
       </div>
 
       <v-btn color="green" @click="buyProduct"> ยืนยันสั่งซื้อ </v-btn>
@@ -29,8 +29,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { productData } from '@/fakeDb'
 import router from '@/router'
+import { Product } from '@/composables/api'
 const route = useRoute()
 const productId = route.params.productId
 const amount = route.query.amount?.toString()
@@ -38,9 +38,7 @@ if (amount == null || parseInt(amount) <= 0 || amount == undefined) {
   alert('ไม่มีจำนวนซื้อ')
   router.push({ name: 'productDetail', params: { productId: productId } })
 }
-const productDetail = computed(() =>
-  productData.find((x) => x.productId === productId),
-)
+const productDetail = computed((): Product | null => null)
 if (productDetail.value == null) {
   alert('หาไม่เจอ')
   router.push({ name: 'productDetail', params: { productId: productId } })
