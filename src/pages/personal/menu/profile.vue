@@ -184,11 +184,12 @@ import { useRouter } from 'vue-router'
 import { contextPluginSymbol } from '@/plugins/context'
 import { BaseUserInfo } from '@/composables/api/useUserApi'
 import { useUserApi } from '@/composables/api'
-import { ref, inject } from 'vue'
+import { ref, inject, onMounted } from 'vue'
 const info = inject(contextPluginSymbol)!
 const loading = ref(true)
 
 const router = useRouter()
+
 const userInfoData = ref<BaseUserInfo>({
   address: '',
   email: '',
@@ -202,7 +203,9 @@ const userInfoData = ref<BaseUserInfo>({
   laserCard: '',
   profileUrl: '',
 })
+
 const imageUrl = ref('')
+const infomation = inject(contextPluginSymbol)!
 const userApi = useUserApi()
 ;(async () => {
   loading.value = true
@@ -211,9 +214,8 @@ const userApi = useUserApi()
     router.push({ path: '/' })
     return
   }
-
   userInfoData.value = (await userApi.getUserInfomation(
-    info.userInfomation.value?.email || '',
+    info.userInfomation.value?.email || ''
   )) || {
     address: '',
     email: '',
@@ -230,6 +232,7 @@ const userApi = useUserApi()
   console.log(userInfoData.value)
   loading.value = false
 })()
+
 function gotoIndex() {
   // infomation.deleteJwt()
   router.push({ name: 'Index' })

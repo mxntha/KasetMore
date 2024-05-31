@@ -1,6 +1,7 @@
 import { postMethod, getMethod } from './baseApi'
 import { existInstance } from '@/plugins/context'
 import { loginLocalStorageKey } from '@/plugins/context'
+
 export interface InsertUser {
   name: string
   lastName: string
@@ -64,7 +65,7 @@ function useUserApi() {
     },
     async resgisterUser(data: InsertUser) {
       try {
-        return await postMethod<boolean>('resgisterUser', null)
+        return await postMethod<boolean>(`${controller}/resgisterUser`, null)
       } catch {
         return false
       }
@@ -72,6 +73,33 @@ function useUserApi() {
     async checkJwt(jwt: string): Promise<boolean> {
       try {
         return await getMethod<boolean>('checkJwt')
+      } catch {
+        return false
+      }
+    },
+    async updateProfilePicture(data: InsertUser) {
+      try {
+        return await postMethod<boolean>(
+          `${controller}/update-profile-picture`,
+          null
+        )
+      } catch {
+        return false
+      }
+    },
+    async updateProfile(data: InsertUser) {
+      try {
+        return await postMethod<boolean>(`${controller}/update-profile`, null)
+      } catch {
+        return false
+      }
+    },
+    async updateVerifyFlag(data: InsertUser) {
+      try {
+        return await postMethod<boolean>(
+          `${controller}/update-verify-flag`,
+          null
+        )
       } catch {
         return false
       }
