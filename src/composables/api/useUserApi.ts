@@ -77,6 +77,15 @@ function useUserApi() {
         return false
       }
     },
+    async userByEmail(emailvalue: string) {
+      try {
+        return await postMethod<boolean>(`${controller}/user-by-email`, {
+          email: emailvalue,
+        })
+      } catch {
+        return false
+      }
+    },
     async updateProfilePicture(data: InsertUser) {
       try {
         return await postMethod<boolean>(

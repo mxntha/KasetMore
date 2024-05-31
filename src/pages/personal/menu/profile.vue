@@ -232,7 +232,13 @@ const userApi = useUserApi()
   console.log(userInfoData.value)
   loading.value = false
 })()
-
+onMounted(async () => {
+  console.log() // false
+  loading.value = true
+  // currentProduct.value =
+  await userApi.userByEmail(infomation.userInfomation.value?.email!)
+  loading.value = false
+})
 function gotoIndex() {
   // infomation.deleteJwt()
   router.push({ name: 'Index' })
