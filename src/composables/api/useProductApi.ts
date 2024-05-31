@@ -32,9 +32,13 @@ function useProductApi() {
     },
     async createProduct(files: File[], jsonData: any) {
       try {
-        console.log('add -rpodeu', jsonData)
+        console.log('add-product', jsonData)
 
-        return await multpartFormData('add-product', files, jsonData)
+        return await multpartFormData(
+          `${controller}/add-product`,
+          files,
+          jsonData
+        )
       } catch {
         return null
       }

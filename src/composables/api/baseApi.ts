@@ -47,9 +47,9 @@ async function postMethod<T>(
 }
 async function multpartFormData(url: string, files: File[], jsonData: any) {
   const formData = new FormData()
-  formData.append('data', jsonData)
+  formData.append('product', jsonData)
   for (let i = 0; i < files.length; i++) {
-    formData.append(`images${i}`, files[i])
+    formData.append(`images`, files[i])
   }
 
   fetch(baseUrl + url, {

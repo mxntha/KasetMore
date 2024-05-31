@@ -280,7 +280,14 @@ function deleteImage(id: string) {
 async function saveProduct() {
   const res = await productApi.createProduct(
     _imageFile.value.map((x) => x.file),
-    {}
+    {
+      ProductName: 'test',
+      Province: 'test',
+      Rating: 2,
+      Amount: 1,
+      UserEmail: 'test',
+      Price: 1,
+    }
   )
   dialogInsert.value = false
 }
