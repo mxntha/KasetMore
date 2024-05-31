@@ -21,10 +21,16 @@ async function getMethod<T>(url: string, query: any | null = null): Promise<T> {
       throw x
     })
 }
-async function postMethod<T>(url: string, payload: any): Promise<T> {
+async function postMethod<T>(
+  url: string,
+  payload: any | null = null,
+  query: any | null = null
+): Promise<T> {
   const jwt = localStorage.getItem('login')
   console.log(payload)
-  return fetch(baseUrl + url, {
+  const queryString = query != null ? new URLSearchParams(query) : null
+  const path = baseUrl + url
+  return fetch(path + (queryString != null ? '?' + queryString : ''), {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
