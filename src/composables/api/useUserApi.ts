@@ -1,6 +1,7 @@
 import { postMethod, getMethod } from './baseApi'
 import { existInstance } from '@/plugins/context'
 import { loginLocalStorageKey } from '@/plugins/context'
+import { UserApiModel } from '@/composables/api/interface'
 
 export interface InsertUser {
   name: string
@@ -15,7 +16,6 @@ export interface InsertUser {
   email: string
 }
 export interface BaseUserInfo {
-  userId: string
   name: string
   lastName: string
   profileUrl?: string
@@ -77,13 +77,26 @@ function useUserApi() {
         return false
       }
     },
-    async userByEmail(emailvalue: string) {
+    async userByEmail(emailvalue: string): Promise<null | BaseUserInfo> {
       try {
-        return await postMethod<boolean>(`${controller}/user-by-email`, {
-          email: emailvalue,
-        })
+        const res = await postMethod<UserApiModel>(
+          `${controller}/user-by-email`,
+          null,
+          {
+            email: emailvalue,
+          }
+        )
+        return {
+          name: res.firstName,
+          lastName: res.lastName,
+          email: res.email,
+          address: res.address,
+          phoneNumber: res.phoneNumber,
+          userName: res.displayName,
+          isFarmer: false,
+        }
       } catch {
-        return false
+        return null
       }
     },
     async updateProfilePicture(data: InsertUser) {

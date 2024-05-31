@@ -1,19 +1,14 @@
-interface UserApiModel {
-  Email: string
-  FirstName: string
-  LastName: string
-  ProfilePicture: string
-  UserType: string
-  Address: string
-  DisplayName: string
-  Password: string
-  IsVerified: string
-  PhoneNumber: string
-  CreateDate: Date
-  CreateBy: string
-  UpdateDate: Date
-  UpdateBy: string
+export interface UserApiModel {
+  email: string
+  firstName: string
+  lastName: string
+  profilePicture: string
+  userType: string
+  address: string
+  displayName: string
+  phoneNumber: string
 }
+
 interface UnitApiModel {
   UnitId: number
   UnitName: string

@@ -167,7 +167,7 @@
               <div class="pl-16 pr-5 text-blue-grey-darken-2">
                 ชื่อบัญชีผู้ใช้
               </div>
-              <div class="pl-5">{{ userInfoData?.userId }}</div>
+              <div class="pl-5">{{ userInfoData?.userName }}</div>
             </div>
             <div class="d-flex pb-10">
               <div class="pl-16 pr-5 text-blue-grey-darken-2">ที่อยู่</div>
@@ -197,7 +197,7 @@ const userInfoData = ref<BaseUserInfo>({
   lastName: '',
   name: '',
   phoneNumber: '',
-  userId: '',
+
   userName: '',
   idCard: '',
   laserCard: '',
@@ -223,7 +223,7 @@ const userApi = useUserApi()
     lastName: '',
     name: '',
     phoneNumber: '',
-    userId: '',
+
     userName: '',
     idCard: '',
     laserCard: '',
@@ -236,7 +236,21 @@ onMounted(async () => {
   console.log() // false
   loading.value = true
   // currentProduct.value =
-  await userApi.userByEmail(infomation.userInfomation.value?.email!)
+  userInfoData.value = (await userApi.userByEmail(
+    infomation.userInfomation.value?.email!
+  )) || {
+    address: '',
+    email: '',
+    isFarmer: false,
+    lastName: '',
+    name: '',
+    phoneNumber: '',
+    userName: '',
+    idCard: '',
+    laserCard: '',
+    profileUrl: '',
+  }
+
   loading.value = false
 })
 function gotoIndex() {
