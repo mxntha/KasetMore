@@ -16,6 +16,7 @@ export interface InsertUser {
   email: string
 }
 export interface BaseUserInfo {
+  userId?: string
   name: string
   lastName: string
   profileUrl?: string
