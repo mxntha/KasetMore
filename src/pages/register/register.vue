@@ -1,7 +1,6 @@
 <template>
   note <br />
   เเยกฟอร์มตาม role <br />
-  เช็คการกรอกข้อมูลเเต่ละช่องถูกต้องไหม email ต้องกรอกเเบบมี @ เทานั้นไหม
   เเละครบทุกช่องหรือไม่ <br />
   รหัสผ่านต้อง confirm ไหมกรณีสมัครครั้งเเรก
   เเละต้องเช็คว่ากรอกเหมือนกันทั้งสองช่องไหม<br />
@@ -106,11 +105,23 @@
             <v-col class="pr-16">
               Email
               <v-text-field
-                v-model="registerfarmer.phone"
+                v-model="registerfarmer.email"
                 label=""
                 required
                 placeholder="xxxxxxxx@gmail.com"
                 counter=""
+                :rules="[
+                  (value) => {
+                    if (value) return true
+
+                    return 'กรุณากรอก E-mail '
+                  },
+                  (value) => {
+                    if (/.+@.+\..+/.test(value)) return true
+
+                    return 'กรุณาระบุ E-mail ให้ถูกต้อง '
+                  },
+                ]"
               ></v-text-field>
             </v-col>
             <v-col class="pr-16">
@@ -224,10 +235,10 @@ const router = useRouter()
 const route = useRoute()
 const valid = ref(false)
 const isFarmer = computed(
-  () => userData.value != null && route.query.type === 'farmer',
+  () => userData.value != null && route.query.type === 'farmer'
 )
 const titleForm = computed(() =>
-  route.query.type === 'farmer' ? 'เกษตรกร' : 'บัญชีผู้ใช้งาน',
+  route.query.type === 'farmer' ? 'เกษตรกร' : 'บัญชีผู้ใช้งาน'
 )
 onMounted(async () => {
   userData.value = await userApi.getUserInfomation('test 1')

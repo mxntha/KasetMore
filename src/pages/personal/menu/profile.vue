@@ -6,13 +6,14 @@
   <v-card class="ma-8" height="835" :loading="loading">
     <v-card-text v-if="!loading">
       <v-container>
+        <!-- User Profile Avatar and Edit Button -->
         <v-col class="d-flex justify-center">
           <div>
             <div class="d-flex justify-center">
               <v-avatar
                 icon="mdi-account-circle"
                 color="surface-variant"
-                :image="userInfoData.profileUrl"
+                :image="infomation.userInfomation.value?.profilePicture"
                 size="150"
               ></v-avatar>
             </div>
@@ -29,6 +30,7 @@
                   ></v-btn>
                 </template>
                 <template v-slot:default="{ isActive: activator }">
+                  <!-- Edit User Information Dialog -->
                   <v-card prepend-icon="mdi-account" title="แก้ไขข้อมูลส่วนตัว">
                     note <br />
                     ต่อ api การอัปเดตข้อมูล ส่งรูปภาพเเละข้อมูล <br />
@@ -82,7 +84,7 @@
                             v-model="userInfoData.address"
                           ></v-textarea>
                         </v-col>
-
+                        <!-- Image Upload Field -->
                         <v-col>
                           <div class="file-input pt-6">
                             <input
@@ -223,7 +225,6 @@ const userApi = useUserApi()
     lastName: '',
     name: '',
     phoneNumber: '',
-
     userName: '',
     idCard: '',
     laserCard: '',

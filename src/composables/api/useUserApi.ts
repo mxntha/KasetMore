@@ -94,6 +94,7 @@ function useUserApi() {
           phoneNumber: res.phoneNumber,
           userName: res.displayName,
           isFarmer: false,
+          profileUrl: res.profilePicture,
         }
       } catch {
         return null
