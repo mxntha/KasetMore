@@ -27,7 +27,7 @@ async function postMethod<T>(
   query: any | null = null
 ): Promise<T> {
   const jwt = localStorage.getItem('login')
-  console.log(payload)
+  console.log('POST Payload:', payload)
   const queryString = query != null ? new URLSearchParams(query) : null
   const path = baseUrl + url
   return fetch(path + (queryString != null ? '?' + queryString : ''), {
