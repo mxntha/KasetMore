@@ -1,5 +1,5 @@
 <template>
-  <v-layout class="mx-n8 mt-n9">
+  <v-layout class="h-100">
     <v-navigation-drawer
       class="h-full"
       style="background-color: #cfbe99"
@@ -76,7 +76,7 @@
         </div>
       </template>
     </v-navigation-drawer>
-    <v-main class="h-100">
+    <v-main class="h-100 mx-8 py-8">
       <router-view />
     </v-main>
   </v-layout>

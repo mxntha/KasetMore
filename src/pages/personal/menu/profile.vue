@@ -1,9 +1,9 @@
 <template>
-  note ในปุ่มเเก้ไขเสร็จเเล้วหรือยัง <br />
-  ต่อ api อะไรมาบ้าง <br />
-  ข้อมูลไม่มีจะเเสดงหน้ายังไง เกิดอะไรขึ้นบ้าง <br />
-  ปุ่มกดได้่ทุกอันไหม
-  <v-card class="ma-8" height="835" :loading="loading">
+  <v-card class="h-100" :loading="loading">
+    note ในปุ่มเเก้ไขเสร็จเเล้วหรือยัง <br />
+    ต่อ api อะไรมาบ้าง <br />
+    ข้อมูลไม่มีจะเเสดงหน้ายังไง เกิดอะไรขึ้นบ้าง <br />
+    ปุ่มกดได้่ทุกอันไหม
     <v-card-text v-if="!loading">
       <v-container>
         <!-- User Profile Avatar and Edit Button -->

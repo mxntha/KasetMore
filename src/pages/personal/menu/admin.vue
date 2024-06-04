@@ -1,10 +1,10 @@
 <template>
-  note หากไม่มีข้อมูลเลยจะเเสดงหน้ายังไง <br />
-  หลังจากกดปุ่ม ต่างๆในหน้านี้จะเกิดอะไรขึ้้นบ้าง <br />
-  &nbsp; หากกดปุ่มเเล้วเกิด error จะต้องเเสดงอะไรบอกผู้ใช้่ไหม<br />
-  หากกดเเล้วข้อมูลจะหายไปไหม ต้องดึงข้อมูลใหม่ไหม <br />
-  ปุ่มกดได้่ทุกอันไหม
-  <v-card class="ma-8" height="835">
+  <v-card class="h-100">
+    note หากไม่มีข้อมูลเลยจะเเสดงหน้ายังไง <br />
+    หลังจากกดปุ่ม ต่างๆในหน้านี้จะเกิดอะไรขึ้้นบ้าง <br />
+    &nbsp; หากกดปุ่มเเล้วเกิด error จะต้องเเสดงอะไรบอกผู้ใช้่ไหม<br />
+    หากกดเเล้วข้อมูลจะหายไปไหม ต้องดึงข้อมูลใหม่ไหม <br />
+    ปุ่มกดได้่ทุกอันไหม
     <v-card-title>ตรวจสอบการสมัครสมาชิกเกษตรกร</v-card-title>
     <v-divider></v-divider>
     <v-card-text>
@@ -79,7 +79,7 @@ const info = inject(contextPluginSymbol)!
 const userApi = useUserApi()
 ;(async () => {
   userInfoData.value = await userApi.getUserInfomation(
-    info.userInfomation.value?.email || '',
+    info.userInfomation.value?.email || ''
   )
 })()
 </script>
