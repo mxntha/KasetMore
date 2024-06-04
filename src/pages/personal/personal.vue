@@ -74,7 +74,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import FarmerCard from '@/components/farmerCard'
+import FarmerCard from '@/components/farmerCard/index.vue'
 const router = useRouter()
 const route = useRoute()
 
