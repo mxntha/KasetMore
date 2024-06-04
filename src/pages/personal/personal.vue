@@ -6,23 +6,7 @@
       permanent
     >
       <v-list color="transparent">
-        note
-        <br />
-        การ์ดด้านล่างมีครบทุกกรณีหรือยัง นอกจากไม่ผ่าน
-        <br />
-        เมนูมีการซ่อนหรือยัง
-        <br />
-        ปุ่มกดได้่ทุกอันไหม
-        <v-card
-          append-icon="mdi-cancel"
-          color="#990528"
-          class="mx-auto"
-          max-width="344"
-          subtitle="การเป็นเกษตรกร"
-          target="_blank"
-          title="ไม่ผ่าน"
-        >
-        </v-card>
+        <FarmerCard status="Y" />
         <div class="mx-auto" max-width="300" color="purple">
           <v-list
             density="compact"
@@ -62,7 +46,13 @@
           </v-list>
         </div>
       </v-list>
-
+      note
+      <br />
+      ผูกค่ากับการ์ด
+      <br />
+      เมนูมีการซ่อนหรือยัง
+      <br />
+      ปุ่มกดได้่ทุกอันไหม
       <template v-slot:append>
         <div class="pa-2">
           <v-btn block prepend-icon="mdi-home" @click="gotoIndexLogin">
@@ -84,7 +74,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-
+import FarmerCard from '@/components/farmerCard'
 const router = useRouter()
 const route = useRoute()
 
