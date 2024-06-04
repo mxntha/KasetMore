@@ -1,14 +1,13 @@
 <template>
-  note <br />
-  ต่อ api เเล้วหรือยัง <br />
-  หากกดที่ card จะเกิดอะไรขึ้นไหม พาไปหน้าไหนเพิ่มไหม <br />
-  หากไม่มีขั้อมูลสินค้าเลย จะเเสดงหน้ายังไง เกิดอะไรขึ้นบ้าง<br />
-  ui เรียบร้อยหรือยัง ปุ่มเพิ่มเเห้งๆไปไหม <br />
-  ปุ่มกดได้่ทุกอันไหม
-  <v-card class="ma-8">
+  <v-card class="h-100">
+    note <br />
+    ต่อ api เเล้วหรือยัง <br />
+    หากกดที่ card จะเกิดอะไรขึ้นไหม พาไปหน้าไหนเพิ่มไหม <br />
+    หากไม่มีขั้อมูลสินค้าเลย จะเเสดงหน้ายังไง เกิดอะไรขึ้นบ้าง<br />
+    ui เรียบร้อยหรือยัง ปุ่มเพิ่มเเห้งๆไปไหม <br />
+    ปุ่มกดได้่ทุกอันไหม
     <v-card-text>
       <v-data-table-virtual
-        height="690"
         :items="productData"
         :loading="loading"
         :headers="headers"
@@ -42,6 +41,7 @@
       </v-data-table-virtual>
     </v-card-text>
   </v-card>
+
   <v-dialog
     persistent
     v-model="dialogInsert"

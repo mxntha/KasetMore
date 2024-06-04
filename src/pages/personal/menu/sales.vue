@@ -1,11 +1,11 @@
 <template>
-  note<br />
-  หากไม่มีข้อมูลเลยจะเเสดงหน้ายังไง <br />
+  <v-card class="h-100">
+    note<br />
+    หากไม่มีข้อมูลเลยจะเเสดงหน้ายังไง <br />
 
-  ในกราฟจะเเสดงข้อมูลอะไรบ้าง <br />
-  ต่อ api อะไรมาบ้าง <br />
+    ในกราฟจะเเสดงข้อมูลอะไรบ้าง <br />
+    ต่อ api อะไรมาบ้าง <br />
 
-  <v-card class="ma-8" height="835">
     <div class="d-flex flex-row">
       <v-card class="ma-8" height="180" width="300">
         <div class="text-h5 ma-6">ยอดรวม :</div>
