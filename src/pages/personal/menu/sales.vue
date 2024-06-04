@@ -1,10 +1,10 @@
 <template>
   note<br />
   หากไม่มีข้อมูลเลยจะเเสดงหน้ายังไง <br />
-  หลังจากกดปุ่ม ต่างๆในหน้านี้จะเกิดอะไรขึ้้นบ้าง <br />
+
   ในกราฟจะเเสดงข้อมูลอะไรบ้าง <br />
   ต่อ api อะไรมาบ้าง <br />
-  ปุ่มกดได้่ทุกอันไหม
+
   <v-card class="ma-8" height="835">
     <div class="d-flex flex-row">
       <v-card class="ma-8" height="180" width="300">
@@ -46,6 +46,7 @@
 </template>
 
 <script setup lang="ts">
+import ApexCharts from 'apexcharts'
 import { ref } from 'vue'
 
 const line = ref({
