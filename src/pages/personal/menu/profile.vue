@@ -2,8 +2,6 @@
   <v-card class="h-100" :loading="loading">
     note ในปุ่มเเก้ไขเสร็จเเล้วหรือยัง <br />
     ต่อ api อะไรมาบ้าง <br />
-    ข้อมูลไม่มีจะเเสดงหน้ายังไง เกิดอะไรขึ้นบ้าง <br />
-    ปุ่มกดได้่ทุกอันไหม
     <v-card-text v-if="!loading">
       <v-container>
         <!-- User Profile Avatar and Edit Button -->
@@ -35,12 +33,8 @@
                     note <br />
                     ต่อ api การอัปเดตข้อมูล ส่งรูปภาพเเละข้อมูล <br />
                     ui เสร็จเเล้วหรือยัง <br />
-                    password เช็คเหมือนกันหรือยัง <br />
-                    ใน form ต้องกรอกอันไหนบ้าง ทำการตรวจเช็คหรือยัง
-                    หากกรอกไม่ครบจะเกิดอะไรขึ้น <br />
                     หลังกด save หรือ cancel ใน form ต้องล้างค่าออกหรือไม่
                     หรือต้องดึงข้อมูลมาเเสดงอีกรอบไหม <br />
-                    ข้อมูลไม่มีจะเเสดงหน้ายังไง เกิดอะไรขึ้นบ้าง
                     <v-card-text>
                       <v-row dense>
                         <v-col cols="12" md="4" sm="6">
@@ -65,7 +59,9 @@
                           <v-text-field
                             label="รหัสผ่าน"
                             type="password"
+                            v-model="password"
                             required
+                            :error-messages="passwordErrors"
                           ></v-text-field>
                         </v-col>
 
@@ -73,6 +69,8 @@
                           <v-text-field
                             label="ยืนยันรหัสผ่าน"
                             type="password"
+                            v-model="confirmPassword"
+                            :error-messages="passwordErrors"
                             required
                           ></v-text-field>
                         </v-col>
@@ -140,7 +138,7 @@
                         color="primary"
                         text="Save"
                         variant="tonal"
-                        @click="activator.value = false"
+                        @click="saveForm"
                       ></v-btn>
                     </v-card-actions>
                   </v-card>
@@ -181,14 +179,18 @@
     </v-card-text>
   </v-card>
 </template>
+
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
 import { contextPluginSymbol } from '@/plugins/context'
 import { BaseUserInfo } from '@/composables/api/useUserApi'
 import { useUserApi } from '@/composables/api'
-import { ref, inject, onMounted } from 'vue'
+import { ref, inject, onMounted, computed } from 'vue'
+
 const info = inject(contextPluginSymbol)!
 const loading = ref(true)
+const password = ref('')
+const confirmPassword = ref('')
 
 const router = useRouter()
 
@@ -199,7 +201,6 @@ const userInfoData = ref<BaseUserInfo>({
   lastName: '',
   name: '',
   phoneNumber: '',
-
   userName: '',
   idCard: '',
   laserCard: '',
@@ -209,6 +210,27 @@ const userInfoData = ref<BaseUserInfo>({
 const imageUrl = ref('')
 const infomation = inject(contextPluginSymbol)!
 const userApi = useUserApi()
+
+const passwordErrors = computed(() => {
+  if (confirmPassword.value && confirmPassword.value !== password.value) {
+    return ['รหัสผ่านไม่ตรงกัน']
+  }
+  return []
+})
+
+const formErrors = ref<string[]>([])
+
+const isFormValid = computed(() => {
+  formErrors.value = []
+
+  if (!userInfoData.value.address) formErrors.value.push('กรุณากรอกที่อยู่')
+  if (!password.value) formErrors.value.push('กรุณากรอกรหัสผ่าน')
+  if (password.value !== confirmPassword.value)
+    formErrors.value.push('รหัสผ่านไม่ตรงกัน')
+
+  return formErrors.value.length === 0
+})
+
 ;(async () => {
   loading.value = true
   if (info.userInfomation.value == null) {
@@ -234,9 +256,7 @@ const userApi = useUserApi()
   loading.value = false
 })()
 onMounted(async () => {
-  console.log() // false
   loading.value = true
-  // currentProduct.value =
   userInfoData.value = (await userApi.userByEmail(
     infomation.userInfomation.value?.email!
   )) || {
@@ -254,10 +274,11 @@ onMounted(async () => {
 
   loading.value = false
 })
+
 function gotoIndex() {
-  // infomation.deleteJwt()
   router.push({ name: 'Index' })
 }
+
 function handleImageChange(event: any) {
   const file = event.target.files[0]
   const reader = new FileReader()
@@ -267,6 +288,7 @@ function handleImageChange(event: any) {
   }
   reader.readAsDataURL(file)
 }
+
 function convertToBase64(_imageUrl: any) {
   const img = new Image()
   img.src = _imageUrl
@@ -277,6 +299,16 @@ function convertToBase64(_imageUrl: any) {
     canvas.height = img.height
     ctx.drawImage(img, 0, 0)
     imageUrl.value = canvas.toDataURL('image/jpeg')
+  }
+}
+
+function saveForm() {
+  if (isFormValid.value) {
+    // Save form logic
+    // Call API to update user info
+    alert('ข้อมูลได้รับการบันทึกแล้ว')
+  } else {
+    alert(`กรุณากรอกข้อมูลให้ครบถ้วน:\n${formErrors.value.join('\n')}`)
   }
 }
 </script>
