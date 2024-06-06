@@ -43,6 +43,22 @@ function useProductApi() {
         return null
       }
     },
+    async deleteProduct(id: string): Promise<any> {
+      try {
+        console.log('delete-product')
+
+        const response = await postMethod(
+          `${controller}/delete-product`,
+          [], // No files to upload for delete operation
+          { id: id } // Sending ID as part of JSON data
+        )
+
+        return response
+      } catch (error) {
+        console.error('Error deleting product:', error)
+        return null
+      }
+    },
   }
 }
 export default useProductApi

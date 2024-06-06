@@ -54,8 +54,7 @@
       field ครบไหมตาม c# <br />
       ต่อ api สำหรับเเก้ไขหรือยัง <br />
       ต่อ api สำหรับเพิ้มข้อมูลหรือยัง <br />
-      เช็ค field กรอกครบหรือหากไม่ครบจะเเสดงยังไง หากกรอกผิดประเภทเช่นราคา กรอก
-      หกยส จะเกิดอะไรขึ้นไหม <br />
+
       หากเพิ่มหรือเเก้ไขไม่สำเร็จจะเเจ้้ง user ไหม หากเเจ้งจะบอกยังไง <br />
       ปุ่มกดได้่ทุกอันไหม
       <v-card-title>
@@ -277,6 +276,7 @@ function deleteImage(id: string) {
   _imageFile.value = _imageFile.value.filter((image) => image.id !== id)
   imageFiles.value = imageFiles.value.filter((image) => image.id !== id)
 }
+//บันทึกข้อมูล เช็คข้อความและตัวเลข
 async function saveProduct() {
   const res = await productApi.createProduct(
     _imageFile.value.map((x) => x.file),
@@ -289,6 +289,46 @@ async function saveProduct() {
       Price: 1,
     }
   )
+  if (
+    !currentProduct.value?.productId ||
+    !currentProduct.value?.productName ||
+    !currentProduct.value?.price ||
+    !currentProduct.value?.amount ||
+    !currentProduct.value?.description
+  ) {
+    alert('กรุณากรอกข้อมูลให้ครบ')
+    return
+  }
+
+  // ตรวจสอบว่าราคาสินค้าเป็นตัวเลข
+  if (isNaN(Number(currentProduct.value.price))) {
+    alert('กรุณากรอกราคาสินค้าให้ถูกต้อง')
+    return
+  }
+
+  // ตรวจสอบว่าจำนวนสินค้าเป็นตัวเลข
+  if (isNaN(Number(currentProduct.value.amount))) {
+    alert('กรุณากรอกจำนวนสินค้าให้ถูกต้อง')
+    return
+  }
+
+  try {
+    const res = await productApi.createProduct(
+      _imageFile.value.map((x) => x.file),
+      {
+        ProductName: currentProduct.value.productName,
+        Province: currentProduct.value.province,
+        Rating: currentProduct.value.rating,
+        Amount: Number(currentProduct.value.amount),
+        UserEmail: infomation.userInfomation.value?.email!,
+        Price: Number(currentProduct.value.price),
+        Description: currentProduct.value.description,
+      }
+    )
+    alert('บันทึกข้อมูลสำเร็จ')
+  } catch (error) {
+    alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล')
+  }
   dialogInsert.value = false
 }
 function reInitProduct() {
