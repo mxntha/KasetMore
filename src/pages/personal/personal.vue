@@ -13,36 +13,45 @@
             :selected="[menuId]"
             @update:selected="(e) => redirectMenu(e[0])"
           >
-            <v-list-subheader class="text-h5">ข้อมูลส่วนตัว</v-list-subheader>
-            <v-list-item
-              prepend-icon="mdi-account"
-              title="บัญชีผู้ใช้"
-              value="Profile"
-            ></v-list-item>
-            <v-list-item
-              prepend-icon="mdi-clipboard-text"
-              title="ประวัติการซื้อ"
-              value="Purchase"
-            ></v-list-item>
+            <div>
+              <v-list-subheader class="text-h5">ข้อมูลส่วนตัว</v-list-subheader>
+              <v-list-item
+                prepend-icon="mdi-account"
+                title="บัญชีผู้ใช้"
+                value="Profile"
+              ></v-list-item>
+              <v-list-item
+                prepend-icon="mdi-clipboard-text"
+                title="ประวัติการซื้อ"
+                value="Purchase"
+              ></v-list-item>
+            </div>
+
             <v-divider :thickness="5"></v-divider>
-            <v-list-subheader class="text-h5">เกษตรกร</v-list-subheader>
-            <v-list-item
-              prepend-icon="mdi-chart-multiple"
-              title="ยอดขาย"
-              value="Sales"
-            ></v-list-item>
-            <v-list-item
-              prepend-icon="mdi-store-plus"
-              title="ขายสินค้า"
-              value="Products"
-            ></v-list-item>
-            <v-divider :thickness="5"></v-divider>
-            <v-list-subheader class="text-h5">Admin</v-list-subheader>
-            <v-list-item
-              prepend-icon="mdi-shield-check"
-              title="ตรวจสอบ"
-              value="Admin"
-            ></v-list-item>
+            <div v-if="!isUser">
+              <v-list-subheader class="text-h5">เกษตรกร</v-list-subheader>
+              <v-list-item
+                prepend-icon="mdi-chart-multiple"
+                title="ยอดขาย"
+                value="Sales"
+              ></v-list-item>
+              <v-list-item
+                prepend-icon="mdi-store-plus"
+                title="ขายสินค้า"
+                value="Products"
+              ></v-list-item>
+            </div>
+            <div v-if="!isUser">
+              <div v-if="!isFarmer">
+                <v-divider :thickness="5"></v-divider>
+                <v-list-subheader class="text-h5">Admin</v-list-subheader>
+                <v-list-item
+                  prepend-icon="mdi-shield-check"
+                  title="ตรวจสอบ"
+                  value="Admin"
+                ></v-list-item>
+              </div>
+            </div>
           </v-list>
         </div>
       </v-list>
@@ -51,8 +60,7 @@
       ผูกค่ากับการ์ด
       <br />
       เมนูมีการซ่อนหรือยัง
-      <br />
-      ปุ่มกดได้่ทุกอันไหม
+
       <template v-slot:append>
         <div class="pa-2">
           <v-btn block prepend-icon="mdi-home" @click="gotoIndexLogin">
@@ -72,11 +80,23 @@
   </v-layout>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, computed, inject } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import FarmerCard from '@/components/farmerCard/index.vue'
+import { contextPluginSymbol } from '@/plugins/context'
 const router = useRouter()
+
 const route = useRoute()
+
+const infomation = inject(contextPluginSymbol)!
+const isFarmer = computed(
+  () =>
+    infomation.userInfomation.value?.userType == 'Seller' ||
+    infomation.userInfomation.value?.isverify == 'Y'
+)
+const isUser = computed(
+  () => infomation.userInfomation.value?.userType == 'User'
+)
 
 const menuId = ref(
   route.path
@@ -86,6 +106,7 @@ const menuId = ref(
 )
 function gotoIndex() {
   router.push({ name: 'Index' })
+  infomation.resetInfomation()
   localStorage.removeItem('login')
   window.location.reload()
 }

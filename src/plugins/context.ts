@@ -14,6 +14,7 @@ interface JwtData {
   displayName: string
   profilePicture: string
   userType: string
+  isverify: string
 }
 interface Context {
   getUserInfomation: () => Promise<void>
@@ -66,6 +67,7 @@ function context(): Context {
             email: res.Email,
             profilePicture: image,
             userType: res.UserType,
+            isverify: res.Isverify,
           }
         } catch {
           const res = JSON.parse(jwt)
@@ -74,6 +76,7 @@ function context(): Context {
             email: res.email,
             profilePicture: image,
             userType: res.userType,
+            isverify: res.Isverify,
           }
         }
       } else {

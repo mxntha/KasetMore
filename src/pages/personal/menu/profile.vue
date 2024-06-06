@@ -11,7 +11,7 @@
               <v-avatar
                 icon="mdi-account-circle"
                 color="surface-variant"
-                :image="infomation.userInfomation.value?.profilePicture"
+                :image="userInfoData.profileUrl"
                 size="150"
               ></v-avatar>
             </div>
