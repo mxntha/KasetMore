@@ -3,7 +3,6 @@
     note <br />
     ต่อ api เเล้วหรือยัง <br />
     หากกดที่ card จะเกิดอะไรขึ้นไหม พาไปหน้าไหนเพิ่มไหม <br />
-    หากไม่มีขั้อมูลสินค้าเลย จะเเสดงหน้ายังไง เกิดอะไรขึ้นบ้าง<br />
     ui เรียบร้อยหรือยัง ปุ่มเพิ่มเเห้งๆไปไหม <br />
     ปุ่มกดได้่ทุกอันไหม
     <v-card-text>
@@ -31,7 +30,24 @@
           </v-icon>
         </template>
         <template v-slot:no-data>
-          <v-btn color="primary" @click="fetchProductData"> Reset </v-btn>
+          <div class="text-center">
+            <div class="ma-6">
+              <div class="d-flex justify-space-around">
+                <v-icon
+                  class="mt-16"
+                  icon="mdi-archive-off"
+                  size="200"
+                  color="grey"
+                ></v-icon>
+              </div>
+              <div class="d-flex justify-space-around text-grey">
+                ไม่มีข้อมูลสินค้า
+              </div>
+            </div>
+            <v-btn class="ma-6" color="primary" @click="fetchProductData"
+              >Reset</v-btn
+            >
+          </div>
         </template>
         <template v-slot:item.picture="{ item }">
           <v-card class="my-2" elevation="2" rounded>
