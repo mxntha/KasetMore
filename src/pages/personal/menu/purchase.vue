@@ -27,7 +27,7 @@
           </v-card>
         </v-col>
       </v-row>
-      <div class="ma-16" v-if="productlist.length <= 0">
+      <div class="ma-16">
         <div class="d-flex justify-space-around">
           <v-icon
             class="mt-16"
@@ -49,7 +49,6 @@ import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { searchPluginSymbol } from '@/plugins/search'
 import router from '@/router'
-import { ProductCard } from '@/components/productCard/interface'
 import { Purchase, usePurchaseApi } from '@/composables/api'
 import { onMounted, computed, inject } from 'vue'
 
@@ -57,34 +56,12 @@ const route = useRoute()
 const purchaseData = ref<Purchase[]>([])
 const loading = ref(true)
 const purchaseApi = usePurchaseApi()
-const _productlist = ref<ProductCard[]>([])
-const maxItem = 12
-const searchState = inject(searchPluginSymbol)!
-const currentPage = ref(1)
 
 onMounted(async () => {
   loading.value = true
   purchaseData.value = await purchaseApi.getAll()
   loading.value = false
 })
-
-const filterProduct = computed(() =>
-  _productlist.value.filter(
-    (x) =>
-      searchState.searchText.value.trim() === '' ||
-      x.productName.includes(searchState.searchText.value)
-  )
-)
-
-const productlist = computed(() =>
-  filterProduct.value.length > maxItem
-    ? filterProduct.value.filter(
-        (x, i) =>
-          i + 1 > (currentPage.value - 1) * maxItem &&
-          i + 1 <= currentPage.value * maxItem
-      )
-    : filterProduct.value
-)
 </script>
 <style scoped>
 .v-card {

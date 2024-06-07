@@ -85,12 +85,11 @@
 </template>
 
 <script lang="ts" setup>
-import { inject } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { searchPluginSymbol } from '@/plugins/search'
-import { computed } from 'vue'
+import { computed, ref, inject } from 'vue'
 import { contextPluginSymbol } from '@/plugins/context'
-import { ref } from 'vue'
+
 import { BaseUserInfo } from '@/composables/api/useUserApi'
 
 const infomation = inject(contextPluginSymbol)!
