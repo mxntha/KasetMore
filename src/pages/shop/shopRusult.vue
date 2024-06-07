@@ -13,7 +13,7 @@
         <v-img
           height="500"
           width="500"
-          :src="productDetail.picture"
+          :img="productDetail.productImages"
           alt=""
         ></v-img>
       </div>
@@ -27,26 +27,61 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '@/router'
-import { Product } from '@/composables/api'
+import { Product, useProductApi } from '@/composables/api'
+import {
+  ProductResultApi,
+  ProductDetailById,
+} from '@/composables/api/interface'
+
 const route = useRoute()
-const productId = route.params.productId
-const amount = route.query.amount?.toString()
-if (amount == null || parseInt(amount) <= 0 || amount == undefined) {
-  alert('ไม่มีจำนวนซื้อ')
-  router.push({ name: 'productDetail', params: { productId: productId } })
-}
-const productDetail = computed((): Product | null => null)
-if (productDetail.value == null) {
-  alert('หาไม่เจอ')
-  router.push({ name: 'productDetail', params: { productId: productId } })
-}
-if (parseInt(amount!) > productDetail.value!.amount) {
-  alert('จำนวนซื้อมากเกินไป')
-  router.push({ name: 'productDetail', params: { productId: productId } })
-}
+const productIdParam = route.params.productId
+const amountQuery = route.query.amount
+const productId = Array.isArray(productIdParam)
+  ? productIdParam[0]
+  : productIdParam
+const amount = Array.isArray(amountQuery) ? amountQuery[0] : amountQuery
+const loading = ref(true)
+const productApi = useProductApi()
+const productDetail = ref<ProductDetailById | null>(null)
+
+onMounted(async () => {
+  loading.value = true
+
+  try {
+    productDetail.value = await productApi.getById(productId)
+
+    if (productDetail.value === null) {
+      alert('ไม่พบสินค้า')
+      router.push({ name: 'productList' })
+    } else if (amount == null || parseInt(amount) <= 0) {
+      alert('กรุณาระบุจำนวนที่ต้องการซื้อ')
+      router.push({ name: 'productDetail', params: { productId: productId } })
+    } else if (parseInt(amount) > productDetail.value.amount) {
+      alert('จำนวนซื้อมากเกินไป')
+      router.push({ name: 'productDetail', params: { productId: productId } })
+    }
+  } catch (error) {
+    console.error('เกิดข้อผิดพลาดในการดึงข้อมูลสินค้า:', error)
+  } finally {
+    loading.value = false
+  }
+})
+// if (amount == null || parseInt(amount) <= 0 || amount == undefined) {
+//   alert('ไม่มีจำนวนซื้อ')
+//   router.push({ name: 'productDetail', params: { productId: productId } })
+// }
+// const productDetail = computed((): Product | null => null)
+// if (productDetail.value == null) {
+//   alert('หาไม่เจอ')
+//   router.push({ name: 'productDetail', params: { productId: productId } })
+// }
+// if (parseInt(amount!) > productDetail.value!.amount) {
+//   alert('จำนวนซื้อมากเกินไป')
+//   router.push({ name: 'productDetail', params: { productId: productId } })
+// }
 function generateRandomString(length: number) {
   var result = ''
   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'

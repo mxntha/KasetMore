@@ -88,12 +88,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '@/router'
 import { ProductCard } from '@/components/productCard/interface'
 import { useProductApi, useUserApi } from '@/composables/api'
-import { onMounted } from 'vue'
 import { ProductDetailById } from '@/composables/api/interface'
 
 const route = useRoute()
