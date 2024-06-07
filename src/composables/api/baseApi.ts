@@ -47,7 +47,10 @@ async function postMethod<T>(
 }
 async function multpartFormData(url: string, files: File[], jsonData: any) {
   const formData = new FormData()
-  formData.append('product', jsonData)
+  // formData.append('product', jsonData)
+  for (const [key, value] of Object.entries(jsonData)) {
+    formData.append(`${key}`, `${value}`)
+  }
   for (let i = 0; i < files.length; i++) {
     formData.append(`images`, files[i])
   }
