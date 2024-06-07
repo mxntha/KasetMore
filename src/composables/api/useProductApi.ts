@@ -1,7 +1,7 @@
 import { ProductCard } from '@/components/productCard/interface'
 import { postMethod, getMethod, multpartFormData } from './baseApi'
 import { Product } from '.'
-import { ProductResultApi } from './interface'
+import { ProductResultApi, ProductDetailById } from './interface'
 
 function useProductApi() {
   const controller = 'Product'
@@ -22,6 +22,7 @@ function useProductApi() {
             picture: e.productImages[0].image,
             province: e.province,
             rating: e.rating,
+            category: e.category,
           }
         })
       } catch {
@@ -30,7 +31,9 @@ function useProductApi() {
     },
     async getById(id: string) {
       try {
-        return await getMethod<Product | null>(`${controller}/products/${id}`)
+        return await getMethod<ProductDetailById | null>(
+          `${controller}/products/${id}`
+        )
       } catch {
         return null
       }
@@ -54,6 +57,7 @@ function useProductApi() {
             picture: e.productImages[0].image,
             province: e.province,
             rating: e.rating,
+            category: e.category,
           }
         })
       } catch {

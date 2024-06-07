@@ -1,7 +1,7 @@
 <template>
   note <br />
-  ดึง api ครบหรือยัง รูปภาพครบหรือยัง ข้อมูลร้านค้าต้องดึงไหม
-  หรือหาไอดีไม่พบจะเกิดอะไรขึ้นไหม <br />
+
+  <br />
   ปุ่ม += ใช้ได้หรือยัง มีการป้องกันกรณี -1 ,0 หรือซื้่อเกินจำนวนไหม <br />
   ปุ่มใช้งานได้ครบไหม <br />
   หากเกิด error ดึงข้อมูลไม่ครบ หรือข้อมูลไม่ขึ้นจะทำยังไง <br />
@@ -10,13 +10,13 @@
       <v-container fluid>
         <v-row>
           <v-col cols="4">
-            <v-carousel height="400" hide-delimiters>
+            <v-carousel height="500" hide-delimiters class="mx-auto">
               <v-carousel-item
-                v-for="i in 2"
-                :key="i"
-                :src="productDetail?.picture"
-                cover
-              ></v-carousel-item>
+                v-for="i in productDetail?.productImages"
+                :key="i.attatchmentId"
+              >
+                <v-img :src="i.image"></v-img>
+              </v-carousel-item>
             </v-carousel>
           </v-col>
           <v-col>
@@ -82,7 +82,7 @@
   <v-card :loading="!productDetail" class="mt-4">
     <v-card-title>ข้อมูลร้านค้า</v-card-title>
     <v-card-text>
-      <div class="text-h5">เจ๊บีทุเรียนซิ่ง</div>
+      <div class="text-h5">{{ userDisplay?.userName }}</div>
     </v-card-text>
   </v-card>
 </template>
@@ -92,21 +92,44 @@ import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '@/router'
 import { ProductCard } from '@/components/productCard/interface'
-import { useProductApi } from '@/composables/api'
+import { useProductApi, useUserApi } from '@/composables/api'
+import { onMounted } from 'vue'
+import { ProductDetailById } from '@/composables/api/interface'
+
 const route = useRoute()
 const productId = route.params.productId as string
 const amount = ref(1)
-const productDetail = ref<ProductCard | null>(null)
+const productDetail = ref<ProductDetailById | null>(null)
 const productApi = useProductApi()
+const userApi = useUserApi()
+const loading = ref(true)
+const userDisplay = ref()
 
-;(async () => {
+onMounted(async () => {
+  loading.value = true
   productDetail.value = await productApi.getById(productId)
   if (!productDetail.value) {
     alert('หาไม่เจอ')
-    // router.push({ name: 'productDetail', params: { productId: productId } })
+
     router.push({ name: 'Index' })
   }
-})()
+  userDisplay.value = (await userApi.userByEmail(
+    productDetail.value!.userEmail
+  )) || {
+    address: '',
+    email: '',
+    userType: '',
+    lastName: '',
+    name: '',
+    phoneNumber: '',
+    userName: '',
+    idCard: '',
+    laserCard: '',
+    profileUrl: '',
+    statusType: '',
+  }
+  loading.value = false
+})
 
 function buyProduct() {
   router.push({

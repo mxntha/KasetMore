@@ -54,3 +54,19 @@ interface ProductImages {
   image: string
   productId: number
 }
+
+export interface ProductDetailById {
+  amount: number
+  category: string
+  createDate: Date
+  description: string
+  price: number
+  productId: number
+  productImages: ProductImages[]
+  productName: string
+  province: string
+  rating: number
+  unit: number
+  updateDate: Date
+  userEmail: string
+}
