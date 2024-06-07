@@ -197,7 +197,7 @@ const router = useRouter()
 const userInfoData = ref<BaseUserInfo>({
   address: '',
   email: '',
-  isFarmer: false,
+  userType: '',
   lastName: '',
   name: '',
   phoneNumber: '',
@@ -205,6 +205,7 @@ const userInfoData = ref<BaseUserInfo>({
   idCard: '',
   laserCard: '',
   profileUrl: '',
+  statusType: '',
 })
 
 const imageUrl = ref('')
@@ -243,7 +244,7 @@ const isFormValid = computed(() => {
   )) || {
     address: '',
     email: '',
-    isFarmer: false,
+    userType: '',
     lastName: '',
     name: '',
     phoneNumber: '',
@@ -251,6 +252,7 @@ const isFormValid = computed(() => {
     idCard: '',
     laserCard: '',
     profileUrl: '',
+    statusType: '',
   }
   console.log(userInfoData.value)
   loading.value = false
@@ -262,7 +264,7 @@ onMounted(async () => {
   )) || {
     address: '',
     email: '',
-    isFarmer: false,
+    userType: '',
     lastName: '',
     name: '',
     phoneNumber: '',
@@ -270,6 +272,7 @@ onMounted(async () => {
     idCard: '',
     laserCard: '',
     profileUrl: '',
+    statusType: '',
   }
 
   loading.value = false

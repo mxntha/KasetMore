@@ -7,6 +7,7 @@ export interface UserApiModel {
   address: string
   displayName: string
   phoneNumber: string
+  isVerified: string
 }
 
 interface UnitApiModel {

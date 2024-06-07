@@ -1,8 +1,6 @@
 <template>
   <v-card class="h-100">
     note <br />
-    ต่อ api เเล้วหรือยัง <br />
-    หากกดที่ card จะเกิดอะไรขึ้นไหม พาไปหน้าไหนเพิ่มไหม <br />
     ui เรียบร้อยหรือยัง ปุ่มเพิ่มเเห้งๆไปไหม <br />
     ปุ่มกดได้่ทุกอันไหม
     <v-card-text>
@@ -53,6 +51,11 @@
           <v-card class="my-2" elevation="2" rounded>
             <v-img :src="item.picture" height="64" cover></v-img>
           </v-card>
+        </template>
+        <template v-slot:item.description="{ item }">
+          <div style="width: 800px">
+            {{ item.description }}
+          </div>
         </template>
       </v-data-table-virtual>
     </v-card-text>
@@ -144,8 +147,8 @@
                       d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"
                     ></path>
                   </svg>
-                  <span>เพิ่มรูปภาพของสินค้า</span></label
-                >
+                  <span>เพิ่มรูปภาพของสินค้า</span>
+                </label>
               </div>
             </v-col>
           </v-row>
@@ -276,13 +279,6 @@ const dialogInsert = ref(false)
 const dialogDelete = ref(false)
 const isEdit = ref(false)
 
-onMounted(async () => {
-  console.log() // false
-  loading.value = true
-  // currentProduct.value =
-  await productApi.getByEmail(infomation.userInfomation.value?.email!)
-  loading.value = false
-})
 function openInsert() {
   reInitProduct()
   dialogInsert.value = true
@@ -294,17 +290,6 @@ function deleteImage(id: string) {
 }
 //บันทึกข้อมูล เช็คข้อความและตัวเลข
 async function saveProduct() {
-  const res = await productApi.createProduct(
-    _imageFile.value.map((x) => x.file),
-    {
-      ProductName: 'test',
-      Province: 'test',
-      Rating: 2,
-      Amount: 1,
-      UserEmail: 'test',
-      Price: 1,
-    }
-  )
   if (
     !currentProduct.value?.productId ||
     !currentProduct.value?.productName ||
@@ -364,9 +349,12 @@ function reInitProduct() {
 const productApi = useProductApi()
 async function fetchProductData() {
   reInitProduct()
-  const res = await productApi.getAll()
-  if (res != null) {
-    productData.value = res.map((x) => {
+  const userEmail = await productApi.getByEmail(
+    infomation.userInfomation.value?.email!
+  )
+
+  if (userEmail != null) {
+    productData.value = userEmail.map((x) => {
       return {
         ...x,
         action: '',

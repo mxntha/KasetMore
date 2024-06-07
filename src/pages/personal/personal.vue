@@ -6,7 +6,8 @@
       permanent
     >
       <v-list color="transparent">
-        <FarmerCard status="Y" />
+        <FarmerCard :status="userInfoData.statusType as 'Y' " />
+
         <div class="mx-auto" max-width="300" color="purple">
           <v-list
             density="compact"
@@ -28,7 +29,7 @@
             </div>
 
             <v-divider :thickness="5"></v-divider>
-            <div v-if="!isUser">
+            <div v-if="!isFarmer">
               <v-list-subheader class="text-h5">เกษตรกร</v-list-subheader>
               <v-list-item
                 prepend-icon="mdi-chart-multiple"
@@ -42,7 +43,7 @@
               ></v-list-item>
             </div>
             <div v-if="!isUser">
-              <div v-if="!isFarmer">
+              <div v-if="isadmin">
                 <v-divider :thickness="5"></v-divider>
                 <v-list-subheader class="text-h5">Admin</v-list-subheader>
                 <v-list-item
@@ -58,8 +59,6 @@
       note
       <br />
       ผูกค่ากับการ์ด
-      <br />
-      เมนูมีการซ่อนหรือยัง
 
       <template v-slot:append>
         <div class="pa-2">
@@ -84,19 +83,60 @@ import { ref, computed, inject } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import FarmerCard from '@/components/farmerCard/index.vue'
 import { contextPluginSymbol } from '@/plugins/context'
-const router = useRouter()
+import { onMounted } from 'vue'
+import { useUserApi } from '@/composables/api'
+import { BaseUserInfo } from '@/composables/api/useUserApi'
 
+const router = useRouter()
 const route = useRoute()
+const userApi = useUserApi()
+const loading = ref(true)
+const userInfoData = ref<BaseUserInfo>({
+  address: '',
+  email: '',
+  userType: '',
+  lastName: '',
+  name: '',
+  phoneNumber: '',
+  userName: '',
+  idCard: '',
+  laserCard: '',
+  profileUrl: '',
+  statusType: '',
+})
 
 const infomation = inject(contextPluginSymbol)!
 const isFarmer = computed(
   () =>
-    infomation.userInfomation.value?.userType == 'Seller' ||
+    infomation.userInfomation.value?.userType == 'Seller' &&
     infomation.userInfomation.value?.isverify == 'Y'
 )
 const isUser = computed(
   () => infomation.userInfomation.value?.userType == 'User'
 )
+const isadmin = computed(
+  () => infomation.userInfomation.value?.userType == 'Admin'
+)
+
+onMounted(async () => {
+  loading.value = true
+  userInfoData.value = (await userApi.userByEmail(
+    infomation.userInfomation.value?.email!
+  )) || {
+    address: '',
+    email: '',
+    userType: '',
+    lastName: '',
+    name: '',
+    phoneNumber: '',
+    userName: '',
+    idCard: '',
+    laserCard: '',
+    profileUrl: '',
+    statusType: '',
+  }
+  loading.value = false
+})
 
 const menuId = ref(
   route.path

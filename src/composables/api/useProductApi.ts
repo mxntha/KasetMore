@@ -35,10 +35,26 @@ function useProductApi() {
         return null
       }
     },
-    async getByEmail(email: string) {
+    async getByEmail(email: string): Promise<Product[]> {
       try {
-        return await getMethod<Product[]>(`${controller}/get-by-email`, {
-          email: email,
+        const res = await getMethod<ProductResultApi[]>(
+          `${controller}/get-by-email`,
+          {
+            email: email,
+          }
+        )
+        console.log(res)
+        return res.map((e) => {
+          return {
+            amount: e.amount,
+            description: e.description,
+            price: e.price,
+            productId: e.productId.toString(),
+            productName: e.productName,
+            picture: e.productImages[0].image,
+            province: e.province,
+            rating: e.rating,
+          }
         })
       } catch {
         return []
