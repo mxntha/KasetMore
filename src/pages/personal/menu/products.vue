@@ -114,6 +114,20 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="6" sm="6">
+              <v-text-field
+                variant="outlined"
+                v-model="currentProduct!.province"
+                label="จังหวัด"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6" sm="6">
+              <v-text-field
+                variant="outlined"
+                v-model="currentProduct!.category"
+                label="ประเภท"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6" sm="6">
               <v-textarea
                 variant="outlined"
                 rows="2"
@@ -324,6 +338,7 @@ async function saveProduct() {
         UserEmail: infomation.userInfomation.value?.email!,
         Price: Number(currentProduct.value.price),
         Description: currentProduct.value.description,
+        Category: currentProduct.value.category,
       }
     )
     alert('บันทึกข้อมูลสำเร็จ')
@@ -343,6 +358,7 @@ function reInitProduct() {
     price: 0,
     province: '',
     rating: 0,
+    category: '',
   }
   isEdit.value = false
 }

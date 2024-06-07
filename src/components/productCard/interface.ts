@@ -7,4 +7,5 @@ export interface ProductCard {
   province: string
   rating: number
   description: string
+  category: string
 }
