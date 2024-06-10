@@ -1,10 +1,6 @@
 <template>
   note <br />
 
-  <br />
-  ปุ่ม += ใช้ได้หรือยัง มีการป้องกันกรณี -1 ,0 หรือซื้่อเกินจำนวนไหม <br />
-  ปุ่มใช้งานได้ครบไหม <br />
-  หากเกิด error ดึงข้อมูลไม่ครบ หรือข้อมูลไม่ขึ้นจะทำยังไง <br />
   <v-card :loading="!productDetail" color="">
     <v-card-text>
       <v-container fluid>
@@ -40,14 +36,25 @@
                         label="จำนวนสินค้า"
                         type="number"
                         v-model="amount"
+                        :min="1"
+                        :max="productDetail?.amount"
+                        @input="validateAmount"
                       >
                         <template v-slot:append>
-                          <v-icon color="red" class="cursor-pointer">
+                          <v-icon
+                            color="red"
+                            class="cursor-pointer"
+                            @click="incrementAmount"
+                          >
                             mdi-plus
                           </v-icon>
                         </template>
                         <template v-slot:prepend>
-                          <v-icon color="green" class="cursor-pointer">
+                          <v-icon
+                            color="green"
+                            class="cursor-pointer"
+                            @click="decrementAmount"
+                          >
                             mdi-minus
                           </v-icon>
                         </template></v-text-field
@@ -109,7 +116,6 @@ onMounted(async () => {
   productDetail.value = await productApi.getById(productId)
   if (!productDetail.value) {
     alert('หาไม่เจอ')
-
     router.push({ name: 'Index' })
   }
   userDisplay.value = (await userApi.userByEmail(
@@ -129,6 +135,26 @@ onMounted(async () => {
   }
   loading.value = false
 })
+
+function validateAmount() {
+  if (amount.value < 1) {
+    amount.value = 1
+  } else if (productDetail.value && amount.value > productDetail.value.amount) {
+    amount.value = productDetail.value.amount
+  }
+}
+
+function incrementAmount() {
+  if (productDetail.value && amount.value < productDetail.value.amount) {
+    amount.value += 1
+  }
+}
+
+function decrementAmount() {
+  if (amount.value > 1) {
+    amount.value -= 1
+  }
+}
 
 function buyProduct() {
   router.push({

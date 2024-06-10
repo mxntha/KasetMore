@@ -4,7 +4,6 @@
   เเล้วพาไปหน้าไหนต่อ
   <br />
   ต่อ api อะไรไหม<br />
-  มีปุ่มพาไปหน้าอื่นไหม<br />
   ui จะปรับเเต่งอะไรเพิม่ไหม <br />
   ต้องใช้ข้อมูลอะไรบ้าง ต่อ api ไหนบ้าง
   <v-card class="ma-8" height="835">
@@ -44,12 +43,25 @@
         <div class="text-body-1">ยอดรวม :</div>
       </div>
     </v-card-text>
+    <div class="d-flex justify-end ma-2">
+      <div class="mr-3">
+        <v-btn block prepend-icon="mdi-home" @click="gotoIndexLogin">
+          หน้าแรก
+        </v-btn>
+      </div>
+      <div class="mr-3">
+        <v-btn block prepend-icon="mdi-clipboard-text" @click="gotoPurchase">
+          ประวัติการซื้อ
+        </v-btn>
+      </div>
+    </div>
   </v-card>
 </template>
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
+const router = useRouter()
 
 const headers = [
   { title: 'ลำดับ' },
@@ -59,4 +71,10 @@ const headers = [
   { title: 'ราคา' },
   { title: 'ยอดรวม' },
 ]
+function gotoIndexLogin() {
+  router.push({ name: 'Index' })
+}
+function gotoPurchase() {
+  router.push({ name: 'Purchase' })
+}
 </script>

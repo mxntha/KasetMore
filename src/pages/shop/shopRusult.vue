@@ -1,14 +1,12 @@
 <template>
   note <br />
-  หากข้อมูลไม่ครบ หรือมีการซื้อเกินจำนวนจะเกิดอะไรไหม จะเเจ้งเตือนผู้ใช้ไหม
-  หรือหาไอดีไม่พบจะเกิดอะไรขึ้นไหม
-  <br />
+
   ต่อ api อะไรไหม<br />
   ปุ่มกดได้่ทุกอันไหม <br />
   ui จะปรับเเต่งอะไรเพิม่ไหม <br />
   หากกดซื้อเเล้วไม่สำเร็จ จะเกิดอะไรขึ้นไหม
   <div class="d-flex justify-center" v-if="productDetail != null">
-    <v-card color="white" height="600" width="650">
+    <v-card color="white" height="660" width="700">
       <div class="d-flex justify-center">
         <v-img
           height="500"
@@ -16,6 +14,9 @@
           :img="productDetail.productImages"
           alt=""
         ></v-img>
+      </div>
+      <div>
+        {{ productDetail.description }}
       </div>
       <div>
         {{ productDetail.productName }}จำนวน {{ amount }} : รวมเป็นเงิน
