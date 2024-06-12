@@ -116,6 +116,7 @@ function useProductApi() {
             rating: e.rating,
             categoryName: e.category,
             categoryDesc: e.category,
+            catagoryImg: e.category,
           }
         })
       } catch (error) {
