@@ -1,6 +1,6 @@
 import { ProductCard } from '@/components/productCard/interface'
 import { postMethod, getMethod, multpartFormData } from './baseApi'
-import { Product } from '.'
+import { Product, useCategoryApi, Category } from '.'
 import { ProductResultApi, ProductDetailById } from './interface'
 
 function useProductApi() {
@@ -91,6 +91,36 @@ function useProductApi() {
       } catch (error) {
         console.error('Error deleting product:', error)
         return null
+      }
+    },
+    async getByCategory(category: string): Promise<Category[]> {
+      try {
+        console.log('get-by-category')
+
+        const res = await postMethod<ProductDetailById[]>(
+          `${controller}/products/get-by-category`,
+          {
+            category: category,
+          }
+        )
+        console.log(res)
+        return res.map((e) => {
+          return {
+            amount: e.amount,
+            description: e.description,
+            price: e.price,
+            productId: e.productId.toString(),
+            productName: e.productName,
+            picture: e.productImages[0].image,
+            province: e.province,
+            rating: e.rating,
+            categoryName: e.category,
+            categoryDesc: e.category,
+          }
+        })
+      } catch (error) {
+        console.error('Error get category:', error)
+        return []
       }
     },
   }

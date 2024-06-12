@@ -26,7 +26,7 @@ export interface Purchase extends BasePurchase {
 export interface Category {
   categoryName: string
   categoryDesc: string
-  // catagoryImg: string
+  catagoryImg: string
 }
 
 export {

@@ -19,6 +19,7 @@
                   <v-row>
                     <v-col>
                       <v-img
+                        :src="cate.catagoryImg"
                         class="d-flex ma-2 pa-2 align-self-end"
                         height="120"
                       >
@@ -101,14 +102,23 @@ import growing from '@/assets/growing-plant.png'
 
 import { ProductCard } from '@/components/productCard/interface'
 import ProductCardvue from '@/components/productCard/productcard.vue'
-import { ref, computed, inject } from 'vue'
+import { ref, computed, inject, onMounted } from 'vue'
 import { searchPluginSymbol } from '@/plugins/search'
 import router from '@/router'
 import { useProductApi, useCategoryApi } from '@/composables/api'
 import { useDisplay } from 'vuetify'
 import { Category } from '@/composables/api/index'
-import { onMounted } from 'vue'
+
+const categoryApi = useCategoryApi()
+const productApi = useProductApi()
+const searchState = inject(searchPluginSymbol)!
+const data = ref<any>('')
+const loading = ref(true)
+const maxItem = 12
+const _productlist = ref<ProductCard[]>([])
+const categories = ref<Category[]>([])
 const { xs, sm, md, lg, xlAndUp } = useDisplay()
+
 const cols = computed(() =>
   xs.value
     ? 12
@@ -122,23 +132,38 @@ const cols = computed(() =>
     ? 1
     : 3
 )
+
 onMounted(async () => {
   console.log(cols.value) // false
   loading.value = true
   _productlist.value = await productApi.getAll()
   categories.value = await categoryApi.getAll()
   console.log('categoriesApi', categories.value)
+  categories.value.forEach((category) => {
+    // Assign images based on categoryName or categoryId
+    switch (category.categoryName) {
+      case 'Vegetable':
+        category.catagoryImg = vegetable
+        break
+      case 'Healthy Food':
+        category.catagoryImg = healthy
+        break
+      case 'Gardening Tools':
+        category.catagoryImg = gardening
+        break
+      case 'Growing Plant':
+        category.catagoryImg = growing
+        break
+      default:
+        category.catagoryImg = '' // default image or leave empty
+    }
+    console.log(
+      `Category: ${category.categoryName}, Image: ${category.catagoryImg}`
+    )
+  })
   loading.value = false
+  console.log('categories', categories.value)
 })
-
-const categoryApi = useCategoryApi()
-const productApi = useProductApi()
-const searchState = inject(searchPluginSymbol)!
-const data = ref<any>('')
-const loading = ref(true)
-const maxItem = 12
-const _productlist = ref<ProductCard[]>([])
-const categories = ref<Category[]>([])
 
 const filterProduct = computed(() =>
   _productlist.value.filter(
