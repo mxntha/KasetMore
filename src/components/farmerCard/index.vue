@@ -13,7 +13,7 @@
 <script setup lang="ts">
 import { computed, defineProps } from 'vue'
 const props = defineProps<{
-  status: 'Y' | 'N' | 'P' | null
+  status: string | null
 }>()
 const status = computed(() => props.status)
 const icon = computed(() =>
