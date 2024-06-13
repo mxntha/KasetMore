@@ -2,10 +2,8 @@
   note: <br />
 
   &nbsp; กด หมวดหมู่ เเล้วดึงสินค้าตามหมวดหมู่ <br />
-  &nbsp;หลังดึงข้อมูลเสร็จ จะพาไปหน้าไหนต่อ ? <br />
-  ต่อ api สินค้าทั้งหมด<br />
+
   ปุ่มกดได้่ทุกอันไหม <br />
-  &nbsp; เรื่องการsearch ชื่อสินค้า
 
   <div class="mx-20">
     <div id="section-category" class="">
@@ -137,6 +135,7 @@ onMounted(async () => {
   console.log(cols.value) // false
   loading.value = true
   _productlist.value = await productApi.getAll()
+  console.log(_productlist.value)
   categories.value = await categoryApi.getAll()
   console.log('categoriesApi', categories.value)
   categories.value.forEach((category) => {

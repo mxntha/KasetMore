@@ -60,38 +60,30 @@
       </v-data-table-virtual>
     </v-card-text>
   </v-card>
-
+  <!-- เพิ่มสินค้า -->
   <v-dialog
     persistent
     v-model="dialogInsert"
     max-width="500px"
     v-if="currentProduct"
   >
-    <v-card>
+    <v-card width="800">
       note <br />
       ต่อ api เเล้วหรือยัง หลัง dialog เปิดควรดึงข้อมูลอีกรอบไหม<br />
-      field ครบไหมตาม c# <br />
+
       ต่อ api สำหรับเเก้ไขหรือยัง <br />
       ต่อ api สำหรับเพิ้มข้อมูลหรือยัง <br />
 
       หากเพิ่มหรือเเก้ไขไม่สำเร็จจะเเจ้้ง user ไหม หากเเจ้งจะบอกยังไง <br />
       ปุ่มกดได้่ทุกอันไหม
+
       <v-card-title>
-        <span class="text-h5">{{
-          isEdit ? 'แก้ไข้ข้อมูล' : 'เพิ่มสินค้า'
-        }}</span>
+        <span class="text-h5">เพิ่มสินค้า </span>
       </v-card-title>
 
       <v-card-text>
         <v-container>
           <v-row>
-            <v-col cols="12" md="6" sm="6">
-              <v-text-field
-                variant="outlined"
-                v-model="currentProduct!.productId"
-                label="รหัสสินค้า"
-              ></v-text-field>
-            </v-col>
             <v-col cols="12" md="6" sm="6">
               <v-text-field
                 variant="outlined"
@@ -126,17 +118,7 @@
                 v-model="currentProduct!.category"
                 label="ประเภท"
               ></v-text-field>
-            </v-col>
-            <v-col cols="12" md="6" sm="6">
-              <v-textarea
-                variant="outlined"
-                rows="2"
-                v-model="currentProduct!.description"
-                label="รายละเอียดสินค้า"
-              ></v-textarea>
-            </v-col>
-            <v-col>
-              <div class="file-input pt-6">
+              <div class="file-input">
                 <input
                   type="file"
                   name="file-input"
@@ -165,6 +147,15 @@
                 </label>
               </div>
             </v-col>
+            <v-col cols="12" md="6" sm="6">
+              <v-textarea
+                variant="outlined"
+                rows="4"
+                v-model="currentProduct!.description"
+                label="รายละเอียดสินค้า"
+              ></v-textarea>
+            </v-col>
+            <v-col cols="12" md="6" sm="6"> </v-col>
           </v-row>
         </v-container>
         <v-row>
@@ -217,6 +208,147 @@
       </v-card-actions>
     </v-card>
   </v-dialog>
+  <!-- แก้ไขสินค้า -->
+  <v-dialog
+    persistent
+    v-model="dialogEdit"
+    max-width="500px"
+    v-if="currentProduct"
+  >
+    <v-card width="800">
+      note <br />
+      ต่อ api เเล้วหรือยัง หลัง dialog เปิดควรดึงข้อมูลอีกรอบไหม<br />
+      field ครบไหมตาม c# <br />
+      ต่อ api สำหรับเเก้ไขหรือยัง <br />
+
+      <v-card-title>
+        <span class="text-h5"> แก้ไขสินค้า </span>
+      </v-card-title>
+
+      <v-card-text>
+        <v-container>
+          <v-row>
+            <v-col cols="12" md="6" sm="6">
+              <v-text-field
+                variant="outlined"
+                v-model="currentProduct!.productName"
+                label="ชื่อสินค้า"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6" sm="6">
+              <v-text-field
+                variant="outlined"
+                v-model="currentProduct!.price"
+                label="ราคาสินค้า"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6" sm="6">
+              <v-text-field
+                variant="outlined"
+                v-model="currentProduct!.amount"
+                label="จำนวนสินค้า"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6" sm="6">
+              <v-text-field
+                variant="outlined"
+                v-model="currentProduct!.province"
+                label="จังหวัด"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6" sm="6">
+              <v-text-field
+                variant="outlined"
+                v-model="currentProduct!.category"
+                label="ประเภท"
+              ></v-text-field>
+              <div class="file-input">
+                <input
+                  type="file"
+                  name="file-input"
+                  id="file-input"
+                  class="file-input__input"
+                  @change="handleImageChange"
+                  accept="image/*"
+                />
+                <label class="file-input__label" for="file-input">
+                  <svg
+                    aria-hidden="true"
+                    focusable="false"
+                    data-prefix="fas"
+                    data-icon="upload"
+                    class="svg-inline--fa fa-upload fa-w-16"
+                    role="img"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"
+                    ></path>
+                  </svg>
+                  <span>เพิ่มรูปภาพของสินค้า</span>
+                </label>
+              </div>
+            </v-col>
+            <v-col cols="12" md="6" sm="6">
+              <v-textarea
+                variant="outlined"
+                rows="4"
+                v-model="currentProduct!.description"
+                label="รายละเอียดสินค้า"
+              ></v-textarea>
+            </v-col>
+            <v-col cols="12" md="6" sm="6"> </v-col>
+          </v-row>
+        </v-container>
+        <v-row>
+          <v-col v-for="image in productById?.productImages">
+            <v-hover v-slot="{ isHovering, props }">
+              <v-container class="position-relative">
+                <v-img
+                  v-bind="props"
+                  cover
+                  :src="image.image"
+                  height="200"
+                  class="mb-2"
+                />
+                <v-expand-transition>
+                  <v-btn
+                    v-bind="props"
+                    v-if="isHovering"
+                    color="error"
+                    fab
+                    small
+                    class="position-absolute"
+                    style="
+                      top: 50%;
+                      left: 50%;
+                      transform: translate(-50%, -50%);
+                    "
+                    @click="deleteImage(image.attatchmentId.toString())"
+                  >
+                    <v-icon>mdi-close</v-icon>
+                  </v-btn></v-expand-transition
+                >
+              </v-container>
+            </v-hover>
+          </v-col>
+        </v-row>
+      </v-card-text>
+
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="blue-darken-1" variant="text" @click="dialogEdit = false">
+          ยกเลิก
+        </v-btn>
+        <v-btn color="blue-darken-1" variant="text" @click="saveEdit">
+          ตกลง
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+
   <v-dialog persistent v-model="dialogDelete" max-width="500px">
     <v-card>
       note <br />
@@ -251,6 +383,7 @@ import { useProductApi, type Product } from '@/composables/api'
 import { ImgHTMLAttributes } from 'vue'
 import { ref, onMounted, inject } from 'vue'
 import { contextPluginSymbol } from '@/plugins/context'
+import { ProductDetailById } from '@/composables/api/interface'
 
 interface TableProduct extends Product {
   action: string
@@ -259,6 +392,16 @@ const loading = ref(true)
 const _imageFile = ref<{ id: string; file: File }[]>([])
 const imageFiles = ref<{ id: string; src: string }[]>([])
 const infomation = inject(contextPluginSymbol)!
+
+const currentProduct = ref<TableProduct>()
+const dialogInsert = ref(false)
+const dialogDelete = ref(false)
+const dialogEdit = ref(false)
+
+const productApi = useProductApi()
+const productById = ref<ProductDetailById | null>(null)
+const productData = ref<TableProduct[]>([])
+
 async function handleImageChange(event: any) {
   if (imageFiles.value.length >= 4) {
     alert('เกิน 4 ไฟล?เเล้ว')
@@ -288,15 +431,11 @@ const headers = [
   { title: 'ดำเนินการ', value: 'action' },
 ]
 
-const currentProduct = ref<TableProduct>()
-const dialogInsert = ref(false)
-const dialogDelete = ref(false)
-const isEdit = ref(false)
-
 function openInsert() {
   reInitProduct()
   dialogInsert.value = true
 }
+
 function deleteImage(id: string) {
   alert('ลบ')
   _imageFile.value = _imageFile.value.filter((image) => image.id !== id)
@@ -305,13 +444,17 @@ function deleteImage(id: string) {
 //บันทึกข้อมูล เช็คข้อความและตัวเลข
 async function saveProduct() {
   if (
-    !currentProduct.value?.productId ||
     !currentProduct.value?.productName ||
     !currentProduct.value?.price ||
     !currentProduct.value?.amount ||
     !currentProduct.value?.description
   ) {
     alert('กรุณากรอกข้อมูลให้ครบ')
+    return
+  }
+  // ตรวจสอบว่ามีรูปภาพอย่างน้อย 1 รูป และไม่เกิน 4 รูป
+  if (_imageFile.value.length < 1 || _imageFile.value.length > 4) {
+    alert('กรุณาอัปโหลดรูปภาพอย่างน้อย 1 รูป และไม่เกิน 4 รูป')
     return
   }
 
@@ -347,6 +490,29 @@ async function saveProduct() {
   }
   dialogInsert.value = false
 }
+
+function saveEdit() {
+  if (
+    productById.value?.productName ||
+    productById.value?.amount ||
+    productById.value?.category ||
+    productById.value?.amount ||
+    productById.value?.description ||
+    productById.value?.price
+  ) {
+    alert('กรุณากรอกข้อมูลให้ครบ')
+    return
+  }
+  // ตรวจสอบว่ามีรูปภาพอย่างน้อย 1 รูป และไม่เกิน 4 รูป
+  if (
+    productById.value!.productImages.length < 1 ||
+    productById.value!.productImages.length > 4
+  ) {
+    alert('กรุณาอัปโหลดรูปภาพอย่างน้อย 1 รูป และไม่เกิน 4 รูป')
+    return
+  }
+}
+
 function reInitProduct() {
   currentProduct.value = {
     action: '',
@@ -360,15 +526,14 @@ function reInitProduct() {
     rating: 0,
     category: '',
   }
-  isEdit.value = false
 }
-const productApi = useProductApi()
+
 async function fetchProductData() {
   reInitProduct()
   const userEmail = await productApi.getByEmail(
     infomation.userInfomation.value?.email!
   )
-
+  console.log(userEmail)
   if (userEmail != null) {
     productData.value = userEmail.map((x) => {
       return {
@@ -378,18 +543,20 @@ async function fetchProductData() {
     })
   }
 }
-function editItem(product: TableProduct) {
+async function editItem(product: TableProduct) {
   currentProduct.value = product
-  dialogInsert.value = true
-  isEdit.value = true
+  productById.value = await productApi.getById(product.productId)
+  dialogEdit.value = true
 }
-const productData = ref<TableProduct[]>([])
+//หน้าเว็บ
 ;(async () => {
   loading.value = true
   await fetchProductData()
+
   loading.value = false
 })()
 </script>
+
 <style label="scss" scoped>
 ::v-deep(.v-table) {
   overflow-y: auto;

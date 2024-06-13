@@ -6,7 +6,11 @@
       permanent
     >
       <v-list color="transparent">
-        <FarmerCard :status="userInfoData.statusType as 'Y' " />
+        <FarmerCard
+          :status="
+            userInfoData.userType == 'Seller' ? userInfoData.statusType : null
+          "
+        />
 
         <div class="mx-auto" max-width="300" color="purple">
           <v-list
@@ -15,6 +19,7 @@
             @update:selected="(e) => redirectMenu(e[0])"
           >
             <div>
+              <div>{{ isFarmer }}</div>
               <v-list-subheader class="text-h5">ข้อมูลส่วนตัว</v-list-subheader>
               <v-list-item
                 prepend-icon="mdi-account"
@@ -29,7 +34,7 @@
             </div>
 
             <v-divider :thickness="5"></v-divider>
-            <div v-if="!isFarmer">
+            <div v-if="isFarmer">
               <v-list-subheader class="text-h5">เกษตรกร</v-list-subheader>
               <v-list-item
                 prepend-icon="mdi-chart-multiple"
@@ -108,8 +113,8 @@ const userInfoData = ref<BaseUserInfo>({
 const infomation = inject(contextPluginSymbol)!
 const isFarmer = computed(
   () =>
-    infomation.userInfomation.value?.userType == 'Seller' &&
-    infomation.userInfomation.value?.isverify == 'Y'
+    userInfoData.value!.userType == 'Seller' &&
+    userInfoData.value!.statusType == 'Y'
 )
 const isUser = computed(
   () => infomation.userInfomation.value?.userType == 'User'
