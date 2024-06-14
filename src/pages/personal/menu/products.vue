@@ -2,7 +2,7 @@
   <v-card class="h-100">
     note <br />
     ui เรียบร้อยหรือยัง ปุ่มเพิ่มเเห้งๆไปไหม <br />
-    ปุ่มกดได้่ทุกอันไหม
+
     <v-card-text>
       <v-data-table-virtual
         :items="productData"
@@ -25,9 +25,7 @@
           <v-icon color="" class="mr-4" size="small" @click="editItem(item)">
             mdi-pencil
           </v-icon>
-          <v-icon size="small" @click="dialogDelete = true">
-            mdi-delete
-          </v-icon>
+          <v-icon size="small" @click="deleteItem(item)"> mdi-delete </v-icon>
         </template>
         <!-- ไม่มีข้อมูล -->
         <template v-slot:no-data>
@@ -74,13 +72,8 @@
   >
     <v-card width="800">
       note <br />
-      ต่อ api เเล้วหรือยัง หลัง dialog เปิดควรดึงข้อมูลอีกรอบไหม<br />
 
-      ต่อ api สำหรับเเก้ไขหรือยัง <br />
-      ต่อ api สำหรับเพิ้มข้อมูลหรือยัง <br />
-
-      หากเพิ่มหรือเเก้ไขไม่สำเร็จจะเเจ้้ง user ไหม หากเเจ้งจะบอกยังไง <br />
-      ปุ่มกดได้่ทุกอันไหม
+      แก้รูปภาพ
 
       <v-card-title>
         <span class="text-h5">เพิ่มสินค้า </span>
@@ -222,9 +215,7 @@
   >
     <v-card width="800">
       note <br />
-      ต่อ api เเล้วหรือยัง หลัง dialog เปิดควรดึงข้อมูลอีกรอบไหม<br />
-      field ครบไหมตาม c# <br />
-      ต่อ api สำหรับเเก้ไขหรือยัง <br />
+      แก้รูปภาพ
 
       <v-card-title>
         <span class="text-h5"> แก้ไขสินค้า </span>
@@ -358,11 +349,10 @@
   <v-dialog persistent v-model="dialogDelete" max-width="500px">
     <v-card>
       note <br />
-      ต่อ api เเล้วหรือยัง <br />
+
       ต่อ api หลังลบจะเกิดอะไรขึ้น หากสำเรํจจะเเจ้งเตือนไหม เเล้วถ้า error จะบอก
-      user ไหม <br />
-      ui เรียบร้อยเเล้วหรือยัง <br />
-      ปุ่มกดได้่ทุกอันไหม
+      user ไหม
+
       <v-card-title class="text-h5">ยืนยันการลบสินค้า ?</v-card-title>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -499,29 +489,62 @@ async function saveProduct() {
     alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล')
   }
   dialogInsert.value = false
+  fetchProductData()
 }
 
 // บันทึกการแก้ไขข้อมูล
-function saveEdit() {
+async function saveEdit() {
   if (
-    productById.value?.productName ||
-    productById.value?.amount ||
-    productById.value?.category ||
-    productById.value?.amount ||
-    productById.value?.description ||
-    productById.value?.price
+    !currentProduct.value?.productName ||
+    !currentProduct.value?.price ||
+    !currentProduct.value?.amount ||
+    !currentProduct.value?.description
   ) {
     alert('กรุณากรอกข้อมูลให้ครบ')
     return
   }
   // ตรวจสอบว่ามีรูปภาพอย่างน้อย 1 รูป และไม่เกิน 4 รูป
-  if (
-    productById.value!.productImages.length < 1 ||
-    productById.value!.productImages.length > 4
-  ) {
+  if (imageFiles.value.length < 1 || imageFiles.value.length > 4) {
     alert('กรุณาอัปโหลดรูปภาพอย่างน้อย 1 รูป และไม่เกิน 4 รูป')
     return
   }
+
+  // ตรวจสอบว่าราคาสินค้าเป็นตัวเลข
+  if (isNaN(Number(currentProduct.value.price))) {
+    alert('กรุณากรอกราคาสินค้าให้ถูกต้อง')
+    return
+  }
+
+  // ตรวจสอบว่าจำนวนสินค้าเป็นตัวเลข
+  if (isNaN(Number(currentProduct.value.amount))) {
+    alert('กรุณากรอกจำนวนสินค้าให้ถูกต้อง')
+    return
+  }
+
+  try {
+    const res = await productApi.updateProduct(
+      _imageFile.value.map((x) => x.file),
+      {
+        ProductId: currentProduct.value.productId,
+        ProductName: currentProduct.value.productName,
+        Province: currentProduct.value.province,
+        Amount: Number(currentProduct.value.amount),
+        UserEmail: infomation.userInfomation.value?.email!,
+        Price: Number(currentProduct.value.price),
+        Description: currentProduct.value.description,
+        Category: currentProduct.value.category,
+      }
+    )
+    if (res) {
+      alert('อัปเดตข้อมูลสำเร็จ')
+    } else {
+      alert('เกิดข้อผิดพลาดในการอัปเดตข้อมูล')
+    }
+  } catch (error) {
+    alert('เกิดข้อผิดพลาดในการอัปเดตข้อมูล')
+  }
+  dialogEdit.value = false
+  fetchProductData()
 }
 
 function reInitProduct() {
@@ -559,13 +582,36 @@ async function fetchProductData() {
 async function editItem(product: TableProduct) {
   currentProduct.value = product
   productById.value = await productApi.getById(product.productId)
+  if (productById.value) {
+    // กำหนดค่าให้กับ currentProduct เพื่อให้แสดงในฟอร์มแก้ไข
+    currentProduct.value = {
+      productId: productById.value.productId.toString(),
+      productName: productById.value.productName,
+      price: productById.value.price,
+      amount: productById.value.amount,
+      province: productById.value.province,
+      category: productById.value.category,
+      description: productById.value.description,
+      picture: '', // คุณอาจจะไม่ต้องการใช้นี่
+      action: '',
+      rating: productById.value.rating,
+    }
+    // กำหนดค่าให้กับ imageFiles เพื่อแสดงรูปภาพที่มีอยู่
+    imageFiles.value = productById.value.productImages.map((image, index) => ({
+      id: index.toString(),
+      src: image.image,
+    }))
+  }
   dialogEdit.value = true
 }
+
+// ลบสินค้า
 async function deleteItem(item: TableProduct) {
   const confirmed = confirm(`คุณต้องการลบ ${item.productName} ใช่หรือไม่?`)
   if (confirmed) {
     deleteProduct.value = await productApi.deleteProduct(item.productId)
   }
+  fetchProductData()
 }
 
 //หน้าเว็บ

@@ -127,6 +127,19 @@ function useProductApi() {
         return []
       }
     },
+    async updateProduct(files: File[], jsonData: any) {
+      try {
+        console.log('update-product', jsonData)
+
+        return await multpartFormData(
+          `${controller}/update-product`,
+          files,
+          jsonData
+        )
+      } catch {
+        return null
+      }
+    },
   }
 }
 export default useProductApi
