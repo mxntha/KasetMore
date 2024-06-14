@@ -9,6 +9,7 @@
         :loading="loading"
         :headers="headers"
       >
+        <!-- ส่วนหัวของตาราง -->
         <template v-slot:top>
           <v-toolbar flat>
             <v-toolbar-title>สินค้า</v-toolbar-title>
@@ -19,6 +20,7 @@
             </v-btn>
           </v-toolbar>
         </template>
+        <!-- ส่วนการดำเนินการ -->
         <template v-slot:item.action="{ item }">
           <v-icon color="" class="mr-4" size="small" @click="editItem(item)">
             mdi-pencil
@@ -27,6 +29,7 @@
             mdi-delete
           </v-icon>
         </template>
+        <!-- ไม่มีข้อมูล -->
         <template v-slot:no-data>
           <div class="text-center">
             <div class="ma-6">
@@ -47,11 +50,13 @@
             >
           </div>
         </template>
+        <!-- ส่วนของรูปภาพ -->
         <template v-slot:item.picture="{ item }">
           <v-card class="my-2" elevation="2" rounded>
             <v-img :src="item.picture" height="64" cover></v-img>
           </v-card>
         </template>
+        <!-- รายละเอียดสินค้า -->
         <template v-slot:item.description="{ item }">
           <div style="width: 800px">
             {{ item.description }}
@@ -155,9 +160,9 @@
                 label="รายละเอียดสินค้า"
               ></v-textarea>
             </v-col>
-            <v-col cols="12" md="6" sm="6"> </v-col>
           </v-row>
         </v-container>
+        <!-- แสดงรูปภาพ -->
         <v-row>
           <v-col v-for="image in imageFiles">
             <v-hover v-slot="{ isHovering, props }">
@@ -349,6 +354,7 @@
     </v-card>
   </v-dialog>
 
+  <!-- ลบสินค้า -->
   <v-dialog persistent v-model="dialogDelete" max-width="500px">
     <v-card>
       note <br />
@@ -397,11 +403,13 @@ const currentProduct = ref<TableProduct>()
 const dialogInsert = ref(false)
 const dialogDelete = ref(false)
 const dialogEdit = ref(false)
+const deleteProduct = ref(false)
 
 const productApi = useProductApi()
 const productById = ref<ProductDetailById | null>(null)
 const productData = ref<TableProduct[]>([])
 
+// จัดการการอัพโหลดรูปภาพ
 async function handleImageChange(event: any) {
   if (imageFiles.value.length >= 4) {
     alert('เกิน 4 ไฟล?เเล้ว')
@@ -430,18 +438,20 @@ const headers = [
   { title: 'รายละเอียดสินค้า', value: 'description' },
   { title: 'ดำเนินการ', value: 'action' },
 ]
-
+// dialog สำหรับเพิ่มสินค้า
 function openInsert() {
   reInitProduct()
   dialogInsert.value = true
 }
 
+// ลบรูปภาพที่อัพโหลดแล้ว
 function deleteImage(id: string) {
   alert('ลบ')
   _imageFile.value = _imageFile.value.filter((image) => image.id !== id)
   imageFiles.value = imageFiles.value.filter((image) => image.id !== id)
 }
-//บันทึกข้อมูล เช็คข้อความและตัวเลข
+
+//บันทึกข้อมูลสินค้าที่เพิ่ม เช็คข้อความและตัวเลข
 async function saveProduct() {
   if (
     !currentProduct.value?.productName ||
@@ -491,6 +501,7 @@ async function saveProduct() {
   dialogInsert.value = false
 }
 
+// บันทึกการแก้ไขข้อมูล
 function saveEdit() {
   if (
     productById.value?.productName ||
@@ -543,11 +554,20 @@ async function fetchProductData() {
     })
   }
 }
+
+// dialog สำหรับแก้ไขข้อมูล
 async function editItem(product: TableProduct) {
   currentProduct.value = product
   productById.value = await productApi.getById(product.productId)
   dialogEdit.value = true
 }
+async function deleteItem(item: TableProduct) {
+  const confirmed = confirm(`คุณต้องการลบ ${item.productName} ใช่หรือไม่?`)
+  if (confirmed) {
+    deleteProduct.value = await productApi.deleteProduct(item.productId)
+  }
+}
+
 //หน้าเว็บ
 ;(async () => {
   loading.value = true
