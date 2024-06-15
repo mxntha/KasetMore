@@ -389,7 +389,7 @@ const _imageFile = ref<{ id: string; file: File }[]>([])
 const imageFiles = ref<{ id: string; src: string }[]>([])
 const infomation = inject(contextPluginSymbol)!
 
-const currentProduct = ref<TableProduct>()
+const currentProduct = ref<TableProduct | null>(null)
 const dialogInsert = ref(false)
 const dialogDelete = ref(false)
 const dialogEdit = ref(false)
@@ -440,36 +440,39 @@ function deleteImage(id: string) {
   _imageFile.value = _imageFile.value.filter((image) => image.id !== id)
   imageFiles.value = imageFiles.value.filter((image) => image.id !== id)
 }
-
-//บันทึกข้อมูลสินค้าที่เพิ่ม เช็คข้อความและตัวเลข
-async function saveProduct() {
+function validateCurrentProduct(state: TableProduct) {
   if (
-    !currentProduct.value?.productName ||
-    !currentProduct.value?.price ||
-    !currentProduct.value?.amount ||
-    !currentProduct.value?.description
+    !state.productName ||
+    !state.price ||
+    !state.amount ||
+    !state.description
   ) {
     alert('กรุณากรอกข้อมูลให้ครบ')
-    return
+    return false
   }
   // ตรวจสอบว่ามีรูปภาพอย่างน้อย 1 รูป และไม่เกิน 4 รูป
   if (_imageFile.value.length < 1 || _imageFile.value.length > 4) {
     alert('กรุณาอัปโหลดรูปภาพอย่างน้อย 1 รูป และไม่เกิน 4 รูป')
-    return
+    return false
   }
 
   // ตรวจสอบว่าราคาสินค้าเป็นตัวเลข
-  if (isNaN(Number(currentProduct.value.price))) {
+  if (isNaN(Number(state.price))) {
     alert('กรุณากรอกราคาสินค้าให้ถูกต้อง')
-    return
+    return false
   }
 
   // ตรวจสอบว่าจำนวนสินค้าเป็นตัวเลข
-  if (isNaN(Number(currentProduct.value.amount))) {
+  if (isNaN(Number(state.amount))) {
     alert('กรุณากรอกจำนวนสินค้าให้ถูกต้อง')
-    return
+    return false
   }
-
+  return true
+}
+//บันทึกข้อมูลสินค้าที่เพิ่ม เช็คข้อความและตัวเลข
+async function saveProduct() {
+  if (currentProduct.value == null) return
+  if (!validateCurrentProduct(currentProduct.value)) return
   try {
     const res = await productApi.createProduct(
       _imageFile.value.map((x) => x.file),
@@ -494,32 +497,8 @@ async function saveProduct() {
 
 // บันทึกการแก้ไขข้อมูล
 async function saveEdit() {
-  if (
-    !currentProduct.value?.productName ||
-    !currentProduct.value?.price ||
-    !currentProduct.value?.amount ||
-    !currentProduct.value?.description
-  ) {
-    alert('กรุณากรอกข้อมูลให้ครบ')
-    return
-  }
-  // ตรวจสอบว่ามีรูปภาพอย่างน้อย 1 รูป และไม่เกิน 4 รูป
-  if (imageFiles.value.length < 1 || imageFiles.value.length > 4) {
-    alert('กรุณาอัปโหลดรูปภาพอย่างน้อย 1 รูป และไม่เกิน 4 รูป')
-    return
-  }
-
-  // ตรวจสอบว่าราคาสินค้าเป็นตัวเลข
-  if (isNaN(Number(currentProduct.value.price))) {
-    alert('กรุณากรอกราคาสินค้าให้ถูกต้อง')
-    return
-  }
-
-  // ตรวจสอบว่าจำนวนสินค้าเป็นตัวเลข
-  if (isNaN(Number(currentProduct.value.amount))) {
-    alert('กรุณากรอกจำนวนสินค้าให้ถูกต้อง')
-    return
-  }
+  if (currentProduct.value == null) return
+  if (!validateCurrentProduct(currentProduct.value)) return
 
   try {
     const res = await productApi.updateProduct(

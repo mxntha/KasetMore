@@ -96,20 +96,22 @@ const router = useRouter()
 const route = useRoute()
 const userApi = useUserApi()
 const loading = ref(true)
-const userInfoData = ref<BaseUserInfo>({
-  address: '',
-  email: '',
-  userType: '',
-  lastName: '',
-  name: '',
-  phoneNumber: '',
-  userName: '',
-  idCard: '',
-  laserCard: '',
-  profileUrl: '',
-  statusType: '',
-})
-
+const userInfoData = ref<BaseUserInfo>(defaultValue())
+function defaultValue(): BaseUserInfo {
+  return {
+    address: '',
+    email: '',
+    userType: '',
+    lastName: '',
+    name: '',
+    phoneNumber: '',
+    userName: '',
+    idCard: '',
+    laserCard: '',
+    profileUrl: '',
+    statusType: '',
+  }
+}
 const infomation = inject(contextPluginSymbol)!
 const isFarmer = computed(
   () =>
@@ -125,21 +127,9 @@ const isadmin = computed(
 
 onMounted(async () => {
   loading.value = true
-  userInfoData.value = (await userApi.userByEmail(
-    infomation.userInfomation.value?.email!
-  )) || {
-    address: '',
-    email: '',
-    userType: '',
-    lastName: '',
-    name: '',
-    phoneNumber: '',
-    userName: '',
-    idCard: '',
-    laserCard: '',
-    profileUrl: '',
-    statusType: '',
-  }
+  userInfoData.value =
+    (await userApi.userByEmail(infomation.userInfomation.value?.email!)) ||
+    defaultValue()
   loading.value = false
 })
 
