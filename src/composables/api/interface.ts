@@ -70,3 +70,23 @@ export interface ProductDetailById {
   updateDate: Date
   userEmail: string
 }
+
+export interface SellerApiModel {
+  email: string
+  firstName: string
+  lastName: string
+  profilePicture: string
+  userType: string
+  address: string
+  displayName: string
+  password: string
+  isVerified: string
+  laserCode?: string
+  idNumber?: string
+  phoneNumber: string
+  createDate: string
+  createBy: string
+  updateDate: string
+  updateBy: string
+  products: []
+}
