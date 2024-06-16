@@ -17,7 +17,7 @@
                   <v-row>
                     <v-col>
                       <v-img
-                        :src="cate.catagoryImg"
+                        :src="getCateImage(cate)"
                         class="d-flex ma-2 pa-2 align-self-end"
                         height="120"
                       >
@@ -138,30 +138,8 @@ onMounted(async () => {
   console.log(_productlist.value)
   categories.value = await categoryApi.getAll()
   console.log('categoriesApi', categories.value)
-  categories.value.forEach((category) => {
-    // Assign images based on categoryName or categoryId
-    switch (category.categoryName) {
-      case 'Vegetable':
-        category.catagoryImg = vegetable
-        break
-      case 'Healthy Food':
-        category.catagoryImg = healthy
-        break
-      case 'Gardening Tools':
-        category.catagoryImg = gardening
-        break
-      case 'Growing Plant':
-        category.catagoryImg = growing
-        break
-      default:
-        category.catagoryImg = '' // default image or leave empty
-    }
-    console.log(
-      `Category: ${category.categoryName}, Image: ${category.catagoryImg}`
-    )
-  })
+
   loading.value = false
-  console.log('categories', categories.value)
 })
 
 const filterProduct = computed(() =>
@@ -186,6 +164,22 @@ const productlist = computed(() =>
       )
     : filterProduct.value
 )
+
+function getCateImage(category: Category): string {
+  switch (category.categoryName) {
+    case 'Vegetable':
+      return require('@/assets/vegetable.png')
+    case 'Healthy Food':
+      return require('@/assets/healthy-food.png')
+    case 'Gardening Tools':
+      return require('@/assets/gardening-tools.png')
+    case 'Growing Plant':
+      return require('@/assets/growing-plant.png')
+    default:
+      return ''
+  }
+}
+
 function buyClick(id: string) {
   router.push({ name: 'ProductDetail', params: { productId: id } })
 }

@@ -107,21 +107,22 @@ function useProductApi() {
           }
         )
         console.log(res)
-        return res.map((e) => {
-          return {
-            amount: e.amount,
-            description: e.description,
-            price: e.price,
-            productId: e.productId.toString(),
-            productName: e.productName,
-            picture: e.productImages[0].image,
-            province: e.province,
-            rating: e.rating,
-            categoryName: e.category,
-            categoryDesc: e.category,
-            catagoryImg: e.category,
-          }
-        })
+
+        const categories: Category[] = res.map((e) => ({
+          amount: e.amount,
+          description: e.description,
+          price: e.price,
+          productId: e.productId.toString(),
+          productName: e.productName,
+          picture: e.productImages[0]?.image || '',
+          province: e.province,
+          rating: e.rating,
+          categoryName: e.category,
+          categoryDesc: e.categoryDesc || '',
+          categoryImg: e.categoryImg || '',
+        }))
+
+        return categories
       } catch (error) {
         console.error('Error get category:', error)
         return []
