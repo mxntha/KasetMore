@@ -2,19 +2,15 @@
   note <br />
   เเยกฟอร์มตาม role <br />
   เเละครบทุกช่องหรือไม่ <br />
-  รหัสผ่านต้อง confirm ไหมกรณีสมัครครั้งเเรก
-  เเละต้องเช็คว่ากรอกเหมือนกันทั้งสองช่องไหม<br />
-  ช่องเรียงถูกไหม email เอามาเเทน user หรือไม่ เเละ displayname อยู่ไหน<br />
 
-  &nbsp;กรณีกรอกไม่ครบ หรือเพิ่งเริ่มกรอก อนุญาตให้กดปุ่มไหม <br />
-  รูปภาพจะเเสดงยังไงหลังอัพรูป <br />
+  ช่องเรียงถูกไหม email เอามาเเทน user หรือไม่ <br />
+
   ต่อ api การregister <br />
   &nbsp;ส่งข้อมูลการลงทะเบียน <br />
   &nbsp;ส่งข้อมูลรูปภาพโปรไฟล์ <br />
   &nbsp;&nbsp;กรณี สมัครไว้เเล้วจะเป็นเกษตรกร ดึงข้อมูลมาผูกไว้ที่ from
   เเละบังคับกรอก id card<br />
-  หากทำผิดหรือสมัตรไม่สำเร็จจะเเสดงเเจ้งเตือนบอก user ยังไง <br />
-  ปุ่มกดได้่ทุกอันไหม
+
   <div class="d-flex justify-center align-center w-100 h-100">
     <v-card class="w-100">
       <v-card-item>
@@ -33,7 +29,7 @@
                 label=""
                 placeholder=""
                 :rules="[
-                  (value: any) => (value ? true : 'You must enter a username.'),
+                  (value: any) => (value ? true : 'กรุณากรอก Username'),
                 ]"
                 required
               ></v-text-field>
@@ -44,8 +40,31 @@
                 v-model="registerfarmer.password"
                 label="รหัสผ่านที่ใช้งาน"
                 required
-                :rules="[(value: any) => (value ? true : 'password')]"
+                :rules="[(valuePassword:string | undefined) => (valuePassword ? true : 'กรุณากรอกรหัสผ่าน')]"
                 placeholder="xxxxxx"
+                :type="showPassword ? 'text' : 'password'"
+                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="showPassword = !showPassword"
+                @input:append="showPassword = !showPassword"
+              ></v-text-field>
+            </v-col>
+            <v-col>
+              ยืนยันรหัสผ่านรหัสผ่าน
+              <v-text-field
+                v-model="registerfarmer.confirmPassword"
+                label="ยืนยันรหัสผ่าน"
+                required
+                :rules="[
+                  (valueConfirmPassword: string | undefined) =>
+                    valueConfirmPassword && valueConfirmPassword === registerfarmer.password
+                      ? true
+                      : 'รหัสผ่านไม่ตรงกัน',
+                ]"
+                placeholder="xxxxxx"
+                :type="showConfirmPassword ? 'text' : 'password'"
+                :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="showConfirmPassword = !showConfirmPassword"
+                @input:append="showConfirmPassword = !showConfirmPassword"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -132,10 +151,11 @@
                 required
                 placeholder="08xxxxxxxx"
                 counter="10"
+                :rules="[validatePhone]"
               ></v-text-field>
             </v-col>
             <v-col>
-              <div class="file-input pt-6">
+              <div class="file-input pt-6 pl-4">
                 <input
                   type="file"
                   name="file-input"
@@ -163,8 +183,8 @@
                   <span>เพิ่มรูปภาพของตัวเอง</span></label
                 >
               </div>
-              <div v-if="imageUrl != ''">
-                <img :src="imageUrl" width="200" />
+              <div class="mt-6 ml-n4" v-if="imageUrl != ''">
+                <img :src="imageUrl" width="250" />
               </div>
             </v-col>
           </v-row>
@@ -181,7 +201,7 @@
         <v-btn
           color="primary"
           variant="text"
-          :disabled="!valid"
+          :disabled="!formComplete"
           @click="register"
         >
           ตกลง
@@ -234,12 +254,59 @@ const userData = ref<BaseUserInfo | null>(null)
 const router = useRouter()
 const route = useRoute()
 const valid = ref(false)
+
+const password = ref('')
+const showPassword = ref(false)
+const confirmPassword = ref('')
+const showConfirmPassword = ref(false)
+
 const isFarmer = computed(
-  () => userData.value != null && route.query.type === 'farmer'
+  () => userData.value != null && route.query.type === 'customer'
 )
+
 const titleForm = computed(() =>
   route.query.type === 'farmer' ? 'เกษตรกร' : 'บัญชีผู้ใช้งาน'
 )
+//ตรวจฟอร์ม
+const formComplete = computed(() => {
+  const {
+    firstname,
+    lastname,
+    address,
+    username,
+    password,
+    confirmPassword,
+    phone,
+    email,
+  } = registerfarmer.value
+  if (
+    !firstname ||
+    !lastname ||
+    !address ||
+    !username ||
+    !password ||
+    !confirmPassword ||
+    !phone ||
+    !email
+  ) {
+    return false
+  }
+  if (isFarmer.value) {
+    if (!registerfarmer.value.idcard || !registerfarmer.value.idcardLaser) {
+      return false
+    }
+  }
+  return true
+})
+//เช็คแบบเบอร์โทร
+function validatePhone(value: string): boolean | string {
+  const pattern = /^0[0-9]{9}$/
+  if (value && pattern.test(value)) {
+    return true
+  }
+  return 'กรุณาระบุหมายเลขโทรศัพท์ให้ถูกต้อง (รูปแบบ: 08xxxxxxxx)'
+}
+
 onMounted(async () => {
   userData.value = await userApi.getUserInfomation('test 1')
   if (
@@ -256,6 +323,7 @@ const registerfarmer = ref<RegisterFarmer>({
   address: '',
   username: '',
   password: '',
+  confirmPassword: '',
   phone: '',
   idcard: '',
   idcardLaser: '',
@@ -294,6 +362,10 @@ function gotoProfile() {
   router.push({ name: 'Profile' })
 }
 async function register() {
+  if (!formComplete.value) {
+    alert('กรุณากรอกข้อมูลให้ครบถ้วน')
+    return
+  }
   const res = await userApi.resgisterUser({
     address: registerfarmer.value.address,
     lastName: registerfarmer.value.lastname,
@@ -309,7 +381,7 @@ async function register() {
   if (res) {
     openDialog.value = true
   } else {
-    alert('error')
+    alert('เกิดข้อผิดพลาดในการลงทะเบียน')
   }
 }
 </script>

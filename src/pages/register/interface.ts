@@ -14,6 +14,7 @@ export interface RegisterFarmer {
   address: string
   username: string
   password: string
+  confirmPassword: string
   phone: string
   idcard: string
   idcardLaser: string
