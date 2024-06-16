@@ -1,8 +1,5 @@
 <template>
   <v-card class="h-100">
-    note <br />
-    ui เรียบร้อยหรือยัง ปุ่มเพิ่มเเห้งๆไปไหม <br />
-
     <v-card-text>
       <v-data-table-virtual
         :items="productData"

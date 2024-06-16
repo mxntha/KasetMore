@@ -1,6 +1,4 @@
 <template>
-  note <br />
-
   <v-card :loading="!productDetail" color="">
     <v-card-text>
       <v-container fluid>
@@ -11,7 +9,7 @@
                 v-for="i in productDetail?.productImages"
                 :key="i.attatchmentId"
               >
-                <v-img :src="i.image"></v-img>
+                <v-img :src="i.image" lazy></v-img>
               </v-carousel-item>
             </v-carousel>
           </v-col>
