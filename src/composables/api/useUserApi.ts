@@ -155,7 +155,7 @@ function useUserApi() {
     async userByUserType(
       userTypevalue: string,
       VerifyStatus: string
-    ): Promise<null | SellerInfo> {
+    ): Promise<SellerInfo | null> {
       try {
         const res = await postMethod<SellerApiModel>(
           `${controller}/user-by-usertype`,

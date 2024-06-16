@@ -78,30 +78,30 @@ const router = useRouter()
 const info = inject(contextPluginSymbol)!
 const userApi = useUserApi()
 ;(async () => {
-  const userType = sellerInfoData.value?.userType || 'Seller'
-  const statusType = sellerInfoData.value?.statusType || 'P'
+  const userType = sellerInfoData.value?.userType || ''
+  const statusType = sellerInfoData.value?.statusType || ''
 
   sellerInfoData.value = (await userApi.userByUserType(
     userType,
     statusType
   )) || {
-    email: '',
     firstName: '',
     lastName: '',
-    profileUrl: '',
-    userType: '',
     address: '',
+    email: '',
     displayName: '',
     password: '',
-    statusType: '',
-    laserCode: '',
     phoneNumber: '',
+    statusType: '',
+    userType: '',
     idCard: '',
+    laserCode: '',
+    profileUrl: '',
     createBy: '',
     createDate: '',
+    products: [],
     updateBy: '',
     updateDate: '',
-    products: [],
   }
 })()
 </script>
