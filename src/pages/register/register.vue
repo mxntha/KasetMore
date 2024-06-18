@@ -1,16 +1,11 @@
 <template>
   note <br />
-  เเยกฟอร์มตาม role <br />
-  เเละครบทุกช่องหรือไม่ <br />
-
-  ช่องเรียงถูกไหม email เอามาเเทน user หรือไม่ <br />
 
   ต่อ api การregister <br />
   &nbsp;ส่งข้อมูลการลงทะเบียน <br />
   &nbsp;ส่งข้อมูลรูปภาพโปรไฟล์ <br />
-  &nbsp;&nbsp;กรณี สมัครไว้เเล้วจะเป็นเกษตรกร ดึงข้อมูลมาผูกไว้ที่ from
-  เเละบังคับกรอก id card<br />
 
+  {{ isFarmer }} {{ userData }}
   <div class="d-flex justify-center align-center w-100 h-100">
     <v-card class="w-100">
       <v-card-item>
@@ -32,9 +27,10 @@
                   (value: any) => (value ? true : 'กรุณากรอก Username'),
                 ]"
                 required
+                :disabled="isFarmer"
               ></v-text-field>
             </v-col>
-            <v-col>
+            <v-col v-if="!isFarmer">
               รหัสผ่าน
               <v-text-field
                 v-model="registerfarmer.password"
@@ -48,7 +44,7 @@
                 @input:append="showPassword = !showPassword"
               ></v-text-field>
             </v-col>
-            <v-col>
+            <v-col v-if="!isFarmer">
               ยืนยันรหัสผ่านรหัสผ่าน
               <v-text-field
                 v-model="registerfarmer.confirmPassword"
@@ -76,6 +72,7 @@
                 v-model="registerfarmer.firstname"
                 placeholder="นาย/นาง/นางสาว"
                 required
+                :disabled="isFarmer"
               ></v-text-field>
             </v-col>
             <v-col>
@@ -85,6 +82,7 @@
                 label=""
                 placeholder=""
                 required
+                :disabled="isFarmer"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -96,6 +94,7 @@
             placeholder="บ้านเลขที่ หมู่บ้าน หมู่ ซอย ตำบล อำเภอ จังหวัด"
             counter="50"
             required
+            :disabled="isFarmer"
           ></v-textarea>
 
           <v-row>
@@ -141,6 +140,7 @@
                     return 'กรุณาระบุ E-mail ให้ถูกต้อง '
                   },
                 ]"
+                :disabled="isFarmer"
               ></v-text-field>
             </v-col>
             <v-col class="pr-16">
@@ -152,9 +152,10 @@
                 placeholder="08xxxxxxxx"
                 counter="10"
                 :rules="[validatePhone]"
+                :disabled="isFarmer"
               ></v-text-field>
             </v-col>
-            <v-col>
+            <v-col v-if="!isFarmer">
               <div class="file-input pt-6 pl-4">
                 <input
                   type="file"
@@ -242,18 +243,20 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, inject, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { type RegisterFarmer } from './interface'
 import { useUserApi } from '@/composables/api'
 import { onMounted } from 'vue'
 import { BaseUserInfo } from '@/composables/api/useUserApi'
-import { computed } from 'vue'
+import { contextPluginSymbol } from '@/plugins/context'
+import { userInfo } from 'os'
 const userApi = useUserApi()
 const userData = ref<BaseUserInfo | null>(null)
 const router = useRouter()
 const route = useRoute()
 const valid = ref(false)
+const infomation = inject(contextPluginSymbol)!
 
 const password = ref('')
 const showPassword = ref(false)
@@ -261,7 +264,7 @@ const confirmPassword = ref('')
 const showConfirmPassword = ref(false)
 
 const isFarmer = computed(
-  () => userData.value != null && route.query.type === 'customer'
+  () => userData.value != null && route.query.type === 'farmer'
 )
 
 const titleForm = computed(() =>
@@ -307,15 +310,6 @@ function validatePhone(value: string): boolean | string {
   return 'กรุณาระบุหมายเลขโทรศัพท์ให้ถูกต้อง (รูปแบบ: 08xxxxxxxx)'
 }
 
-onMounted(async () => {
-  userData.value = await userApi.getUserInfomation('test 1')
-  if (
-    !route.query.type ||
-    !(route.query.type == 'farmer' || route.query.type == 'customer')
-  ) {
-    router.push({ name: 'Register', query: { type: 'farmer' } })
-  }
-})
 //ตัวแปร
 const registerfarmer = ref<RegisterFarmer>({
   firstname: '',
@@ -329,6 +323,32 @@ const registerfarmer = ref<RegisterFarmer>({
   idcardLaser: '',
   email: '',
 })
+
+onMounted(async () => {
+  if (
+    !route.query.type ||
+    !(route.query.type == 'farmer' || route.query.type == 'customer')
+  ) {
+    router.push({ name: 'Register', query: { type: 'farmer' } })
+  }
+  if (route.query.type == 'farmer') {
+    userData.value = await userApi.userByEmail(
+      infomation.userInfomation.value?.email!
+    )
+    if (userData.value == null) {
+      alert('ไม่มีข้อมูลผู้ใช้')
+      router.push({ name: 'Index' })
+      return
+    }
+    registerfarmer.value.firstname = userData.value?.name
+    registerfarmer.value.lastname = userData.value.lastName
+    registerfarmer.value.address = userData.value.address
+    registerfarmer.value.email = userData.value.email
+    registerfarmer.value.phone = userData.value.phoneNumber
+    registerfarmer.value.username = userData.value.userName
+  }
+})
+
 const imageUrl = ref('')
 const openDialog = ref(false)
 function handleImageChange(event: any) {
