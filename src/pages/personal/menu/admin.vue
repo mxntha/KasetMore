@@ -1,11 +1,12 @@
 <template>
   <v-card class="h-100">
-    note หากไม่มีข้อมูลเลยจะเเสดงหน้ายังไง <br />
-
     <v-card-title>ตรวจสอบการสมัครสมาชิกเกษตรกร</v-card-title>
     <v-divider></v-divider>
     <v-card-text>
-      <v-row style="height: 800px; overflow-y: auto">
+      <v-row
+        v-if="sellerInfoData.length > 0"
+        style="height: 800px; overflow-y: auto"
+      >
         <v-col v-for="i in sellerInfoData" cols="12">
           <v-card height="150">
             <v-row>
@@ -52,6 +53,12 @@
               </v-col>
             </v-row>
           </v-card>
+        </v-col>
+      </v-row>
+      <v-row v-else>
+        <v-col cols="12" class="text-center mt-16">
+          <v-icon icon="mdi-account-off" size="200" class="mt-16"></v-icon>
+          <p>ไม่มีข้อมูลบัญชีที่ตรวจสอบ</p>
         </v-col>
       </v-row>
     </v-card-text>

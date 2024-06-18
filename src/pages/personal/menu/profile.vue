@@ -37,52 +37,83 @@
                     หรือต้องดึงข้อมูลมาเเสดงอีกรอบไหม <br />
                     <v-card-text>
                       <v-row dense>
-                        <v-col cols="12" md="4" sm="6">
+                        <v-col cols="12" md="6">
                           <v-text-field
                             label="ชื่อบัญชีผู้ใช้งาน"
                             required
                             v-model="userInfoData.userName"
-                            disabled
                           ></v-text-field>
                         </v-col>
-
-                        <v-col cols="12" md="10" sm="8">
+                        <v-col cols="12" md="6">
                           <v-text-field
-                            hint="example of helper text only on focus"
                             label="Email"
                             v-model="userInfoData.email"
                             disabled
                           ></v-text-field>
                         </v-col>
+                        <v-col cols="12" md="6">
+                          <v-text-field
+                            label="เบอร์โทรศัพท์"
+                            v-model="userInfoData.phoneNumber"
+                            required
+                          ></v-text-field>
+                        </v-col>
+                      </v-row>
 
-                        <v-col cols="12" md="4" sm="6">
+                      <v-row dense>
+                        <v-col cols="12" md="6">
                           <v-text-field
                             label="รหัสผ่าน"
-                            type="password"
                             v-model="password"
                             required
-                            :error-messages="passwordErrors"
+                            :rules="[(valuePassword:string | undefined) => (valuePassword ? true : 'กรุณากรอกรหัสผ่าน')]"
+                            placeholder="xxxxxx"
+                            :type="showPassword ? 'text' : 'password'"
+                            :append-icon="
+                              showPassword ? 'mdi-eye' : 'mdi-eye-off'
+                            "
+                            @click:append="showPassword = !showPassword"
+                            @input:append="showPassword = !showPassword"
                           ></v-text-field>
                         </v-col>
 
-                        <v-col cols="12" md="4" sm="6">
+                        <v-col cols="12" md="6">
                           <v-text-field
                             label="ยืนยันรหัสผ่าน"
-                            type="password"
                             v-model="confirmPassword"
-                            :error-messages="passwordErrors"
                             required
+                            :rules="[
+                  (valueConfirmPassword: string | undefined) =>
+                    valueConfirmPassword && valueConfirmPassword === password
+                      ? true
+                      : 'รหัสผ่านไม่ตรงกัน',
+                ]"
+                            placeholder="xxxxxx"
+                            :type="showConfirmPassword ? 'text' : 'password'"
+                            :append-icon="
+                              showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'
+                            "
+                            @click:append="
+                              showConfirmPassword = !showConfirmPassword
+                            "
+                            @input:append="
+                              showConfirmPassword = !showConfirmPassword
+                            "
                           ></v-text-field>
                         </v-col>
+                      </v-row>
 
-                        <v-col cols="12" sm="15">
+                      <v-row dense>
+                        <v-col cols="12">
                           <v-textarea
                             label="ที่อยู่"
                             required
                             v-model="userInfoData.address"
                           ></v-textarea>
                         </v-col>
-                        <!-- Image Upload Field -->
+                      </v-row>
+                      <!-- Image Upload Field -->
+                      <v-row dense>
                         <v-col>
                           <div class="file-input pt-6">
                             <input
@@ -189,9 +220,11 @@ import { ref, inject, onMounted, computed } from 'vue'
 
 const info = inject(contextPluginSymbol)!
 const loading = ref(true)
-const password = ref('')
-const confirmPassword = ref('')
 
+const password = ref('')
+const showPassword = ref(false)
+const confirmPassword = ref('')
+const showConfirmPassword = ref(false)
 const router = useRouter()
 
 const userInfoData = ref<BaseUserInfo>({
@@ -211,13 +244,6 @@ const userInfoData = ref<BaseUserInfo>({
 const imageUrl = ref('')
 const infomation = inject(contextPluginSymbol)!
 const userApi = useUserApi()
-
-const passwordErrors = computed(() => {
-  if (confirmPassword.value && confirmPassword.value !== password.value) {
-    return ['รหัสผ่านไม่ตรงกัน']
-  }
-  return []
-})
 
 const formErrors = ref<string[]>([])
 
@@ -305,13 +331,16 @@ function convertToBase64(_imageUrl: any) {
   }
 }
 
-function saveForm() {
+async function saveForm() {
   if (isFormValid.value) {
     // Save form logic
     // Call API to update user info
     alert('ข้อมูลได้รับการบันทึกแล้ว')
+    // ล้างค่าหรือดึงข้อมูลใหม่เพื่อปรับปรุงหน้า UI ตามที่เป็นไปได้
   } else {
-    alert(`กรุณากรอกข้อมูลให้ครบถ้วน:\n${formErrors.value.join('\n')}`)
+    alert('การบันทึกข้อมูลไม่สำเร็จ')
   }
+
+  alert(`กรุณากรอกข้อมูลให้ครบถ้วน:\n${formErrors.value.join('\n')}`)
 }
 </script>
