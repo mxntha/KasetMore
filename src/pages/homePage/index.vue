@@ -13,7 +13,11 @@
           <v-container fluid>
             <v-row>
               <v-col v-for="cate in categories" :key="cate.categoryName">
-                <v-card height="180" style="background-color: #eddbce">
+                <v-card
+                  height="180"
+                  style="background-color: #eddbce"
+                  @click="getCategory(cate.categoryName)"
+                >
                   <v-row>
                     <v-col>
                       <v-img
@@ -167,14 +171,14 @@ const productlist = computed(() =>
 
 function getCateImage(category: Category): string {
   switch (category.categoryName) {
-    case 'Vegetable':
-      return require('@/assets/vegetable.png')
-    case 'Healthy Food':
-      return require('@/assets/healthy-food.png')
-    case 'Gardening Tools':
-      return require('@/assets/gardening-tools.png')
-    case 'Growing Plant':
-      return require('@/assets/growing-plant.png')
+    case 'ผัก':
+      return vegetable
+    case 'ผลไม้':
+      return healthy
+    case 'อุปกรณ์การเกษตร':
+      return gardening
+    case 'เมล็ด':
+      return growing
     default:
       return ''
   }
@@ -182,5 +186,12 @@ function getCateImage(category: Category): string {
 
 function buyClick(id: string) {
   router.push({ name: 'ProductDetail', params: { productId: id } })
+}
+
+async function getCategory(category: string) {
+  loading.value = true
+  console.log(category)
+  await productApi.getByCategory(category)
+  loading.value = false
 }
 </script>

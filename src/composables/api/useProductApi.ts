@@ -96,19 +96,20 @@ function useProductApi() {
         return null
       }
     },
-    async getByCategory(category: string): Promise<Category[]> {
+    async getByCategory(category: string): Promise<Product[]> {
       try {
         console.log('get-by-category')
 
-        const res = await postMethod<ProductDetailById[]>(
+        const res = await postMethod<ProductResultApi[]>(
           `${controller}/products/get-by-category`,
+          null,
           {
             category: category,
           }
         )
         console.log(res)
 
-        const categories: Category[] = res.map((e) => ({
+        const productCate = res.map((e) => ({
           amount: e.amount,
           description: e.description,
           price: e.price,
@@ -117,12 +118,10 @@ function useProductApi() {
           picture: e.productImages[0]?.image || '',
           province: e.province,
           rating: e.rating,
-          categoryName: e.category,
-          categoryDesc: e.categoryDesc || '',
-          categoryImg: e.categoryImg || '',
+          category: e.category,
         }))
 
-        return categories
+        return productCate
       } catch (error) {
         console.error('Error get category:', error)
         return []
