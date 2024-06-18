@@ -1,17 +1,16 @@
 <template>
   note <br />
 
-  ต่อ api อะไรไหม<br />
-  ปุ่มกดได้่ทุกอันไหม <br />
   ui จะปรับเเต่งอะไรเพิม่ไหม <br />
   หากกดซื้อเเล้วไม่สำเร็จ จะเกิดอะไรขึ้นไหม
+
   <div class="d-flex justify-center" v-if="productDetail != null">
     <v-card color="white" height="660" width="700">
       <div class="d-flex justify-center">
         <v-img
           height="500"
           width="500"
-          :img="productDetail.productImages"
+          :src="productDetail.productImages[0].image"
           alt=""
         ></v-img>
       </div>

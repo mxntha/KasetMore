@@ -61,9 +61,6 @@
           </v-list>
         </div>
       </v-list>
-      note
-      <br />
-      ผูกค่ากับการ์ด
 
       <template v-slot:append>
         <div class="pa-2">

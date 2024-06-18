@@ -142,11 +142,15 @@ function useUserApi() {
         return false
       }
     },
-    async updateVerifyFlag(data: InsertUser) {
+    async updateVerifyFlag(email: string, VerifyStatus: string) {
       try {
         return await postMethod<boolean>(
           `${controller}/update-verify-flag`,
-          null
+          null,
+          {
+            email: email,
+            flag: VerifyStatus,
+          }
         )
       } catch {
         return false
@@ -155,9 +159,9 @@ function useUserApi() {
     async userByUserType(
       userTypevalue: string,
       VerifyStatus: string
-    ): Promise<SellerInfo | null> {
+    ): Promise<SellerInfo[]> {
       try {
-        const res = await postMethod<SellerApiModel>(
+        const result = await postMethod<SellerApiModel[]>(
           `${controller}/user-by-usertype`,
           null,
           {
@@ -165,28 +169,30 @@ function useUserApi() {
             verifiedStatus: VerifyStatus,
           }
         )
-        return {
-          firstName: res.firstName,
-          lastName: res.lastName,
-          email: res.email,
-          address: res.address,
-          phoneNumber: res.phoneNumber,
-          displayName: res.displayName,
-          userType: res.userType,
-          profileUrl: res.profilePicture,
-          statusType: res.isVerified,
-          idCard: res.idNumber,
-          laserCode: res.laserCode,
-          password: res.password,
-          createBy: res.createBy,
-          createDate: res.createDate,
-          updateBy: res.updateBy,
-          updateDate: res.updateDate,
-          products: res.products,
-        }
+        return result.map((res) => {
+          return {
+            firstName: res.firstName,
+            lastName: res.lastName,
+            email: res.email,
+            address: res.address,
+            phoneNumber: res.phoneNumber,
+            displayName: res.displayName,
+            userType: res.userType,
+            profileUrl: res.profilePicture,
+            statusType: res.isVerified,
+            idCard: res.idNumber,
+            laserCode: res.laserCode,
+            password: res.password,
+            createBy: res.createBy,
+            createDate: res.createDate,
+            updateBy: res.updateBy,
+            updateDate: res.updateDate,
+            products: res.products,
+          }
+        })
       } catch (error) {
         console.error('Error fetching users by user type:', error)
-        return null
+        return []
       }
     },
   }
