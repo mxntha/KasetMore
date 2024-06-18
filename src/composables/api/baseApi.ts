@@ -21,6 +21,7 @@ async function getMethod<T>(url: string, query: any | null = null): Promise<T> {
       throw x
     })
 }
+
 async function postMethod<T>(
   url: string,
   payload: any | null = null,
@@ -30,7 +31,7 @@ async function postMethod<T>(
   console.log('POST Payload:', payload)
   const queryString = query != null ? new URLSearchParams(query) : null
   const path = baseUrl + url
-  let option = {
+  let option: RequestInit = {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
@@ -39,7 +40,7 @@ async function postMethod<T>(
     body: JSON.stringify(payload),
   }
   if (payload == null) {
-    delete payload.body
+    delete option.body
   }
   return fetch(path + (queryString != null ? '?' + queryString : ''), option)
     .then((x) => x.json())
