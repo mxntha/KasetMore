@@ -101,7 +101,7 @@ function useProductApi() {
         console.log('get-by-category')
 
         const res = await postMethod<ProductResultApi[]>(
-          `${controller}/products/get-by-category`,
+          `${controller}/get-by-category`,
           null,
           {
             category: category,

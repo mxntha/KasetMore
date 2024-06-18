@@ -1,10 +1,4 @@
 <template>
-  note: <br />
-
-  &nbsp; กด หมวดหมู่ เเล้วดึงสินค้าตามหมวดหมู่ <br />
-
-  ปุ่มกดได้่ทุกอันไหม <br />
-
   <div class="mx-20">
     <div id="section-category" class="">
       <v-card>
@@ -191,7 +185,7 @@ function buyClick(id: string) {
 async function getCategory(category: string) {
   loading.value = true
   console.log(category)
-  await productApi.getByCategory(category)
+  _productlist.value = await productApi.getByCategory(category)
   loading.value = false
 }
 </script>
