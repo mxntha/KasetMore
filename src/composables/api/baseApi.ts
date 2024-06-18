@@ -30,14 +30,18 @@ async function postMethod<T>(
   console.log('POST Payload:', payload)
   const queryString = query != null ? new URLSearchParams(query) : null
   const path = baseUrl + url
-  return fetch(path + (queryString != null ? '?' + queryString : ''), {
+  let option = {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
       Authorization: `Bearer ${jwt}`,
     },
     body: JSON.stringify(payload),
-  })
+  }
+  if (payload == null) {
+    delete payload.body
+  }
+  return fetch(path + (queryString != null ? '?' + queryString : ''), option)
     .then((x) => x.json())
     .then((x) => x as T)
     .catch((x) => {
