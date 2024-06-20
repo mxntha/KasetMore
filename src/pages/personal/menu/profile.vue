@@ -256,9 +256,11 @@ const isFormValid = computed(() => {
   if (!password.value) formErrors.value.push('กรุณากรอกรหัสผ่าน')
   if (password.value !== confirmPassword.value)
     formErrors.value.push('รหัสผ่านไม่ตรงกัน')
-
-  return formErrors.value.length === 0
 })
+if (isFormValid) {
+  // This condition is always true
+  console.log('Form is valid')
+}
 
 ;(async () => {
   loading.value = true
@@ -333,16 +335,39 @@ function convertToBase64(_imageUrl: any) {
   }
 }
 
-async function saveForm() {
-  if (isFormValid.value) {
-    // Save form logic
-    // Call API to update user info
-    alert('ข้อมูลได้รับการบันทึกแล้ว')
-    // ล้างค่าหรือดึงข้อมูลใหม่เพื่อปรับปรุงหน้า UI ตามที่เป็นไปได้
-  } else {
-    alert('การบันทึกข้อมูลไม่สำเร็จ')
-  }
+const userData: InsertUser = {
+  name: userInfoData.value.name,
+  lastName: userInfoData.value.lastName,
+  profileUrl: imageUrl.value, // Ensure imageUrl is set correctly
+  address: userInfoData.value.address,
+  userName: userInfoData.value.userName,
+  idCard: userInfoData.value.idCard || undefined,
+  laserCard: userInfoData.value.laserCard || undefined,
+  phoneNumber: userInfoData.value.phoneNumber,
+  password: password.value,
+  email: userInfoData.value.email,
+}
 
-  alert(`กรุณากรอกข้อมูลให้ครบถ้วน:\n${formErrors.value.join('\n')}`)
+async function saveForm() {
+  if (isFormValid) {
+    try {
+      const updateProfilePictureResult = await userApi.updateProfilePicture(
+        infomation.userInfomation.value?.email!
+      )
+      const updateProfileResult = await userApi.updateProfile(userData)
+
+      if (updateProfilePictureResult && updateProfileResult) {
+        alert('ข้อมูลได้รับการบันทึกแล้ว')
+        // Optionally clear values or fetch new data to update UI
+      } else {
+        alert('การบันทึกข้อมูลไม่สำเร็จ')
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error)
+      alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล')
+    }
+  } else {
+    alert(`กรุณากรอกข้อมูลให้ครบถ้วน:\n${formErrors.value.join('\n')}`)
+  }
 }
 </script>

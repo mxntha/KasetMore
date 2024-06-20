@@ -125,12 +125,16 @@ function useUserApi() {
         return null
       }
     },
-    async updateProfilePicture(data: InsertUser) {
+    async updateProfilePicture(email: string) {
       try {
-        return await postMethod<boolean>(
+        const updateImg = await postMethod<boolean>(
           `${controller}/update-profile-picture`,
-          null
+          null,
+          {
+            email: email,
+          }
         )
+        return updateImg
       } catch {
         return false
       }
