@@ -17,7 +17,7 @@
             </div>
 
             <div class="pt-8">
-              <v-dialog max-width="600">
+              <v-dialog max-width="600" persistent>
                 <template v-slot:activator="{ props: activatorProps }">
                   <v-btn
                     class="text-none font-weight-regular"
@@ -134,6 +134,8 @@
                                 role="img"
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 512 512"
+                                width="80"
+                                height="80"
                               >
                                 <path
                                   fill="currentColor"
@@ -160,14 +162,14 @@
                       <v-spacer></v-spacer>
 
                       <v-btn
-                        text="Close"
+                        text="ยกเลิก"
                         variant="plain"
                         @click="activator.value = false"
                       ></v-btn>
 
                       <v-btn
                         color="primary"
-                        text="Save"
+                        text="ตกลง"
                         variant="tonal"
                         @click="saveForm"
                       ></v-btn>
@@ -214,7 +216,7 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
 import { contextPluginSymbol } from '@/plugins/context'
-import { BaseUserInfo } from '@/composables/api/useUserApi'
+import { BaseUserInfo, InsertUser } from '@/composables/api/useUserApi'
 import { useUserApi } from '@/composables/api'
 import { ref, inject, onMounted, computed } from 'vue'
 
