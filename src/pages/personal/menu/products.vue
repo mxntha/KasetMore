@@ -68,10 +68,6 @@
     v-if="currentProduct"
   >
     <v-card width="800">
-      note <br />
-
-      แก้รูปภาพ
-
       <v-card-title>
         <span class="text-h5">เพิ่มสินค้า </span>
       </v-card-title>
@@ -190,11 +186,7 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn
-          color="blue-darken-1"
-          variant="text"
-          @click="dialogInsert = false"
-        >
+        <v-btn color="blue-darken-1" variant="text" @click="cancelInsert">
           ยกเลิก
         </v-btn>
         <v-btn color="blue-darken-1" variant="text" @click="saveProduct">
@@ -211,9 +203,6 @@
     v-if="currentProduct"
   >
     <v-card width="800">
-      note <br />
-      แก้รูปภาพ
-
       <v-card-title>
         <span class="text-h5"> แก้ไขสินค้า </span>
       </v-card-title>
@@ -588,6 +577,12 @@ async function deleteItem(item: TableProduct) {
     deleteProduct.value = await productApi.deleteProduct(item.productId)
   }
   fetchProductData()
+}
+
+function cancelInsert() {
+  _imageFile.value = []
+  imageFiles.value = []
+  dialogInsert.value = false
 }
 
 //หน้าเว็บ
