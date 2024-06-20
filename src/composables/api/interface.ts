@@ -20,7 +20,7 @@ interface TransectionApiModel {
   SellerEmail: number
   BuyerEmail: number
   ProductId: number
-  Unit: string
+  unit: string
   Amount: number
   Price: number
   CreateDate: Date
@@ -40,7 +40,7 @@ export interface ProductResultApi {
   province: string
   rating: number
   amount: number
-  unit: number
+  unit: UnitApiModel[]
   userEmail: string
   category: string
   price: number
@@ -66,7 +66,7 @@ export interface ProductDetailById {
   productName: string
   province: string
   rating: number
-  unit: number
+  unit: UnitApiModel[]
   updateDate: Date
   userEmail: string
 }
