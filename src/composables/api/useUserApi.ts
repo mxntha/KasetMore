@@ -89,18 +89,12 @@ function useUserApi() {
     },
     async resgisterUser(data: InsertUser) {
       try {
-        return await postMethod<boolean>(`${controller}/resgisterUser`, null)
+        return await postMethod<boolean>(`${controller}/resgisterUser`, data)
       } catch {
         return false
       }
     },
-    async checkJwt(jwt: string): Promise<boolean> {
-      try {
-        return await getMethod<boolean>('checkJwt')
-      } catch {
-        return false
-      }
-    },
+
     async userByEmail(emailvalue: string): Promise<null | BaseUserInfo> {
       try {
         const res = await postMethod<UserApiModel>(
@@ -141,21 +135,17 @@ function useUserApi() {
     },
     async updateProfile(data: InsertUser) {
       try {
-        return await postMethod<boolean>(`${controller}/update-profile`, null)
+        return await postMethod<boolean>(`${controller}/update-profile`, data)
       } catch {
         return false
       }
     },
     async updateVerifyFlag(email: string, VerifyStatus: string) {
       try {
-        return await postMethod<boolean>(
-          `${controller}/update-verify-flag`,
-          null,
-          {
-            email: email,
-            flag: VerifyStatus,
-          }
-        )
+        return await postMethod<boolean>(`${controller}/update-verify-flag`, {
+          email: email,
+          flag: VerifyStatus,
+        })
       } catch {
         return false
       }
@@ -167,7 +157,6 @@ function useUserApi() {
       try {
         const result = await postMethod<SellerApiModel[]>(
           `${controller}/user-by-usertype`,
-          null,
           {
             userType: userTypevalue,
             verifiedStatus: VerifyStatus,
