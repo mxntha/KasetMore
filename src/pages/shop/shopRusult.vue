@@ -14,9 +14,7 @@
           alt=""
         ></v-img>
       </div>
-      <div>
-        {{ productDetail.description }}
-      </div>
+
       <div>
         {{ productDetail.productName }}จำนวน {{ amount }} : รวมเป็นเงิน
         {{ productDetail.price * parseInt(amount!) }}

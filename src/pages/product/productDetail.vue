@@ -4,12 +4,22 @@
       <v-container fluid>
         <v-row>
           <v-col cols="4">
-            <v-carousel height="500" hide-delimiters class="mx-auto">
+            <v-carousel
+              height="400"
+              hide-delimiters
+              class="mx-auto"
+              v-model="carouselIndex"
+            >
               <v-carousel-item
                 v-for="i in productDetail?.productImages"
                 :key="i.attatchmentId"
+                cover
               >
-                <v-img :src="i.image" lazy></v-img>
+                <v-img
+                  :src="i.image"
+                  cover
+                  class="d-flex align-center justify-center"
+                ></v-img>
               </v-carousel-item>
             </v-carousel>
           </v-col>
@@ -108,6 +118,7 @@ const productApi = useProductApi()
 const userApi = useUserApi()
 const loading = ref(true)
 const userDisplay = ref()
+const carouselIndex = ref(0)
 
 onMounted(async () => {
   loading.value = true
