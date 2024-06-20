@@ -1,11 +1,8 @@
 <template>
   note <br />
-
-  ui จะปรับเเต่งอะไรเพิม่ไหม <br />
-  หากกดซื้อเเล้วไม่สำเร็จ จะเกิดอะไรขึ้นไหม
-
+  แก้unit
   <div class="d-flex justify-center" v-if="productDetail != null">
-    <v-card color="white" height="660" width="700">
+    <v-card class="ma-12" color="white" height="660" width="700">
       <div class="d-flex justify-center">
         <v-img
           height="500"
@@ -15,12 +12,16 @@
         ></v-img>
       </div>
 
-      <div>
-        {{ productDetail.productName }}จำนวน {{ amount }} : รวมเป็นเงิน
-        {{ productDetail.price * parseInt(amount!) }}
+      <div class="ma-6">
+        <div class="text-h4">
+          {{ productDetail.productName }}
+        </div>
+        <div>จำนวน : {{ amount }} {{ productDetail.unit }}</div>
+        <div>รวมเป็นเงิน : {{ productDetail.price * parseInt(amount!) }}</div>
+        <div class="d-flex flex-row-reverse mb-6">
+          <v-btn color="green" @click="buyProduct"> ยืนยันสั่งซื้อ </v-btn>
+        </div>
       </div>
-
-      <v-btn color="green" @click="buyProduct"> ยืนยันสั่งซื้อ </v-btn>
     </v-card>
   </div>
 </template>
