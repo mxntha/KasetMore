@@ -1,7 +1,7 @@
-import { getMethod } from './api/baseApi'
-import { UnitApiModel } from './api/interface'
+import { getMethod } from './baseApi'
+import { UnitApiModel } from './interface'
 
-export default function useCategoryApi() {
+export default function useUnitApi() {
   return {
     async getAll() {
       try {

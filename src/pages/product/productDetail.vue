@@ -142,6 +142,7 @@ onMounted(async () => {
     profileUrl: '',
     statusType: '',
   }
+
   loading.value = false
 })
 
