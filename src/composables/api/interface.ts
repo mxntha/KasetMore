@@ -10,7 +10,7 @@ export interface UserApiModel {
   isVerified: string
 }
 
-interface UnitApiModel {
+export interface UnitApiModel {
   UnitId: number
   UnitName: string
 }
