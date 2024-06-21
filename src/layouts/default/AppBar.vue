@@ -2,14 +2,14 @@
   <v-app-bar color="green-accent-4" app dense fixed hide-on-scroll>
     <template v-slot:prepend>
       <div
-        class="text-h5 cursor-pointer"
+        class="text-h6 cursor-pointer"
         @click="router.push({ name: 'Index' })"
       >
-        <v-img src="@/assets/box.png"></v-img>
+        <v-img :src="box" alt="Logo" width="70" height="55"></v-img>
       </div>
     </template>
     <v-app-bar-title
-      class="cursor-pointer"
+      class="cursor-pointer text-h5 font-weight-bold"
       @click="router.push({ name: 'Index' })"
       >Kaset More</v-app-bar-title
     >
@@ -85,6 +85,8 @@
 </template>
 
 <script lang="ts" setup>
+import box from '@/assets/box.png'
+
 import { useRouter, useRoute } from 'vue-router'
 import { searchPluginSymbol } from '@/plugins/search'
 import { computed, ref, inject } from 'vue'
