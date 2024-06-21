@@ -41,12 +41,12 @@
                     <v-col xxl="2" xl="3" lg="3" md="5" sm="6">
                       <v-text-field
                         density="compact"
-                        label="จำนวนสินค้า"
                         type="number"
                         v-model="amount"
                         :min="1"
                         :max="productDetail?.amount"
                         @input="validateAmount"
+                        style="text-align: center"
                       >
                         <template v-slot:append>
                           <v-icon
@@ -89,13 +89,13 @@
   </v-card>
 
   <v-card :loading="!productDetail" class="mt-4">
-    <v-card-title>รายละเอียดสินค้า</v-card-title>
+    <v-card-title class="font-weight-black">รายละเอียดสินค้า</v-card-title>
     <v-card-text>
       <div class="text-h5">{{ productDetail?.description }}</div>
     </v-card-text>
   </v-card>
   <v-card :loading="!productDetail" class="mt-4">
-    <v-card-title>ข้อมูลร้านค้า</v-card-title>
+    <v-card-title class="font-weight-black">ข้อมูลร้านค้า</v-card-title>
     <v-card-text>
       <div class="text-h5">{{ userDisplay?.userName }}</div>
     </v-card-text>
