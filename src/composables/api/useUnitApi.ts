@@ -5,9 +5,9 @@ export default function useUnitApi() {
   return {
     async getAll() {
       try {
-        const res = await getMethod<[UnitApiModel[]]>('Unit/units')
-        console.log('resapi', res)
-        return res
+        const unit = await getMethod<UnitApiModel[]>('Unit/units')
+        console.log('unitApi', unit)
+        return unit
       } catch {
         return []
       }

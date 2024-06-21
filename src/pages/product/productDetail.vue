@@ -70,7 +70,7 @@
                     </v-col>
                     <v-col class="d-flex">
                       <div class="text-h6 align-self-center pb-5">
-                        จำนวนสินค้า {{ productDetail?.amount }} ชิ้น
+                        จำนวนสินค้า {{ productDetail?.amount }}
                       </div>
                     </v-col>
                   </v-row>
@@ -107,8 +107,8 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '@/router'
 import { ProductCard } from '@/components/productCard/interface'
-import { useProductApi, useUserApi } from '@/composables/api'
-import { ProductDetailById } from '@/composables/api/interface'
+import { useProductApi, useUserApi, useUnitApi } from '@/composables/api'
+import { ProductDetailById, UnitApiModel } from '@/composables/api/interface'
 
 const route = useRoute()
 const productId = route.params.productId as string
@@ -119,6 +119,8 @@ const userApi = useUserApi()
 const loading = ref(true)
 const userDisplay = ref()
 const carouselIndex = ref(0)
+const unitApi = useUnitApi()
+const unitDetail = ref<UnitApiModel[]>([])
 
 onMounted(async () => {
   loading.value = true
@@ -142,7 +144,7 @@ onMounted(async () => {
     profileUrl: '',
     statusType: '',
   }
-
+  unitDetail.value = await unitApi.getAll()
   loading.value = false
 })
 
