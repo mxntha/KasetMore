@@ -27,14 +27,11 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '@/router'
-import { Product, useProductApi } from '@/composables/api'
-import {
-  ProductResultApi,
-  ProductDetailById,
-} from '@/composables/api/interface'
+import { useProductApi, useUnitApi } from '@/composables/api'
+import { ProductDetailById, UnitApiModel } from '@/composables/api/interface'
 
 const route = useRoute()
 const productIdParam = route.params.productId
@@ -46,13 +43,15 @@ const amount = Array.isArray(amountQuery) ? amountQuery[0] : amountQuery
 const loading = ref(true)
 const productApi = useProductApi()
 const productDetail = ref<ProductDetailById | null>(null)
+const unitApi = useUnitApi()
+const units = ref<UnitApiModel[]>([])
 
 onMounted(async () => {
   loading.value = true
 
   try {
     productDetail.value = await productApi.getById(productId)
-
+    units.value = await unitApi.getAll()
     if (productDetail.value === null) {
       alert('ไม่พบสินค้า')
       router.push({ name: 'productList' })

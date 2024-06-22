@@ -71,6 +71,7 @@
                     <v-col class="d-flex">
                       <div class="text-h6 align-self-center pb-5">
                         จำนวนสินค้า {{ productDetail?.amount }}
+                        {{ units }}
                       </div>
                     </v-col>
                   </v-row>
