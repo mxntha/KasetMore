@@ -117,16 +117,17 @@ const productDetail = ref<ProductDetailById | null>(null)
 const productApi = useProductApi()
 const userApi = useUserApi()
 const loading = ref(true)
-const userDisplay = ref()
+const userDisplay = ref<any>(null)
 const carouselIndex = ref(0)
 const unitApi = useUnitApi()
-const unitDetail = ref<UnitApiModel[]>([])
+const units = ref<UnitApiModel[]>([])
 
 onMounted(async () => {
   loading.value = true
   productDetail.value = await productApi.getById(productId)
-  if (!productDetail.value) {
-    alert('หาไม่เจอ')
+  if (productDetail.value) {
+  } else {
+    alert('ไม่พบข้อมูลสินค้า')
     router.push({ name: 'Index' })
   }
   userDisplay.value = (await userApi.userByEmail(
@@ -144,7 +145,8 @@ onMounted(async () => {
     profileUrl: '',
     statusType: '',
   }
-  unitDetail.value = await unitApi.getAll()
+  units.value = await unitApi.getAll()
+
   loading.value = false
 })
 

@@ -11,8 +11,8 @@ export interface UserApiModel {
 }
 
 export interface UnitApiModel {
-  UnitId: number
-  UnitName: string
+  unitId: number
+  unitName: string
 }
 
 interface TransectionApiModel {
