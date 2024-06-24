@@ -4,6 +4,7 @@ import userApi from './useUserApi'
 import purchaseApi from './usePurchaseApi'
 import categoryApi from './useCategoryApi'
 import unitApi from './useUnitApi'
+import transactionApi from './useTransactionApi'
 
 export interface Product extends ProductCard {}
 export interface BasePurchase {
@@ -35,4 +36,5 @@ export {
   purchaseApi as usePurchaseApi,
   categoryApi as useCategoryApi,
   unitApi as useUnitApi,
+  transactionApi as useTransactionApi,
 }

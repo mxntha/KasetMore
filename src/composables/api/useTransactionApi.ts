@@ -37,3 +37,4 @@ function useTransactionApi() {
     },
   }
 }
+export default useTransactionApi
