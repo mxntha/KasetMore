@@ -15,7 +15,7 @@ export interface UnitApiModel {
   unitName: string
 }
 
-interface TransectionApiModel {
+export interface TransectionApiModel {
   TransactionId: number
   SellerEmail: number
   BuyerEmail: number
