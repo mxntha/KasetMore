@@ -68,10 +68,14 @@
                         </template></v-text-field
                       >
                     </v-col>
-                    <v-col class="d-flex">
+                    <v-col
+                      v-for="unit in productDetail?.unit"
+                      :key="unit.unitId"
+                      class="d-flex flex-column align-center"
+                    >
                       <div class="text-h6 align-self-center pb-5">
                         จำนวนสินค้า {{ productDetail?.amount }}
-                        {{ units }}
+                        {{ unit.unitName }}
                       </div>
                     </v-col>
                   </v-row>
@@ -104,7 +108,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '@/router'
 import { ProductCard } from '@/components/productCard/interface'
@@ -121,11 +125,12 @@ const loading = ref(true)
 const userDisplay = ref<any>(null)
 const carouselIndex = ref(0)
 const unitApi = useUnitApi()
-const units = ref<UnitApiModel[]>([])
+const units = ref<UnitApiModel[]>([] as { unitId: number; unitName: string }[])
 
 onMounted(async () => {
   loading.value = true
   productDetail.value = await productApi.getById(productId)
+
   if (productDetail.value) {
   } else {
     alert('ไม่พบข้อมูลสินค้า')
@@ -149,6 +154,19 @@ onMounted(async () => {
   units.value = await unitApi.getAll()
 
   loading.value = false
+})
+
+// คอมพิวเต็ด property สำหรับการแสดง unitName ของ productDetail
+const unitName = computed(() => {
+  if (productDetail.value && units.value.length > 0) {
+    const productUnitId = productDetail.value?.unit.map((unit) => unit.unitId)
+    const unitNames = units.value
+      .filter((unit) => productUnitId.includes(unit.unitId))
+      .map((unit) => unit.unitName)
+
+    return unitNames.join(', ')
+  }
+  return ''
 })
 
 function validateAmount() {
