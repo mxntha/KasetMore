@@ -38,9 +38,10 @@
         <div class="mx-4" v-if="isLogin">
           <div v-bind="props" class="cursor-pointer">
             <v-avatar
+              :size="45"
               icon="mdi-account-circle"
               color="surface-variant"
-              :image="infomation.userInfomation.value?.profilePicture"
+              :image="userInfoData?.profileUrl"
             ></v-avatar>
             <span class="ml-2">
               {{ infomation.userInfomation.value?.displayName }}</span
@@ -89,13 +90,13 @@ import box from '@/assets/box.png'
 
 import { useRouter, useRoute } from 'vue-router'
 import { searchPluginSymbol } from '@/plugins/search'
-import { computed, ref, inject } from 'vue'
+import { computed, ref, inject, onMounted } from 'vue'
 import { contextPluginSymbol } from '@/plugins/context'
-
 import { BaseUserInfo } from '@/composables/api/useUserApi'
+import { useUserApi } from '@/composables/api'
 
 const infomation = inject(contextPluginSymbol)!
-
+const loading = ref(true)
 const router = useRouter()
 const route = useRoute()
 const searchState = inject(searchPluginSymbol)!
@@ -108,7 +109,19 @@ const isFarmer = computed(
     infomation.userInfomation.value?.userType == 'Seller' ||
     infomation.userInfomation.value?.userType == 'Admin'
 )
+
+const userApi = useUserApi()
+
 const userInfoData = ref<BaseUserInfo | null>(null)
+
+onMounted(async () => {
+  loading.value = true
+  userInfoData.value = await userApi.userByEmail(
+    infomation.userInfomation.value?.email || ''
+  )
+  console.log(userInfoData.value)
+  loading.value = false
+})
 
 function gotoregisterCust() {
   router.push({ name: 'Register', query: { type: 'customer' } })
