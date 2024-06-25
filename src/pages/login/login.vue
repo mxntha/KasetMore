@@ -97,6 +97,16 @@
         </v-card>
       </div>
     </v-card>
+    <v-dialog v-model="dialog" max-width="400">
+      <v-card>
+        <v-card-title class="headline"></v-card-title>
+        <v-card-text> กรุณาตรวจสอบข้อมูลให้ถูกต้อง </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" @click="dialog = false">ตกลง</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -111,6 +121,7 @@ const userApi = useUserApi()
 const router = useRouter()
 const visible = ref(false)
 const valid = ref(false)
+const dialog = ref(false)
 const loginform = ref<LoginForm>({
   username: '',
   password: '',
@@ -123,10 +134,10 @@ async function gotoIndex() {
   )
   loading.value = false
   if (!jwt) {
-    alert('กรุณาตรวจสอบข้อมูลให้ถูกต้อง')
+    dialog.value = true
     return
   }
-  router.push({ path: '/' })
+  router.push({ name: 'Index' })
 }
 </script>
 <style scoped></style>

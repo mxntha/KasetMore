@@ -358,6 +358,21 @@
       </v-card-actions>
     </v-card>
   </v-dialog>
+
+  <!-- แจ้งเตือน alert -->
+  <v-dialog v-model="showFileLimitDialog" max-width="400">
+    <v-card>
+      <v-card-title class="text-h5">แจ้งเตือน</v-card-title>
+      <v-card-text
+        >เกินขีดจำกัดที่อนุญาตให้อัปโหลดได้ ไม่สามารถอัปโหลดรูปภาพเกิน 4
+        ไฟล์ได้</v-card-text
+      >
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="primary" @click="showFileLimitDialog = false">ตกลง</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script lang="ts" setup>
@@ -380,6 +395,7 @@ const dialogInsert = ref(false)
 const dialogDelete = ref(false)
 const dialogEdit = ref(false)
 const deleteProduct = ref(false)
+const showFileLimitDialog = ref(false)
 
 const productApi = useProductApi()
 const productById = ref<ProductDetailById | null>(null)
@@ -388,7 +404,7 @@ const productData = ref<TableProduct[]>([])
 // จัดการการอัพโหลดรูปภาพ
 async function handleImageChange(event: any) {
   if (imageFiles.value.length >= 4) {
-    alert('เกิน 4 ไฟล?เเล้ว')
+    showFileLimitDialog.value = true
     return
   }
   const file = event.target.files[0]
@@ -426,6 +442,7 @@ function deleteImage(id: string) {
   _imageFile.value = _imageFile.value.filter((image) => image.id !== id)
   imageFiles.value = imageFiles.value.filter((image) => image.id !== id)
 }
+
 function validateCurrentProduct(state: TableProduct) {
   if (
     !state.productName ||
