@@ -332,26 +332,15 @@
   </v-dialog>
 
   <!-- ลบสินค้า -->
-  <v-dialog persistent v-model="dialogDelete" max-width="500px">
+  <v-dialog v-model="dialogDelete" max-width="500px">
     <v-card>
-      note <br />
-
-      ต่อ api หลังลบจะเกิดอะไรขึ้น หากสำเรํจจะเเจ้งเตือนไหม เเล้วถ้า error จะบอก
-      user ไหม
-
       <v-card-title class="text-h5">ยืนยันการลบสินค้า ?</v-card-title>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn
-          color="blue-darken-1"
-          variant="text"
-          @click="dialogDelete = false"
+        <v-btn color="blue-darken-1" variant="text" @click="cancelDelete"
           >ยกเลิก</v-btn
         >
-        <v-btn
-          color="blue-darken-1"
-          variant="text"
-          @click="dialogDelete = false"
+        <v-btn color="blue-darken-1" variant="text" @click="confirmDelete"
           >ตกลง</v-btn
         >
         <v-spacer></v-spacer>
@@ -360,6 +349,7 @@
   </v-dialog>
 
   <!-- แจ้งเตือน alert -->
+
   <v-dialog v-model="showFileLimitDialog" max-width="400">
     <v-card>
       <v-card-title class="text-h5">แจ้งเตือน</v-card-title>
@@ -373,6 +363,40 @@
       </v-card-actions>
     </v-card>
   </v-dialog>
+  <!-- alert เพิ่มสินค้า -->
+  <div>
+    <v-dialog v-model="successDialog" max-width="400">
+      <v-card>
+        <v-card-title class="mt-3 ml-5">บันทึกข้อมูลสำเร็จ</v-card-title>
+        <v-card-actions class="d-flex flex-row-reverse">
+          <v-btn
+            color="primary"
+            variant="tonal"
+            width="100"
+            @click="successDialog = false"
+            >ตกลง</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="errorDialog" max-width="400">
+      <v-card>
+        <v-card-title class="mt-3 ml-5"
+          >เกิดข้อผิดพลาดในการบันทึกข้อมูล</v-card-title
+        >
+        <v-card-actions class="d-flex flex-row-reverse">
+          <v-btn
+            color="primary"
+            variant="tonal"
+            width="100"
+            @click="errorDialog = false"
+            >ตกลง</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -396,6 +420,9 @@ const dialogDelete = ref(false)
 const dialogEdit = ref(false)
 const deleteProduct = ref(false)
 const showFileLimitDialog = ref(false)
+const successDialog = ref(false)
+const errorDialog = ref(false)
+const confirmDelete = ref(false)
 
 const productApi = useProductApi()
 const productById = ref<ProductDetailById | null>(null)
@@ -438,7 +465,6 @@ function openInsert() {
 
 // ลบรูปภาพที่อัพโหลดแล้ว
 function deleteImage(id: string) {
-  alert('ลบ')
   _imageFile.value = _imageFile.value.filter((image) => image.id !== id)
   imageFiles.value = imageFiles.value.filter((image) => image.id !== id)
 }
@@ -476,6 +502,7 @@ function validateCurrentProduct(state: TableProduct) {
 async function saveProduct() {
   if (currentProduct.value == null) return
   if (!validateCurrentProduct(currentProduct.value)) return
+
   try {
     const res = await productApi.createProduct(
       _imageFile.value.map((x) => x.file),
@@ -490,12 +517,13 @@ async function saveProduct() {
         Category: currentProduct.value.category,
       }
     )
-    alert('บันทึกข้อมูลสำเร็จ')
+
+    successDialog.value = true // Show success dialog
   } catch (error) {
-    alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล')
+    errorDialog.value = true // Show error dialog
   }
   dialogInsert.value = false
-  fetchProductData()
+  fetchProductData() // Refresh product data
 }
 
 // บันทึกการแก้ไขข้อมูล
@@ -587,8 +615,12 @@ async function editItem(product: TableProduct) {
   dialogEdit.value = true
 }
 
+function cancelDelete() {
+  dialogDelete.value = false // ซ่อน dialog ยืนยันการลบสินค้า
+}
 // ลบสินค้า
 async function deleteItem(item: TableProduct) {
+  dialogDelete.value = true
   const confirmed = confirm(`คุณต้องการลบ ${item.productName} ใช่หรือไม่?`)
   if (confirmed) {
     deleteProduct.value = await productApi.deleteProduct(item.productId)
