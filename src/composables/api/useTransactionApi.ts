@@ -1,14 +1,14 @@
 import { postMethod, getMethod } from './baseApi'
 import { TransectionApiModel } from './interface'
 export interface TransectionModel {
-  TransactionId: number
-  SellerEmail: string
-  BuyerEmail: string
-  ProductId: number
+  transactionId: number
+  sellerEmail: string
+  buyerEmail: string
+  productId: number
   unit: string
-  Amount: number
-  Price: number
-  CreateDate: Date
+  amount: number
+  price: number
+  createDate: Date
 }
 function useTransactionApi() {
   const controller = 'Transaction'
