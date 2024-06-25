@@ -1,6 +1,15 @@
 import { postMethod, getMethod } from './baseApi'
 import { TransectionApiModel } from './interface'
-
+export interface TransectionModel {
+  TransactionId: number
+  SellerEmail: string
+  BuyerEmail: string
+  ProductId: number
+  unit: string
+  Amount: number
+  Price: number
+  CreateDate: Date
+}
 function useTransactionApi() {
   const controller = 'Transaction'
   return {
@@ -13,22 +22,28 @@ function useTransactionApi() {
         throw error
       }
     },
-    async getBySeller(sellerEmail: string) {
+    async getBySeller(sellerEmail: string): Promise<TransectionModel[]> {
       try {
-        const response = await getMethod(`${controller}/get-by-seller`, {
-          sellerEmail: sellerEmail,
-        })
+        const response = await getMethod<TransectionModel[]>(
+          `${controller}/get-by-seller`,
+          {
+            sellerEmail: sellerEmail,
+          }
+        )
         return response
       } catch (error) {
         console.error('Error fetching transactions by seller:', error)
         throw error
       }
     },
-    async getByBuyer(buyerEmail: string) {
+    async getByBuyer(buyerEmail: string): Promise<TransectionModel[]> {
       try {
-        const response = await getMethod(`${controller}/get-by-buyer`, {
-          buyerEmail: buyerEmail,
-        })
+        const response = await getMethod<TransectionModel[]>(
+          `${controller}/get-by-buyer`,
+          {
+            buyerEmail: buyerEmail,
+          }
+        )
         return response
       } catch (error) {
         console.error('Error fetching transactions by buyer:', error)

@@ -18,7 +18,7 @@
                 <v-img
                   :src="i.image"
                   cover
-                  class="d-flex align-center justify-center"
+                  class="d-flex align-center justify-center h-100 w-100"
                 ></v-img>
               </v-carousel-item>
             </v-carousel>
@@ -68,7 +68,7 @@
                         </template></v-text-field
                       >
                     </v-col>
-                    <v-col
+                    <!-- <v-col
                       v-for="unit in productDetail?.unit"
                       :key="unit.unitId"
                       class="d-flex flex-column align-center"
@@ -77,7 +77,7 @@
                         จำนวนสินค้า {{ productDetail?.amount }}
                         {{ unit.unitName }}
                       </div>
-                    </v-col>
+                    </v-col> -->
                   </v-row>
                 </v-col>
               </v-row>
@@ -157,17 +157,17 @@ onMounted(async () => {
 })
 
 // คอมพิวเต็ด property สำหรับการแสดง unitName ของ productDetail
-const unitName = computed(() => {
-  if (productDetail.value && units.value.length > 0) {
-    const productUnitId = productDetail.value?.unit.map((unit) => unit.unitId)
-    const unitNames = units.value
-      .filter((unit) => productUnitId.includes(unit.unitId))
-      .map((unit) => unit.unitName)
+// const unitName = computed(() => {
+//   if (productDetail.value && units.value.length > 0) {
+//     const productUnitId = productDetail.value?.unit
+//     const unitNames = units.value
+//       .filter((unit) => productUnitId.includes(unit))
+//       .map((unit) => unit.unitName)
 
-    return unitNames.join(', ')
-  }
-  return ''
-})
+//     return unitNames.join(', ')
+//   }
+//   return ''
+// })
 
 function validateAmount() {
   if (amount.value < 1) {

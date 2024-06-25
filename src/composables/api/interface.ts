@@ -17,8 +17,8 @@ export interface UnitApiModel {
 
 export interface TransectionApiModel {
   TransactionId: number
-  SellerEmail: number
-  BuyerEmail: number
+  SellerEmail: string
+  BuyerEmail: string
   ProductId: number
   unit: string
   Amount: number
@@ -66,7 +66,7 @@ export interface ProductDetailById {
   productName: string
   province: string
   rating: number
-  unit: UnitApiModel[]
+  unit: string
   updateDate: Date
   userEmail: string
 }
