@@ -17,17 +17,51 @@
         <div class="text-h4">
           {{ productDetail.productName }}
         </div>
-        <div>จำนวน : {{ amount }} {{ productDetail.unit }}</div>
-        <div>รวมเป็นเงิน : {{ productDetail.price * parseInt(amount!) }}</div>
+        <div>จำนวน : {{ amount }} {{ units }}</div>
+        <div>รวมเป็นเงิน : {{ productDetail.price * parseInt(amount!) }} ฿</div>
         <div class="d-flex flex-row-reverse mb-6">
-          <v-btn color="green" @click="buyProduct"> ยืนยันสั่งซื้อ </v-btn>
+          <v-btn color="green" @click="dialog = true" class="ml-3">
+            ยืนยันสั่งซื้อ
+          </v-btn>
+
+          <v-btn color="grey" @click="router.go(-1)">ยกเลิก</v-btn>
         </div>
       </div>
     </v-card>
   </div>
+
+  <!-- Dialog การชำระเงิน-->
+  <v-dialog v-model="dialog" max-width="400">
+    <v-card>
+      <v-card-title class="headline">ยืนยันการสั่งซื้อ</v-card-title>
+      <v-card-text>คุณต้องการยืนยันการสั่งซื้อสินค้าหรือไม่?</v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="blue darken-1" @click="handleConfirm">ยืนยัน</v-btn>
+        <v-btn color="grey" @click="dialog = false">ยกเลิก</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+
+  <v-dialog v-model="processingDialog" max-width="400">
+    <v-card>
+      <v-card-text>กำลังทำการหักเงิน . . . รอ 2 วิ</v-card-text>
+    </v-card>
+  </v-dialog>
+
+  <v-dialog v-model="successDialog" max-width="400">
+    <v-card>
+      <v-card-title class="headline">จ่ายเงินสำเร็จ</v-card-title>
+      <v-card-text>การชำระเงินของคุณเสร็จสมบูรณ์</v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="blue darken-1" @click="goToReceipt">ตกลง</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '@/router'
 import { useProductApi, useUnitApi } from '@/composables/api'
@@ -45,6 +79,19 @@ const productApi = useProductApi()
 const productDetail = ref<ProductDetailById | null>(null)
 const unitApi = useUnitApi()
 const units = ref<UnitApiModel[]>([])
+const dialog = ref(false)
+const processingDialog = ref(false)
+const successDialog = ref(false)
+
+const unitName = computed(() => {
+  if (productDetail.value && units.value.length) {
+    const unit = units.value.find(
+      (u) => u.unitId === productDetail.value!.unit[0].unitId
+    )
+    return unit ? unit.unitName : 'ไม่พบหน่วย'
+  }
+  return 'ไม่พบหน่วย'
+})
 
 onMounted(async () => {
   loading.value = true
@@ -68,19 +115,7 @@ onMounted(async () => {
     loading.value = false
   }
 })
-// if (amount == null || parseInt(amount) <= 0 || amount == undefined) {
-//   alert('ไม่มีจำนวนซื้อ')
-//   router.push({ name: 'productDetail', params: { productId: productId } })
-// }
-// const productDetail = computed((): Product | null => null)
-// if (productDetail.value == null) {
-//   alert('หาไม่เจอ')
-//   router.push({ name: 'productDetail', params: { productId: productId } })
-// }
-// if (parseInt(amount!) > productDetail.value!.amount) {
-//   alert('จำนวนซื้อมากเกินไป')
-//   router.push({ name: 'productDetail', params: { productId: productId } })
-// }
+
 function generateRandomString(length: number) {
   var result = ''
   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
@@ -91,19 +126,20 @@ function generateRandomString(length: number) {
   return result
 }
 
-function buyProduct() {
-  const confirmBuy = confirm('ยืนยันการสั่งซื้อ')
-  if (confirmBuy) {
-    alert('กำลังทำการหักเงิน . . . รอ 2 วิ')
-    setTimeout(() => {
-      alert('จ่ายเงินสำเร็จ')
-      router.push({
-        name: 'Receipt',
-        params: { receiptId: generateRandomString(16) },
-      })
-    }, 2000)
-  } else {
-    alert('ไม่ซื้อเเล้วจะกดมาเพื่อ')
-  }
+function handleConfirm() {
+  dialog.value = false
+  processingDialog.value = true
+  setTimeout(() => {
+    processingDialog.value = false
+    successDialog.value = true
+  }, 2000)
+}
+
+function goToReceipt() {
+  successDialog.value = false
+  router.push({
+    name: 'Receipt',
+    params: { receiptId: generateRandomString(16) },
+  })
 }
 </script>
