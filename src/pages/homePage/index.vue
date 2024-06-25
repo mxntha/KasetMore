@@ -184,6 +184,7 @@ function buyClick(id: string) {
 
 async function getCategory(category: string) {
   loading.value = true
+  console.log(category)
   _productlist.value = await productApi.getByCategory(category)
   loading.value = false
 }

@@ -157,6 +157,7 @@ function useUserApi() {
       try {
         const result = await postMethod<SellerApiModel[]>(
           `${controller}/user-by-usertype`,
+          null,
           {
             userType: userTypevalue,
             verifiedStatus: VerifyStatus,
