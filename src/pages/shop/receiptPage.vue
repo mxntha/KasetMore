@@ -6,11 +6,14 @@
   ต่อ api อะไรไหม<br />
   ui จะปรับเเต่งอะไรเพิม่ไหม <br />
   ต้องใช้ข้อมูลอะไรบ้าง ต่อ api ไหนบ้าง
+  {{ transaction }}
   <v-card class="ma-8" height="835">
     <v-card-title class="text-center ma-2">
       <div class="d-flex">
-        <div class="ma-2 pl-2 text-h4">Logo</div>
-        <div class="ma-2 text-h4">Kaset More</div>
+        <div class="ma-2 pl-2 text-h4">
+          <v-img :src="box" alt="Logo" width="80" height="65"></v-img>
+        </div>
+        <div class="ma-2 text-h4 align-self-center">Kaset More</div>
       </div>
       <div class="ma-2 text-h5">ใบเสร็จชำระเงิน</div>
       <div class="d-flex">
@@ -58,10 +61,17 @@
   </v-card>
 </template>
 <script setup lang="ts">
+import box from '@/assets/box.png'
 import { useRoute, useRouter } from 'vue-router'
+import { ref, onMounted, computed } from 'vue'
+import { useTransactionApi } from '@/composables/api'
+import { TransectionModel } from '@/composables/api/useTransactionApi'
 
 const route = useRoute()
 const router = useRouter()
+const loading = ref(true)
+const transactionApi = useTransactionApi()
+const transaction = ref<TransectionModel[]>([])
 
 const headers = [
   { title: 'ลำดับ' },
@@ -71,6 +81,13 @@ const headers = [
   { title: 'ราคา' },
   { title: 'ยอดรวม' },
 ]
+
+onMounted(async () => {
+  loading.value = true
+  // transaction.value = await transactionApi.getByBuyer()
+  loading.value = false
+})
+
 function gotoIndexLogin() {
   router.push({ name: 'Index' })
 }
