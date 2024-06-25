@@ -1,7 +1,4 @@
 <template>
-  note <br />
-  แก้unit
-
   <div class="d-flex justify-center" v-if="productDetail != null">
     <v-card class="ma-12" color="white" height="660" width="700">
       <div class="d-flex justify-center">
