@@ -18,7 +18,7 @@
                 <v-img
                   :src="i.image"
                   cover
-                  class="d-flex align-center justify-center"
+                  class="d-flex align-center justify-center h-100 w-100"
                 ></v-img>
               </v-carousel-item>
             </v-carousel>
