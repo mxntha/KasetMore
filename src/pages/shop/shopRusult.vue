@@ -17,7 +17,10 @@
         <div class="text-h4">
           {{ productDetail.productName }}
         </div>
-        <div>จำนวน : {{ amount }} {{ units }}</div>
+        <div>
+          จำนวน : {{ amount }}
+          {{ unitName }}
+        </div>
         <div>รวมเป็นเงิน : {{ productDetail.price * parseInt(amount!) }} ฿</div>
         <div class="d-flex flex-row-reverse mb-6">
           <v-btn color="green" @click="dialog = true" class="ml-3">
@@ -61,11 +64,13 @@
   </v-dialog>
 </template>
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, inject } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '@/router'
-import { useProductApi, useUnitApi } from '@/composables/api'
+import { useProductApi, useTransactionApi, useUnitApi } from '@/composables/api'
 import { ProductDetailById, UnitApiModel } from '@/composables/api/interface'
+import { contextPluginSymbol } from '@/plugins/context'
+const info = inject(contextPluginSymbol)!
 
 const route = useRoute()
 const productIdParam = route.params.productId
@@ -82,11 +87,11 @@ const units = ref<UnitApiModel[]>([])
 const dialog = ref(false)
 const processingDialog = ref(false)
 const successDialog = ref(false)
-
+const transection = useTransactionApi()
 const unitName = computed(() => {
   if (productDetail.value && units.value.length) {
     const unit = units.value.find(
-      (u) => u.unitId === productDetail.value!.unit[0].unitId
+      (u) => `${u.unitId}` == productDetail.value!.unit
     )
     return unit ? unit.unitName : 'ไม่พบหน่วย'
   }
@@ -129,6 +134,19 @@ function generateRandomString(length: number) {
 function handleConfirm() {
   dialog.value = false
   processingDialog.value = true
+  transection.createTransaction([
+    {
+      Amount: parseInt(`${amount}`),
+      BuyerEmail: info.userInfomation.value!.email,
+      Price: productDetail.value!.price,
+      ProductId: productDetail.value!.productId,
+      SellerEmail: productDetail.value!.userEmail,
+      unit: units.value.find((x) => `${x.unitId}` == productDetail.value!.unit)
+        ?.unitName as string,
+      TransactionId: 1, // ไม่ควรส่ง
+      CreateDate: new Date(), //  ไม่ควรส่ง
+    },
+  ])
   setTimeout(() => {
     processingDialog.value = false
     successDialog.value = true
