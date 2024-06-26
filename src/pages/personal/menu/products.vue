@@ -422,7 +422,6 @@ const deleteProduct = ref(false)
 const showFileLimitDialog = ref(false)
 const successDialog = ref(false)
 const errorDialog = ref(false)
-const confirmDelete = ref(false)
 
 const productApi = useProductApi()
 const productById = ref<ProductDetailById | null>(null)
@@ -523,7 +522,7 @@ async function saveProduct() {
     errorDialog.value = true // Show error dialog
   }
   dialogInsert.value = false
-  fetchProductData() // Refresh product data
+  await fetchProductData() // Refresh product data
 }
 
 // บันทึกการแก้ไขข้อมูล
@@ -570,6 +569,8 @@ function reInitProduct() {
     rating: 0,
     category: '',
   }
+  _imageFile.value = []
+  imageFiles.value = []
 }
 
 async function fetchProductData() {
@@ -618,14 +619,18 @@ async function editItem(product: TableProduct) {
 function cancelDelete() {
   dialogDelete.value = false // ซ่อน dialog ยืนยันการลบสินค้า
 }
+const productIdDelete = ref<string | null>(null)
+async function confirmDelete() {
+  deleteProduct.value = await productApi.deleteProduct(
+    productIdDelete.value!.toString()
+  )
+  fetchProductData()
+  dialogDelete.value = false
+}
 // ลบสินค้า
 async function deleteItem(item: TableProduct) {
   dialogDelete.value = true
-  const confirmed = confirm(`คุณต้องการลบ ${item.productName} ใช่หรือไม่?`)
-  if (confirmed) {
-    deleteProduct.value = await productApi.deleteProduct(item.productId)
-  }
-  fetchProductData()
+  productIdDelete.value = item.productId
 }
 
 function cancelInsert() {

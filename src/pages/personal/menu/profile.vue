@@ -61,49 +61,6 @@
                       </v-row>
 
                       <v-row dense>
-                        <v-col cols="12" md="6">
-                          <v-text-field
-                            label="รหัสผ่าน"
-                            v-model="password"
-                            required
-                            :rules="[(valuePassword:string | undefined) => (valuePassword ? true : 'กรุณากรอกรหัสผ่าน')]"
-                            placeholder="xxxxxx"
-                            :type="showPassword ? 'text' : 'password'"
-                            :append-icon="
-                              showPassword ? 'mdi-eye' : 'mdi-eye-off'
-                            "
-                            @click:append="showPassword = !showPassword"
-                            @input:append="showPassword = !showPassword"
-                          ></v-text-field>
-                        </v-col>
-
-                        <v-col cols="12" md="6">
-                          <v-text-field
-                            label="ยืนยันรหัสผ่าน"
-                            v-model="confirmPassword"
-                            required
-                            :rules="[
-                  (valueConfirmPassword: string | undefined) =>
-                    valueConfirmPassword && valueConfirmPassword === password
-                      ? true
-                      : 'รหัสผ่านไม่ตรงกัน',
-                ]"
-                            placeholder="xxxxxx"
-                            :type="showConfirmPassword ? 'text' : 'password'"
-                            :append-icon="
-                              showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'
-                            "
-                            @click:append="
-                              showConfirmPassword = !showConfirmPassword
-                            "
-                            @input:append="
-                              showConfirmPassword = !showConfirmPassword
-                            "
-                          ></v-text-field>
-                        </v-col>
-                      </v-row>
-
-                      <v-row dense>
                         <v-col cols="12">
                           <v-textarea
                             label="ที่อยู่"
