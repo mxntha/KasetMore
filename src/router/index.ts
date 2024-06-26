@@ -76,7 +76,8 @@ const routes: RouteRecordRaw[] = [
               {
                 path: '/personal/products',
                 name: 'Products',
-                component: () => import('@/pages/personal/menu/products.vue'),
+                component: () =>
+                  import('@/pages/personal/menu/products/index.vue'),
                 meta: { requiresAuth: true },
               },
               {
