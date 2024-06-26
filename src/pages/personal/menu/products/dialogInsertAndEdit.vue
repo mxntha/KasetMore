@@ -186,7 +186,10 @@ function validateCurrentProduct(state: Product) {
     return false
   }
   // ตรวจสอบว่ามีรูปภาพอย่างน้อย 1 รูป และไม่เกิน 4 รูป
-  if (imageFiles.value.length < 1 || imageFiles.value.length > 4) {
+  if (
+    (imageFiles.value.length < 1 || imageFiles.value.length > 4) &&
+    (images.value.length < 1 || images.value.length > 4)
+  ) {
     toast.error('รูปต้องมี 1 เเละไม่เกิน 4')
 
     return false
