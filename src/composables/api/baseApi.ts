@@ -1,4 +1,4 @@
-const baseUrl = process.env.baseUrl || 'http://localhost:5000/api/'
+const baseUrl = 'http://localhost:5000/api/'
 
 async function getMethod<T>(url: string, query: any | null = null): Promise<T> {
   console.log('get', url)
@@ -50,14 +50,19 @@ async function postMethod<T>(
       throw x
     })
 }
-async function multpartFormData(url: string, files: File[], jsonData: any) {
+async function multpartFormData(
+  url: string,
+  files: File[],
+  jsonData: any,
+  keyMultipart: string = 'images'
+) {
   const formData = new FormData()
   // formData.append('product', jsonData)
   for (const [key, value] of Object.entries(jsonData)) {
     formData.append(`${key}`, `${value}`)
   }
   for (let i = 0; i < files.length; i++) {
-    formData.append(`images`, files[i])
+    formData.append(keyMultipart, files[i])
   }
 
   fetch(baseUrl + url, {

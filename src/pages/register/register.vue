@@ -250,7 +250,6 @@ import { useUserApi } from '@/composables/api'
 import { onMounted } from 'vue'
 import { BaseUserInfo } from '@/composables/api/useUserApi'
 import { contextPluginSymbol } from '@/plugins/context'
-import { userInfo } from 'os'
 const userApi = useUserApi()
 const userData = ref<BaseUserInfo | null>(null)
 const router = useRouter()
@@ -351,9 +350,11 @@ onMounted(async () => {
 
 const imageUrl = ref('')
 const openDialog = ref(false)
+const imageUser = ref<File | null>(null)
 function handleImageChange(event: any) {
   const file = event.target.files[0]
   const reader = new FileReader()
+  imageUser.value = new File([file], file.name, { type: file.type })
 
   reader.onload = () => {
     convertToBase64(reader.result)
@@ -382,26 +383,54 @@ function gotoProfile() {
   router.push({ name: 'Profile' })
 }
 async function register() {
-  if (!formComplete.value) {
-    alert('กรุณากรอกข้อมูลให้ครบถ้วน')
-    return
-  }
-  const res = await userApi.resgisterUser({
-    address: registerfarmer.value.address,
-    lastName: registerfarmer.value.lastname,
-    name: registerfarmer.value.firstname,
-    password: registerfarmer.value.password,
-    phoneNumber: registerfarmer.value.phone,
-    profileUrl: imageUrl.value,
-    userName: registerfarmer.value.username,
-    idCard: registerfarmer.value.idcard,
-    laserCard: registerfarmer.value.idcardLaser,
-    email: registerfarmer.value.email,
-  })
-  if (res) {
-    openDialog.value = true
-  } else {
-    alert('เกิดข้อผิดพลาดในการลงทะเบียน')
+  try {
+    if (!formComplete.value) {
+      alert('กรุณากรอกข้อมูลให้ครบถ้วน')
+      return
+    }
+
+    if (route.query.type === 'farmer') {
+      // มาเช็คตรงนี้ด้วย handler error ถ้า api พังจะทำไรบ้าง
+      allll
+      await userApi.updateVerifyFlag(registerfarmer.value.email, 'P')
+      await userApi.updateProfile({
+        address: registerfarmer.value.address,
+        lastName: registerfarmer.value.lastname,
+        name: registerfarmer.value.firstname,
+        password: registerfarmer.value.password,
+        phoneNumber: registerfarmer.value.phone,
+        profileUrl: imageUrl.value,
+        userName: registerfarmer.value.username,
+        idCard: registerfarmer.value.idcard,
+        laserCard: registerfarmer.value.idcardLaser,
+        email: registerfarmer.value.email,
+        UserType: 'Seller',
+      })
+    } else {
+      const res = await userApi.resgisterUser(
+        {
+          address: registerfarmer.value.address,
+          lastName: registerfarmer.value.lastname,
+          name: registerfarmer.value.firstname,
+          password: registerfarmer.value.password,
+          phoneNumber: registerfarmer.value.phone,
+          profileUrl: imageUrl.value,
+          userName: registerfarmer.value.username,
+          idCard: registerfarmer.value.idcard,
+          laserCard: registerfarmer.value.idcardLaser,
+          email: registerfarmer.value.email,
+        },
+        imageUser.value
+      )
+      if (res) {
+        openDialog.value = true
+      } else {
+        alert('เกิดข้อผิดพลาดในการลงทะเบียน')
+      }
+    }
+  } catch (ex) {
+    console.log(ex)
+    alert('error')
   }
 }
 </script>

@@ -268,10 +268,11 @@ onMounted(async () => {
 function gotoIndex() {
   router.push({ name: 'Index' })
 }
-
+const imageUserUpload = ref<File | null>(null)
 function handleImageChange(event: any) {
   const file = event.target.files[0]
   const reader = new FileReader()
+  imageUserUpload.value = new File([file], file.name, { type: file.type })
 
   reader.onload = () => {
     convertToBase64(reader.result)
@@ -309,9 +310,13 @@ async function saveForm() {
   if (isFormValid) {
     try {
       const updateProfilePictureResult = await userApi.updateProfilePicture(
-        infomation.userInfomation.value?.email!
+        infomation.userInfomation.value?.email!,
+        imageUserUpload.value!
       )
-      const updateProfileResult = await userApi.updateProfile(userData)
+      const updateProfileResult = await userApi.updateProfile({
+        ...userData,
+        UserType: userInfoData.value!.userType,
+      })
 
       if (updateProfilePictureResult && updateProfileResult) {
         alert('ข้อมูลได้รับการบันทึกแล้ว')
