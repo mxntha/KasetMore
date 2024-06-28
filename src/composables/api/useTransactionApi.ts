@@ -1,19 +1,19 @@
 import { postMethod, getMethod } from './baseApi'
-import { TransectionApiModel } from './interface'
+import { TransectionInsert } from './interface'
 export interface TransectionModel {
-  transactionId: number
+  transactionId?: number
   sellerEmail: string
   buyerEmail: string
   productId: number
   unit: string
   amount: number
   price: number
-  createDate: Date
+  createDate?: Date
 }
 function useTransactionApi() {
   const controller = 'Transaction'
   return {
-    async createTransaction(transactions: TransectionApiModel[]) {
+    async createTransaction(transactions: TransectionInsert[]) {
       try {
         const response = await postMethod(`${controller}/create`, transactions)
         return response

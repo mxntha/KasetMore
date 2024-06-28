@@ -250,7 +250,7 @@ import { useUserApi } from '@/composables/api'
 import { onMounted } from 'vue'
 import { BaseUserInfo } from '@/composables/api/useUserApi'
 import { contextPluginSymbol } from '@/plugins/context'
-import { userInfo } from 'os'
+
 const userApi = useUserApi()
 const userData = ref<BaseUserInfo | null>(null)
 const router = useRouter()

@@ -6,7 +6,7 @@
   ต่อ api อะไรไหม<br />
   ui จะปรับเเต่งอะไรเพิม่ไหม <br />
   ต้องใช้ข้อมูลอะไรบ้าง ต่อ api ไหนบ้าง
-  {{ transaction }}
+  {{ route.params }}
   <v-card class="ma-8" height="835">
     <v-card-title class="text-center ma-2">
       <div class="d-flex">
@@ -84,7 +84,7 @@ const headers = [
 
 onMounted(async () => {
   loading.value = true
-  // transaction.value = await transactionApi.getByBuyer()
+  //transaction.value = await transactionApi.getByBuyer()
   loading.value = false
 })
 

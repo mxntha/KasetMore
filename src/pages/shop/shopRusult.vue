@@ -140,8 +140,8 @@ function handleConfirm() {
       SellerEmail: productDetail.value!.userEmail,
       unit: units.value.find((x) => `${x.unitId}` == productDetail.value!.unit)
         ?.unitName as string,
-      TransactionId: 1, // ไม่ควรส่ง
-      CreateDate: new Date(), //  ไม่ควรส่ง
+      // TransactionId: 1, // ไม่ควรส่ง
+      // CreateDate: new Date(), //  ไม่ควรส่ง
     },
   ])
   setTimeout(() => {

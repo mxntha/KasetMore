@@ -15,15 +15,13 @@ export interface UnitApiModel {
   unitName: string
 }
 
-export interface TransectionApiModel {
-  TransactionId: number
-  SellerEmail: string
-  BuyerEmail: string
-  ProductId: number
+export interface TransectionInsert {
+  sellerEmail: string
+  buyerEmail: string
+  productId: number
   unit: string
-  Amount: number
-  Price: number
-  CreateDate: Date
+  amount: number
+  price: number
 }
 
 interface CategoryApiModel {
