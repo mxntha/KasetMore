@@ -133,11 +133,11 @@ function handleConfirm() {
   processingDialog.value = true
   transection.createTransaction([
     {
-      Amount: parseInt(`${amount}`),
-      BuyerEmail: info.userInfomation.value!.email,
-      Price: productDetail.value!.price,
-      ProductId: productDetail.value!.productId,
-      SellerEmail: productDetail.value!.userEmail,
+      amount: parseInt(`${amount}`),
+      buyerEmail: info.userInfomation.value!.email,
+      price: productDetail.value!.price,
+      productId: productDetail.value!.productId,
+      sellerEmail: productDetail.value!.userEmail,
       unit: units.value.find((x) => `${x.unitId}` == productDetail.value!.unit)
         ?.unitName as string,
       // TransactionId: 1, // ไม่ควรส่ง

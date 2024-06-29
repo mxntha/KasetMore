@@ -1,14 +1,14 @@
 import { postMethod, getMethod } from './baseApi'
 import { TransectionInsert } from './interface'
 export interface TransectionModel {
-  transactionId?: number
+  transactionId: number
   sellerEmail: string
   buyerEmail: string
   productId: number
   unit: string
   amount: number
   price: number
-  createDate?: Date
+  createDate: Date
 }
 function useTransactionApi() {
   const controller = 'Transaction'
@@ -47,6 +47,20 @@ function useTransactionApi() {
         return response
       } catch (error) {
         console.error('Error fetching transactions by buyer:', error)
+        throw error
+      }
+    },
+    async getById(transactionId: string): Promise<TransectionModel> {
+      try {
+        const response = await getMethod<TransectionModel>(
+          `${controller}/get-by-id`,
+          {
+            id: transactionId,
+          }
+        )
+        return response
+      } catch (error) {
+        console.error('Error fetching transactions by ID:', error)
         throw error
       }
     },
