@@ -1,9 +1,7 @@
-import { postMethod, getMethod } from './baseApi'
+import { postMethod, getMethod, multpartFormData } from './baseApi'
 import { existInstance } from '@/plugins/context'
-import { loginLocalStorageKey } from '@/plugins/context'
 import { UserApiModel, SellerApiModel } from '@/composables/api/interface'
 import { Product } from '.'
-import { onUpdated } from 'vue'
 
 export interface InsertUser {
   name: string
@@ -16,6 +14,9 @@ export interface InsertUser {
   phoneNumber: string
   password: string
   email: string
+}
+export interface UpdateUser extends InsertUser {
+  UserType: string
 }
 export interface BaseUserInfo {
   userId?: string
@@ -87,9 +88,14 @@ function useUserApi() {
         return null
       }
     },
-    async resgisterUser(data: InsertUser) {
+    async resgisterUser(data: InsertUser, image: File | null) {
       try {
-        return await postMethod<boolean>(`${controller}/resgisterUser`, data)
+        return await multpartFormData(
+          `${controller}/resgisterUser`,
+          !image ? [] : [image],
+          data,
+          'ProfilePicture'
+        )
       } catch {
         return false
       }
@@ -119,23 +125,26 @@ function useUserApi() {
         return null
       }
     },
-    async updateProfilePicture(email: string) {
+    async updateProfilePicture(email: string, file: File) {
       try {
-        const updateImg = await postMethod<boolean>(
+        const updateImg = await multpartFormData(
           `${controller}/update-profile-picture`,
-          null,
+          [file],
           {
             email: email,
-          }
+          },
+          'file'
         )
         return updateImg
       } catch {
         return false
       }
     },
-    async updateProfile(data: InsertUser) {
+    async updateProfile(data: UpdateUser) {
       try {
-        return await postMethod<boolean>(`${controller}/update-profile`, data)
+        return await postMethod<boolean>(`${controller}/update-profile`, {
+          userDto: { ...data },
+        })
       } catch {
         return false
       }

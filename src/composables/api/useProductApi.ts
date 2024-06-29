@@ -140,6 +140,15 @@ function useProductApi() {
         return null
       }
     },
+    async deleteProductImages(idAttachment: number[]) {
+      try {
+        return await postMethod(`${controller}/delete-product-images`, {
+          ids: idAttachment,
+        })
+      } catch {
+        return null
+      }
+    },
   }
 }
 export default useProductApi

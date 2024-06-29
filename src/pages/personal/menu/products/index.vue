@@ -123,10 +123,20 @@ async function saveProduct({
 async function saveEdit({
   product,
   images,
+  imageProductDelete,
 }: {
   product: Product
   images: FileImage[]
+  imageProductDelete: number[]
 }) {
+  try {
+    if (imageProductDelete.length > 0) {
+      const res = await productApi.deleteProductImages(imageProductDelete)
+      console.log(res)
+    }
+  } catch {
+    toast.error('เกิดข้อผิดพลาดในการลบรูป')
+  }
   try {
     const res = await productApi.updateProduct(
       images.map((x) => x.file),

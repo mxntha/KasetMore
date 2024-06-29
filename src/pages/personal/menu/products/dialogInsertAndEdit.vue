@@ -142,6 +142,7 @@ import { PropType, ref, watch } from 'vue'
 import { toast } from 'vue3-toastify'
 const currentProduct = ref<Product | null>(null)
 const productApi = useProductApi()
+const deleteProductIds = ref<number[]>([])
 export interface FileImage {
   id: string
   file: File
@@ -156,7 +157,10 @@ const emit = defineEmits<{
   ): void
   (
     e: 'edit-product',
-    { product, images }: { product: Product; images: FileImage[] }
+    {
+      product,
+      images,
+    }: { product: Product; images: FileImage[]; imageProductDelete: number[] }
   ): void
 }>()
 
@@ -171,6 +175,7 @@ const props = defineProps({
   },
 })
 function deleteImage(id: string) {
+  deleteProductIds.value.push(parseInt(id))
   imageFiles.value = imageFiles.value.filter((image) => image.id !== id)
   images.value = images.value.filter((image) => image.id !== id)
 }
@@ -219,6 +224,7 @@ function submit() {
     emit('edit-product', {
       product: currentProduct.value!,
       images: imageFiles.value,
+      imageProductDelete: deleteProductIds.value,
     })
   }
 }
