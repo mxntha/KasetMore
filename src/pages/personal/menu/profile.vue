@@ -294,11 +294,11 @@ function convertToBase64(_imageUrl: any) {
 }
 
 const userData: InsertUser = {
-  name: userInfoData.value.name,
+  Firstname: userInfoData.value.name,
   lastName: userInfoData.value.lastName,
   profileUrl: imageUrl.value, // Ensure imageUrl is set correctly
   address: userInfoData.value.address,
-  userName: userInfoData.value.userName,
+  DisplayName: userInfoData.value.userName,
   idCard: userInfoData.value.idCard || undefined,
   laserCard: userInfoData.value.laserCard || undefined,
   phoneNumber: userInfoData.value.phoneNumber,

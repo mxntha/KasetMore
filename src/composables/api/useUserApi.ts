@@ -4,19 +4,23 @@ import { UserApiModel, SellerApiModel } from '@/composables/api/interface'
 import { Product } from '.'
 
 export interface InsertUser {
-  name: string
+  Firstname: string
   lastName: string
   profileUrl?: string
   address: string
-  userName: string
+  DisplayName: string
   idCard?: string
   laserCard?: string
   phoneNumber: string
   password: string
   email: string
 }
-export interface UpdateUser extends InsertUser {
+export interface UpdateUser {
   UserType: string
+  Email: string
+  Address: string
+  LastName: string
+  FirstName: string
 }
 export interface BaseUserInfo {
   userId?: string
@@ -91,7 +95,7 @@ function useUserApi() {
     async resgisterUser(data: InsertUser, image: File | null) {
       try {
         return await multpartFormData(
-          `${controller}/resgisterUser`,
+          `${controller}/register`,
           !image ? [] : [image],
           data,
           'ProfilePicture'

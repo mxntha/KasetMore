@@ -47,7 +47,18 @@
 
 <script setup lang="ts">
 import ApexCharts from 'apexcharts'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { TransectionModel } from '@/composables/api/useTransactionApi'
+import { useTransactionApi } from '@/composables/api'
+
+const loading = ref(true)
+const salesData = ref<TransectionModel[]>([])
+const transactionApi = useTransactionApi()
+
+onMounted(async () => {
+  loading.value = true
+  //salesData.value = await transactionApi.getBySeller()
+})
 
 const line = ref({
   options: {

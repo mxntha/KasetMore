@@ -1,9 +1,6 @@
 <template>
   note <br />
-
-  ต่อ api การregister <br />
-  &nbsp;ส่งข้อมูลการลงทะเบียน <br />
-  &nbsp;ส่งข้อมูลรูปภาพโปรไฟล์ <br />
+  ปุ่มตกลง ไปหน้าlogin
 
   {{ isFarmer }} {{ userData }}
   <div class="d-flex justify-center align-center w-100 h-100">
@@ -272,33 +269,33 @@ const titleForm = computed(() =>
 )
 //ตรวจฟอร์ม
 const formComplete = computed(() => {
-  const {
-    firstname,
-    lastname,
-    address,
-    username,
-    password,
-    confirmPassword,
-    phone,
-    email,
-  } = registerfarmer.value
-  if (
-    !firstname ||
-    !lastname ||
-    !address ||
-    !username ||
-    !password ||
-    !confirmPassword ||
-    !phone ||
-    !email
-  ) {
-    return false
-  }
-  if (isFarmer.value) {
-    if (!registerfarmer.value.idcard || !registerfarmer.value.idcardLaser) {
-      return false
-    }
-  }
+  // const {
+  //   firstname,
+  //   lastname,
+  //   address,
+  //   username,
+  //   password,
+  //   confirmPassword,
+  //   phone,
+  //   email,
+  // } = registerfarmer.value
+  // if (
+  //   !firstname ||
+  //   !lastname ||
+  //   !address ||
+  //   !username ||
+  //   !password ||
+  //   !confirmPassword ||
+  //   !phone ||
+  //   !email
+  // ) {
+  //   return false
+  // }
+  // if (isFarmer.value) {
+  //   if (!registerfarmer.value.idcard || !registerfarmer.value.idcardLaser) {
+  //     return false
+  //   }
+  // }
   return true
 })
 //เช็คแบบเบอร์โทร
@@ -397,11 +394,11 @@ async function register() {
       await userApi.updateProfile({
         address: registerfarmer.value.address,
         lastName: registerfarmer.value.lastname,
-        name: registerfarmer.value.firstname,
+        Firstname: registerfarmer.value.firstnameirstname,
         password: registerfarmer.value.password,
         phoneNumber: registerfarmer.value.phone,
         profileUrl: imageUrl.value,
-        userName: registerfarmer.value.username,
+        DisplayName: registerfarmer.value.username,
         idCard: registerfarmer.value.idcard,
         laserCard: registerfarmer.value.idcardLaser,
         email: registerfarmer.value.email,
@@ -412,22 +409,22 @@ async function register() {
         {
           address: registerfarmer.value.address,
           lastName: registerfarmer.value.lastname,
-          name: registerfarmer.value.firstname,
+          Firstname: registerfarmer.value.firstname,
           password: registerfarmer.value.password,
           phoneNumber: registerfarmer.value.phone,
           profileUrl: imageUrl.value,
-          userName: registerfarmer.value.username,
+          DisplayName: registerfarmer.value.username,
           idCard: registerfarmer.value.idcard,
           laserCard: registerfarmer.value.idcardLaser,
           email: registerfarmer.value.email,
         },
         imageUser.value
       )
-      if (res) {
-        openDialog.value = true
-      } else {
-        alert('เกิดข้อผิดพลาดในการลงทะเบียน')
-      }
+      // if (res) {
+      //   openDialog.value = true
+      // } else {
+      //   alert('เกิดข้อผิดพลาดในการลงทะเบียน')
+      // }
     }
   } catch (ex) {
     console.log(ex)
