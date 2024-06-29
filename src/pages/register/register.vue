@@ -2,7 +2,6 @@
   note <br />
   ปุ่มตกลง ไปหน้าlogin
 
-  {{ isFarmer }} {{ userData }}
   <div class="d-flex justify-center align-center w-100 h-100">
     <v-card class="w-100">
       <v-card-item>

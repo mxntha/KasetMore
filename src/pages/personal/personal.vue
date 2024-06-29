@@ -19,7 +19,6 @@
             @update:selected="(e) => redirectMenu(e[0])"
           >
             <div>
-              <div>{{ isFarmer }}</div>
               <v-list-subheader class="text-h5">ข้อมูลส่วนตัว</v-list-subheader>
               <v-list-item
                 prepend-icon="mdi-account"

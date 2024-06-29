@@ -25,7 +25,9 @@
   />
   <v-dialog v-model="dialogDelete" max-width="500px">
     <v-card>
-      <v-card-title class="text-h5">ยืนยันการลบสินค้า ?</v-card-title>
+      <v-card-title class="text-h5 text-center mt-3"
+        >ยืนยันการลบสินค้า ?</v-card-title
+      >
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn
@@ -167,7 +169,7 @@ async function confirmDelete() {
   const res = await productApi.deleteProduct(productDeleteId.value!.toString())
   await fetchProductData()
   dialogDelete.value = false
-  toast.success('ลบเรียบร้อย')
+  toast.success('ลบสินค้าเรียบร้อย')
 }
 async function fetchProductData() {
   loading.value = true
