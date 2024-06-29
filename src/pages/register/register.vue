@@ -392,7 +392,7 @@ async function register() {
 
     if (route.query.type === 'farmer') {
       // มาเช็คตรงนี้ด้วย handler error ถ้า api พังจะทำไรบ้าง
-      allll
+
       await userApi.updateVerifyFlag(registerfarmer.value.email, 'P')
       await userApi.updateProfile({
         address: registerfarmer.value.address,
