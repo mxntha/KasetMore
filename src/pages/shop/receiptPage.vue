@@ -48,30 +48,56 @@
       </v-row>
 
       <v-divider></v-divider>
-      <div>{{ productDetail?.productImages[0] }}</div>
-      <div class="text-h4">สินค้า : {{ productDetail?.productName }}</div>
-      <div class="d-flex flex-row-reverse">
-        จำนวน : {{ transaction.amount }} {{ transaction.unit }}
+      <div class="d-flex ma-3 justify-space-between">
+        <div class="mr-16 ml-16">รายการสินค้า</div>
+        <div class="mr-8 ml-16">จำนวน</div>
+        <div class="mr-5">ราคาต่อ{{ transaction.unit }}</div>
+        <div class="mr-5">จำนวนเงิน</div>
       </div>
-      <div>{{ transaction.amount }} * {{ transaction.price }}</div>
 
       <v-divider></v-divider>
-      <div class="d-flex flex-row-reverse ma-2">
-        <div class="text-body-1">ยอดรวม : {{ transaction.price }} ฿</div>
+      <div class="d-flex ma-3 justify-space-between">
+        <div class="text-h6 ml-16 mr-7 text-center">
+          {{ productDetail?.productName }}
+        </div>
+        <div class="text-h6 mr-n12">{{ transaction.amount }}</div>
+        <div class="text-h6 mr-n11">{{ transaction.price }}</div>
+        <div class="text-h6 mr-10">{{ transaction.price }}</div>
+      </div>
+
+      <v-divider></v-divider>
+      <div class="d-flex flex-row-reverse ma-3">
+        <div class="text-body-1">ยอดรวม : {{ transaction.price }} บาท</div>
       </div>
     </v-card-text>
-    <div class="d-flex justify-end ma-2">
-      <div class="mr-3">
-        <v-btn block prepend-icon="mdi-home" @click="gotoIndexLogin">
-          หน้าแรก
-        </v-btn>
-      </div>
-      <div class="mr-3">
-        <v-btn block prepend-icon="mdi-clipboard-text" @click="gotoPurchase">
-          ประวัติการซื้อ
-        </v-btn>
-      </div>
-    </div>
+    <v-card-actions>
+      <v-container class="pb-2">
+        <v-row class="d-flex justify-center">
+          <v-col cols="auto">
+            <v-btn
+              block
+              prepend-icon="mdi-home"
+              variant="tonal"
+              @click="gotoIndexLogin"
+              class="equal-btn"
+            >
+              หน้าแรก
+            </v-btn>
+          </v-col>
+          <v-col cols="auto">
+            <v-btn
+              block
+              prepend-icon="mdi-clipboard-text"
+              @click="gotoPurchase"
+              variant="tonal"
+              class="equal-btn"
+            >
+              ประวัติการซื้อ
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-card-actions>
   </v-card>
 </template>
 <script setup lang="ts">
@@ -118,3 +144,18 @@ function gotoPurchase() {
   router.push({ name: 'Purchase' })
 }
 </script>
+
+<style scoped>
+.v-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.v-card-actions {
+  margin-top: auto;
+}
+
+.equal-btn {
+  width: 150px; /* ตั้งค่าความกว้างให้เท่ากันตามต้องการ */
+}
+</style>
