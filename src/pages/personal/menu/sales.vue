@@ -5,6 +5,7 @@
 
     ในกราฟจะเเสดงข้อมูลอะไรบ้าง <br />
     ต่อ api อะไรมาบ้าง <br />
+    {{ salesData }}
 
     <div class="d-flex flex-row">
       <v-card class="ma-8" height="180" width="300">
@@ -47,17 +48,21 @@
 
 <script setup lang="ts">
 import ApexCharts from 'apexcharts'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, inject } from 'vue'
 import { TransectionModel } from '@/composables/api/useTransactionApi'
 import { useTransactionApi } from '@/composables/api'
+import { contextPluginSymbol } from '@/plugins/context'
 
 const loading = ref(true)
 const salesData = ref<TransectionModel[]>([])
 const transactionApi = useTransactionApi()
+const info = inject(contextPluginSymbol)!
 
 onMounted(async () => {
   loading.value = true
-  //salesData.value = await transactionApi.getBySeller()
+  salesData.value = await transactionApi.getBySeller(
+    info.userInfomation.value?.email!
+  )
 })
 
 const line = ref({
