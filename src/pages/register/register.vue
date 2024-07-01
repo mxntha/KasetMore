@@ -389,20 +389,21 @@ async function register() {
     if (route.query.type === 'farmer') {
       // มาเช็คตรงนี้ด้วย handler error ถ้า api พังจะทำไรบ้าง
 
-      await userApi.updateVerifyFlag(registerfarmer.value.email, 'P')
       await userApi.updateProfile({
-        address: registerfarmer.value.address,
-        lastName: registerfarmer.value.lastname,
-        firstName: registerfarmer.value.firstname,
+        Address: registerfarmer.value.address,
+        LastName: registerfarmer.value.lastname,
+        FirstName: registerfarmer.value.firstname,
 
-        phoneNumber: registerfarmer.value.phone,
-        profilePicture: imageUrl.value,
-        displayName: registerfarmer.value.username,
-        idCard: registerfarmer.value.idcard,
-        laserCard: registerfarmer.value.idcardLaser,
-        email: registerfarmer.value.email,
+        PhoneNumber: registerfarmer.value.phone,
+        ProfilePicture: imageUrl.value,
+        DisplayName: registerfarmer.value.username,
+        IdCard: registerfarmer.value.idcard,
+        LaserCard: registerfarmer.value.idcardLaser,
+        Email: registerfarmer.value.email,
         UserType: 'Seller',
+        IsVerified: 'P',
       })
+      await userApi.updateVerifyFlag(registerfarmer.value.email, 'P')
     } else {
       const res = await userApi.resgisterUser(
         {
@@ -429,7 +430,6 @@ async function register() {
     console.log(ex)
     alert('error')
   }
-  router.push({ name: 'Login' })
 }
 </script>
 
