@@ -16,7 +16,7 @@ function useTransactionApi() {
     async createTransaction(transactions: TransectionInsert[]) {
       try {
         const response = await postMethod(`${controller}/create`, transactions)
-        return response
+        return response as number[]
       } catch (error) {
         console.error('Error creating transaction:', error)
         throw error

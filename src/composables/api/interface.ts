@@ -22,6 +22,7 @@ export interface TransectionInsert {
   unit: string
   amount: number
   price: number
+  createDate: Date
 }
 
 interface CategoryApiModel {

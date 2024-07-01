@@ -85,6 +85,8 @@ const dialog = ref(false)
 const processingDialog = ref(false)
 const successDialog = ref(false)
 const transection = useTransactionApi()
+const receiptId = ref<number | null>(null)
+
 const unitName = computed(() => {
   if (productDetail.value && units.value.length) {
     const unit = units.value.find(
@@ -128,33 +130,35 @@ function generateRandomString(length: number) {
   return result
 }
 
-function handleConfirm() {
+async function handleConfirm() {
   dialog.value = false
   processingDialog.value = true
-  transection.createTransaction([
-    {
-      amount: parseInt(`${amount}`),
-      buyerEmail: info.userInfomation.value!.email,
-      price: productDetail.value!.price,
-      productId: productDetail.value!.productId,
-      sellerEmail: productDetail.value!.userEmail,
-      unit: units.value.find((x) => `${x.unitId}` == productDetail.value!.unit)
-        ?.unitName as string,
-      // TransactionId: 1, // ไม่ควรส่ง
-      // CreateDate: new Date(), //  ไม่ควรส่ง
-    },
-  ])
-  setTimeout(() => {
-    processingDialog.value = false
-    successDialog.value = true
-  }, 2000)
+  receiptId.value = (
+    await transection.createTransaction([
+      {
+        amount: parseInt(`${amount}`),
+        buyerEmail: info.userInfomation.value!.email,
+        price: productDetail.value!.price,
+        productId: productDetail.value!.productId,
+        sellerEmail: productDetail.value!.userEmail,
+        unit: units.value.find(
+          (x) => `${x.unitId}` == productDetail.value!.unit
+        )?.unitName as string,
+        // TransactionId: 1, // ไม่ควรส่ง
+        createDate: new Date(), //  ไม่ควรส่ง
+      },
+    ])
+  )[0]
+
+  processingDialog.value = false
+  successDialog.value = true
 }
 
 function goToReceipt() {
   successDialog.value = false
   router.push({
     name: 'Receipt',
-    params: { receiptId: generateRandomString(16) },
+    params: { receiptId: receiptId.value },
   })
 }
 </script>

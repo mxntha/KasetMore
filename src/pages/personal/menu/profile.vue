@@ -32,10 +32,9 @@
                   <!-- Edit User Information Dialog -->
                   <v-card prepend-icon="mdi-account" title="แก้ไขข้อมูลส่วนตัว">
                     note <br />
-                    ส่งรูปภาพ <br />
+
                     ui เสร็จเเล้วหรือยัง <br />
-                    หลังกด save หรือ cancel ใน form ต้องล้างค่าออกหรือไม่
-                    หรือต้องดึงข้อมูลมาเเสดงอีกรอบไหม <br />
+
                     <v-card-text>
                       <v-row dense>
                         <v-col cols="12" md="6">
@@ -274,7 +273,7 @@ function handleImageChange(event: any) {
   const arrayFile = [bin]
   const reader = new FileReader()
   imageUserUpload.value = arrayFile[0]
-  alert('upload เเล้ว อีสัสสส')
+
   reader.onload = () => {
     convertToBase64(reader.result)
   }
@@ -308,7 +307,7 @@ async function saveForm() {
         ProfilePicture: userInfoData.value.profileUrl || '',
         UserType: userInfoData.value.userType,
       })
-      console.log(imageUserUpload.value != null, imageUserUpload.value)
+
       if (imageUserUpload.value != null) {
         const updateProfilePictureResult = await userApi.updateProfilePicture(
           infomation.userInfomation.value?.email!,
@@ -331,3 +330,32 @@ async function saveForm() {
   }
 }
 </script>
+<style label="scss" scoped>
+.file-input__input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.file-input__label {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  font-size: 14px;
+  padding: 10px 12px;
+  background-color: #4245a8;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+}
+
+.file-input__label svg {
+  height: 16px;
+  margin-right: 4px;
+}
+</style>

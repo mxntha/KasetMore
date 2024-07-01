@@ -1,9 +1,4 @@
 <template>
-  note <br />
-
-  แก้Id
-
-  {{ route.params }} {{ transaction }}
   <v-card class="ma-5" height="800" v-if="transaction != undefined">
     <v-card-title class="text-center ma-2">
       <div class="d-flex">
