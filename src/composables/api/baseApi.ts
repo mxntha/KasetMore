@@ -27,28 +27,33 @@ async function postMethod<T>(
   payload: any | null = null,
   query: any | null = null
 ): Promise<T> {
-  const jwt = localStorage.getItem('login')
-  console.log('POST Payload:', payload)
-  const queryString = query != null ? new URLSearchParams(query) : null
-  const path = baseUrl + url
-  let option: RequestInit = {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-      Authorization: `Bearer ${jwt}`,
-    },
-    body: JSON.stringify(payload),
+  try {
+    const jwt = localStorage.getItem('login')
+    console.log('POST Payload:', payload)
+    const queryString = query != null ? new URLSearchParams(query) : null
+    const path = baseUrl + url
+    let option: RequestInit = {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${jwt}`,
+      },
+      body: JSON.stringify(payload),
+    }
+    if (payload == null) {
+      delete option.body
+    }
+    return fetch(path + (queryString != null ? '?' + queryString : ''), option)
+      .then((x) => x.json())
+      .then((x) => x as T)
+      .catch((x) => {
+        console.log(x)
+        throw x
+      })
+  } catch (ex) {
+    console.log(ex)
+    return Object as T
   }
-  if (payload == null) {
-    delete option.body
-  }
-  return fetch(path + (queryString != null ? '?' + queryString : ''), option)
-    .then((x) => x.json())
-    .then((x) => x as T)
-    .catch((x) => {
-      console.log(x)
-      throw x
-    })
 }
 async function multpartFormData(
   url: string,
