@@ -70,9 +70,10 @@ async function multpartFormData(
       querryString != null ? new URLSearchParams(querryString) : null
     alert('แปลงลิ้งเเปป')
     console.log(querryString)
-
-    for (const [key, value] of Object.entries(jsonData)) {
-      formData.append(`${key}`, `${value}`)
+    if (jsonData != undefined || jsonData != null) {
+      for (const [key, value] of Object.entries(jsonData)) {
+        formData.append(`${key}`, `${value}`)
+      }
     }
     for (let i = 0; i < files.length; i++) {
       formData.append(keyMultipart, files[i])
