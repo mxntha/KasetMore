@@ -25,6 +25,8 @@ export interface UpdateUser {
   ProfilePicture: string
   IsVerified: string
   PhoneNumber: string
+  IdCard?: string
+  LaserCard?: string
 }
 export interface BaseUserInfo {
   userId?: string
