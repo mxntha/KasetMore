@@ -52,7 +52,7 @@ async function postMethod<T>(
       })
   } catch (ex) {
     console.log(ex)
-    return Object as T
+    throw new Error()
   }
 }
 async function multpartFormData(

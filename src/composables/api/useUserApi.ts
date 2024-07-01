@@ -157,6 +157,7 @@ function useUserApi() {
           ...data,
         })
       } catch {
+        console.error('kuy')
         return false
       }
     },
