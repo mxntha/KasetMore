@@ -73,7 +73,7 @@ async function multpartFormData(
     formData.append(keyMultipart, files[i])
   }
 
-  fetch(baseUrl + url + queryString, {
+  return fetch(baseUrl + url + queryString, {
     method: 'POST',
     body: formData,
   })
