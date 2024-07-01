@@ -420,6 +420,7 @@ async function register() {
         },
         imageUser.value
       )
+      router.push({ name: 'Login' })
       // if (res) {
       //   openDialog.value = true
       // } else {
