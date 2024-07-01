@@ -305,6 +305,7 @@ async function saveForm() {
         ProfilePicture: userInfoData.value.profileUrl || '',
         UserType: userInfoData.value.userType,
       })
+      console.log(imageUserUpload.value != null)
       if (imageUserUpload.value != null) {
         const updateProfilePictureResult = await userApi.updateProfilePicture(
           infomation.userInfomation.value?.email!,
