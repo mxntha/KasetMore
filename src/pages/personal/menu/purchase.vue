@@ -1,15 +1,9 @@
 <template>
   <v-card :loading="loading" class="h-100">
-    note <br />
-
-    หากกดที่ card จะเกิดอะไรขึ้นไหม พาไปหน้าไหนเพิ่มไหม <br />
-
-    ปุ่มกดได้่ทุกอันไหม
-
     <v-card-title>ประวัติการซื้อ</v-card-title>
     <v-divider></v-divider>
     <v-card-text>
-      <!-- Render purchases if available -->
+      <!-- แสดงข้อมูล -->
       <v-row v-if="purchaseData.length > 0">
         <v-col
           v-for="transaction in purchaseData"
@@ -55,7 +49,7 @@
           </v-card>
         </v-col>
       </v-row>
-      <!-- No purchases message -->
+      <!-- ไม่มีข้อมูล -->
       <div class="ma-16" v-else>
         <div class="d-flex justify-space-around">
           <v-icon
@@ -130,14 +124,15 @@ const getProductDescription = (productId: number) => {
     (product) => product.productId === productId
   )
   if (product) {
-    return product.description.slice(0, 2000) // ตัดข้อความเหลือ 100 ตัวอักษร
+    return product.description.slice(0, 1500) // ตัดข้อความ
   } else {
     return 'ไม่พบข้อมูลสินค้า'
   }
 }
 
 const goToProductDetail = (productId: number) => {
-  router.push({ name: 'ProductDetail', params: { id: productId } })
+  console.log('ไปที่หน้าสินค้าตาม productId:', productId)
+  router.push({ name: 'ProductDetail', params: { productId } })
 }
 
 onMounted(async () => {
@@ -145,6 +140,12 @@ onMounted(async () => {
   purchaseData.value = await transactionApi.getByBuyer(
     info.userInfomation.value?.email!
   )!
+
+  if (purchaseData.value.length === 0) {
+    loading.value = false
+    return
+  }
+
   const sellerEmail = purchaseData.value[0].sellerEmail
   userDisplay.value = await userApi.userByEmail(sellerEmail)
   const productIds = purchaseData.value.map(

@@ -1,7 +1,7 @@
 <template>
   <v-card class="h-100" :loading="loading">
     note ในปุ่มเเก้ไขเสร็จเเล้วหรือยัง <br />
-    ต่อ api อะไรมาบ้าง <br />
+
     แก้update
     <v-card-text v-if="!loading">
       <v-container>

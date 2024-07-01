@@ -1,10 +1,10 @@
 <template>
   note <br />
 
-  ui จะปรับเเต่งอะไรเพิม่ไหม
+  แก้Id
 
   {{ route.params }} {{ transaction }}
-  <v-card class="ma-8" height="835" v-if="transaction != undefined">
+  <v-card class="ma-5" height="800" v-if="transaction != undefined">
     <v-card-title class="text-center ma-2">
       <div class="d-flex">
         <div class="ma-2 pl-2 text-h4">
@@ -57,10 +57,10 @@
 
       <v-divider></v-divider>
       <div class="d-flex ma-3 justify-space-between">
-        <div class="text-h6 ml-16 mr-7 text-center">
+        <div class="text-h6 ml-16 mr-6 text-center">
           {{ productDetail?.productName }}
         </div>
-        <div class="text-h6 mr-n12">{{ transaction.amount }}</div>
+        <div class="text-h6 mr-n16">{{ transaction.amount }}</div>
         <div class="text-h6 mr-n11">{{ transaction.price }}</div>
         <div class="text-h6 mr-10">{{ transaction.price }}</div>
       </div>
