@@ -140,10 +140,11 @@ function useUserApi() {
         const updateImg = await multpartFormData(
           `${controller}/update-profile-picture`,
           [file],
+          null,
+          'file',
           {
             email: email,
-          },
-          'file'
+          }
         )
         return updateImg
       } catch {
