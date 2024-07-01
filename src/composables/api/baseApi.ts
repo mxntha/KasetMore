@@ -54,10 +54,13 @@ async function multpartFormData(
   url: string,
   files: File[],
   jsonData: any,
-  keyMultipart: string = 'images'
+  keyMultipart: string = 'images',
+  querryString: any | null = null
 ) {
   const formData = new FormData()
   // formData.append('product', jsonData)
+  const queryString =
+    querryString != null ? new URLSearchParams(querryString) : null
   for (const [key, value] of Object.entries(jsonData)) {
     formData.append(`${key}`, `${value}`)
   }
@@ -65,7 +68,7 @@ async function multpartFormData(
     formData.append(keyMultipart, files[i])
   }
 
-  fetch(baseUrl + url, {
+  fetch(baseUrl + url + queryString, {
     method: 'POST',
     body: formData,
   })
