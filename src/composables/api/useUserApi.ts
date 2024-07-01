@@ -136,6 +136,7 @@ function useUserApi() {
       }
     },
     async updateProfilePicture(email: string, file: File) {
+      alert('ยิงรูปภภาพ เว้ยยย')
       try {
         const updateImg = await multpartFormData(
           `${controller}/update-profile-picture`,
