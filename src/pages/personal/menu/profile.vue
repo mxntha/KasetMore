@@ -1,8 +1,7 @@
 <template>
   <v-card class="h-100" :loading="loading">
     note ในปุ่มเเก้ไขเสร็จเเล้วหรือยัง <br />
-
-    แก้update
+    แก้ปิดdialog
     <v-card-text v-if="!loading">
       <v-container>
         <!-- User Profile Avatar and Edit Button -->
@@ -32,7 +31,7 @@
                   <!-- Edit User Information Dialog -->
                   <v-card prepend-icon="mdi-account" title="แก้ไขข้อมูลส่วนตัว">
                     note <br />
-                    ต่อ api การอัปเดตข้อมูล ส่งรูปภาพเเละข้อมูล <br />
+                    ส่งรูปภาพ <br />
                     ui เสร็จเเล้วหรือยัง <br />
                     หลังกด save หรือ cancel ใน form ต้องล้างค่าออกหรือไม่
                     หรือต้องดึงข้อมูลมาเเสดงอีกรอบไหม <br />
@@ -109,9 +108,7 @@
                         </v-col>
                       </v-row>
 
-                      <small class="text-caption text-medium-emphasis"
-                        >*indicates required field</small
-                      >
+                      <small class="text-caption text-medium-emphasis"></small>
                     </v-card-text>
 
                     <v-divider></v-divider>
@@ -294,37 +291,31 @@ function convertToBase64(_imageUrl: any) {
   }
 }
 
-const userData: InsertUser = {
-  Firstname: userInfoData.value.name,
-  lastName: userInfoData.value.lastName,
-  profileUrl: imageUrl.value, // Ensure imageUrl is set correctly
-  address: userInfoData.value.address,
-  DisplayName: userInfoData.value.userName,
-  idCard: userInfoData.value.idCard || undefined,
-  laserCard: userInfoData.value.laserCard || undefined,
-  phoneNumber: userInfoData.value.phoneNumber,
-  password: password.value,
-  email: userInfoData.value.email,
-}
-
 async function saveForm() {
   if (isFormValid) {
     try {
-      const updateProfilePictureResult = await userApi.updateProfilePicture(
-        infomation.userInfomation.value?.email!,
-        imageUserUpload.value!
-      )
+      // const updateProfilePictureResult = await userApi.updateProfilePicture(
+      //   infomation.userInfomation.value?.email!,
+      //   imageUserUpload.value!
+      // )
       const updateProfileResult = await userApi.updateProfile({
-        ...userData,
-        UserType: userInfoData.value!.userType,
+        Address: userInfoData.value.address,
+        DisplayName: userInfoData.value.userName,
+        Email: userInfoData.value.email,
+        FirstName: userInfoData.value.name,
+        IsVerified: userInfoData.value.statusType,
+        LastName: userInfoData.value.lastName,
+        PhoneNumber: userInfoData.value.phoneNumber,
+        ProfilePicture: userInfoData.value.profileUrl || '',
+        UserType: userInfoData.value.userType,
       })
 
-      if (updateProfilePictureResult && updateProfileResult) {
-        alert('ข้อมูลได้รับการบันทึกแล้ว')
-        // Optionally clear values or fetch new data to update UI
-      } else {
-        alert('การบันทึกข้อมูลไม่สำเร็จ')
-      }
+      // if (updateProfilePictureResult && updateProfileResult) {
+      //   alert('ข้อมูลได้รับการบันทึกแล้ว')
+      //   // Optionally clear values or fetch new data to update UI
+      // } else {
+      //   alert('การบันทึกข้อมูลไม่สำเร็จ')
+      // }
     } catch (error) {
       console.error('Error updating profile:', error)
       alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล')

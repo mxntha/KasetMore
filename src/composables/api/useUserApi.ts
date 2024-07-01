@@ -21,6 +21,10 @@ export interface UpdateUser {
   Address: string
   LastName: string
   FirstName: string
+  DisplayName: string
+  ProfilePicture: string
+  IsVerified: string
+  PhoneNumber: string
 }
 export interface BaseUserInfo {
   userId?: string
@@ -147,7 +151,7 @@ function useUserApi() {
     async updateProfile(data: UpdateUser) {
       try {
         return await postMethod<boolean>(`${controller}/update-profile`, {
-          userDto: { ...data },
+          ...data,
         })
       } catch {
         return false

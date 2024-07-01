@@ -393,11 +393,11 @@ async function register() {
       await userApi.updateProfile({
         address: registerfarmer.value.address,
         lastName: registerfarmer.value.lastname,
-        Firstname: registerfarmer.value.firstnameirstname,
-        password: registerfarmer.value.password,
+        firstName: registerfarmer.value.firstname,
+
         phoneNumber: registerfarmer.value.phone,
-        profileUrl: imageUrl.value,
-        DisplayName: registerfarmer.value.username,
+        profilePicture: imageUrl.value,
+        displayName: registerfarmer.value.username,
         idCard: registerfarmer.value.idcard,
         laserCard: registerfarmer.value.idcardLaser,
         email: registerfarmer.value.email,
@@ -429,6 +429,7 @@ async function register() {
     console.log(ex)
     alert('error')
   }
+  router.push({ name: 'Login' })
 }
 </script>
 
