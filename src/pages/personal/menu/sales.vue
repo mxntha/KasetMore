@@ -48,96 +48,116 @@
 
 <script setup lang="ts">
 import ApexCharts from 'apexcharts'
-import { ref, onMounted, inject } from 'vue'
+import { ref, onMounted, inject, computed } from 'vue'
 import { TransectionModel } from '@/composables/api/useTransactionApi'
-import { useTransactionApi } from '@/composables/api'
+import {
+  Category,
+  Product,
+  useCategoryApi,
+  useProductApi,
+  useTransactionApi,
+} from '@/composables/api'
 import { contextPluginSymbol } from '@/plugins/context'
-
+const productApi = useProductApi()
 const loading = ref(true)
 const salesData = ref<TransectionModel[]>([])
 const transactionApi = useTransactionApi()
 const info = inject(contextPluginSymbol)!
+const months = [
+  { index: 1, month: 'ม.ค' },
+  { index: 2, month: 'ก.พ' },
+  { index: 3, month: 'มี.ค' },
+  { index: 4, month: 'เม.ย' },
+  { index: 5, month: 'พ.ค' },
+  { index: 6, month: 'มิ.ย' },
+  { index: 7, month: 'ก.ค' },
+  { index: 8, month: 'ส.ค' },
+  { index: 9, month: 'ก.ย' },
+  { index: 10, month: 'ต.ค' },
+  { index: 11, month: 'พ.ย' },
+  { index: 12, month: 'ธ.ค' },
+]
+const infomation = inject(contextPluginSymbol)!
+const allProduct = ref<Product[]>([])
+const categoryApi = useCategoryApi()
+const categories = ref<Category[]>([])
 
 onMounted(async () => {
   loading.value = true
+  allProduct.value = await productApi.getByEmail(
+    infomation.userInfomation.value?.email!
+  )
   salesData.value = await transactionApi.getBySeller(
     info.userInfomation.value?.email!
   )
+  categories.value = await categoryApi.getAll()
 })
-
-const line = ref({
-  options: {
-    chart: {
-      height: 350,
-      type: 'line',
-      zoom: {
+const line = computed(() => {
+  return {
+    options: {
+      chart: {
+        height: 350,
+        type: 'line',
+        zoom: {
+          enabled: false,
+        },
+      },
+      dataLabels: {
         enabled: false,
       },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      curve: 'straight',
-    },
-    title: {
-      text: 'Product Trends by Month',
-      align: 'left',
-    },
-    grid: {
-      row: {
-        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-        opacity: 0.5,
+      stroke: {
+        curve: 'straight',
       },
-    },
-    xaxis: {
-      categories: [
-        'ม.ค',
-        'ก.พ',
-        'มี.ค',
-        'เม.ย',
-        'พ.ค',
-        'มิ.ย',
-        'ก.ค',
-        'ส.ค',
-        'ก.ย',
-        'ต.ค',
-        'พ.ย',
-        'ธ.ค',
-      ],
-    },
-  },
-  series: [
-    {
-      name: 'Category A',
-      data: [40, 30, 45, 50, 49, 60, 70, 91],
-    },
-    {
-      name: 'Category B',
-      data: [50, 49, 60, 30, 40, 45, 70, 91],
-    },
-    {
-      name: 'Category C',
-      data: [30, 60, 70, 91, 40, 45, 50, 49],
-    },
-  ],
-})
-const donut = ref({
-  options: {
-    height: 300,
-    chart: {
-      type: 'donut',
-    },
-    plotOptions: {
-      pie: {
-        donut: {
-          size: '45%',
+      title: {
+        text: 'Product Trends by Month',
+        align: 'left',
+      },
+      grid: {
+        row: {
+          colors: ['#f3f3f3', 'transparent'],
+          opacity: 0.5,
         },
-        customScale: 0.8,
+      },
+      xaxis: {
+        categories: months.map((x) => x.month),
       },
     },
-    labels: ['Category A', 'Category B', 'Category C'],
-  },
-  series: [44, 55, 41],
+    series: months.map((x) => {
+      return {
+        name: x.month,
+        data: salesData.value
+          .filter((f) => new Date(f.createDate).getMonth() + 1 == x.index)
+          .reduce((z, y) => z + y.price * y.amount, 0),
+      }
+    }),
+  }
+})
+const donut = computed(() => {
+  return {
+    options: {
+      height: 300,
+      chart: {
+        type: 'donut',
+      },
+      plotOptions: {
+        pie: {
+          donut: {
+            size: '45%',
+          },
+          customScale: 0.8,
+        },
+      },
+      labels: categories.value.map((x) => x.categoryName),
+    },
+    series: categories.value.map((x) =>
+      salesData.value
+        .filter(
+          (a) =>
+            allProduct.value.find((f) => f.productId == a.productId.toString())
+              ?.category == x.categoryName
+        )
+        .reduce((z, y) => z + y.price * y.amount, 0)
+    ),
+  }
 })
 </script>
