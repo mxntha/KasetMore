@@ -62,27 +62,35 @@ async function multpartFormData(
   keyMultipart: string = 'images',
   querryString: any | null = null
 ) {
-  const formData = new FormData()
-  // formData.append('product', jsonData)
-  alert('เตรียมยิงเเล้วนะ')
-  const queryString =
-    querryString != null ? new URLSearchParams(querryString) : null
-  for (const [key, value] of Object.entries(jsonData)) {
-    formData.append(`${key}`, `${value}`)
-  }
-  for (let i = 0; i < files.length; i++) {
-    formData.append(keyMultipart, files[i])
-  }
-  console.log('พร้อมจะยิง', formData)
-  return fetch(baseUrl + url + queryString, {
-    method: 'POST',
-    body: formData,
-  })
-    .then((x) => x.json())
-    .then((x) => x)
-    .catch((x) => {
-      console.log(x)
-      throw x
+  try {
+    const formData = new FormData()
+    // formData.append('product', jsonData)
+    alert('เตรียมยิงเเล้วนะ')
+    const queryString =
+      querryString != null ? new URLSearchParams(querryString) : null
+    alert('แปลงลิ้งเเปป')
+    console.log(querryString)
+
+    for (const [key, value] of Object.entries(jsonData)) {
+      formData.append(`${key}`, `${value}`)
+    }
+    for (let i = 0; i < files.length; i++) {
+      formData.append(keyMultipart, files[i])
+    }
+    console.log('พร้อมจะยิง', formData)
+    return fetch(baseUrl + url + queryString, {
+      method: 'POST',
+      body: formData,
     })
+      .then((x) => x.json())
+      .then((x) => x)
+      .catch((x) => {
+        console.log(x)
+        throw x
+      })
+  } catch (ex) {
+    console.log(ex)
+    throw new Error()
+  }
 }
 export { baseUrl, getMethod, postMethod, multpartFormData }
