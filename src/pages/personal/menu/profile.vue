@@ -2,6 +2,7 @@
   <v-card class="h-100" :loading="loading">
     note ในปุ่มเเก้ไขเสร็จเเล้วหรือยัง <br />
     แก้ปิดdialog
+    {{ imageUserUpload }}
     <v-card-text v-if="!loading">
       <v-container>
         <!-- User Profile Avatar and Edit Button -->
@@ -271,7 +272,7 @@ function handleImageChange(event: any) {
   const file = event.target.files[0]
   const reader = new FileReader()
   imageUserUpload.value = new File([file], file.name, { type: file.type })
-
+  alert('upload เเล้ว อีสัสสส')
   reader.onload = () => {
     convertToBase64(reader.result)
   }
