@@ -79,10 +79,13 @@ async function multpartFormData(
       formData.append(keyMultipart, files[i])
     }
     console.log('พร้อมจะยิง', formData)
-    return fetch(baseUrl + url + queryString, {
-      method: 'POST',
-      body: formData,
-    })
+    return fetch(
+      baseUrl + url + (queryString != null ? '?' + queryString : ''),
+      {
+        method: 'POST',
+        body: formData,
+      }
+    )
       .then((x) => x.json())
       .then((x) => x)
       .catch((x) => {
