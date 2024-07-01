@@ -1,7 +1,12 @@
 <template>
-  note <br />
-  ปุ่มตกลง ไปหน้าlogin
-
+  <!-- note <br />
+  ปุ่มตกลง ไปหน้าlogin -->
+  <div class="container mb-n10 mt-2">
+    <div class="content" @click="router.push({ name: 'Index' })">
+      <v-img :src="box" alt="Logo" width="70" height="65" class="mr-4"></v-img>
+      <div class="title text-h3 font-weight-bold">Kaset More</div>
+    </div>
+  </div>
   <div class="d-flex justify-center align-center w-100 h-100">
     <v-card class="w-100">
       <v-card-item>
@@ -239,6 +244,8 @@
 </template>
 
 <script lang="ts" setup>
+import box from '@/assets/box.png'
+
 import { ref, inject, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { type RegisterFarmer } from './interface'
@@ -435,6 +442,16 @@ async function register() {
 </script>
 
 <style scoped>
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
 .regis {
   font-size: 30px;
   font-weight: bold;

@@ -9,7 +9,15 @@
         ></v-img>
 
         <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="500">
-          <v-card-title class="text-h3 pb-6">Kaset More</v-card-title>
+          <div class="d-flex">
+            <v-img :src="box" alt="Logo" width="80" height="65"></v-img>
+          </div>
+          <v-card-title
+            class="text-h3 pb-6"
+            @click="router.push({ name: 'Index' })"
+          >
+            Kaset More
+          </v-card-title>
           <v-card-text>
             <v-form v-model="valid">
               <div class="text-subtitle-1 text-medium-emphasis">Email</div>
@@ -111,7 +119,7 @@
 </template>
 
 <script lang="ts" setup>
-//
+import box from '@/assets/box.png'
 import { ref } from 'vue'
 import { type LoginForm } from './interface'
 import { useRouter } from 'vue-router'

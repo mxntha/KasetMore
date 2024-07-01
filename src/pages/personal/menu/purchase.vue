@@ -164,6 +164,7 @@ onMounted(async () => {
 <style scoped>
 .v-card {
   overflow-y: auto;
+  max-width: 1550px;
 }
 
 .card-description {
@@ -171,7 +172,7 @@ onMounted(async () => {
   overflow: hidden;
   text-overflow: ellipsis; /* แสดง ... เมื่อข้อความเกินความสูงสูงสุด */
   white-space: normal; /* แสดงข้อความทั้งหมด */
-  max-width: 1200px;
+  max-width: 1000px;
 }
 
 .product-name {

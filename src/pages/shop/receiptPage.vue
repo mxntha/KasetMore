@@ -57,12 +57,16 @@
         </div>
         <div class="text-h6 mr-n16">{{ transaction.amount }}</div>
         <div class="text-h6 mr-n11">{{ transaction.price }}</div>
-        <div class="text-h6 mr-10">{{ transaction.price }}</div>
+        <div class="text-h6 mr-10">
+          {{ transaction.price * transaction.amount }}
+        </div>
       </div>
 
       <v-divider></v-divider>
       <div class="d-flex flex-row-reverse ma-3">
-        <div class="text-body-1">ยอดรวม : {{ transaction.price }} บาท</div>
+        <div class="text-body-1">
+          ยอดรวม : {{ transaction.price * transaction.amount }} บาท
+        </div>
       </div>
     </v-card-text>
     <v-card-actions>

@@ -25,12 +25,12 @@ export interface TransectionInsert {
   createDate: Date
 }
 
-interface CategoryApiModel {
-  CategoryName: string
-  CategoryDesc: string
-  CreateDate: Date
-  UpdateDate: Date
-}
+// interface CategoryApiModel {
+//   CategoryName: string
+//   CategoryDesc: string
+//   CreateDate: Date
+//   UpdateDate: Date
+// }
 
 export interface ProductResultApi {
   productId: number
