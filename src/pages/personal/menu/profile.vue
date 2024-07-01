@@ -102,8 +102,8 @@
                               <span>เพิ่มรูปภาพของตัวเอง</span></label
                             >
                           </div>
-                          <div v-if="imageUrl != ''">
-                            <img :src="imageUrl" width="200" />
+                          <div v-if="userInfoData.profileUrl != ''">
+                            <img :src="userInfoData.profileUrl" width="200" />
                           </div>
                         </v-col>
                       </v-row>
@@ -287,17 +287,13 @@ function convertToBase64(_imageUrl: any) {
     canvas.width = img.width
     canvas.height = img.height
     ctx.drawImage(img, 0, 0)
-    imageUrl.value = canvas.toDataURL('image/jpeg')
+    userInfoData.value.profileUrl = canvas.toDataURL('image/jpeg')
   }
 }
 
 async function saveForm() {
   if (isFormValid) {
     try {
-      // const updateProfilePictureResult = await userApi.updateProfilePicture(
-      //   infomation.userInfomation.value?.email!,
-      //   imageUserUpload.value!
-      // )
       const updateProfileResult = await userApi.updateProfile({
         Address: userInfoData.value.address,
         DisplayName: userInfoData.value.userName,
@@ -309,6 +305,12 @@ async function saveForm() {
         ProfilePicture: userInfoData.value.profileUrl || '',
         UserType: userInfoData.value.userType,
       })
+      if (imageUserUpload.value != null) {
+        const updateProfilePictureResult = await userApi.updateProfilePicture(
+          infomation.userInfomation.value?.email!,
+          imageUserUpload.value
+        )
+      }
 
       // if (updateProfilePictureResult && updateProfileResult) {
       //   alert('ข้อมูลได้รับการบันทึกแล้ว')
