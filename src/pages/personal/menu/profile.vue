@@ -270,8 +270,10 @@ function gotoIndex() {
 const imageUserUpload = ref<File | null>(null)
 function handleImageChange(event: any) {
   const file = event.target.files[0]
+  const bin = new File([file], file.name, { type: file.type })
+  const arrayFile = [bin]
   const reader = new FileReader()
-  imageUserUpload.value = new File([file], file.name, { type: file.type })
+  imageUserUpload.value = arrayFile[0]
   alert('upload เเล้ว อีสัสสส')
   reader.onload = () => {
     convertToBase64(reader.result)
@@ -306,7 +308,7 @@ async function saveForm() {
         ProfilePicture: userInfoData.value.profileUrl || '',
         UserType: userInfoData.value.userType,
       })
-      console.log(imageUserUpload.value != null)
+      console.log(imageUserUpload.value != null, imageUserUpload.value)
       if (imageUserUpload.value != null) {
         const updateProfilePictureResult = await userApi.updateProfilePicture(
           infomation.userInfomation.value?.email!,
