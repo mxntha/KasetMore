@@ -7,8 +7,8 @@
     ต่อ api อะไรมาบ้าง <br />
     ทำตารางรายการขายไหม ??
     <div v-for="sale in salesData">
-      {{ allProduct.find((x) => x.productId == sale.productId).category }}
-      {{ allProduct.find((x) => x.productId == sale.productId).productName
+      {{ allProduct.find((x) => x.productId.toString == sale.productId.toString)?.category }}
+      {{ allProduct.find((x) => x.productId.toString == sale.productId.toString)?.productName
       }}{{ sale.productId }} --- {{ sale.amount }}
     </div>
     <div class="d-flex flex-row">
