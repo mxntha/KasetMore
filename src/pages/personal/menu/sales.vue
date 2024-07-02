@@ -1,15 +1,12 @@
 <template>
   <v-card class="h-100">
     note<br />
-    หากไม่มีข้อมูลเลยจะเเสดงหน้ายังไง <br />
-
-    ในกราฟจะเเสดงข้อมูลอะไรบ้าง <br />
-    ต่อ api อะไรมาบ้าง <br />
+    
     ทำตารางรายการขายไหม ??
     <div v-for="sale in salesData">
-      {{ allProduct.find((x) => x.productId.toString == sale.productId.toString)?.category }}
+      <!-- {{ allProduct.find((x) => x.productId.toString == sale.productId.toString)?.category }}
       {{ allProduct.find((x) => x.productId.toString == sale.productId.toString)?.productName
-      }}{{ sale.productId }} --- {{ sale.amount }}
+      }}{{ sale.productId }} --- {{ sale.amount }} -->
     </div>
     <div class="d-flex flex-row">
       <v-card class="ma-8" height="180" width="300">
