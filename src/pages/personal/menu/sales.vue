@@ -5,22 +5,30 @@
 
     ในกราฟจะเเสดงข้อมูลอะไรบ้าง <br />
     ต่อ api อะไรมาบ้าง <br />
-    {{ salesData }}
-
+    ทำตารางรายการขายไหม ??
+    <div v-for="sale in salesData">
+      {{ allProduct.find((x) => x.productId == sale.productId).category }}
+      {{ allProduct.find((x) => x.productId == sale.productId).productName
+      }}{{ sale.productId }} --- {{ sale.amount }}
+    </div>
     <div class="d-flex flex-row">
       <v-card class="ma-8" height="180" width="300">
         <div class="text-h5 ma-6">ยอดรวม :</div>
-        <div class="text-h4 pt-3 text-center">฿</div>
+        <div class="text-h4 pt-3 text-center">
+          {{ salesData.reduce((x, y) => x + y.amount * y.price, 0) }} $
+        </div>
       </v-card>
 
       <v-card class="ma-8" height="180" width="300">
         <div class="text-h5 ma-6">ออเดอร์ :</div>
-        <div class="text-h4 pt-3 text-center">10</div>
+        <div class="text-h4 pt-3 text-center">{{ salesData.length }}</div>
       </v-card>
 
       <v-card class="ma-8" height="180" width="300">
         <div class="text-h5 ma-6">จำนวนสินค้า :</div>
-        <div class="text-h4 pt-3 text-center">10</div>
+        <div class="text-h4 pt-3 text-center">
+          {{ salesData.reduce((x, y) => x + y.amount, 0) }}
+        </div>
       </v-card>
     </div>
 
@@ -118,18 +126,27 @@ const line = computed(() => {
           opacity: 0.5,
         },
       },
+      yaxis: {
+        labels: {
+          formatter: function (value: string) {
+            return value + ' บาท'
+          },
+        },
+      },
       xaxis: {
         categories: months.map((x) => x.month),
       },
     },
-    series: months.map((x) => {
-      return {
-        name: x.month,
-        data: salesData.value
-          .filter((f) => new Date(f.createDate).getMonth() + 1 == x.index)
-          .reduce((z, y) => z + y.price * y.amount, 0),
-      }
-    }),
+    series: [
+      {
+        name: 'จำนวนยอดขายรายเดือน',
+        data: months.map((x) => {
+          return salesData.value
+            .filter((f) => new Date(f.createDate).getMonth() + 1 == x.index)
+            .reduce((z, y) => z + y.price * y.amount, 0)
+        }),
+      },
+    ],
   }
 })
 const donut = computed(() => {
