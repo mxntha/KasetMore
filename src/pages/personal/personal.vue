@@ -67,7 +67,7 @@
             หน้าแรก
           </v-btn>
         </div>
-        <div class="pa-2">
+        <div class="pt-2 pa-2">
           <v-btn block prepend-icon="mdi-logout" @click="gotoIndex">
             ออกจากระบบ
           </v-btn>

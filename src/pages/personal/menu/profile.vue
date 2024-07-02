@@ -1,8 +1,5 @@
 <template>
   <v-card class="h-100" :loading="loading">
-    note ในปุ่มเเก้ไขเสร็จเเล้วหรือยัง <br />
-    แก้ปิดdialog
-    {{ imageUserUpload }}
     <v-card-text v-if="!loading">
       <v-container>
         <!-- User Profile Avatar and Edit Button -->
@@ -13,12 +10,12 @@
                 icon="mdi-account-circle"
                 color="surface-variant"
                 :image="userInfoData.profileUrl"
-                size="150"
+                size="200"
               ></v-avatar>
             </div>
 
-            <div class="pt-8">
-              <v-dialog max-width="600" persistent>
+            <div class="pt-8 pl-3">
+              <v-dialog max-width="600" persistent v-model="dialog">
                 <template v-slot:activator="{ props: activatorProps }">
                   <v-btn
                     class="text-none font-weight-regular"
@@ -31,10 +28,6 @@
                 <template v-slot:default="{ isActive: activator }">
                   <!-- Edit User Information Dialog -->
                   <v-card prepend-icon="mdi-account" title="แก้ไขข้อมูลส่วนตัว">
-                    note <br />
-
-                    ui เสร็จเเล้วหรือยัง <br />
-
                     <v-card-text>
                       <v-row dense>
                         <v-col cols="12" md="6">
@@ -71,7 +64,7 @@
                       </v-row>
                       <!-- Image Upload Field -->
                       <v-row dense>
-                        <v-col>
+                        <v-col class="d-flex justify-center">
                           <div class="file-input pt-6">
                             <input
                               type="file"
@@ -91,7 +84,7 @@
                                 role="img"
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 512 512"
-                                width="80"
+                                width="45"
                                 height="80"
                               >
                                 <path
@@ -102,7 +95,10 @@
                               <span>เพิ่มรูปภาพของตัวเอง</span></label
                             >
                           </div>
-                          <div v-if="userInfoData.profileUrl != ''">
+                          <div
+                            v-if="userInfoData.profileUrl != ''"
+                            class="ma-4 ml-6"
+                          >
                             <img :src="userInfoData.profileUrl" width="200" />
                           </div>
                         </v-col>
@@ -119,7 +115,7 @@
                       <v-btn
                         text="ยกเลิก"
                         variant="plain"
-                        @click="activator.value = false"
+                        @click="dialog = false"
                       ></v-btn>
 
                       <v-btn
@@ -177,6 +173,7 @@ import { ref, inject, onMounted, computed } from 'vue'
 
 const info = inject(contextPluginSymbol)!
 const loading = ref(true)
+const dialog = ref(false)
 
 const password = ref('')
 const showPassword = ref(false)
@@ -315,6 +312,8 @@ async function saveForm() {
         )
       }
 
+      dialog.value = false // Close the dialog
+
       // if (updateProfilePictureResult && updateProfileResult) {
       //   alert('ข้อมูลได้รับการบันทึกแล้ว')
       //   // Optionally clear values or fetch new data to update UI
@@ -346,7 +345,7 @@ async function saveForm() {
   align-items: center;
   border-radius: 4px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 650;
   color: #fff;
   font-size: 14px;
   padding: 10px 12px;

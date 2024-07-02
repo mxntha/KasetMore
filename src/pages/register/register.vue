@@ -1,7 +1,10 @@
 <template>
-  note <br />
-  ปุ่มตกลง ไปหน้าlogin
-
+  <div class="container mb-n12">
+    <div class="content" @click="router.push({ name: 'Index' })">
+      <v-img :src="box" alt="Logo" width="70" height="60" class="mr-4"></v-img>
+      <div class="title text-h3 font-weight-bold">Kaset More</div>
+    </div>
+  </div>
   <div class="d-flex justify-center align-center w-100 h-100">
     <v-card class="w-100">
       <v-card-item>
@@ -151,8 +154,8 @@
                 :disabled="isFarmer"
               ></v-text-field>
             </v-col>
-            <v-col v-if="!isFarmer">
-              <div class="file-input pt-6 pl-4">
+            <v-col v-if="!isFarmer" class="d-flex align-self-start">
+              <div class="file-input pt-6">
                 <input
                   type="file"
                   name="file-input"
@@ -180,14 +183,14 @@
                   <span>เพิ่มรูปภาพของตัวเอง</span></label
                 >
               </div>
-              <div class="mt-6 ml-n4" v-if="imageUrl != ''">
-                <img :src="imageUrl" width="250" />
+              <div class="mt-6 ml-2 d-flex" v-if="imageUrl != ''">
+                <img :src="imageUrl" width="150" />
               </div>
             </v-col>
           </v-row>
         </v-form>
       </v-card-text>
-      <v-divider class="mt-12" />
+      <v-divider class="mt-2" />
 
       <v-card-actions>
         <v-btn variant="text" @click="router.push({ name: 'Index' })">
@@ -239,6 +242,8 @@
 </template>
 
 <script lang="ts" setup>
+import box from '@/assets/box.png'
+
 import { ref, inject, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { type RegisterFarmer } from './interface'
@@ -435,6 +440,16 @@ async function register() {
 </script>
 
 <style scoped>
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
 .regis {
   font-size: 30px;
   font-weight: bold;
