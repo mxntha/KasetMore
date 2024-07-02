@@ -1,7 +1,11 @@
 <template>
-  <v-card :loading="loading" class="h-100">
+  <v-card
+    :loading="loading"
+    class="h-100"
+    style="max-height: 850px; overflow-y: auto"
+  >
     <v-card-title>ประวัติการซื้อ</v-card-title>
-    <v-divider></v-divider>
+    <v-divider class="mb-n2"></v-divider>
     <v-card-text>
       <!-- แสดงข้อมูล -->
       <v-row v-if="purchaseData.length > 0">
@@ -10,7 +14,10 @@
           :key="transaction.transactionId"
           cols="12"
         >
-          <v-card @click="goToProductDetail(transaction.productId)">
+          <v-card
+            class="mb-n3"
+            @click="goToProductDetail(transaction.productId)"
+          >
             <div class="d-flex ma-2">
               <v-icon icon="mdi-store"></v-icon>
               <div class="pl-2 font-weight-bold user-display">
@@ -40,7 +47,7 @@
 
             <v-divider></v-divider>
 
-            <div class="d-flex justify-space-between ma-5 amount-price">
+            <div class="d-flex justify-space-between ma-2 amount-price">
               <div>จำนวน : {{ transaction.amount }} {{ transaction.unit }}</div>
               <div class="d-flex flex-row-reverse">
                 รวมการสั่งซื้อ: {{ transaction.price * transaction.amount }} ฿

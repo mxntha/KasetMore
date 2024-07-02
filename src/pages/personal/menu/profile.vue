@@ -64,7 +64,7 @@
                       </v-row>
                       <!-- Image Upload Field -->
                       <v-row dense>
-                        <v-col>
+                        <v-col class="d-flex justify-center">
                           <div class="file-input pt-6">
                             <input
                               type="file"
@@ -97,7 +97,7 @@
                           </div>
                           <div
                             v-if="userInfoData.profileUrl != ''"
-                            class="ma-2"
+                            class="ma-4 ml-6"
                           >
                             <img :src="userInfoData.profileUrl" width="200" />
                           </div>
@@ -345,7 +345,7 @@ async function saveForm() {
   align-items: center;
   border-radius: 4px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 650;
   color: #fff;
   font-size: 14px;
   padding: 10px 12px;

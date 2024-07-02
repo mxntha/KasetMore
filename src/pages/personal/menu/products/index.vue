@@ -112,7 +112,7 @@ async function saveProduct({
         Category: product.category,
       }
     )
-    toast.success('เพิ่มสำเร็จ')
+    toast.success('เพิ่มสินค้าสำเร็จ')
   } catch (error) {
     toast.error('เกิดข้อผิดพลาด')
   }
@@ -169,7 +169,7 @@ async function confirmDelete() {
   const res = await productApi.deleteProduct(productDeleteId.value!.toString())
   await fetchProductData()
   dialogDelete.value = false
-  toast.success('ลบสินค้าเรียบร้อย')
+  toast.success('ลบสินค้าสำเร็จ')
 }
 async function fetchProductData() {
   loading.value = true

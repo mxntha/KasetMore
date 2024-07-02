@@ -195,7 +195,7 @@ function validateCurrentProduct(state: Product) {
     (imageFiles.value.length < 1 || imageFiles.value.length > 4) &&
     (images.value.length < 1 || images.value.length > 4)
   ) {
-    toast.error('รูปต้องมี 1 เเละไม่เกิน 4')
+    toast.error('รูปภาพต้องมีอย่างน้อย 1 รูปเเละไม่เกิน 4 รูป')
 
     return false
   }
@@ -231,7 +231,7 @@ function submit() {
 async function handleImageChange(event: any) {
   if (imageFiles.value.length >= 4) {
     // showFileLimitDialog.value = true
-    alert('รูป')
+    alert('รูปภาพเกินจำนวนที่จำกัด')
     return
   }
   const file = event.target.files[0]
@@ -259,7 +259,7 @@ async function getProduct() {
     province: productById.province,
     category: productById.category,
     description: productById.description,
-    picture: '', // คุณอาจจะไม่ต้องการใช้นี่
+    picture: '',
     rating: productById.rating,
   }
   images.value = productById.productImages.map((image, index) => ({
