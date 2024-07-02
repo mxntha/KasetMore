@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:5000/api/'
+const baseUrl = 'http://104.248.233.110:8080/api/'
 
 async function getMethod<T>(url: string, query: any | null = null): Promise<T> {
   console.log('get', url)
