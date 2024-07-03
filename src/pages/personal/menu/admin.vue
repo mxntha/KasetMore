@@ -1,5 +1,5 @@
 <template>
-  <v-card class="h-100">
+  <v-card class="h-100" style="max-height: 850px; overflow-y: auto">
     <v-card-title>ตรวจสอบการสมัครสมาชิกเกษตรกร</v-card-title>
     <v-divider></v-divider>
     <v-card-text>
@@ -8,7 +8,7 @@
         style="height: 800px; overflow-y: auto"
       >
         <v-col v-for="i in sellerInfoData" cols="12">
-          <v-card height="150">
+          <v-card height="150" class="card-description">
             <v-row>
               <v-col cols="2">
                 <div class="d-flex justify-center ma-4">
@@ -96,3 +96,16 @@ async function GetData() {
   sellerInfoData.value = await userApi.userByUserType('Seller', 'P')
 }
 </script>
+<style scoped>
+.v-card {
+  overflow-y: auto;
+  max-width: 1550px;
+}
+
+.card-description {
+  max-height: 150px; /* ตั้งค่าสูงสุดของข้อความที่ต้องการ */
+  overflow: hidden;
+  white-space: normal; /* แสดงข้อความทั้งหมด */
+  /* max-width: 1000px; */
+}
+</style>
