@@ -23,6 +23,8 @@
               <div class="pl-2 font-weight-bold user-display">
                 {{ userDisplay.userName }}
               </div>
+              <v-btn  color="primary">ใบเสร็จ</v-btn>
+              <v-btn  color="secondary">ซื้ออีกครั้ง</v-btn>
             </div>
             <v-divider></v-divider>
             <div class="d-flex align-center ma-3">
