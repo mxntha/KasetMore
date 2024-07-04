@@ -99,6 +99,7 @@
     <v-card-title class="font-weight-black">ข้อมูลร้านค้า</v-card-title>
     <v-card-text>
       <div class="text-h5">{{ userDisplay?.userName }}</div>
+      
     </v-card-text>
   </v-card>
 </template>
