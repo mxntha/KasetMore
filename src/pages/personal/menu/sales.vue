@@ -1,8 +1,8 @@
 <template>
   <v-card class="h-100">
-    note<br />
+    <!-- note<br />
     
-    ทำตารางรายการขายไหม ??
+    ทำตารางรายการขายไหม ?? -->
     <div v-for="sale in salesData">
       <!-- {{ allProduct.find((x) => x.productId.toString == sale.productId.toString)?.category }}
       {{ allProduct.find((x) => x.productId.toString == sale.productId.toString)?.productName
