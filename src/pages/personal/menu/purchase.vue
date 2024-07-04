@@ -24,8 +24,8 @@
                 {{ userDisplay.userName }}
               </div>
               <div class="ml-auto">
-                <v-btn  color="primary" @click="goToReceipt">ใบเสร็จ</v-btn>
-                <v-btn  color="secondary" @click="goToProductDetail">ซื้ออีกครั้ง</v-btn>
+                <v-btn  color="grey-lighten-1" @click="goToReceipt" class="mr-2">ใบเสร็จ</v-btn>
+                <v-btn  color="teal-lighten-4" @click="goToProductDetail">ซื้ออีกครั้ง</v-btn>
               </div> 
             </div>
             <v-divider></v-divider>
