@@ -1,5 +1,5 @@
 <template>
-  <v-card :loading="!productDetail" color="">
+  <v-card :loading="loading" color="">
     <v-card-text>
       <v-container fluid>
         <v-row>
@@ -89,13 +89,13 @@
     </v-card-text>
   </v-card>
 
-  <v-card :loading="!productDetail" class="mt-4">
+  <v-card :loading="loading" class="mt-4">
     <v-card-title class="font-weight-black">รายละเอียดสินค้า</v-card-title>
     <v-card-text>
       <div class="text-h5">{{ productDetail?.description }}</div>
     </v-card-text>
   </v-card>
-  <v-card :loading="!productDetail" class="mt-4">
+  <v-card :loading="loading" class="mt-4">
     <v-card-title class="font-weight-black">ข้อมูลร้านค้า</v-card-title>
     <v-card-text>
       <div class="text-h5">{{ userDisplay?.userName }}</div>
