@@ -23,7 +23,7 @@
               <div class="pl-2 font-weight-bold user-display">
                 {{ userDisplay.userName }}
               </div>
-              <div class="d-flex flex-row-reverse">
+              <div class="ml-auto">
                 <v-btn  color="primary" @click="goToReceipt">ใบเสร็จ</v-btn>
                 <v-btn  color="secondary" @click="goToProductDetail">ซื้ออีกครั้ง</v-btn>
               </div> 
