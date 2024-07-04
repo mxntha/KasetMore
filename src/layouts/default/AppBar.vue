@@ -25,11 +25,11 @@
     ></v-text-field>
     <v-spacer></v-spacer>
     <div>
-      <v-btn @click="gotologin" v-if="!isLogin" class="text-h4">เข้าสู่ระบบ</v-btn>
+      <v-btn @click="gotologin" v-if="!isLogin" class="text-h6">เข้าสู่ระบบ</v-btn>
 
       <v-divider vertical v-if="isShowMenu"></v-divider>
 
-      <v-btn @click="gotoregisterCust" v-if="!isLogin" class="text-h4">สมัครสมาชิก</v-btn>
+      <v-btn @click="gotoregisterCust" v-if="!isLogin" class="text-h6">สมัครสมาชิก</v-btn>
       <v-divider vertical></v-divider>
     </div>
 
