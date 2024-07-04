@@ -23,8 +23,10 @@
               <div class="pl-2 font-weight-bold user-display">
                 {{ userDisplay.userName }}
               </div>
-              <v-btn  color="primary">ใบเสร็จ</v-btn>
-              <v-btn  color="secondary">ซื้ออีกครั้ง</v-btn>
+              <div class="d-flex flex-row-reverse">
+                <v-btn  color="primary" @click="goToReceipt">ใบเสร็จ</v-btn>
+                <v-btn  color="secondary" @click="goToProductDetail">ซื้ออีกครั้ง</v-btn>
+              </div> 
             </div>
             <v-divider></v-divider>
             <div class="d-flex align-center ma-3">
@@ -143,6 +145,13 @@ const goToProductDetail = (productId: number) => {
   console.log('ไปที่หน้าสินค้าตาม productId:', productId)
   router.push({ name: 'ProductDetail', params: { productId } })
 }
+
+const goToReceipt = (receiptId : number) => {
+  console.log('ไปที่หน้าใบเสร็จ:',receiptId)
+  router.push({name: 'Receipt' , params: {receiptId}})
+}
+
+
 
 onMounted(async () => {
   loading.value = true
