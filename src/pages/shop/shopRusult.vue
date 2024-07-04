@@ -43,11 +43,11 @@
     </v-card>
   </v-dialog>
 
-  <v-dialog v-model="processingDialog" max-width="400">
+  <!-- <v-dialog v-model="processingDialog" max-width="400">
     <v-card>
       <v-card-text>กำลังทำการหักเงิน . . . รอ 2 วิ</v-card-text>
     </v-card>
-  </v-dialog>
+  </v-dialog> -->
 
   <v-dialog v-model="successDialog" max-width="400">
     <v-card>
@@ -82,7 +82,7 @@ const productDetail = ref<ProductDetailById | null>(null)
 const unitApi = useUnitApi()
 const units = ref<UnitApiModel[]>([])
 const dialog = ref(false)
-const processingDialog = ref(false)
+// const processingDialog = ref(false)
 const successDialog = ref(false)
 const transection = useTransactionApi()
 const receiptId = ref<number | null>(null)
@@ -132,7 +132,7 @@ function generateRandomString(length: number) {
 
 async function handleConfirm() {
   dialog.value = false
-  processingDialog.value = true
+  // processingDialog.value = true
   receiptId.value = (
     await transection.createTransaction([
       {
@@ -150,7 +150,7 @@ async function handleConfirm() {
     ])
   )[0]
 
-  processingDialog.value = false
+  // processingDialog.value = false
   successDialog.value = true
 }
 
