@@ -379,7 +379,10 @@ async function register() {
 
       if (res) {
         userDialog.value = true
-        router.push({ name: 'Login' })
+        setTimeout(() => {
+          userDialog.value = false
+          router.push({ name: 'Login' })
+        }, 2000)
       } else {
         alert('เกิดข้อผิดพลาดในการลงทะเบียน')
       }
