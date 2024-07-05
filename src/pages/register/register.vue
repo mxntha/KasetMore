@@ -239,6 +239,17 @@
       </v-card-actions>
     </v-card>
   </v-dialog>
+
+  <v-dialog v-model="userDialog" width="700" class="text-center">
+    <v-card icon="$success">
+      <v-icon
+        color="success"
+        icon="mdi-check-circle-outline"
+        size="120"
+      ></v-icon>
+      <v-card-text>สมัครสมาชิกเรียบร้อย</v-card-text>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script lang="ts" setup>
@@ -324,66 +335,6 @@ const registerfarmer = ref<RegisterFarmer>({
   idcardLaser: '',
   email: '',
 })
-
-onMounted(async () => {
-  if (
-    !route.query.type ||
-    !(route.query.type == 'farmer' || route.query.type == 'customer')
-  ) {
-    router.push({ name: 'Register', query: { type: 'farmer' } })
-  }
-  if (route.query.type == 'farmer') {
-    userData.value = await userApi.userByEmail(
-      infomation.userInfomation.value?.email!
-    )
-    if (userData.value == null) {
-      alert('ไม่มีข้อมูลผู้ใช้')
-      router.push({ name: 'Index' })
-      return
-    }
-    registerfarmer.value.firstname = userData.value?.name
-    registerfarmer.value.lastname = userData.value.lastName
-    registerfarmer.value.address = userData.value.address
-    registerfarmer.value.email = userData.value.email
-    registerfarmer.value.phone = userData.value.phoneNumber
-    registerfarmer.value.username = userData.value.userName
-  }
-})
-
-const imageUrl = ref('')
-const openDialog = ref(false)
-const imageUser = ref<File | null>(null)
-function handleImageChange(event: any) {
-  const file = event.target.files[0]
-  const reader = new FileReader()
-  imageUser.value = new File([file], file.name, { type: file.type })
-
-  reader.onload = () => {
-    convertToBase64(reader.result)
-  }
-  reader.readAsDataURL(file)
-}
-function convertToBase64(_imageUrl: any) {
-  const img = new Image()
-  img.src = _imageUrl
-  img.onload = () => {
-    const canvas = document.createElement('canvas')
-    const ctx = canvas.getContext('2d')!
-    canvas.width = img.width
-    canvas.height = img.height
-    ctx.drawImage(img, 0, 0)
-    imageUrl.value = canvas.toDataURL('image/jpeg')
-  }
-}
-function gotologin() {
-  router.push({ name: 'Login' })
-}
-function gotoIndex() {
-  router.push({ name: 'Index' })
-}
-function gotoProfile() {
-  router.push({ name: 'Profile' })
-}
 async function register() {
   try {
     if (!formComplete.value) {
@@ -425,17 +376,79 @@ async function register() {
         },
         imageUser.value
       )
-      router.push({ name: 'Login' })
-      // if (res) {
-      //   openDialog.value = true
-      // } else {
-      //   alert('เกิดข้อผิดพลาดในการลงทะเบียน')
-      // }
+
+      if (res) {
+        userDialog.value = true
+        router.push({ name: 'Login' })
+      } else {
+        alert('เกิดข้อผิดพลาดในการลงทะเบียน')
+      }
     }
   } catch (ex) {
     console.log(ex)
     alert('error')
   }
+}
+
+onMounted(async () => {
+  if (
+    !route.query.type ||
+    !(route.query.type == 'farmer' || route.query.type == 'customer')
+  ) {
+    router.push({ name: 'Register', query: { type: 'farmer' } })
+  }
+  if (route.query.type == 'farmer') {
+    userData.value = await userApi.userByEmail(
+      infomation.userInfomation.value?.email!
+    )
+    if (userData.value == null) {
+      alert('ไม่มีข้อมูลผู้ใช้')
+      router.push({ name: 'Index' })
+      return
+    }
+    registerfarmer.value.firstname = userData.value?.name
+    registerfarmer.value.lastname = userData.value.lastName
+    registerfarmer.value.address = userData.value.address
+    registerfarmer.value.email = userData.value.email
+    registerfarmer.value.phone = userData.value.phoneNumber
+    registerfarmer.value.username = userData.value.userName
+  }
+})
+
+const imageUrl = ref('')
+const openDialog = ref(false)
+const userDialog = ref(false)
+const imageUser = ref<File | null>(null)
+function handleImageChange(event: any) {
+  const file = event.target.files[0]
+  const reader = new FileReader()
+  imageUser.value = new File([file], file.name, { type: file.type })
+
+  reader.onload = () => {
+    convertToBase64(reader.result)
+  }
+  reader.readAsDataURL(file)
+}
+function convertToBase64(_imageUrl: any) {
+  const img = new Image()
+  img.src = _imageUrl
+  img.onload = () => {
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')!
+    canvas.width = img.width
+    canvas.height = img.height
+    ctx.drawImage(img, 0, 0)
+    imageUrl.value = canvas.toDataURL('image/jpeg')
+  }
+}
+function gotologin() {
+  router.push({ name: 'Login' })
+}
+function gotoIndex() {
+  router.push({ name: 'Index' })
+}
+function gotoProfile() {
+  router.push({ name: 'Profile' })
 }
 </script>
 
