@@ -21,10 +21,15 @@
                 {{ userDisplay.userName }}
               </div>
               <div class="ml-auto">
-                <v-btn color="grey-lighten-1" @click="goToReceipt" class="mr-2"
+                <v-btn
+                  color="grey-lighten-1"
+                  @click="goToReceipt(transaction.productId)"
+                  class="mr-2"
                   >ใบเสร็จ</v-btn
                 >
-                <v-btn color="green-lighten-2" @click="goToProductDetail"
+                <v-btn
+                  color="green-lighten-2"
+                  @click="goToProductDetail(transaction.productId)"
                   >ซื้ออีกครั้ง</v-btn
                 >
               </div>
