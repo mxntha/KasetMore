@@ -14,19 +14,20 @@
           :key="transaction.transactionId"
           cols="12"
         >
-          <v-card
-            class="mb-n3"
-            @click="goToProductDetail(transaction.productId)"
-          >
+          <v-card class="mb-n3">
             <div class="d-flex ma-2">
               <v-icon icon="mdi-store"></v-icon>
               <div class="pl-2 font-weight-bold user-display">
                 {{ userDisplay.userName }}
               </div>
               <div class="ml-auto">
-                <v-btn  color="grey-lighten-1" @click="goToReceipt" class="mr-2">ใบเสร็จ</v-btn>
-                <v-btn  color="green-lighten-2" @click="goToProductDetail">ซื้ออีกครั้ง</v-btn>
-              </div> 
+                <v-btn color="grey-lighten-1" @click="goToReceipt" class="mr-2"
+                  >ใบเสร็จ</v-btn
+                >
+                <v-btn color="green-lighten-2" @click="goToProductDetail"
+                  >ซื้ออีกครั้ง</v-btn
+                >
+              </div>
             </div>
             <v-divider></v-divider>
             <div class="d-flex align-center ma-3">
@@ -146,12 +147,10 @@ const goToProductDetail = (productId: number) => {
   router.push({ name: 'ProductDetail', params: { productId } })
 }
 
-const goToReceipt = (receiptId : number) => {
-  console.log('ไปที่หน้าใบเสร็จ:',receiptId)
-  router.push({name: 'Receipt' , params: {receiptId}})
+const goToReceipt = (receiptId: number) => {
+  console.log('ไปที่หน้าใบเสร็จ:', receiptId)
+  router.push({ name: 'Receipt', params: { receiptId } })
 }
-
-
 
 onMounted(async () => {
   loading.value = true
