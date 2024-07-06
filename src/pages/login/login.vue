@@ -164,6 +164,11 @@ async function gotoIndex() {
     return
   }
   const redirect = localStorage.getItem('redirect') || 'Index'
+  const param = localStorage.getItem('param')
+  if (param) {
+    router.push({ name: redirect, params: JSON.parse(param) })
+    return
+  }
   router.push({ name: redirect })
 }
 </script>

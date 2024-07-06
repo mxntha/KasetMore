@@ -129,7 +129,7 @@ router.beforeEach(async (to, from, next) => {
       if (from.name) {
         localStorage.setItem('redirect', from.name.toString())
         if (from.params) {
-          localStorage.setItem('params', from.params.toString())
+          localStorage.setItem('params', JSON.stringify(from.params))
         }
       }
       alert('กรุณาล็อคอิน')
