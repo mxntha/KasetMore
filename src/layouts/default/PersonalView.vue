@@ -15,7 +15,7 @@
         </v-list-item>
         <v-list-item
           class="pa-0 ma-0 my-2"
-          v-if="userInfoData.statusType != null"
+          v-if="userInfoData.userType == 'Seller'"
         >
           <FarmerCard
             :status="
