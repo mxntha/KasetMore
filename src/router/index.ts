@@ -126,8 +126,8 @@ router.beforeEach(async (to, from, next) => {
   }
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (user.userInfomation.value == null) {
-      if (to.name) {
-        localStorage.setItem('redirect', to.name.toString())
+      if (from.name) {
+        localStorage.setItem('redirect', from.name.toString())
       }
       alert('กรุณาล็อคอิน')
       next('/login')
