@@ -58,7 +58,7 @@ import TableProduct from '@/pages/personal/menu/products/table.vue'
 import { toast } from 'vue3-toastify'
 import DialogProduct, {
   FileImage,
-} from '@/pages/personal/menu/products/dialogInsertAndEdit.vue'
+} from '@/pages/personal/products/dialogInsertAndEdit.vue'
 const infomation = inject(contextPluginSymbol)!
 const openDialog = ref(false)
 const productEditId = ref<string | null>(null)
