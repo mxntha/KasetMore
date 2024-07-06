@@ -2,7 +2,7 @@
   <v-card :loading="loading">
     <v-card-title>ประวัติการซื้อ</v-card-title>
     <v-divider class="mb-n2"></v-divider>
-    <v-card-text>
+    <v-card-text class="scrollable-content">
       <!-- แสดงข้อมูล -->
       <v-row v-if="purchaseData.length > 0" class="my-1">
         <v-col
@@ -205,5 +205,10 @@ onMounted(async () => {
 
 .amount-price {
   font-size: 17px;
+}
+
+.scrollable-content {
+  max-height: 600px; /* ตั้งค่าความสูงสูงสุดตามที่ต้องการ */
+  overflow-y: auto; /* ทำให้สามารถเลื่อนลงได้ */
 }
 </style>
