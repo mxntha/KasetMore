@@ -45,60 +45,52 @@ const routes: RouteRecordRaw[] = [
           },
         ],
       },
+    ],
+  },
+  {
+    path: '/',
+    component: () => import('@/layouts/default/PersonalView.vue'),
+    meta: { requiresAuth: true },
+    children: [
       {
-        path: '/',
-        component: () => import('@/layouts/default/ProsonalView.vue'),
+        path: '/personal/profile',
+        name: 'Profile',
+        component: () => import('@/pages/personal/menu/profile.vue'),
         meta: { requiresAuth: true },
-        children: [
-          {
-            path: '/',
-            meta: { requiresAuth: true },
-            component: () => import('@/pages/personal/personal.vue'),
-            children: [
-              {
-                path: '/personal/profile',
-                name: 'Profile',
-                component: () => import('@/pages/personal/menu/profile.vue'),
-                meta: { requiresAuth: true },
-              },
-              {
-                path: '/personal/purchase',
-                name: 'Purchase',
-                component: () => import('@/pages/personal/menu/purchase.vue'),
-                meta: { requiresAuth: true },
-              },
-              {
-                path: '/personal/sales',
-                name: 'Sales',
-                component: () => import('@/pages/personal/menu/sales.vue'),
-                meta: { requiresAuth: true },
-              },
-              {
-                path: '/personal/products',
-                name: 'Products',
-                component: () =>
-                  import('@/pages/personal/menu/products/index.vue'),
-                meta: { requiresAuth: true },
-              },
-              {
-                path: '/personal/admin',
-                name: 'Admin',
-                component: () => import('@/pages/personal/menu/admin.vue'),
-                meta: { requiresAuth: true },
-              },
-              {
-                path: '/personal/:catchAll(.*)',
-                redirect: '/personal/menu1',
-              },
-            ],
-          },
-        ],
       },
       {
-        path: '/personal',
+        path: '/personal/purchase',
+        name: 'Purchase',
+        component: () => import('@/pages/personal/menu/purchase.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
+        path: '/personal/sales',
+        name: 'Sales',
+        component: () => import('@/pages/personal/menu/sales.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
+        path: '/personal/products',
+        name: 'Products',
+        component: () => import('@/pages/personal/menu/products/index.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
+        path: '/personal/admin',
+        name: 'Admin',
+        component: () => import('@/pages/personal/menu/admin.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
+        path: '/personal/:catchAll(.*)',
         redirect: '/personal/menu1',
       },
     ],
+  },
+  {
+    path: '/personal',
+    redirect: '/personal/menu1',
   },
   {
     path: '/',

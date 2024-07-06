@@ -97,9 +97,28 @@
   </v-card>
   <v-card :loading="loading" class="mt-4">
     <v-card-title class="font-weight-black">ข้อมูลร้านค้า</v-card-title>
-    <v-card-text>
-      <div class="text-h5">{{ userDisplay?.userName }}</div>
-      
+    <v-card-text class="d-flex">
+      <div>
+        <p>
+          <span class="text-h5 font-weight-bold">ชื่อร้าน : </span>
+          <span class="text-h5">{{ userDisplay?.userName }}</span>
+        </p>
+        <p>
+          <span class="text-h5 font-weight-bold">จัดขายโดย : </span>
+          <span class="text-h5">{{ userDisplay?.name }}</span>
+          <span class="text-h5 ml-3">{{ userDisplay?.lastName }}</span>
+        </p>
+      </div>
+      <div class="ml-8">
+        <p>
+          <span class="text-h5 font-weight-bold">ติดต่อได้ที่ : </span>
+          <span class="text-h5">{{ userDisplay?.phoneNumber }}</span>
+        </p>
+        <p>
+          <span class="text-h5 font-weight-bold">ที่อยู่ : </span>
+          <span class="text-h5">{{ userDisplay?.address }}</span>
+        </p>
+      </div>
     </v-card-text>
   </v-card>
 </template>
@@ -111,6 +130,7 @@ import router from '@/router'
 import { ProductCard } from '@/components/productCard/interface'
 import { useProductApi, useUserApi, useUnitApi } from '@/composables/api'
 import { ProductDetailById, UnitApiModel } from '@/composables/api/interface'
+import { BaseUserInfo } from '@/composables/api/useUserApi'
 
 const route = useRoute()
 const productId = route.params.productId as string
@@ -119,7 +139,7 @@ const productDetail = ref<ProductDetailById | null>(null)
 const productApi = useProductApi()
 const userApi = useUserApi()
 const loading = ref(true)
-const userDisplay = ref<any>(null)
+const userDisplay = ref<BaseUserInfo | null>(null)
 const carouselIndex = ref(0)
 const unitApi = useUnitApi()
 const units = ref<UnitApiModel[]>([] as { unitId: number; unitName: string }[])

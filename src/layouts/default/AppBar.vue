@@ -11,8 +11,8 @@
     <v-app-bar-title
       class="cursor-pointer text-h5 font-weight-bold"
       @click="router.push({ name: 'Index' })"
-      >Kaset More</v-app-bar-title
-    >
+      >Kaset More
+    </v-app-bar-title>
     <v-text-field
       v-if="isShowSearchBar"
       append-inner-icon="mdi-magnify"
@@ -25,11 +25,11 @@
     ></v-text-field>
     <v-spacer></v-spacer>
     <div class="d-flex">
-      <v-btn @click="gotologin" v-if="!isLogin" >เข้าสู่ระบบ</v-btn>
+      <v-btn @click="gotologin" v-if="!isLogin">เข้าสู่ระบบ</v-btn>
 
       <v-divider vertical v-if="isShowMenu"></v-divider>
 
-      <v-btn @click="gotoregisterCust" v-if="!isLogin" >สมัครสมาชิก</v-btn>
+      <v-btn @click="gotoregisterCust" v-if="!isLogin">สมัครสมาชิก</v-btn>
       <v-divider vertical></v-divider>
     </div>
 

@@ -1,32 +1,41 @@
 <template>
-  <div class="d-flex justify-center" v-if="productDetail != null" :loading = "loading">
-    <v-card class="ma-12" color="white" height="660" width="700">
-      <div class="d-flex justify-center">
-        <v-img
-          height="500"
-          width="500"
-          :src="productDetail.productImages[0].image"
-          alt=""
-        ></v-img>
-      </div>
-
-      <div class="ma-6">
-        <div class="text-h4">
-          {{ productDetail.productName }}
+  <div
+    class="d-flex justify-center"
+    v-if="productDetail != null"
+    :loading="loading"
+  >
+    <v-card class="ma-12" color="white" width="700">
+      <v-card-title>รายการคำสั่งซื้อ</v-card-title>
+      <v-card-text>
+        <div class="d-flex justify-center">
+          <v-img
+            height="500"
+            cover
+            :src="productDetail.productImages[0].image"
+            alt=""
+          ></v-img>
         </div>
+
         <div>
-          จำนวน : {{ amount }}
-          {{ unitName }}
-        </div>
-        <div>รวมเป็นเงิน : {{ productDetail.price * parseInt(amount!) }} ฿</div>
-        <div class="d-flex flex-row-reverse mb-6">
-          <v-btn color="green" @click="dialog = true" class="ml-3">
-            ยืนยันสั่งซื้อ
-          </v-btn>
+          <div class="text-h4">
+            {{ productDetail.productName }}
+          </div>
+          <div class="mt-2 text-h6">
+            จำนวน : {{ amount }}
+            {{ unitName }}
+          </div>
+          <div class="mt-2 text-h6">
+            รวมเป็นเงิน : {{ productDetail.price * parseInt(amount!) }} ฿
+          </div>
+          <div class="d-flex flex-row-reverse">
+            <v-btn color="green" @click="dialog = true" class="ml-3">
+              ยืนยันสั่งซื้อ
+            </v-btn>
 
-          <v-btn color="grey" @click="router.go(-1)">ยกเลิก</v-btn>
+            <v-btn color="grey" @click="router.go(-1)">ยกเลิก</v-btn>
+          </div>
         </div>
-      </div>
+      </v-card-text>
     </v-card>
   </div>
 
@@ -42,12 +51,6 @@
       </v-card-actions>
     </v-card>
   </v-dialog>
-
-  <!-- <v-dialog v-model="processingDialog" max-width="400">
-    <v-card>
-      <v-card-text>กำลังทำการหักเงิน . . . รอ 2 วิ</v-card-text>
-    </v-card>
-  </v-dialog> -->
 
   <v-dialog v-model="successDialog" max-width="400">
     <v-card>
@@ -150,7 +153,6 @@ async function handleConfirm() {
     ])
   )[0]
 
-  // processingDialog.value = false
   successDialog.value = true
 }
 

@@ -10,6 +10,8 @@ import { registerPlugins } from '@/plugins'
 import App from './App.vue'
 import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
+import '@/assets/theme.scss'
+
 // Composables
 import { createApp } from 'vue'
 const app = createApp(App).use(Vue3Toastify, {

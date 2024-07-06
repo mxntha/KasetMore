@@ -1,5 +1,5 @@
 <template>
-  <v-card class="h-100" style="max-height: 850px; overflow-y: auto">
+  <v-card class="h-100">
     <v-card-title>ตรวจสอบการสมัครสมาชิกเกษตรกร</v-card-title>
     <v-divider></v-divider>
     <v-card-text>
@@ -97,11 +97,6 @@ async function GetData() {
 }
 </script>
 <style scoped>
-.v-card {
-  overflow-y: auto;
-  max-width: 1550px;
-}
-
 .card-description {
   max-height: 150px; /* ตั้งค่าสูงสุดของข้อความที่ต้องการ */
   overflow: hidden;

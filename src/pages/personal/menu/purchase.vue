@@ -1,68 +1,69 @@
 <template>
-  <v-card
-    :loading="loading"
-    class="h-100"
-    style="max-height: 850px; overflow-y: auto"
-  >
+  <v-card :loading="loading">
     <v-card-title>ประวัติการซื้อ</v-card-title>
     <v-divider class="mb-n2"></v-divider>
     <v-card-text>
       <!-- แสดงข้อมูล -->
-      <v-row v-if="purchaseData.length > 0">
+      <v-row v-if="purchaseData.length > 0" class="my-1">
         <v-col
           v-for="transaction in purchaseData"
           :key="transaction.transactionId"
           cols="12"
         >
-          <v-card class="mb-n3">
-            <div class="d-flex ma-2">
-              <v-icon icon="mdi-store"></v-icon>
-              <div class="pl-2 font-weight-bold user-display">
-                {{ userDisplay.userName }}
-              </div>
-              <div class="ml-auto">
-                <v-btn
-                  color="grey-lighten-1"
-                  @click="goToReceipt(transaction.productId)"
-                  class="mr-2"
-                  >ใบเสร็จ</v-btn
-                >
-                <v-btn
-                  color="green-lighten-2"
-                  @click="goToProductDetail(transaction.productId)"
-                  >ซื้ออีกครั้ง</v-btn
-                >
-              </div>
-            </div>
-            <v-divider></v-divider>
-            <div class="d-flex align-center ma-3">
-              <div>
-                <v-img
-                  :src="getProductImage(transaction.productId)"
-                  height="150"
-                  width="200"
-                ></v-img>
-              </div>
-
-              <div class="ml-4 align-self-center">
-                <div class="product-name">
-                  {{ getProductName(transaction.productId) }}
+          <v-card class="mb-n2">
+            <v-card-title>
+              <div class="d-flex ma-2">
+                <v-icon icon="mdi-store"></v-icon>
+                <div class="pl-2 font-weight-bold user-display">
+                  {{ userDisplay.userName }}
                 </div>
-
-                <div class="mt-2 card-description">
-                  {{ getProductDescription(transaction.productId) }}
+                <div class="ml-auto">
+                  <v-btn
+                    color="grey-lighten-1"
+                    @click="goToReceipt(transaction.productId)"
+                    class="mr-2"
+                    >ใบเสร็จ</v-btn
+                  >
+                  <v-btn
+                    color="green-lighten-2"
+                    @click="goToProductDetail(transaction.productId)"
+                    >ซื้ออีกครั้ง</v-btn
+                  >
                 </div>
               </div>
-            </div>
+            </v-card-title>
+            <v-card-text>
+              <div class="d-flex align-center ma-3">
+                <div>
+                  <v-img
+                    :src="getProductImage(transaction.productId)"
+                    height="150"
+                    width="200"
+                  ></v-img>
+                </div>
 
-            <v-divider></v-divider>
+                <div class="ml-4 align-self-center">
+                  <div class="product-name">
+                    {{ getProductName(transaction.productId) }}
+                  </div>
 
-            <div class="d-flex justify-space-between ma-2 amount-price">
-              <div>จำนวน : {{ transaction.amount }} {{ transaction.unit }}</div>
-              <div class="d-flex flex-row-reverse">
-                รวมการสั่งซื้อ: {{ transaction.price * transaction.amount }} ฿
+                  <div class="mt-2 card-description">
+                    {{ getProductDescription(transaction.productId) }}
+                  </div>
+                </div>
               </div>
-            </div>
+
+              <v-divider></v-divider>
+
+              <div class="d-flex justify-space-between ma-2 amount-price">
+                <div>
+                  จำนวน : {{ transaction.amount }} {{ transaction.unit }}
+                </div>
+                <div class="d-flex flex-row-reverse">
+                  รวมการสั่งซื้อ: {{ transaction.price * transaction.amount }} ฿
+                </div>
+              </div>
+            </v-card-text>
           </v-card>
         </v-col>
       </v-row>
@@ -184,11 +185,6 @@ onMounted(async () => {
 })
 </script>
 <style scoped>
-.v-card {
-  overflow-y: auto;
-  max-width: 1550px;
-}
-
 .card-description {
   max-height: 150px; /* ตั้งค่าสูงสุดของข้อความที่ต้องการ */
   overflow: hidden;

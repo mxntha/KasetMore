@@ -1,5 +1,10 @@
 <template>
-  <v-card class="ma-5" height="800" v-if="transaction != undefined" :loading="loading">
+  <v-card
+    class="ma-5"
+    height="800"
+    v-if="transaction != undefined"
+    :loading="loading"
+  >
     <v-card-title class="text-center ma-2">
       <div class="d-flex">
         <div class="ma-2 pl-2 text-h4">
@@ -69,7 +74,7 @@
         </div>
       </div>
     </v-card-text>
-    <v-card-actions>
+    <v-card-actions class="hidden_print">
       <v-container class="pb-2">
         <v-row class="d-flex justify-center">
           <v-col cols="auto">
@@ -156,5 +161,15 @@ function gotoPurchase() {
 
 .equal-btn {
   width: 150px; /* ตั้งค่าความกว้างให้เท่ากันตามต้องการ */
+}
+.hidden_print {
+  display: block;
+  visibility: visible;
+}
+
+@media print {
+  .hidden_print {
+    display: none;
+  }
 }
 </style>

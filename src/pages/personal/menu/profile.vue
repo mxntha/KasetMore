@@ -1,5 +1,5 @@
 <template>
-  <v-card class="h-100" :loading="loading">
+  <v-card class="h-100 w-100" id="2" :loading="loading">
     <v-card-text v-if="!loading">
       <v-container>
         <!-- User Profile Avatar and Edit Button -->

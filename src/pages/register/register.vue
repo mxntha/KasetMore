@@ -376,7 +376,7 @@ async function register() {
         },
         imageUser.value
       )
-
+      console.log(res)
       if (res) {
         userDialog.value = true
         setTimeout(() => {
