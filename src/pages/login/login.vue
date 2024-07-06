@@ -164,9 +164,9 @@ async function gotoIndex() {
     return
   }
   const redirect = localStorage.getItem('redirect') || 'Index'
-  const param = localStorage.getItem('param')
+  const param = localStorage.getItem('params')
   localStorage.removeItem('redirect')
-  localStorage.removeItem('param')
+  localStorage.removeItem('params')
   if (!!param) {
     const paramKey = Object.keys(JSON.parse(param))[0]
     const paramValue = Object.values(JSON.parse(param))[0]
