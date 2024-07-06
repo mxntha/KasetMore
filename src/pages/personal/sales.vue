@@ -23,7 +23,7 @@
         </v-card>
       </div>
 
-      <div class="d-flex flex-row mt-n3">
+      <div class="d-flex flex-row mt-3">
         <v-card class="ma-10" height="530" width="700">
           <div class="text-h5 ma-4">ยอดขายรายเดือน</div>
           <v-divider></v-divider>
