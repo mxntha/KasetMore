@@ -72,7 +72,6 @@ import { useProductApi, useTransactionApi, useUnitApi } from '@/composables/api'
 import { ProductDetailById, UnitApiModel } from '@/composables/api/interface'
 import { contextPluginSymbol } from '@/plugins/context'
 const info = inject(contextPluginSymbol)!
-
 const route = useRoute()
 const productIdParam = route.params.productId
 const amountQuery = route.query.amount
