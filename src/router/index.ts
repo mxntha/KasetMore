@@ -125,6 +125,8 @@ router.beforeEach(async (to, from, next) => {
     await user.getUserInfomation()
   }
   if (to.matched.some((record) => record.meta.requiresAuth)) {
+    console.log(from)
+
     if (user.userInfomation.value == null) {
       if (from.name) {
         localStorage.setItem('redirect', from.name.toString())
