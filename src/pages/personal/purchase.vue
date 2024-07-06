@@ -10,7 +10,7 @@
           :key="transaction.transactionId"
           cols="12"
         >
-          <v-card class="mb-n2">
+          <v-card class="mb-n2 mt-n2">
             <v-card-title>
               <div class="d-flex ma-2">
                 <v-icon icon="mdi-store"></v-icon>
@@ -208,7 +208,7 @@ onMounted(async () => {
 }
 
 .scrollable-content {
-  max-height: 700px; /* ตั้งค่าความสูงสูงสุดตามที่ต้องการ */
+  max-height: 800px; /* ตั้งค่าความสูงสูงสุดตามที่ต้องการ */
   overflow-y: auto; /* ทำให้สามารถเลื่อนลงได้ */
 }
 </style>
