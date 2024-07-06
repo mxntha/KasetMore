@@ -7,6 +7,7 @@
         <v-col v-for="i in sellerInfoData" cols="12">
           <div class="scrollable-content">
             <v-card height="150" class="card-description">
+              <v-divider></v-divider>
               <v-row>
                 <v-col cols="2">
                   <div class="d-flex justify-center ma-4">
@@ -52,6 +53,7 @@
                   </div>
                 </v-col>
               </v-row>
+              <v-divider></v-divider>
             </v-card>
           </div>
         </v-col>
