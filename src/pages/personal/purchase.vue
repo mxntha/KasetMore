@@ -2,7 +2,7 @@
   <v-card :loading="loading">
     <v-card-title>ประวัติการซื้อ</v-card-title>
     <v-divider class="mb-n2"></v-divider>
-    <v-card-text v-if="!loading">
+    <v-card-text v-if="!loading" class="scrollable-content">
       <!-- แสดงข้อมูล -->
       <v-row v-if="purchaseData.length > 0" class="my-1">
         <v-col
@@ -10,7 +10,7 @@
           :key="transaction.transactionId"
           cols="12"
         >
-          <v-card class="mb-n2">
+          <v-card class="mb-n2 mt-n2">
             <v-card-title>
               <div class="d-flex ma-2">
                 <v-icon icon="mdi-store"></v-icon>
@@ -32,6 +32,7 @@
                 </div>
               </div>
             </v-card-title>
+            <v-divider></v-divider>
             <v-card-text>
               <div class="d-flex align-center ma-3">
                 <div>
@@ -55,7 +56,7 @@
 
               <v-divider></v-divider>
 
-              <div class="d-flex justify-space-between ma-2 amount-price">
+              <div class="d-flex justify-space-between amount-price">
                 <div>
                   จำนวน : {{ transaction.amount }} {{ transaction.unit }}
                 </div>
@@ -205,5 +206,10 @@ onMounted(async () => {
 
 .amount-price {
   font-size: 17px;
+}
+
+.scrollable-content {
+  max-height: 800px; /* ตั้งค่าความสูงสูงสุดตามที่ต้องการ */
+  overflow-y: auto; /* ทำให้สามารถเลื่อนลงได้ */
 }
 </style>
