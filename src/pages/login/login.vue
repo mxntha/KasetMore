@@ -19,12 +19,12 @@
               ></v-img
             ></v-col>
             <v-col xl="6" xxl="6" md="6" cols="12" sm="12">
-              <div class="mx-auto pa-12 pb-8" elevation="8" max-width="500">
+              <v-card class="mx-auto pa-12 pb-8" elevation="0" max-width="500">
                 <v-card-title
                   class="text-h3 pb-6"
                   @click="router.push({ name: 'Index' })"
                 >
-                  <div class="d-flex">
+                  <div class="d-flex align-center">
                     <v-img :src="box" alt="Logo" width="80" height="65"></v-img>
                     <div class="ml-2">Kaset More</div>
                   </div>
@@ -117,7 +117,7 @@
                     </a>
                   </div>
                 </v-card-action>
-              </div>
+              </v-card>
             </v-col>
           </v-row>
         </v-container>
