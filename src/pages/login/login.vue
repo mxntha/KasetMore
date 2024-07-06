@@ -173,7 +173,7 @@ async function gotoIndex() {
     let obj: any = {}
     obj[`${paramKey}`] = paramValue
     console.log(obj)
-    router.push({ name: redirect, params: obj })
+    router.push({ name: redirect, params: JSON.parse(param) })
     return
   }
   router.push({ name: redirect })
