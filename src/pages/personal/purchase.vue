@@ -32,6 +32,7 @@
                 </div>
               </div>
             </v-card-title>
+            <v-divider></v-divider>
             <v-card-text>
               <div class="d-flex align-center ma-3">
                 <div>
@@ -55,7 +56,7 @@
 
               <v-divider></v-divider>
 
-              <div class="d-flex justify-space-between ma-2 amount-price">
+              <div class="d-flex justify-space-between amount-price">
                 <div>
                   จำนวน : {{ transaction.amount }} {{ transaction.unit }}
                 </div>
