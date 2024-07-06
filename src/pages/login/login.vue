@@ -8,7 +8,7 @@
               xl="6"
               xxl="6"
               md="6"
-              xs="12"
+              cols="12"
               sm="12"
               class="d-flex justify-center"
             >
@@ -18,7 +18,7 @@
                 src="@/assets/pikaso_texttoimage_Idyllic-country-landscape-showcasing-a-lush-vegeta.jpeg"
               ></v-img
             ></v-col>
-            <v-col xl="6" xxl="6" md="6" xs="12" sm="12">
+            <v-col xl="6" xxl="6" md="6" cols="12" sm="12">
               <div class="mx-auto pa-12 pb-8" elevation="8" max-width="500">
                 <div class="d-flex">
                   <v-img :src="box" alt="Logo" width="80" height="65"></v-img>
@@ -163,7 +163,8 @@ async function gotoIndex() {
     dialog.value = true
     return
   }
-  router.push({ name: 'Index' })
+  const redirect = localStorage.getItem('redirect') || 'Index'
+  router.push({ name: redirect })
 }
 </script>
 <style scoped></style>
