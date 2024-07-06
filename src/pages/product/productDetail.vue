@@ -79,7 +79,12 @@
               </v-row>
             </v-container>
             <div class="d-flex">
-              <v-btn class="text-h6" color="green" @click="buyProduct">
+              <v-btn
+                class="text-h6"
+                color="green"
+                :disabled="loading"
+                @click="buyProduct"
+              >
                 สั่งซื้อ
               </v-btn>
             </div>

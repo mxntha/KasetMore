@@ -28,7 +28,12 @@
             รวมเป็นเงิน : {{ productDetail.price * parseInt(amount!) }} ฿
           </div>
           <div class="d-flex flex-row-reverse">
-            <v-btn color="green" @click="dialog = true" class="ml-3">
+            <v-btn
+              :disabled="loading"
+              color="green"
+              @click="dialog = true"
+              class="ml-3"
+            >
               ยืนยันสั่งซื้อ
             </v-btn>
 

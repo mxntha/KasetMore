@@ -55,31 +55,31 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/personal/profile',
         name: 'Profile',
-        component: () => import('@/pages/personal/menu/profile.vue'),
+        component: () => import('@/pages/personal/profile.vue'),
         meta: { requiresAuth: true },
       },
       {
         path: '/personal/purchase',
         name: 'Purchase',
-        component: () => import('@/pages/personal/menu/purchase.vue'),
+        component: () => import('@/pages/personal/purchase.vue'),
         meta: { requiresAuth: true },
       },
       {
         path: '/personal/sales',
         name: 'Sales',
-        component: () => import('@/pages/personal/menu/sales.vue'),
+        component: () => import('@/pages/personal/sales.vue'),
         meta: { requiresAuth: true },
       },
       {
         path: '/personal/products',
         name: 'Products',
-        component: () => import('@/pages/personal/menu/products/index.vue'),
+        component: () => import('@/pages/personal/products/index.vue'),
         meta: { requiresAuth: true },
       },
       {
         path: '/personal/admin',
         name: 'Admin',
-        component: () => import('@/pages/personal/menu/admin.vue'),
+        component: () => import('@/pages/personal/admin.vue'),
         meta: { requiresAuth: true },
       },
       {
