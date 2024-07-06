@@ -6,7 +6,6 @@
       <v-row v-if="sellerInfoData.length > 0">
         <v-col v-for="i in sellerInfoData" cols="12">
           <div class="scrollable-content">
-            <v-divider class="ma-2"></v-divider>
             <v-card height="150" class="card-description">
               <v-row>
                 <v-col cols="2">
@@ -54,7 +53,6 @@
                 </v-col>
               </v-row>
             </v-card>
-            <v-divider class="ma-2"></v-divider>
           </div>
         </v-col>
       </v-row>
