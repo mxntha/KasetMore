@@ -54,7 +54,7 @@
 import { useProductApi, type Product } from '@/composables/api'
 import { ref, onMounted, inject } from 'vue'
 import { contextPluginSymbol } from '@/plugins/context'
-import TableProduct from '@/pages/personal/menu/products/table.vue'
+import TableProduct from '@/pages/personal/products/table.vue'
 import { toast } from 'vue3-toastify'
 import DialogProduct, {
   FileImage,
