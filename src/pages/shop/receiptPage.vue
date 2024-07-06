@@ -15,16 +15,15 @@
             <div class="ma-2 text-h4 align-self-center">Kaset More</div>
           </div>
           <div>
-            <div class="ma-2 text-h5">ใบเสร็จชำระเงิน</div>
-            <div class="d-flex">
-              <div class="me-auto ma-2 pa-2">
-                เลขที่คำสั่งซื้อ : {{ transaction?.transactionId ?? '' }}
-              </div>
-              <div class="ma-2 pa-2">วันที่ : {{ receiptdate }}</div>
+            <div class="ma-2 text-h5 text-center font-weight-bold">
+              ใบเสร็จชำระเงิน
             </div>
           </div>
-          <v-row>
-            <v-col cols="6">
+          <div class="d-flex justify-space-between text-h6 mb-4">
+            <div style="max-width: 350px">
+              <div class="ma-2 text-h6">
+                เลขที่คำสั่งซื้อ : {{ transaction?.transactionId ?? '' }}
+              </div>
               <div class="ma-2 text-h6">ร้านค้าที่ให้บริการ</div>
               <div class="ma-2 text-body-1">
                 ชื่อร้านค้า : {{ userSeller?.userName }}
@@ -35,9 +34,11 @@
               <div class="ma-2 text-body-1">
                 ติดต่อ : {{ userSeller?.phoneNumber }}
               </div>
-            </v-col>
-
-            <v-col cols="6">
+            </div>
+            <div>
+              <div class="ma-2 text-h6">
+                <div>วันที่ : {{ receiptdate }}</div>
+              </div>
               <div class="ma-2 text-h6">รายละเอียดผู้สั่งซื้อ</div>
               <div class="ma-2 text-body-1">
                 ชื่อ-นามสกุล : {{ userBuyer?.name }} {{ userBuyer?.lastName }}
@@ -48,8 +49,8 @@
               <div class="ma-2 mb-10 text-body-1">
                 ติดต่อ : {{ userBuyer?.phoneNumber }}
               </div>
-            </v-col>
-          </v-row>
+            </div>
+          </div>
 
           <v-divider></v-divider>
           <div class="d-flex ma-3 justify-space-between">
