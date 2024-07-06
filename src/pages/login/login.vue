@@ -167,9 +167,13 @@ async function gotoIndex() {
   const param = localStorage.getItem('param')
   localStorage.removeItem('redirect')
   localStorage.removeItem('param')
-  if (param) {
-    console.log({ ...JSON.parse(param) })
-    router.push({ name: redirect, params: { ...JSON.parse(param) } })
+  if (!!param) {
+    const paramKey = Object.keys(JSON.parse(param))[0]
+    const paramValue = Object.values(JSON.parse(param))[0]
+    let obj: any = {}
+    obj[`${paramKey}`] = paramValue
+    console.log(obj)
+    router.push({ name: redirect, params: obj })
     return
   }
   router.push({ name: redirect })
