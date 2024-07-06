@@ -81,7 +81,7 @@
         <v-list-item>
           <v-btn
             block
-            color="primary"
+            color="indigo-lighten-2"
             prepend-icon="mdi-home"
             @click="gotoIndexLogin"
           >
@@ -92,7 +92,7 @@
           <v-btn
             block
             class="mb-3"
-            color="error"
+            color="red-lighten-1"
             prepend-icon="mdi-logout"
             @click="gotoIndex"
           >

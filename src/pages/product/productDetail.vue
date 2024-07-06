@@ -127,7 +127,7 @@
         </div>
       </div>
       <v-btn
-        color="primary"
+        color="orange-lighten-2"
         v-if="userDisplay.email"
         :to="{ name: 'Shop', params: { email: userDisplay.email } }"
         >ดูสินค้าของร้านเพิ่มเติม</v-btn
