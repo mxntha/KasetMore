@@ -194,10 +194,9 @@ const menuId = ref(
     .replace(/(^\w{1})|(\s+\w{1})/g, (letter: string) => letter.toUpperCase())
 )
 function gotoIndex() {
-  router.push({ name: 'Index' })
-  infomation.resetInfomation()
   localStorage.removeItem('login')
-  window.location.reload()
+  infomation.resetInfomation()
+  router.push({ name: 'Index' })
 }
 function gotoIndexLogin() {
   router.push({ name: 'Index' })
