@@ -24,7 +24,7 @@
                   class="text-h3 pb-6"
                   @click="router.push({ name: 'Index' })"
                 >
-                  <div class="d-flex">
+                  <div class="d-flex align-center">
                     <v-img :src="box" alt="Logo" width="80" height="65"></v-img>
                     <div class="ml-2">Kaset More</div>
                   </div>
