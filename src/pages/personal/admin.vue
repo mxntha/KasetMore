@@ -3,56 +3,57 @@
     <v-card-title>ตรวจสอบการสมัครสมาชิกเกษตรกร</v-card-title>
     <v-divider></v-divider>
     <v-card-text v-if="!loading">
-      <v-row
-        v-if="sellerInfoData.length > 0"
-        style="height: 800px; overflow-y: auto"
-      >
+      <v-row v-if="sellerInfoData.length > 0">
         <v-col v-for="i in sellerInfoData" cols="12">
-          <v-card height="150" class="card-description">
-            <v-row>
-              <v-col cols="2">
-                <div class="d-flex justify-center ma-4">
-                  <v-avatar :image="i.profileUrl" size="100"></v-avatar>
-                </div>
-              </v-col>
-              <v-col cols="8">
-                <div class="d-flex">
-                  <div class="ma-4">
-                    ชื่อ-นามสกุล : {{ i.firstName }}
-                    {{ i.lastName }}
+          <div class="scrollable-content">
+            <v-card height="150" class="card-description">
+              <v-row>
+                <v-col cols="2">
+                  <div class="d-flex justify-center ma-4">
+                    <v-avatar :image="i.profileUrl" size="100"></v-avatar>
                   </div>
-                  <div class="ma-4">Email : {{ i.email }}</div>
-                </div>
-                <div class="d-flex">
-                  <div class="mr-4 ml-4">เลขบัตรประชาชน : {{ i.idCard }}</div>
-                  <div class="mr-4">เลขหลังบัตรประชาชน : {{ i.laserCode }}</div>
-                </div>
-                <div class="ma-4">ที่อยู่ : {{ i.address }}</div>
-              </v-col>
-              <v-col cols="2">
-                <div class="mt-2">
-                  <v-btn
-                    class="text-none font-weight-regular"
-                    color="green"
-                    prepend-icon="mdi-check-circle"
-                    text="ผ่านการตรวจสอบ"
-                    variant="outlined"
-                    @click="Approve(i.email)"
-                  ></v-btn>
-                </div>
-                <div class="mt-5">
-                  <v-btn
-                    class="text-none font-weight-regular"
-                    color="red"
-                    prepend-icon="mdi-close-circle"
-                    text="ไม่ผ่านการตรวจสอบ"
-                    variant="outlined"
-                    @click="Rejected(i.email)"
-                  ></v-btn>
-                </div>
-              </v-col>
-            </v-row>
-          </v-card>
+                </v-col>
+                <v-col cols="8">
+                  <div class="d-flex">
+                    <div class="ma-4">
+                      ชื่อ-นามสกุล : {{ i.firstName }}
+                      {{ i.lastName }}
+                    </div>
+                    <div class="ma-4">Email : {{ i.email }}</div>
+                  </div>
+                  <div class="d-flex">
+                    <div class="mr-4 ml-4">เลขบัตรประชาชน : {{ i.idCard }}</div>
+                    <div class="mr-4">
+                      เลขหลังบัตรประชาชน : {{ i.laserCode }}
+                    </div>
+                  </div>
+                  <div class="ma-4">ที่อยู่ : {{ i.address }}</div>
+                </v-col>
+                <v-col cols="2">
+                  <div class="mt-2">
+                    <v-btn
+                      class="text-none font-weight-regular"
+                      color="green"
+                      prepend-icon="mdi-check-circle"
+                      text="ผ่านการตรวจสอบ"
+                      variant="outlined"
+                      @click="Approve(i.email)"
+                    ></v-btn>
+                  </div>
+                  <div class="mt-5">
+                    <v-btn
+                      class="text-none font-weight-regular"
+                      color="red"
+                      prepend-icon="mdi-close-circle"
+                      text="ไม่ผ่านการตรวจสอบ"
+                      variant="outlined"
+                      @click="Rejected(i.email)"
+                    ></v-btn>
+                  </div>
+                </v-col>
+              </v-row>
+            </v-card>
+          </div>
         </v-col>
       </v-row>
       <v-row v-else>
@@ -105,5 +106,10 @@ async function GetData() {
   overflow: hidden;
   white-space: normal; /* แสดงข้อความทั้งหมด */
   /* max-width: 1000px; */
+}
+
+.scrollable-content {
+  max-height: 800px; /* ตั้งค่าความสูงสูงสุดตามที่ต้องการ */
+  overflow-y: auto; /* ทำให้สามารถเลื่อนลงได้ */
 }
 </style>
