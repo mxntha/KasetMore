@@ -208,7 +208,7 @@ onMounted(async () => {
 }
 
 .scrollable-content {
-  max-height: 600px; /* ตั้งค่าความสูงสูงสุดตามที่ต้องการ */
+  max-height: 700px; /* ตั้งค่าความสูงสูงสุดตามที่ต้องการ */
   overflow-y: auto; /* ทำให้สามารถเลื่อนลงได้ */
 }
 </style>
