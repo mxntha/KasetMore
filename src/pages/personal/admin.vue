@@ -1,8 +1,8 @@
 <template>
-  <v-card class="h-100">
+  <v-card :loading="loading" class="h-100">
     <v-card-title>ตรวจสอบการสมัครสมาชิกเกษตรกร</v-card-title>
     <v-divider></v-divider>
-    <v-card-text>
+    <v-card-text v-if="!loading">
       <v-row
         v-if="sellerInfoData.length > 0"
         style="height: 800px; overflow-y: auto"
@@ -75,9 +75,12 @@ const sellerInfoData = ref<SellerInfo[]>([])
 const imageUrl = ref('')
 const router = useRouter()
 const info = inject(contextPluginSymbol)!
+const loading = ref(true)
 const userApi = useUserApi()
 ;(async () => {
+  loading.value = true
   await GetData()
+  loading.value = false
 })()
 
 async function Approve(email: string) {

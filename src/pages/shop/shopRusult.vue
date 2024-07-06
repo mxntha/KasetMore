@@ -1,12 +1,8 @@
 <template>
-  <div
-    class="d-flex justify-center"
-    v-if="productDetail != null"
-    :loading="loading"
-  >
-    <v-card class="ma-12" color="white" width="700">
+  <div class="d-flex justify-center">
+    <v-card :loading="loading" class="ma-12" color="white" width="700">
       <v-card-title>รายการคำสั่งซื้อ</v-card-title>
-      <v-card-text>
+      <v-card-text v-if="productDetail != null && !loading">
         <div class="d-flex justify-center">
           <v-img
             height="500"

@@ -1,5 +1,6 @@
 <template>
   <v-card class="h-100">
+    <v-card-title>ข้อมูลสินค้า </v-card-title>
     <v-card-text>
       <TableProduct
         :data-table="productData"
@@ -68,9 +69,10 @@ const dialogDelete = ref(false)
 const productApi = useProductApi()
 const productData = ref<Product[]>([])
 const loading = ref(true)
-
 onMounted(async () => {
+  loading.value = true
   await fetchProductData()
+  loading.value = false
 })
 
 function onTableEdit(productId: string) {

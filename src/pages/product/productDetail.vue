@@ -1,7 +1,7 @@
 <template>
   <v-card :loading="loading" color="">
     <v-card-text>
-      <v-container fluid>
+      <v-container v-if="!loading" fluid>
         <v-row>
           <v-col cols="4">
             <v-carousel
@@ -96,34 +96,42 @@
 
   <v-card :loading="loading" class="mt-4">
     <v-card-title class="font-weight-black">รายละเอียดสินค้า</v-card-title>
-    <v-card-text>
+    <v-card-text v-if="!loading">
       <div class="text-h5">{{ productDetail?.description }}</div>
     </v-card-text>
   </v-card>
   <v-card :loading="loading" class="mt-4">
     <v-card-title class="font-weight-black">ข้อมูลร้านค้า</v-card-title>
-    <v-card-text class="d-flex">
-      <div>
-        <p>
-          <span class="text-h5 font-weight-bold">ชื่อร้าน : </span>
-          <span class="text-h5">{{ userDisplay?.userName }}</span>
-        </p>
-        <p>
-          <span class="text-h5 font-weight-bold">จัดขายโดย : </span>
-          <span class="text-h5">{{ userDisplay?.name }}</span>
-          <span class="text-h5 ml-3">{{ userDisplay?.lastName }}</span>
-        </p>
+    <v-card-text v-if="userDisplay && !loading">
+      <div class="d-flex">
+        <div>
+          <p>
+            <span class="text-h5 font-weight-bold">ชื่อร้าน : </span>
+            <span class="text-h5">{{ userDisplay.userName }}</span>
+          </p>
+          <p>
+            <span class="text-h5 font-weight-bold">จัดขายโดย : </span>
+            <span class="text-h5">{{ userDisplay.name }}</span>
+            <span class="text-h5 ml-3">{{ userDisplay.lastName }}</span>
+          </p>
+        </div>
+        <div class="ml-8">
+          <p>
+            <span class="text-h5 font-weight-bold">ติดต่อได้ที่ : </span>
+            <span class="text-h5">{{ userDisplay.phoneNumber }}</span>
+          </p>
+          <p>
+            <span class="text-h5 font-weight-bold">ที่อยู่ : </span>
+            <span class="text-h5">{{ userDisplay.address }}</span>
+          </p>
+        </div>
       </div>
-      <div class="ml-8">
-        <p>
-          <span class="text-h5 font-weight-bold">ติดต่อได้ที่ : </span>
-          <span class="text-h5">{{ userDisplay?.phoneNumber }}</span>
-        </p>
-        <p>
-          <span class="text-h5 font-weight-bold">ที่อยู่ : </span>
-          <span class="text-h5">{{ userDisplay?.address }}</span>
-        </p>
-      </div>
+      <v-btn
+        color="primary"
+        v-if="userDisplay.email"
+        :to="{ name: 'Shop', params: { email: userDisplay.email } }"
+        >ดูสินค้าของร้านเพิ่มเติม</v-btn
+      >
     </v-card-text>
   </v-card>
 </template>
@@ -132,7 +140,6 @@
 import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '@/router'
-import { ProductCard } from '@/components/productCard/interface'
 import { useProductApi, useUserApi, useUnitApi } from '@/composables/api'
 import { ProductDetailById, UnitApiModel } from '@/composables/api/interface'
 import { BaseUserInfo } from '@/composables/api/useUserApi'

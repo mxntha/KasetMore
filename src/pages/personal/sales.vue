@@ -1,7 +1,7 @@
 <template>
   <v-card class="h-100" :loading="loading">
     <v-card-title>สรุปการขาย</v-card-title>
-    <v-card-text>
+    <v-card-text v-if="!loading">
       <div class="d-flex flex-row">
         <v-card class="ma-8" height="180" width="300">
           <div class="text-h5 ma-6">ยอดรวม :</div>

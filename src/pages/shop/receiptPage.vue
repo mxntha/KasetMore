@@ -1,26 +1,26 @@
 <template>
-  <v-card
-    class="ma-5"
-    height="800"
-    v-if="transaction != undefined"
-    :loading="loading"
-  >
-    <v-card-title class="text-center ma-2">
+  <v-card class="ma-5" height="800" :loading="loading">
+    <v-card-title
+      class="text-center ma-2"
+      v-if="transaction != undefined && !loading"
+    >
       <div class="d-flex">
         <div class="ma-2 pl-2 text-h4">
           <v-img :src="box" alt="Logo" width="80" height="65"></v-img>
         </div>
         <div class="ma-2 text-h4 align-self-center">Kaset More</div>
       </div>
-      <div class="ma-2 text-h5">ใบเสร็จชำระเงิน</div>
-      <div class="d-flex">
-        <div class="me-auto ma-2 pa-2">
-          เลขที่คำสั่งซื้อ : {{ transaction.transactionId }}
+      <div>
+        <div class="ma-2 text-h5">ใบเสร็จชำระเงิน</div>
+        <div class="d-flex">
+          <div class="me-auto ma-2 pa-2">
+            เลขที่คำสั่งซื้อ : {{ transaction?.transactionId ?? '' }}
+          </div>
+          <div class="ma-2 pa-2">วันที่ : {{ receiptdate }}</div>
         </div>
-        <div class="ma-2 pa-2">วันที่ : {{ receiptdate }}</div>
       </div>
     </v-card-title>
-    <v-card-text>
+    <v-card-text v-if="transaction != undefined && !loading">
       <v-row>
         <v-col cols="6">
           <div class="ma-2 text-h6">ร้านค้าที่ให้บริการ</div>
@@ -74,7 +74,7 @@
         </div>
       </div>
     </v-card-text>
-    <v-card-actions class="hidden_print">
+    <v-card-actions v-if="!loading" class="hidden_print">
       <v-container class="pb-2">
         <v-row class="d-flex justify-center">
           <v-col cols="auto">

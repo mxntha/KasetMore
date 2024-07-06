@@ -1,5 +1,6 @@
 <template>
   <v-card class="h-100 w-100" id="2" :loading="loading">
+    <v-card-title class="font-weight-black"> ข้อมูลส่วนตัว </v-card-title>
     <v-card-text v-if="!loading">
       <v-container>
         <!-- User Profile Avatar and Edit Button -->

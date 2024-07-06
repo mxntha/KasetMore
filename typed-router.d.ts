@@ -51,6 +51,7 @@ declare module 'vue-router/auto/routes' {
     '/product/productDetail': RouteRecordInfo<'/product/productDetail', '/product/productDetail', Record<never, never>, Record<never, never>>,
     '/register/register': RouteRecordInfo<'/register/register', '/register/register', Record<never, never>, Record<never, never>>,
     '/shop/receiptPage': RouteRecordInfo<'/shop/receiptPage', '/shop/receiptPage', Record<never, never>, Record<never, never>>,
+    '/shop/shopPage': RouteRecordInfo<'/shop/shopPage', '/shop/shopPage', Record<never, never>, Record<never, never>>,
     '/shop/shopRusult': RouteRecordInfo<'/shop/shopRusult', '/shop/shopRusult', Record<never, never>, Record<never, never>>,
   }
 }
