@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ma-5" height="800" v-if="transaction != undefined">
+  <v-card class="ma-5" height="800" v-if="transaction != undefined" :loading="loading">
     <v-card-title class="text-center ma-2">
       <div class="d-flex">
         <div class="ma-2 pl-2 text-h4">

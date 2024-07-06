@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-center" v-if="productDetail != null">
+  <div class="d-flex justify-center" v-if="productDetail != null" :loading = "loading">
     <v-card class="ma-12" color="white" height="660" width="700">
       <div class="d-flex justify-center">
         <v-img

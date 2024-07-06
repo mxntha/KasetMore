@@ -14,14 +14,24 @@
           :key="transaction.transactionId"
           cols="12"
         >
-          <v-card
-            class="mb-n3"
-            @click="goToProductDetail(transaction.productId)"
-          >
+          <v-card class="mb-n3">
             <div class="d-flex ma-2">
               <v-icon icon="mdi-store"></v-icon>
               <div class="pl-2 font-weight-bold user-display">
                 {{ userDisplay.userName }}
+              </div>
+              <div class="ml-auto">
+                <v-btn
+                  color="grey-lighten-1"
+                  @click="goToReceipt(transaction.productId)"
+                  class="mr-2"
+                  >ใบเสร็จ</v-btn
+                >
+                <v-btn
+                  color="green-lighten-2"
+                  @click="goToProductDetail(transaction.productId)"
+                  >ซื้ออีกครั้ง</v-btn
+                >
               </div>
             </div>
             <v-divider></v-divider>
@@ -140,6 +150,11 @@ const getProductDescription = (productId: number) => {
 const goToProductDetail = (productId: number) => {
   console.log('ไปที่หน้าสินค้าตาม productId:', productId)
   router.push({ name: 'ProductDetail', params: { productId } })
+}
+
+const goToReceipt = (receiptId: number) => {
+  console.log('ไปที่หน้าใบเสร็จ:', receiptId)
+  router.push({ name: 'Receipt', params: { receiptId } })
 }
 
 onMounted(async () => {

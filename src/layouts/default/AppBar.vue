@@ -24,12 +24,12 @@
       single-line
     ></v-text-field>
     <v-spacer></v-spacer>
-    <div>
-      <v-btn @click="gotologin" v-if="!isLogin">เข้าสู่ระบบ</v-btn>
+    <div class="d-flex">
+      <v-btn @click="gotologin" v-if="!isLogin" >เข้าสู่ระบบ</v-btn>
 
       <v-divider vertical v-if="isShowMenu"></v-divider>
 
-      <v-btn @click="gotoregisterCust" v-if="!isLogin">สมัครสมาชิก</v-btn>
+      <v-btn @click="gotoregisterCust" v-if="!isLogin" >สมัครสมาชิก</v-btn>
       <v-divider vertical></v-divider>
     </div>
 
