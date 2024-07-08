@@ -241,15 +241,23 @@
   </v-dialog>
 
   <v-dialog v-model="userDialog" width="700" class="text-center">
-    <v-card icon="$success">
-      <v-icon
-        color="success"
-        icon="mdi-check-circle-outline"
-        size="120"
-      ></v-icon>
-      <v-card-text>สมัครสมาชิกเรียบร้อย</v-card-text>
-    </v-card>
-  </v-dialog>
+  <v-card icon="$success">
+    <v-card-text>
+      <v-row class="d-flex align-center justify-center">
+        <v-col class="d-flex justify-center" cols="auto">
+          <v-icon
+            color="success"
+            icon="mdi-check-circle-outline"
+            size="40"
+          ></v-icon>
+        </v-col>
+        <v-col class="d-flex align-center" cols="auto">
+          <span>สมัครสมาชิกเรียบร้อย</span>
+        </v-col>
+      </v-row>
+    </v-card-text>
+  </v-card>
+</v-dialog>
 </template>
 
 <script lang="ts" setup>
@@ -384,12 +392,12 @@ async function register() {
           router.push({ name: 'Login' })
         }, 2000)
       } else {
-        alert('เกิดข้อผิดพลาดในการลงทะเบียน')
+        // alert('เกิดข้อผิดพลาดในการลงทะเบียน')
       }
     }
   } catch (ex) {
     console.log(ex)
-    alert('error')
+    // alert('error')
   }
 }
 
