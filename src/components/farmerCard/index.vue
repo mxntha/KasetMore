@@ -8,7 +8,12 @@
     subtitle="การเป็นเกษตรกร"
     target="_blank"
     :title="text"
-  ></v-card>
+  >
+    <template v-if="status === 'N'">
+      <v-divider></v-divider>
+      <v-card-text> ไม่พบเลขนี้ในกระทรวงเกษตรกร </v-card-text>
+    </template>
+  </v-card>
 </template>
 <script setup lang="ts">
 import { computed, defineProps } from 'vue'
