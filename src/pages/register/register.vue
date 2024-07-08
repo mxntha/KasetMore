@@ -384,12 +384,12 @@ async function register() {
           router.push({ name: 'Login' })
         }, 2000)
       } else {
-        alert('เกิดข้อผิดพลาดในการลงทะเบียน')
+        // alert('เกิดข้อผิดพลาดในการลงทะเบียน')
       }
     }
   } catch (ex) {
     console.log(ex)
-    alert('error')
+    // alert('error')
   }
 }
 
