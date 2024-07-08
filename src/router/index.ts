@@ -102,6 +102,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/layouts/default/View.vue'),
     children: [
       {
+        path: '/cart',
+        name: 'Cart',
+        component: () => import('@/pages/cart/cartView.vue'),
+      },
+      {
         path: '/login',
         name: 'Login',
         component: () => import('@/pages/login/login.vue'),

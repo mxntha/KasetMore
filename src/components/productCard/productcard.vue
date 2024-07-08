@@ -43,7 +43,12 @@
         เพิ่มลงตะกร้า
       </v-btn> -->
       <v-spacer></v-spacer>
-      <v-btn color="deep-purple-lighten-2" variant="text" @click="onClick">
+      <v-btn
+        color="deep-purple-lighten-2"
+        variant="text"
+        @click="onClick"
+        v-if="!disPlayOnly"
+      >
         ดูรายละเอียด
       </v-btn>
     </v-card-actions>
@@ -55,7 +60,7 @@ import { ProductCard } from './interface'
 const emit = defineEmits<{
   (e: 'onClick'): void
 }>()
-const props = defineProps<{ ProductData: ProductCard }>()
+const props = defineProps<{ ProductData: ProductCard; disPlayOnly?: boolean }>()
 function onClick() {
   emit('onClick')
 }
