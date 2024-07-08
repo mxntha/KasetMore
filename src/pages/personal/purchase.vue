@@ -22,7 +22,7 @@
                     color="grey-lighten-1"
                     @click="goToReceipt(transaction.productId)"
                     class="mr-2"
-                    >ใบเสร็จ</v-btn
+                    >ใบแจ้งยอดชำระ</v-btn
                   >
                   <v-btn
                     color="green-lighten-2"

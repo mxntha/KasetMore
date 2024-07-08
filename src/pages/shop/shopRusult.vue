@@ -55,8 +55,8 @@
 
   <v-dialog v-model="successDialog" max-width="400">
     <v-card>
-      <v-card-title class="headline">จ่ายเงินสำเร็จ</v-card-title>
-      <v-card-text>การชำระเงินของคุณเสร็จสมบูรณ์</v-card-text>
+      <v-card-title class="headline">รอการชำระเงินปลายทาง</v-card-title>
+      <v-card-text>รอการชำระเงินปลายทาง</v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" @click="goToReceipt">ตกลง</v-btn>
