@@ -23,7 +23,7 @@
       hide-details
       single-line
     ></v-text-field>
-    {{ infomation.userInfomation.value?.isverify }}
+
     <v-spacer></v-spacer>
     <div class="d-flex">
       <v-btn @click="gotologin" v-if="!isLogin">เข้าสู่ระบบ</v-btn>
@@ -107,7 +107,9 @@ const isShowMenu = computed(() => showList.some((x) => x == route.name))
 const isLogin = computed(() => infomation.userInfomation.value != null)
 const isFarmer = computed(
   () =>
-    infomation.userInfomation.value?.userType == 'Seller' ||
+    (infomation.userInfomation.value?.userType == 'Seller' &&
+      userInfoData.value?.statusType == 'Y') ||
+    userInfoData.value?.statusType == 'P' ||
     infomation.userInfomation.value?.userType == 'Admin'
 )
 
