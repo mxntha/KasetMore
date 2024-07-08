@@ -2,10 +2,10 @@
   <v-card :loading="loading" class="mt-4">
     <v-card-title class="font-weight-black">ข้อมูลตะกร้า</v-card-title>
     <v-card-text>
-      <div v-for="cart in cart.getCart">
+      <div v-for="_cart in cart.getCart">
         <ProductCardvue
           class="w-100"
-          :ProductData="getProduct(cart)"
+          :ProductData="getProduct(_cart)"
           :disPlayOnly="true"
         ></ProductCardvue>
       </div>
