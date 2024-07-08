@@ -96,6 +96,7 @@ import vegetable from '@/assets/vegetable.png'
 import healthy from '@/assets/healthy-food.png'
 import gardening from '@/assets/gardening-tools.png'
 import growing from '@/assets/growing-plant.png'
+import animal from '@/assets/livestock.png'
 
 import { ProductCard } from '@/components/productCard/interface'
 import ProductCardvue from '@/components/productCard/productcard.vue'
@@ -174,6 +175,8 @@ function getCateImage(category: Category): string {
       return gardening
     case 'เมล็ด':
       return growing
+    case 'สัตว์':
+      return animal
     default:
       return ''
   }
