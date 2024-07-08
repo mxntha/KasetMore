@@ -67,7 +67,7 @@
             class="mx-2"
             prepend-icon="mdi-account-cowboy-hat"
             @click="gotoregisterFarmer"
-            v-if="!isFarmer"
+            v-if="!isFarmer && isSeller"
           >
             สมัครสมาชิกเกษตรกร
           </v-list-item>
@@ -105,29 +105,16 @@ const showList = ['Index']
 const isShowSearchBar = computed(() => showList.some((x) => x == route.name))
 const isShowMenu = computed(() => showList.some((x) => x == route.name))
 const isLogin = computed(() => infomation.userInfomation.value != null)
-
-function defaultValue(): BaseUserInfo {
-  return {
-    address: '',
-    email: '',
-    userType: '',
-    lastName: '',
-    name: '',
-    phoneNumber: '',
-    userName: '',
-    idCard: '',
-    laserCard: '',
-    profileUrl: '',
-    statusType: '',
-  }
-}
-
 const isFarmer = computed(
   () =>
     infomation.userInfomation.value?.userType == 'Seller' ||
-    infomation.userInfomation.value?.userType == 'Admin' ||
-    (infomation.userInfomation.value?.userType == 'Seller' &&
-      infomation.userInfomation.value?.isverify == 'N')
+    infomation.userInfomation.value?.userType == 'Admin'
+)
+
+const isSeller = computed(
+  () =>
+    infomation.userInfomation.value?.userType == 'Seller' &&
+    infomation.userInfomation.value?.isverify == 'N'
 )
 
 const userApi = useUserApi()
