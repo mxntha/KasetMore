@@ -67,7 +67,7 @@
             class="mx-2"
             prepend-icon="mdi-account-cowboy-hat"
             @click="gotoregisterFarmer"
-            v-if="!isFarmer && isSeller"
+            v-if="!isFarmer"
           >
             สมัครสมาชิกเกษตรกร
           </v-list-item>
@@ -111,12 +111,6 @@ const isFarmer = computed(
       userInfoData.value?.statusType == 'Y') ||
     userInfoData.value?.statusType == 'P' ||
     infomation.userInfomation.value?.userType == 'Admin'
-)
-
-const isSeller = computed(
-  () =>
-    infomation.userInfomation.value?.userType == 'Seller' &&
-    userInfoData.value?.statusType == 'N'
 )
 
 const userApi = useUserApi()
