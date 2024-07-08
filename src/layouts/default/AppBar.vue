@@ -23,6 +23,7 @@
       hide-details
       single-line
     ></v-text-field>
+    {{ infomation.userInfomation.value?.isverify }}
     <v-spacer></v-spacer>
     <div class="d-flex">
       <v-btn @click="gotologin" v-if="!isLogin">เข้าสู่ระบบ</v-btn>
