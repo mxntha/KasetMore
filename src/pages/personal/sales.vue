@@ -6,7 +6,7 @@
         <v-card class="ma-8" height="180" width="300">
           <div class="text-h5 ma-6">ยอดรวม :</div>
           <div class="text-h4 pt-3 text-center">
-            {{ salesData.reduce((x, y) => x + y.amount * y.price, 0) }} $
+            {{ salesData.reduce((x, y) => x + y.amount * y.price, 0) }} ฿
           </div>
         </v-card>
 

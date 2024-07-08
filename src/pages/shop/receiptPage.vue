@@ -3,7 +3,7 @@
     <v-card :loading="loading" width="700" height="900" class="ma-0 pa-0">
       <v-card-title class="d-flex justify-end mt-2">
         <v-btn @click="downloadImage" color="primary" v-if="!loading">
-          ดาวน์โหลดใบแจ้งยอดชำระ</v-btn
+          ดาวน์โหลดใบแจ้งการชำระเงิน</v-btn
         >
       </v-card-title>
       <v-card-text v-if="transaction != undefined && !loading" class="h-100">
@@ -16,7 +16,7 @@
           </div>
           <div>
             <div class="ma-2 text-h5 text-center font-weight-bold">
-              ใบแจ้งยอดชำระ
+              ใบแจ้งการชำระเงิน
             </div>
           </div>
           <div class="d-flex justify-space-between text-h6 mb-4">

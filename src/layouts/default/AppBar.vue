@@ -104,10 +104,29 @@ const showList = ['Index']
 const isShowSearchBar = computed(() => showList.some((x) => x == route.name))
 const isShowMenu = computed(() => showList.some((x) => x == route.name))
 const isLogin = computed(() => infomation.userInfomation.value != null)
+
+function defaultValue(): BaseUserInfo {
+  return {
+    address: '',
+    email: '',
+    userType: '',
+    lastName: '',
+    name: '',
+    phoneNumber: '',
+    userName: '',
+    idCard: '',
+    laserCard: '',
+    profileUrl: '',
+    statusType: '',
+  }
+}
+
 const isFarmer = computed(
   () =>
     infomation.userInfomation.value?.userType == 'Seller' ||
-    infomation.userInfomation.value?.userType == 'Admin'
+    infomation.userInfomation.value?.userType == 'Admin' ||
+    (infomation.userInfomation.value?.userType == 'Seller' &&
+      infomation.userInfomation.value?.isverify == 'N')
 )
 
 const userApi = useUserApi()
