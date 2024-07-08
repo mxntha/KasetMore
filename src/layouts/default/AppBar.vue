@@ -114,7 +114,7 @@ const isFarmer = computed(
 const isSeller = computed(
   () =>
     infomation.userInfomation.value?.userType == 'Seller' &&
-    infomation.userInfomation.value?.isverify == 'N'
+    userInfoData.value?.statusType == 'N'
 )
 
 const userApi = useUserApi()
