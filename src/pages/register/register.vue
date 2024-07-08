@@ -369,7 +369,7 @@ async function register() {
       })
       await userApi.updateVerifyFlag(registerfarmer.value.email, 'P')
     } else {
-      const exist = await userApi.getUserInfomation(registerfarmer.value.email)
+      const exist = await userApi.userByEmail(registerfarmer.value.email)
       if (!exist) {
         const res = await userApi.resgisterUser(
           {
