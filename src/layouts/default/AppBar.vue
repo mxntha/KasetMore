@@ -24,7 +24,7 @@
       single-line
     ></v-text-field>
 
-    <div class="d-flex">
+    <div class="d-flex justify-end">
       <v-btn @click="gotologin" v-if="!isLogin">เข้าสู่ระบบ</v-btn>
 
       <v-divider vertical v-if="isShowMenu"></v-divider>
