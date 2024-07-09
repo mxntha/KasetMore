@@ -70,14 +70,14 @@
           >
             สมัครสมาชิกเกษตรกร
           </v-list-item>
-          <v-list-item
+          <!-- <v-list-item
             variant="text"
             class="mx-2"
             prepend-icon="mdi-cart"
             @click="gotoCart"
           >
             จ่ายเงินในตะกร้า {{ cart.getCart.length }} ชิ้น
-          </v-list-item>
+          </v-list-item> -->
           <v-list-item
             variant="text"
             class="mx-2"
