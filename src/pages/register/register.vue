@@ -350,15 +350,6 @@ async function register() {
       return
     }
 
-    const userInfo = await userApi.getUserInfomation('credential')
-    if (userInfo) {
-      // เช็คเลขบัตรประชาชนซ้ำ
-      const isDuplicate = userInfo.idCard === registerfarmer.value.idcard
-      if (isDuplicate) {
-        alert('เลขบัตรประชาชนซ้ำ')
-        return
-      }
-    }
     if (route.query.type === 'farmer') {
       // มาเช็คตรงนี้ด้วย handler error ถ้า api พังจะทำไรบ้าง
 
@@ -376,6 +367,16 @@ async function register() {
         UserType: 'Seller',
         IsVerified: 'P',
       })
+
+      const userInfo = await userApi.getUserInfomation('credential')
+      if (userInfo) {
+        // เช็คเลขบัตรประชาชนซ้ำ
+        const isDuplicate = userInfo.idCard === registerfarmer.value.idcard
+        if (isDuplicate) {
+          alert('เลขบัตรประชาชนซ้ำ')
+          return
+        }
+      }
 
       const flag = await userApi.updateVerifyFlag(
         registerfarmer.value.email,
