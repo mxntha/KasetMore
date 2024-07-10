@@ -325,33 +325,36 @@ const titleForm = computed(() =>
 )
 //ตรวจฟอร์ม
 const formComplete = computed(() => {
-  // const {
-  //   firstname,
-  //   lastname,
-  //   address,
-  //   username,
-  //   password,
-  //   confirmPassword,
-  //   phone,
-  //   email,
-  // } = registerfarmer.value
-  // if (
-  //   !firstname ||
-  //   !lastname ||
-  //   !address ||
-  //   !username ||
-  //   !password ||
-  //   !confirmPassword ||
-  //   !phone ||
-  //   !email
-  // ) {
-  //   return false
-  // }
-  // if (isFarmer.value) {
-  //   if (!registerfarmer.value.idcard || !registerfarmer.value.idcardLaser) {
-  //     return false
-  //   }
-  // }
+  const {
+    firstname,
+    lastname,
+    address,
+    username,
+    password,
+    confirmPassword,
+    phone,
+    email,
+  } = registerfarmer.value
+
+  if (
+    !firstname ||
+    !lastname ||
+    !address ||
+    !username ||
+    !password ||
+    !confirmPassword ||
+    !phone ||
+    !email
+  ) {
+    return false
+  }
+
+  if (isFarmer.value) {
+    if (!registerfarmer.value.idcard || !registerfarmer.value.idcardLaser) {
+      return false
+    }
+  }
+
   return true
 })
 //เช็คแบบเบอร์โทร
