@@ -268,7 +268,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { type RegisterFarmer } from './interface'
 import { useUserApi } from '@/composables/api'
 import { onMounted } from 'vue'
-import { BaseUserInfo } from '@/composables/api/useUserApi'
+import { BaseUserInfo,UpdateUser } from '@/composables/api/useUserApi'
 import { contextPluginSymbol } from '@/plugins/context'
 
 const userApi = useUserApi()
@@ -278,9 +278,9 @@ const route = useRoute()
 const valid = ref(false)
 const infomation = inject(contextPluginSymbol)!
 
-const password = ref('')
+
 const showPassword = ref(false)
-const confirmPassword = ref('')
+
 const showConfirmPassword = ref(false)
 
 const isFarmer = computed(
@@ -349,6 +349,7 @@ async function register() {
       alert('กรุณากรอกข้อมูลให้ครบถ้วน')
       return
     }
+    
 
     if (route.query.type === 'farmer') {
       // มาเช็คตรงนี้ด้วย handler error ถ้า api พังจะทำไรบ้าง
@@ -367,13 +368,24 @@ async function register() {
         UserType: 'Seller',
         IsVerified: 'P',
       })
+      
+      if (registerfarmer.value.idcard){
+        const isDuplicate = await checkIdCardDuplicate(registerfarmer.value.idcard);
+        if (isDuplicate) {
+       
+        alert('เลขบัตรประชาชนซ้ำในฐานข้อมูล');
+      
+      }
+      }
 
-      const flag = await userApi.updateVerifyFlag(
-        registerfarmer.value.email,
-        'P'
-      )
-      console.log('error flag', flag)
-      openDialog.value = true
+      const flag = await userApi.updateVerifyFlag(registerfarmer.value.email, 'P');
+      if (flag) {
+        console.log('Update flag successful', flag);
+        openDialog.value = true;
+      } else {
+        console.log('Error updating flag', flag);
+        alert('เกิดข้อผิดพลาดในการอัปเดตสถานะการยืนยัน');
+      }
     } else {
       const exist = await userApi.userByEmail(registerfarmer.value.email)
       if (!exist) {
@@ -411,6 +423,8 @@ async function register() {
     // alert('error')
   }
 }
+
+
 
 onMounted(async () => {
   if (
