@@ -304,6 +304,8 @@ async function saveForm() {
         PhoneNumber: userInfoData.value.phoneNumber,
         ProfilePicture: userInfoData.value.profileUrl || '',
         UserType: userInfoData.value.userType,
+        IdNumber: userInfoData.value.idCard,
+        LaserCode: userInfoData.value.laserCard,
       })
 
       if (imageUserUpload.value != null) {

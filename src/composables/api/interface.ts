@@ -8,6 +8,8 @@ export interface UserApiModel {
   displayName: string
   phoneNumber: string
   isVerified: string
+  IdNumber?: string
+  LaserCode?: string
 }
 
 export interface UnitApiModel {

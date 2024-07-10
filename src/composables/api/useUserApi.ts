@@ -25,11 +25,10 @@ export interface UpdateUser {
   ProfilePicture: string
   IsVerified: string
   PhoneNumber: string
-  IdCard?: string
-  LaserCard?: string
+  IdNumber?: string
+  LaserCode?: string
 }
 export interface BaseUserInfo {
-  userId?: string
   name: string
   lastName: string
   profileUrl?: string
@@ -130,6 +129,8 @@ function useUserApi() {
           userType: res.userType,
           profileUrl: res.profilePicture,
           statusType: res.isVerified,
+          idCard: res.IdNumber,
+          laserCard: res.LaserCode,
         }
       } catch {
         return null
