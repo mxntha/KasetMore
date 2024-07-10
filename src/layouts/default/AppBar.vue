@@ -15,6 +15,7 @@
     </v-app-bar-title>
     <v-spacer></v-spacer>
     <v-text-field
+      class="d-flex justify-center"
       v-if="isShowSearchBar"
       append-inner-icon="mdi-magnify"
       density="compact"
@@ -31,7 +32,7 @@
     <v-spacer></v-spacer>
     <v-spacer></v-spacer>
 
-    <div class="d-flex">
+    <div class="d-flex flex-row-reverse">
       <v-btn @click="gotologin" v-if="!isLogin">เข้าสู่ระบบ</v-btn>
 
       <v-divider vertical v-if="isShowMenu"></v-divider>
