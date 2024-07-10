@@ -367,7 +367,12 @@ async function register() {
         UserType: 'Seller',
         IsVerified: 'P',
       })
-      await userApi.updateVerifyFlag(registerfarmer.value.email, 'P')
+      const flag = await userApi.updateVerifyFlag(
+        registerfarmer.value.email,
+        'P'
+      )
+      console.log('error flag', flag)
+      openDialog.value = true
     } else {
       const exist = await userApi.userByEmail(registerfarmer.value.email)
       if (!exist) {
