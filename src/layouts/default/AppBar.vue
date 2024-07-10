@@ -14,6 +14,8 @@
       >Kaset More
     </v-app-bar-title>
     <v-spacer></v-spacer>
+    <v-spacer></v-spacer>
+    <v-spacer></v-spacer>
     <v-text-field
       v-if="isShowSearchBar"
       append-inner-icon="mdi-magnify"

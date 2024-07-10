@@ -367,6 +367,7 @@ async function register() {
         UserType: 'Seller',
         IsVerified: 'P',
       })
+
       const flag = await userApi.updateVerifyFlag(
         registerfarmer.value.email,
         'P'
