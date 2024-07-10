@@ -25,6 +25,7 @@
       :model-value="searchState.searchTextState"
       hide-details
       single-line
+      style="max-width: 500px"
     ></v-text-field>
 
     <v-spacer></v-spacer>
