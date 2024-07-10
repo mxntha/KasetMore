@@ -26,6 +26,8 @@
 
     <v-spacer></v-spacer>
     <v-spacer></v-spacer>
+    <v-spacer></v-spacer>
+
     <div class="d-flex">
       <v-btn @click="gotologin" v-if="!isLogin">เข้าสู่ระบบ</v-btn>
 
@@ -34,8 +36,8 @@
       <v-btn @click="gotoregisterCust" v-if="!isLogin">สมัครสมาชิก</v-btn>
       <v-divider vertical></v-divider>
     </div>
-
-    <v-menu v-if="isShowMenu">
+    <v-spacer></v-spacer>
+    <v-menu>
       <template v-slot:activator="{ props }">
         <div class="mx-4" v-if="isLogin">
           <div v-bind="props" class="cursor-pointer">
@@ -72,7 +74,14 @@
           >
             สมัครสมาชิกเกษตรกร
           </v-list-item>
-
+          <!-- <v-list-item
+            variant="text"
+            class="mx-2"
+            prepend-icon="mdi-cart"
+            @click="gotoCart"
+          >
+            จ่ายเงินในตะกร้า {{ cart.getCart.length }} ชิ้น
+          </v-list-item> -->
           <v-list-item
             variant="text"
             class="mx-2"
@@ -96,6 +105,8 @@ import { computed, ref, inject, onMounted } from 'vue'
 import { contextPluginSymbol } from '@/plugins/context'
 import { BaseUserInfo } from '@/composables/api/useUserApi'
 import { useUserApi } from '@/composables/api'
+import { cartPluginSymbol } from '@/plugins/cart'
+const cart = inject(cartPluginSymbol)!
 
 const infomation = inject(contextPluginSymbol)!
 const loading = ref(true)
@@ -142,5 +153,8 @@ function gotoregisterFarmer() {
 function gotoIndex() {
   infomation.resetInfomation()
   router.push({ name: 'Index' })
+}
+function gotoCart() {
+  router.push({ name: 'Cart' })
 }
 </script>

@@ -87,6 +87,24 @@
               >
                 สั่งซื้อ
               </v-btn>
+              <v-btn
+                v-if="!!productDetail"
+                @click="
+                  cart.addProductToCart({
+                    category: productDetail!.category,
+                    description: productDetail!.description,
+                    price: productDetail!.price,
+                    amount: amount,
+                    picture: '',
+                    productId: `${productDetail.productId}`,
+                    productName: productDetail.productName,
+                    province: productDetail.province,
+                    rating: productDetail.rating,
+                  })
+                "
+              >
+                เพิ่มลงตะกร้า
+              </v-btn>
             </div>
           </v-col>
         </v-row>
@@ -137,13 +155,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, inject } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '@/router'
 import { useProductApi, useUserApi, useUnitApi } from '@/composables/api'
 import { ProductDetailById, UnitApiModel } from '@/composables/api/interface'
 import { BaseUserInfo } from '@/composables/api/useUserApi'
-
+import { cartPluginSymbol } from '@/plugins/cart'
+const cart = inject(cartPluginSymbol)!
 const route = useRoute()
 const productId = route.params.productId as string
 const amount = ref(1)
