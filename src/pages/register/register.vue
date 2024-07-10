@@ -388,7 +388,7 @@ async function register() {
 
     if (route.query.type === 'farmer') {
       // เช็คเลขบัตรประชาชนซ้ำก่อนทำการอัปเดตโปรไฟล์
-      const userInfo = await userApi.getUserInfomation('credential')
+      const userInfo = await userApi.userByEmail(registerfarmer.value.email)
       if (userInfo) {
         const isDuplicate = userInfo.idCard === registerfarmer.value.idcard
         if (isDuplicate) {
