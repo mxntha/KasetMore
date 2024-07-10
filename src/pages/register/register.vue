@@ -258,6 +258,36 @@
       </v-card-text>
     </v-card>
   </v-dialog>
+
+  <v-dialog v-model="emailDialog" width="700" class="text-center">
+    <v-card>
+      <v-card-text>
+        <v-row class="d-flex align-center justify-center">
+          <v-col class="d-flex justify-center" cols="auto">
+            <v-icon color="warning" icon="mdi-alert-circle" size="40"></v-icon>
+          </v-col>
+          <v-col class="d-flex align-center" cols="auto">
+            <span> Email นี้ได้ทำการสมัครสมาชิกไว้แล้ว</span>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+  </v-dialog>
+
+  <v-dialog v-model="formCompleteDialog" width="700" class="text-center">
+    <v-card>
+      <v-card-text>
+        <v-row class="d-flex align-center justify-center">
+          <v-col class="d-flex justify-center" cols="auto">
+            <v-icon color="warning" icon="mdi-alert-circle" size="40"></v-icon>
+          </v-col>
+          <v-col class="d-flex align-center" cols="auto">
+            <span> กรุณากรอกข้อมูลให้ครบถ้วน</span>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script lang="ts" setup>
@@ -277,9 +307,13 @@ const router = useRouter()
 const route = useRoute()
 const valid = ref(false)
 const infomation = inject(contextPluginSymbol)!
+const imageUrl = ref('')
+const openDialog = ref(false)
+const userDialog = ref(false)
+const emailDialog = ref(false)
+const formCompleteDialog = ref(false)
 
 const showPassword = ref(false)
-
 const showConfirmPassword = ref(false)
 
 const isFarmer = computed(
@@ -346,8 +380,10 @@ const registerfarmer = ref<RegisterFarmer>({
 async function register() {
   try {
     if (!formComplete.value) {
-      alert('กรุณากรอกข้อมูลให้ครบถ้วน')
-      return
+      formCompleteDialog.value = true
+      setTimeout(() => {
+        formCompleteDialog.value = false
+      }, 3000)
     }
 
     if (route.query.type === 'farmer') {
@@ -420,7 +456,10 @@ async function register() {
           alert('เกิดข้อผิดพลาด')
         }
       } else {
-        alert('อีเมลซ้ำ')
+        emailDialog.value = true
+        setTimeout(() => {
+          emailDialog.value = false
+        }, 3000)
       }
     }
   } catch (ex) {
@@ -454,9 +493,6 @@ onMounted(async () => {
   }
 })
 
-const imageUrl = ref('')
-const openDialog = ref(false)
-const userDialog = ref(false)
 const imageUser = ref<File | null>(null)
 function handleImageChange(event: any) {
   const file = event.target.files[0]
