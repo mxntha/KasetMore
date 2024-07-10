@@ -162,10 +162,14 @@ function useUserApi() {
     },
     async updateVerifyFlag(email: string, VerifyStatus: string) {
       try {
-        return await postMethod<boolean>(`${controller}/update-verify-flag`, {
-          email: email,
-          flag: VerifyStatus,
-        })
+        return await postMethod<boolean>(
+          `${controller}/update-verify-flag`,
+          null,
+          {
+            email: email,
+            flag: VerifyStatus,
+          }
+        )
       } catch {
         return false
       }
