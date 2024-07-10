@@ -351,31 +351,33 @@ async function register() {
     }
 
     if (route.query.type === 'farmer') {
-      // มาเช็คตรงนี้ด้วย handler error ถ้า api พังจะทำไรบ้าง
-
-      await userApi.updateProfile({
-        Address: registerfarmer.value.address,
-        LastName: registerfarmer.value.lastname,
-        FirstName: registerfarmer.value.firstname,
-
-        PhoneNumber: registerfarmer.value.phone,
-        ProfilePicture: imageUrl.value,
-        DisplayName: registerfarmer.value.username,
-        IdNumber: registerfarmer.value.idcard,
-        LaserCode: registerfarmer.value.idcardLaser,
-        Email: registerfarmer.value.email,
-        UserType: 'Seller',
-        IsVerified: 'P',
-      })
-
+      // เช็คเลขบัตรประชาชนซ้ำก่อนทำการอัปเดตโปรไฟล์
       const userInfo = await userApi.getUserInfomation('credential')
       if (userInfo) {
-        // เช็คเลขบัตรประชาชนซ้ำ
         const isDuplicate = userInfo.idCard === registerfarmer.value.idcard
         if (isDuplicate) {
           alert('เลขบัตรประชาชนซ้ำ')
           return
         }
+      }
+      try {
+        // ทำการอัปเดตโปรไฟล์
+        await userApi.updateProfile({
+          Address: registerfarmer.value.address,
+          LastName: registerfarmer.value.lastname,
+          FirstName: registerfarmer.value.firstname,
+          PhoneNumber: registerfarmer.value.phone,
+          ProfilePicture: imageUrl.value,
+          DisplayName: registerfarmer.value.username,
+          IdNumber: registerfarmer.value.idcard,
+          LaserCode: registerfarmer.value.idcardLaser,
+          Email: registerfarmer.value.email,
+          UserType: 'Seller',
+          IsVerified: 'P',
+        })
+      } catch (error) {
+        console.error('Error updating profile:', error)
+        alert('เกิดข้อผิดพลาดในการอัปเดตโปรไฟล์')
       }
 
       const flag = await userApi.updateVerifyFlag(
@@ -387,7 +389,7 @@ async function register() {
         openDialog.value = true
       } else {
         console.log('Error updating flag', flag)
-        alert('เกิดข้อผิดพลาดในการอัปเดตสถานะการยืนยัน')
+        // alert('เกิดข้อผิดพลาดในการอัปเดตสถานะการยืนยัน')
       }
     } else {
       const exist = await userApi.userByEmail(registerfarmer.value.email)
