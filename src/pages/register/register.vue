@@ -268,7 +268,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { type RegisterFarmer } from './interface'
 import { useUserApi } from '@/composables/api'
 import { onMounted } from 'vue'
-import { BaseUserInfo,UpdateUser } from '@/composables/api/useUserApi'
+import { BaseUserInfo } from '@/composables/api/useUserApi'
 import { contextPluginSymbol } from '@/plugins/context'
 
 const userApi = useUserApi()
@@ -277,7 +277,6 @@ const router = useRouter()
 const route = useRoute()
 const valid = ref(false)
 const infomation = inject(contextPluginSymbol)!
-
 
 const showPassword = ref(false)
 
@@ -343,14 +342,23 @@ const registerfarmer = ref<RegisterFarmer>({
   idcardLaser: '',
   email: '',
 })
+
 async function register() {
   try {
     if (!formComplete.value) {
       alert('กรุณากรอกข้อมูลให้ครบถ้วน')
       return
     }
-    
 
+    const userInfo = await userApi.getUserInfomation('credential')
+    if (userInfo) {
+      // เช็คเลขบัตรประชาชนซ้ำ
+      const isDuplicate = userInfo.idCard === registerfarmer.value.idcard
+      if (isDuplicate) {
+        alert('เลขบัตรประชาชนซ้ำ')
+        return
+      }
+    }
     if (route.query.type === 'farmer') {
       // มาเช็คตรงนี้ด้วย handler error ถ้า api พังจะทำไรบ้าง
 
@@ -368,23 +376,17 @@ async function register() {
         UserType: 'Seller',
         IsVerified: 'P',
       })
-      
-      if (registerfarmer.value.idcard){
-        const isDuplicate = await checkIdCardDuplicate(registerfarmer.value.idcard);
-        if (isDuplicate) {
-       
-        alert('เลขบัตรประชาชนซ้ำในฐานข้อมูล');
-      
-      }
-      }
 
-      const flag = await userApi.updateVerifyFlag(registerfarmer.value.email, 'P');
+      const flag = await userApi.updateVerifyFlag(
+        registerfarmer.value.email,
+        'P'
+      )
       if (flag) {
-        console.log('Update flag successful', flag);
-        openDialog.value = true;
+        console.log('Update flag successful', flag)
+        openDialog.value = true
       } else {
-        console.log('Error updating flag', flag);
-        alert('เกิดข้อผิดพลาดในการอัปเดตสถานะการยืนยัน');
+        console.log('Error updating flag', flag)
+        alert('เกิดข้อผิดพลาดในการอัปเดตสถานะการยืนยัน')
       }
     } else {
       const exist = await userApi.userByEmail(registerfarmer.value.email)
@@ -423,8 +425,6 @@ async function register() {
     // alert('error')
   }
 }
-
-
 
 onMounted(async () => {
   if (
