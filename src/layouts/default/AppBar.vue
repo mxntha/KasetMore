@@ -8,10 +8,8 @@
         <v-img :src="box" alt="Logo" width="70" height="55"></v-img>
       </div>
     </template>
-    <v-app-bar-title
-      class="cursor-pointer text-h5 font-weight-bold"
-      @click="router.push({ name: 'Index' })"
-      >Kaset More
+    <v-app-bar-title class="cursor-pointer text-h5 font-weight-bold" @click="router.push({ name: 'Index' })">
+      Kaset More
     </v-app-bar-title>
     <v-spacer></v-spacer>
     <v-spacer></v-spacer>
@@ -25,7 +23,7 @@
       :model-value="searchState.searchTextState"
       hide-details
       single-line
-      style="max-width: 500px"
+      style="max-width: 800px"
     ></v-text-field>
 
     <v-spacer></v-spacer>
