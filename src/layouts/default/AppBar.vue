@@ -27,6 +27,7 @@
     <v-spacer></v-spacer>
     <v-spacer></v-spacer>
     <v-spacer></v-spacer>
+    <v-spacer></v-spacer>
 
     <div class="d-flex">
       <v-btn @click="gotologin" v-if="!isLogin">เข้าสู่ระบบ</v-btn>
