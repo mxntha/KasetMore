@@ -401,7 +401,7 @@ async function register() {
       }
       try {
         // ทำการอัปเดตโปรไฟล์
-        await userApi.updateProfile({
+        const updateState = await userApi.updateProfile({
           Address: registerfarmer.value.address,
           LastName: registerfarmer.value.lastname,
           FirstName: registerfarmer.value.firstname,
@@ -414,21 +414,24 @@ async function register() {
           UserType: 'Seller',
           IsVerified: 'P',
         })
+        if (updateState) {
+          alert('เกิดข้อผิดพลาดโปรดตรวจสอบเลขบัตรประชาชน')
+          return
+        }
+        const flag = await userApi.updateVerifyFlag(
+          registerfarmer.value.email,
+          'P'
+        )
+        if (flag) {
+          console.log('Update flag successful', flag)
+          openDialog.value = true
+        } else {
+          console.log('Error updating flag', flag)
+          // alert('เกิดข้อผิดพลาดในการอัปเดตสถานะการยืนยัน')
+        }
       } catch (error) {
         console.error('Error updating profile:', error)
         alert('เกิดข้อผิดพลาดในการอัปเดตโปรไฟล์')
-      }
-
-      const flag = await userApi.updateVerifyFlag(
-        registerfarmer.value.email,
-        'P'
-      )
-      if (flag) {
-        console.log('Update flag successful', flag)
-        openDialog.value = true
-      } else {
-        console.log('Error updating flag', flag)
-        // alert('เกิดข้อผิดพลาดในการอัปเดตสถานะการยืนยัน')
       }
     } else {
       const exist = await userApi.userByEmail(registerfarmer.value.email)
