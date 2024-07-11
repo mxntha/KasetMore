@@ -330,8 +330,8 @@ const formComplete = computed(() => {
     lastname,
     address,
     username,
-    password,
-    confirmPassword,
+    // password,
+    // confirmPassword,
     phone,
     email,
   } = registerfarmer.value
@@ -341,8 +341,8 @@ const formComplete = computed(() => {
     !lastname ||
     !address ||
     !username ||
-    !password ||
-    !confirmPassword ||
+    // !password ||
+    // !confirmPassword ||
     !phone ||
     !email
   ) {
