@@ -414,7 +414,7 @@ async function register() {
           UserType: 'Seller',
           IsVerified: 'P',
         })
-        if (updateState) {
+        if (!updateState) {
           alert('เกิดข้อผิดพลาดโปรดตรวจสอบเลขบัตรประชาชน')
           return
         }
