@@ -1,18 +1,13 @@
 <template>
-  <div class="container mb-n12"></div>
+  <div class="container pb-n12">
+    <div class="content" @click="router.push({ name: 'Index' })">
+      <v-img :src="box" alt="Logo" width="70" height="60" class="mr-4"></v-img>
+      <div class="title text-h3 font-weight-bold">Kaset More</div>
+    </div>
+  </div>
   <div class="d-flex justify-center align-center w-100 h-100">
     <v-card class="w-100">
       <v-card-item>
-        <div class="content" @click="router.push({ name: 'Index' })">
-          <v-img
-            :src="box"
-            alt="Logo"
-            width="70"
-            height="60"
-            class="mr-4"
-          ></v-img>
-          <div class="title text-h3 font-weight-bold">Kaset More</div>
-        </div>
         <v-card-title class="regis"> สมัครสมาชิก{{ titleForm }} </v-card-title>
       </v-card-item>
       <v-divider class="mb-n1" />
