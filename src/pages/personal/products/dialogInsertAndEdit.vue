@@ -227,6 +227,9 @@ function submit() {
       imageProductDelete: deleteProductIds.value,
     })
   }
+  deleteProductIds.value = []
+  imageFiles.value = []
+  currentProduct.value = null
 }
 async function handleImageChange(event: any) {
   if (imageFiles.value.length >= 4) {
