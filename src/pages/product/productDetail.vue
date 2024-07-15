@@ -87,7 +87,7 @@
               >
                 สั่งซื้อ
               </v-btn>
-              <v-btn
+              <!-- <v-btn
                 v-if="!!productDetail"
                 @click="
                   cart.addProductToCart({
@@ -104,7 +104,7 @@
                 "
               >
                 เพิ่มลงตะกร้า
-              </v-btn>
+              </v-btn> -->
             </div>
           </v-col>
         </v-row>
