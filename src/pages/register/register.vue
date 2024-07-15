@@ -289,7 +289,7 @@
     </v-card>
   </v-dialog>
 
-  <v-dialog v-model="idcardDialog" width="700" class="text-center">
+  <v-dialog v-model="idcardDialog" width="700" class="text-center no-scroll">
     <v-card>
       <v-card-text>
         <v-row class="d-flex align-center justify-center">
