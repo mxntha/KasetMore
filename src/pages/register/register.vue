@@ -288,6 +288,21 @@
       </v-card-text>
     </v-card>
   </v-dialog>
+
+  <v-dialog v-model="idcardDialog" width="700" class="text-center">
+    <v-card>
+      <v-card-text>
+        <v-row class="d-flex align-center justify-center">
+          <v-col class="d-flex justify-center" cols="auto">
+            <v-icon color="warning" icon="mdi-alert-circle" size="40"></v-icon>
+          </v-col>
+          <v-col class="d-flex align-center" cols="auto">
+            <span> เลขบัตรประชาชนนี้ได้ทำการสมัครสมาชิกไว้แล้ว</span>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script lang="ts" setup>
@@ -312,6 +327,7 @@ const openDialog = ref(false)
 const userDialog = ref(false)
 const emailDialog = ref(false)
 const formCompleteDialog = ref(false)
+const idcardDialog = ref(false)
 
 const showPassword = ref(false)
 const showConfirmPassword = ref(false)
@@ -415,7 +431,10 @@ async function register() {
           IsVerified: 'P',
         })
         if (!updateState) {
-          alert('เกิดข้อผิดพลาดโปรดตรวจสอบเลขบัตรประชาชน')
+          idcardDialog.value = true
+          setTimeout(() => {
+            idcardDialog.value = false
+          }, 3000)
           return
         }
         const flag = await userApi.updateVerifyFlag(
