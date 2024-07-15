@@ -293,10 +293,10 @@
     <v-card>
       <v-card-text>
         <v-row class="d-flex align-center justify-center">
-          <v-col class="d-flex justify-center">
+          <v-col class="d-flex justify-center" cols="auto">
             <v-icon color="warning" icon="mdi-alert-circle" size="40"></v-icon>
           </v-col>
-          <v-col class="d-flex align-center">
+          <v-col class="d-flex align-center" cols="auto">
             <span> เลขบัตรประชาชนนี้ได้ทำการสมัครสมาชิกไว้แล้ว</span>
           </v-col>
         </v-row>
