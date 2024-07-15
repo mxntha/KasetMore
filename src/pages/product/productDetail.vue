@@ -88,20 +88,10 @@
                 สั่งซื้อ
               </v-btn>
               <v-btn
+                class="ml-4"
+                color="warning"
                 v-if="!!productDetail"
-                @click="
-                  cart.addProductToCart({
-                    category: productDetail!.category,
-                    description: productDetail!.description,
-                    price: productDetail!.price,
-                    amount: amount,
-                    picture: '',
-                    productId: `${productDetail.productId}`,
-                    productName: productDetail.productName,
-                    province: productDetail.province,
-                    rating: productDetail.rating,
-                  })
-                "
+                @click="addToCart"
               >
                 เพิ่มลงตะกร้า
               </v-btn>
@@ -162,6 +152,8 @@ import { useProductApi, useUserApi, useUnitApi } from '@/composables/api'
 import { ProductDetailById, UnitApiModel } from '@/composables/api/interface'
 import { BaseUserInfo } from '@/composables/api/useUserApi'
 import { cartPluginSymbol } from '@/plugins/cart'
+import { toast } from 'vue3-toastify'
+
 const cart = inject(cartPluginSymbol)!
 const route = useRoute()
 const productId = route.params.productId as string
@@ -184,7 +176,26 @@ const unitName = computed(() => {
   }
   return 'ไม่พบหน่วย'
 })
-
+function addToCart() {
+  cart.addProductToCart({
+    category: productDetail.value!.category,
+    description: productDetail.value!.description,
+    price: productDetail.value!.price,
+    amount: amount.value,
+    picture: '',
+    productId: `${productDetail.value!.productId}`,
+    productName: productDetail.value!.productName,
+    province: productDetail.value!.province,
+    unitId: productDetail.value!.unit,
+    userEmail: productDetail.value!.userEmail,
+    rating: productDetail.value!.rating,
+  })
+  toast.success(
+    `เพิ่ม ${productDetail.value!.productName} จำนวน ${amount.value} ${
+      unitName.value
+    } ลงตะกร้าเรียบร้อยเเล้ว`
+  )
+}
 onMounted(async () => {
   loading.value = true
   productDetail.value = await productApi.getById(productId)

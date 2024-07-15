@@ -23,6 +23,9 @@ function $cart() {
   return {
     getCart: computed(() => products.value).value,
     addProductToCart,
+    reset: () => {
+      products.value = []
+    },
   }
 }
 

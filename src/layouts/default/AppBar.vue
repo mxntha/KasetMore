@@ -11,7 +11,8 @@
     <v-app-bar-title
       class="cursor-pointer text-h5 font-weight-bold"
       @click="router.push({ name: 'Index' })"
-      >Kaset More
+    >
+      Kaset More
     </v-app-bar-title>
     <v-text-field
       v-if="isShowSearchBar"

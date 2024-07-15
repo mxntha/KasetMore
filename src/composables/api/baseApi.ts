@@ -1,4 +1,5 @@
-const baseUrl = 'https://kaset-more-api.atipnasakun.online/api/'
+// const baseUrl = 'https://kaset-more-api.atipnasakun.online/api/'
+const baseUrl = 'http://localhost:8080/api/'
 
 async function getMethod<T>(url: string, query: any | null = null): Promise<T> {
   console.log('get', url)

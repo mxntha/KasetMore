@@ -5,68 +5,132 @@
     <v-card-text v-if="!loading" class="scrollable-content">
       <!-- แสดงข้อมูล -->
       <v-row v-if="purchaseData.length > 0" class="my-1">
-        <v-col
+        <template
           v-for="transaction in purchaseData"
           :key="transaction.transactionId"
-          cols="12"
         >
-          <v-card class="mb-n2 mt-n2">
-            <v-card-title>
-              <div class="d-flex ma-2">
-                <v-icon icon="mdi-store"></v-icon>
-                <div class="pl-2 font-weight-bold user-display">
-                  {{ userDisplay.userName }}
-                </div>
-                <div class="ml-auto">
-                  <v-btn
-                    color="grey-lighten-1"
-                    @click="goToReceipt(transaction.productId)"
-                    class="mr-2"
-                    >ใบแจ้งยอดชำระ</v-btn
-                  >
-                  <v-btn
-                    color="green-lighten-2"
-                    @click="goToProductDetail(transaction.productId)"
-                    >ซื้ออีกครั้ง</v-btn
-                  >
-                </div>
-              </div>
-            </v-card-title>
-            <v-divider></v-divider>
-            <v-card-text>
-              <div class="d-flex align-center ma-3">
-                <div>
-                  <v-img
-                    :src="getProductImage(transaction.productId)"
-                    height="150"
-                    width="200"
-                  ></v-img>
-                </div>
-
-                <div class="ml-4 align-self-center">
-                  <div class="product-name">
-                    {{ getProductName(transaction.productId) }}
+          <v-col cols="12" v-if="transaction.items.length === 0">
+            <v-card class="mb-n2 mt-n2" v-if="transaction.productId > 1">
+              <v-card-title>
+                <div class="d-flex ma-2">
+                  <v-icon icon="mdi-store"></v-icon>
+                  <div class="pl-2 font-weight-bold user-display">
+                    {{ transaction.sellerEmail }}
                   </div>
-
-                  <div class="mt-2 card-description">
-                    {{ getProductDescription(transaction.productId) }}
+                  <div class="ml-auto">
+                    <v-btn
+                      color="grey-lighten-1"
+                      @click="goToReceipt(transaction.transactionId)"
+                      class="mr-2"
+                      >ใบแจ้งยอดชำระ</v-btn
+                    >
+                    <v-btn
+                      color="green-lighten-2"
+                      @click="goToProductDetail(transaction.productId)"
+                      >ซื้ออีกครั้ง</v-btn
+                    >
                   </div>
                 </div>
-              </div>
-
+              </v-card-title>
               <v-divider></v-divider>
+              <v-card-text>
+                <div class="d-flex align-center ma-3">
+                  <div>
+                    <v-img
+                      :src="getProductImage(transaction.productId)"
+                      height="150"
+                      width="200"
+                    ></v-img>
+                  </div>
 
-              <div class="d-flex justify-space-between amount-price">
-                <div>
-                  จำนวน : {{ transaction.amount }} {{ transaction.unit }}
+                  <div class="ml-4 align-self-center">
+                    <div class="product-name">
+                      {{ getProductName(transaction.productId) }}
+                      {{ transaction.productId }}
+                    </div>
+
+                    <div class="mt-2 card-description">
+                      {{ getProductDescription(transaction.productId) }}
+                    </div>
+                  </div>
                 </div>
-                <div class="d-flex flex-row-reverse">
-                  รวมการสั่งซื้อ: {{ transaction.price * transaction.amount }} ฿
+
+                <v-divider></v-divider>
+
+                <div class="d-flex justify-space-between amount-price">
+                  <div>
+                    จำนวน : {{ transaction.amount }} {{ transaction.unit }}
+                  </div>
+                  <div class="d-flex flex-row-reverse">
+                    รวมการสั่งซื้อ:
+                    {{ transaction.price * transaction.amount }} ฿
+                  </div>
                 </div>
-              </div>
-            </v-card-text>
-          </v-card>
-        </v-col>
+              </v-card-text>
+            </v-card>
+          </v-col>
+          <v-col cols="12" v-else v-for="transactionItem in transaction.items">
+            <v-card class="mb-n2 mt-n2">
+              <v-card-title>
+                <div class="d-flex ma-2">
+                  <v-icon icon="mdi-store"></v-icon>
+                  <div class="pl-2 font-weight-bold user-display">
+                    {{ transactionItem.sellerEmail }}
+                  </div>
+                  <div class="ml-auto">
+                    <v-btn
+                      color="grey-lighten-1"
+                      @click="goToReceipt(transactionItem.transactionId)"
+                      class="mr-2"
+                      >ใบแจ้งยอดชำระ</v-btn
+                    >
+                    <v-btn
+                      color="green-lighten-2"
+                      @click="goToProductDetail(transactionItem.productId)"
+                      >ซื้ออีกครั้ง</v-btn
+                    >
+                  </div>
+                </div>
+              </v-card-title>
+              <v-divider></v-divider>
+              <v-card-text>
+                <div class="d-flex align-center ma-3">
+                  <div>
+                    <v-img
+                      :src="getProductImage(transactionItem.productId)"
+                      height="150"
+                      width="200"
+                    ></v-img>
+                  </div>
+
+                  <div class="ml-4 align-self-center">
+                    <div class="product-name">
+                      {{ getProductName(transactionItem.productId) }}
+                      {{ transactionItem.productId }}
+                    </div>
+
+                    <div class="mt-2 card-description">
+                      {{ getProductDescription(transactionItem.productId) }}
+                    </div>
+                  </div>
+                </div>
+
+                <v-divider></v-divider>
+
+                <div class="d-flex justify-space-between amount-price">
+                  <div>
+                    จำนวน : {{ transactionItem.amount }}
+                    {{ transactionItem.unit }}
+                  </div>
+                  <div class="d-flex flex-row-reverse">
+                    รวมการสั่งซื้อ:
+                    {{ transactionItem.price * transactionItem.amount }} ฿
+                  </div>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </template>
       </v-row>
       <!-- ไม่มีข้อมูล -->
       <div class="ma-16" v-else>
@@ -160,28 +224,30 @@ const goToReceipt = (receiptId: number) => {
 }
 
 onMounted(async () => {
-  loading.value = true
-  purchaseData.value = await transactionApi.getByBuyer(
-    info.userInfomation.value?.email!
-  )!
+  try {
+    loading.value = true
+    purchaseData.value = (
+      await transactionApi.getByBuyer(info.userInfomation.value?.email!)!
+    ).sort((a, b) => b.transactionId - a.transactionId)
 
-  if (purchaseData.value.length === 0) {
-    loading.value = false
-    return
-  }
-
-  const sellerEmail = purchaseData.value[0].sellerEmail
-  userDisplay.value = await userApi.userByEmail(sellerEmail)
-  const productIds = purchaseData.value.map(
-    (transaction) => transaction.productId
-  )
-  const products = await Promise.all(
-    productIds.map((id) => getProductDetailById(id))
-  )
-  productDetails.value = products.filter(
-    (product) => product !== null
-  ) as ProductDetailById[]
-  units.value = await unitApi.getAll()
+    const sellerEmail = purchaseData.value[0].sellerEmail
+    userDisplay.value = await userApi.userByEmail(sellerEmail)
+    const productIds = purchaseData.value
+      .filter((x) => x.items.length === 0)
+      .map((transaction) => transaction.productId)
+    purchaseData.value.forEach((x) => {
+      x.items.forEach((t) => {
+        productIds.push(t.productId)
+      })
+    })
+    const products = await Promise.all(
+      productIds.map((id) => getProductDetailById(id))
+    )
+    productDetails.value = products.filter(
+      (product) => product !== null
+    ) as ProductDetailById[]
+    units.value = await unitApi.getAll()
+  } catch (ex) {}
   loading.value = false
 })
 </script>

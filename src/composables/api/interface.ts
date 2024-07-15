@@ -24,7 +24,17 @@ export interface TransectionInsert {
   price: number
   createDate: Date
 }
-
+export interface TransectionItemInsert {
+  BuyerEmail: string
+  items: ItemTransectionInsert[]
+}
+export interface ItemTransectionInsert {
+  SellerEmail: string
+  ProductId: number
+  Unit: string
+  Amount: number
+  Price: number
+}
 // interface CategoryApiModel {
 //   CategoryName: string
 //   CategoryDesc: string
@@ -39,7 +49,7 @@ export interface ProductResultApi {
   province: string
   rating: number
   amount: number
-  unit: UnitApiModel[]
+  unit: string
   userEmail: string
   category: string
   price: number

@@ -5,7 +5,10 @@ import categoryApi from './useCategoryApi'
 import unitApi from './useUnitApi'
 import transactionApi from './useTransactionApi'
 
-export interface Product extends ProductCard {}
+export interface Product extends ProductCard {
+  userEmail: string
+  unitId: string
+}
 // export interface BasePurchase {
 //   purchaseId: string
 //   unit: string

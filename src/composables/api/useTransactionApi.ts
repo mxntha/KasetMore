@@ -1,5 +1,5 @@
 import { postMethod, getMethod } from './baseApi'
-import { TransectionInsert } from './interface'
+import { TransectionInsert, TransectionItemInsert } from './interface'
 export interface TransectionModel {
   transactionId: number
   sellerEmail: string
@@ -9,6 +9,16 @@ export interface TransectionModel {
   amount: number
   price: number
   createDate: Date
+  items: Item[]
+}
+interface Item {
+  amount: number
+  price: number
+  productId: number
+  sellerEmail: string
+  transactionId: number
+  transactionItemId: number
+  unit: string
 }
 function useTransactionApi() {
   const controller = 'Transaction'
@@ -16,6 +26,18 @@ function useTransactionApi() {
     async createTransaction(transactions: TransectionInsert[]) {
       try {
         const response = await postMethod(`${controller}/create`, transactions)
+        return response as number[]
+      } catch (error) {
+        console.error('Error creating transaction:', error)
+        throw error
+      }
+    },
+    async createTransactionByCart(transactions: TransectionItemInsert) {
+      try {
+        const response = await postMethod(
+          `${controller}/create-one`,
+          transactions
+        )
         return response as number[]
       } catch (error) {
         console.error('Error creating transaction:', error)

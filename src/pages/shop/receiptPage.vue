@@ -20,24 +20,29 @@
             </div>
           </div>
           <div class="d-flex justify-space-between text-h6 mb-4">
-            <div style="max-width: 350px">
-              <div class="ma-2 text-h6">
-                เลขที่คำสั่งซื้อ : {{ transaction?.transactionId ?? '' }}
-              </div>
-              <div class="ma-2 text-h6">ร้านค้าที่ให้บริการ</div>
-              <div class="ma-2 text-body-1">
-                ชื่อร้านค้า : {{ userSeller?.userName }}
-              </div>
-              <div class="ma-2 text-body-1">
-                ที่อยู่ร้านค้า : {{ userSeller?.address }}
-              </div>
-              <div class="ma-2 text-body-1">
-                ติดต่อ : {{ userSeller?.phoneNumber }}
+            <div v-if="transaction.items.length <= 1" style="max-width: 350px">
+              <div>
+                <div class="ma-2 text-h6">
+                  เลขที่คำสั่งซื้อ : {{ transaction?.transactionId ?? '' }}
+                </div>
+                <div class="ma-2 text-h6">ร้านค้าที่ให้บริการ</div>
+                <div class="ma-2 text-body-1">
+                  ชื่อร้านค้า : {{ userSeller?.userName }}
+                </div>
+                <div class="ma-2 text-body-1">
+                  ที่อยู่ร้านค้า : {{ userSeller?.address }}
+                </div>
+                <div class="ma-2 text-body-1">
+                  ติดต่อ : {{ userSeller?.phoneNumber }}
+                </div>
               </div>
             </div>
             <div>
               <div class="ma-2 text-h6">
                 <div>วันที่ : {{ receiptdate }}</div>
+              </div>
+              <div v-if="transaction.items.length > 1" class="ma-2 text-h6">
+                เลขที่คำสั่งซื้อ : {{ transaction?.transactionId ?? '' }}
               </div>
               <div class="ma-2 text-h6">รายละเอียดผู้สั่งซื้อ</div>
               <div class="ma-2 text-body-1">
@@ -61,7 +66,10 @@
           </div>
 
           <v-divider></v-divider>
-          <div class="d-flex ma-3 justify-space-between">
+          <div
+            v-if="transaction.items.length === 0"
+            class="d-flex ma-3 justify-space-between"
+          >
             <div class="text-h6 ml-16 mr-6 text-center">
               {{ productDetail?.productName }}
             </div>
@@ -71,11 +79,30 @@
               {{ transaction.price * transaction.amount }}
             </div>
           </div>
+          <div v-else v-for="x in transaction.items">
+            <div class="d-flex ma-3 justify-space-between">
+              <div class="text-h6 ml-16 mr-6 text-center">
+                {{ productNames.find((y) => y.id === `${x.productId}`)!.name }}
+              </div>
+              <div class="text-h6 mr-n16">{{ x.amount }}</div>
+              <div class="text-h6 mr-n11">{{ x.price }}</div>
+              <div class="text-h6 mr-10">
+                {{ x.price * x.amount }}
+              </div>
+            </div>
+            <v-divider></v-divider>
+          </div>
 
-          <v-divider></v-divider>
           <div class="d-flex flex-row-reverse ma-3">
-            <div class="text-body-1">
+            <div class="text-body-1" v-if="transaction.items.length === 0">
               ยอดรวม : {{ transaction.price * transaction.amount }} บาท
+            </div>
+            <div class="text-body-1" v-else>
+              ยอดรวม :
+              {{
+                transaction.items.reduce((x, y) => x + y.amount * y.price, 0)
+              }}
+              บาท
             </div>
           </div>
         </div>
@@ -115,7 +142,12 @@
 import box from '@/assets/box.png'
 import { useRoute, useRouter } from 'vue-router'
 import { ref, onMounted, computed, nextTick } from 'vue'
-import { useTransactionApi, useUserApi, useProductApi } from '@/composables/api'
+import {
+  useTransactionApi,
+  useUserApi,
+  useProductApi,
+  Product,
+} from '@/composables/api'
 import { TransectionModel } from '@/composables/api/useTransactionApi'
 import { ProductDetailById } from '@/composables/api/interface'
 import { BaseUserInfo } from '@/composables/api/useUserApi'
@@ -137,15 +169,30 @@ const userSeller = ref<BaseUserInfo | null>(null)
 const userBuyer = ref<BaseUserInfo | null>(null)
 const productApi = useProductApi()
 const productDetail = ref<ProductDetailById | null>(null)
-
+const productNames = ref<{ id: string; name: string }[]>([])
 onMounted(async () => {
   loading.value = true
   transaction.value = await transactionApi.getById(receiptId)
-  userSeller.value = await userApi.userByEmail(transaction.value.sellerEmail)
   userBuyer.value = await userApi.userByEmail(transaction.value.buyerEmail)
-  productDetail.value = await productApi.getById(
-    transaction.value.productId.toString()
-  )
+  if (transaction.value.items.length > 0) {
+    transaction.value.items.forEach(async (x) => {
+      const res = await productApi.getById(x.productId.toString())
+      productNames.value.push({
+        id: res!.productId.toString(),
+        name: res!.productName,
+      })
+    })
+    if (transaction.value.items.length == 1) {
+      userSeller.value = await userApi.userByEmail(
+        transaction.value.items[0].sellerEmail
+      )
+    }
+  } else {
+    productDetail.value = await productApi.getById(
+      transaction.value.productId.toString()
+    )
+    userSeller.value = await userApi.userByEmail(transaction.value.sellerEmail)
+  }
   loading.value = false
 })
 

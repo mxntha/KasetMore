@@ -11,8 +11,7 @@ function useProductApi() {
         const res = await getMethod<ProductResultApi[]>(
           `${controller}/products`
         )
-
-        const ab = res.map((e) => {
+        const ab = res.map<Product>((e) => {
           return {
             amount: e.amount,
             description: e.description,
@@ -23,7 +22,9 @@ function useProductApi() {
             province: e.province,
             rating: e.rating,
             category: e.category,
-          }
+            userEmail: e.userEmail,
+            unitId: e.unit,
+          } as Product
         })
         console.log('productall', ab)
         return ab
@@ -61,6 +62,8 @@ function useProductApi() {
             province: e.province,
             rating: e.rating,
             category: e.category,
+            userEmail: e.userEmail,
+            unitId: e.unit,
           }
         })
       } catch {
@@ -119,6 +122,8 @@ function useProductApi() {
           province: e.province,
           rating: e.rating,
           category: e.category,
+          userEmail: e.userEmail,
+          unitId: e.unit,
         }))
 
         return productCate
