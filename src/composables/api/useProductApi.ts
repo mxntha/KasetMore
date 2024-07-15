@@ -142,10 +142,9 @@ function useProductApi() {
     },
     async deleteProductImages(idAttachment: number[]) {
       try {
-        return await postMethod(
-          `${controller}/delete-product-images`,
-          idAttachment
-        )
+        return await postMethod(`${controller}/delete-product-images`, null, {
+          ids: idAttachment,
+        })
       } catch {
         return null
       }
