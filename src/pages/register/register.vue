@@ -455,11 +455,6 @@ async function register() {
     } else {
       const exist = await userApi.userByEmail(registerfarmer.value.email)
       if (!exist) {
-        emailDialog.value = true
-        setTimeout(() => {
-          emailDialog.value = false
-        }, 3000)
-
         const res = await userApi.resgisterUser(
           {
             address: registerfarmer.value.address,
@@ -485,6 +480,11 @@ async function register() {
         } else {
           alert('เกิดข้อผิดพลาด')
         }
+      } else {
+        emailDialog.value = true
+        setTimeout(() => {
+          emailDialog.value = false
+        }, 3000)
       }
     }
   } catch (ex) {
