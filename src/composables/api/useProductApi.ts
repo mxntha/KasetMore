@@ -134,8 +134,7 @@ function useProductApi() {
         return await multpartFormData(
           `${controller}/update-product`,
           files,
-          jsonData,
-          'ProductImages'
+          jsonData
         )
       } catch {
         return null
