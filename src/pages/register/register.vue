@@ -271,9 +271,6 @@
           </v-col>
         </v-row>
       </v-card-text>
-      <v-card-actions class="justify-center">
-        <v-btn color="primary" @click="emailDialog = false">ตกลง</v-btn>
-      </v-card-actions>
     </v-card>
   </v-dialog>
 
@@ -304,9 +301,6 @@
           </v-col>
         </v-row>
       </v-card-text>
-      <v-card-actions class="justify-center">
-        <v-btn color="primary" @click="idcardDialog = false">ตกลง</v-btn>
-      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
