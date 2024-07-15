@@ -263,7 +263,7 @@ async function getProduct() {
     rating: productById.rating,
   }
   images.value = productById.productImages.map((image, index) => ({
-    id: index.toString(),
+    id: image.attatchmentId.toString(),
     src: image.image,
   }))
 }

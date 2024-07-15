@@ -135,6 +135,7 @@ async function saveEdit({
 }) {
   try {
     if (imageProductDelete.length > 0) {
+      console.log(imageProductDelete)
       const res = await productApi.deleteProductImages(imageProductDelete)
       console.log(res)
     }
