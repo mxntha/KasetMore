@@ -119,7 +119,7 @@ import { useTransactionApi, useUserApi, useProductApi } from '@/composables/api'
 import { TransectionModel } from '@/composables/api/useTransactionApi'
 import { ProductDetailById } from '@/composables/api/interface'
 import { BaseUserInfo } from '@/composables/api/useUserApi'
-// import html2canvas from 'html2canvas'
+import html2canvas from 'html2canvas'
 
 const captureElement = ref<HTMLDivElement | null>(null)
 const route = useRoute()
